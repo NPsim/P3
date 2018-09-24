@@ -47,9 +47,14 @@ Example:
 
 
 ### Contacting Me
-Add me on steam: [NPOSim]
+Add me on Steam: [NPOSim]
+
+Discord: Subsimple#9640
+
+Discord Channel: [KuHGRKz]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
+[KuHGRKz]: <https://discord.gg/KuHGRKz>
 
 ### Bug Reports
-Contact me on Steam or just submit an Issue, whatever works.
+Contact me on Steam, Discord, or just submit an Issue, whatever works.
