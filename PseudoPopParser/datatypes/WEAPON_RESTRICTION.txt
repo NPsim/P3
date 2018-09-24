@@ -1,0 +1,3 @@
+﻿MeleeOnly
+PrimaryOnly
+SecondaryOnly
