@@ -51,7 +51,7 @@ Add me on Steam: [NPOSim]
 
 Discord: Subsimple#9640
 
-Discord Channel: [KuHGRKz]
+Discord Server: [KuHGRKz]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
 [KuHGRKz]: <https://discord.gg/KuHGRKz>
