@@ -55,11 +55,11 @@ namespace PseudoPopParser {
 		}
 
 		// Config exists
-		private int ConfigRead (string key) {
+		private int ConfigRead(string key) {
 			if (_INI.KeyExists(key, "Global")) {
 				return Int32.Parse(_INI.Read(key, "Global"));
 			}
-			return 0;
+			return 1;
 		}
 
 		// Parse Collections
@@ -88,7 +88,7 @@ namespace PseudoPopParser {
 
 					// Warn wave credits nonmultiple
 					int wave_credits = wave_credits_list.Last().Sum();
-					int credits_multiple = 50; // Int32.Parse(_INI.Read("currency_multiple_warning")); // TODO Make this configurable
+					int credits_multiple = ConfigRead("currency_multiple_warning");
 					if (!IsMultiple(wave_credits, credits_multiple)) {
 						Warn("Wave " + total_waves + "'s credits is not a multiple of " + credits_multiple + ": ", -1, wave_credits.ToString());
 					}
@@ -134,12 +134,12 @@ namespace PseudoPopParser {
 
                 case "HEALTH":
                     int health = Int32.Parse(value);
-                    int tank_warn_max = 100000;// Int32.Parse(_INI.Read("tank_warn_maximum")); // TODO Make these configurable
-                    int tank_warn_min = 10000;// Int32.Parse(_INI.Read("tank_warn_minimum"));
-                    int bot_health_multiple = 50;// Int32.Parse(_INI.Read("bot_health_multiple"));
-                    int tank_health_multiple = 500;// Int32.Parse(_INI.Read("tank_health_multiple"));
+                    int tank_warn_max = ConfigRead("tank_warn_maximum");
+                    int tank_warn_min = ConfigRead("tank_warn_minimum");
+                    int bot_health_multiple = ConfigRead("bot_health_multiple");
+                    int tank_health_multiple = ConfigRead("tank_health_multiple");
 
-					if (parent == "TFBOT") {
+                    if (parent == "TFBOT") {
 
 						// Warn multiple
 						if (!IsMultiple(health, bot_health_multiple)) {
@@ -154,10 +154,12 @@ namespace PseudoPopParser {
 
 						// Warn exceeds boundaries
 						if (health > tank_warn_max) {
-                            Warn("Tank Health exceeds maximum warning level: ", line, value);
+                            Warn("Tank Health exceeds maximum warning: " + tank_warn_max + " < ", line, value);
+                            // PotentialFix("Did you add too many zeros?");
                         }
                         else if (health < tank_warn_min) {
-                            Warn("Tank Health below mninmum warning level: ", line, value);
+                            Warn("Tank Health below mninmum warning: " + tank_warn_min + " > ", line, value);
+                            // PotentialFix("Are you missing any zeros?");
                         }
 
                     }
@@ -294,6 +296,7 @@ namespace PseudoPopParser {
 
 		// Simple Print Warning
 		public void Warn(string message, int line = -1, string token = "") {
+            number_of_warnings++;
             ConsoleColor background = ConsoleColor.Yellow;
             ConsoleColor foreground = ConsoleColor.Black;
 
