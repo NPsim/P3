@@ -155,6 +155,8 @@ namespace PseudoPopParser {
 										}
 										token = token.Substring(0, token.Length - 1);
 										global_token = token;
+
+                                        // Clear string builder
 										string_builder.Clear();
 										built_string = true;
 									}
@@ -169,6 +171,10 @@ namespace PseudoPopParser {
 								// Collection Emergence
 								if (token == "}") {
 									found = true;
+
+									// Trigger End of Calculations Before Exiting
+									p.ParseCollectionEnd(pt.CurrentValue[1], line);
+
 									pt.MoveUp();
 
 									// Detect Possible Premature End of WaveSchedule : WaveSchedule closes in <99% of the total line count.
@@ -193,6 +199,10 @@ namespace PseudoPopParser {
 									}
 
 									pt.Move(look_ahead_buffer_node);
+
+									// Parse Collection After Diving
+									p.ParseCollection(pt.CurrentValue[1], line);
+
 									look_ahead_buffer_node = "";
 									look_ahead_open = false;
 									break;
@@ -201,7 +211,6 @@ namespace PseudoPopParser {
 								// Handles collections and % (any valid string)
 								else if (token.ToUpper() == p.RemoveCurly(child.Value[1]).ToUpper() || Regex.IsMatch(child.Value[1], @"%")) {
 									found = true;
-									p.ParseCollection(token, line);
 
 									// Check for Valid String
 									if (Regex.IsMatch(child.Value[1], @"%") && !p.IsDatatype("$ANY_VALID_STRING", token) && !built_string) {
@@ -270,7 +279,12 @@ namespace PseudoPopParser {
 								else if (current.Value[0].ToUpper() == "KEY") { // Handle All Keys
 
 									// Parse Key and Value
-									p.ParseKeyValue(look_back_token, token, line);
+									p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1]);
+
+									// TODO make this debug configurable
+									//Console.WriteLine("Key is: " + look_back_token);
+									//Console.WriteLine("\tValue is: " + token);
+									//Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
 
 									if (current.Value[1] == "$char_attribute%") { // Special Case Character Attribute
 										found = true;
