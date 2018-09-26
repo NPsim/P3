@@ -281,12 +281,15 @@ namespace PseudoPopParser {
 									// Parse Key and Value
 									p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1]);
 
-									// TODO make this debug configurable
-									//Console.WriteLine("Key is: " + look_back_token);
-									//Console.WriteLine("\tValue is: " + token);
-									//Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
+                                    // Debug Token Lookback
+                                    // Writes all readable key-value pairs
+                                    if (_IsDebug("Print_Token_Lookback")) {
+                                        Console.WriteLine("Key is: " + look_back_token);
+                                        Console.WriteLine("\tValue is: " + token);
+                                        Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
+                                    }
 
-									if (current.Value[1] == "$char_attribute%") { // Special Case Character Attribute
+                                        if (current.Value[1] == "$char_attribute%") { // Special Case Character Attribute
 										found = true;
 
 										// Placeholder for item attribute verification

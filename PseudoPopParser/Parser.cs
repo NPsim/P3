@@ -54,6 +54,14 @@ namespace PseudoPopParser {
 			datatypes_folder_path = folder;
 		}
 
+		// Config exists
+		private int ConfigRead (string key) {
+			if (_INI.KeyExists(key, "Global")) {
+				return Int32.Parse(_INI.Read(key, "Global"));
+			}
+			return 0;
+		}
+
 		// Parse Collections
 		public void ParseCollection(string token, int line = -1) {
 			token = token.ToUpper();
@@ -235,9 +243,30 @@ namespace PseudoPopParser {
 		}
 
 
-		/* TODO Refactor Print Statements. pls its a mess */
 		// Simple Print Color
-		public void WriteColor(string message, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
+		public void WriteMain(string message, string header, int line = -1, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
+			Console.BackgroundColor = background;
+			Console.ForegroundColor = foreground;
+
+			// Write Header
+			Console.Write(header);
+			Console.ResetColor();
+
+			// Line Number and Message
+			if (line > 0) { // Line Number exists
+				Console.Write(":" + line + "\t" + message);
+			}
+			else { // Line number does not exist
+				Console.Write("\t" + message);
+			}
+		}
+
+		public void WriteMainLine(string message, string header, int line = -1, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
+			WriteMain(message, header, line, background, foreground);
+			Console.Write("\n");
+		}
+
+		public void WriteColor(string message, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.White) {
 			Console.BackgroundColor = background;
 			Console.ForegroundColor = foreground;
 			Console.Write(message);
@@ -246,10 +275,7 @@ namespace PseudoPopParser {
 
 		// Simple Print Color Line
 		public void WriteLineColor(string message, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
-			Console.BackgroundColor = background;
-			Console.ForegroundColor = foreground;
-			Console.Write(message);
-			Console.ResetColor();
+			WriteColor(message, background, foreground);
 			Console.Write("\n");
 		}
 
@@ -259,73 +285,48 @@ namespace PseudoPopParser {
 			Console.BackgroundColor = ConsoleColor.Gray;
 			Console.ForegroundColor = ConsoleColor.Black;
             if (false_positive) {
-                Console.Write("[Ptl. False Positive]");
+                WriteMainLine(message, "[Ptl. False Positive]", -1, ConsoleColor.Gray, ConsoleColor.Black);
             }
             else {
-                Console.Write("[Potential Fix]");
+                WriteMainLine(message, "[Potential Fix]", -1, ConsoleColor.Gray, ConsoleColor.Black);
             }
-			Console.ResetColor();
-			Console.WriteLine(" " + message);
 		}
 
 		// Simple Print Warning
 		public void Warn(string message, int line = -1, string token = "") {
-			number_of_warnings++;
-			Console.BackgroundColor = ConsoleColor.Yellow;
-			Console.ForegroundColor = ConsoleColor.Black;
-			Console.Write("[Warning]");
-			Console.ResetColor();
-			if (line == -1 && token.Length > 0) { // Just Token
-				Console.Write("\t" + message + "\"");
-				Console.ForegroundColor = ConsoleColor.Yellow;
-				Console.Write(token);
-				Console.ResetColor();
-				Console.WriteLine("\"");
+            ConsoleColor background = ConsoleColor.Yellow;
+            ConsoleColor foreground = ConsoleColor.Black;
+
+            WriteMain(message, "[Warning]", line, background, foreground);
+			
+			if (token.Length > 0) {
+				Console.Write("'");
+                WriteColor(token, ConsoleColor.Black, background);
+				Console.Write("'\n");
 			}
-			else if (line == -1 && token.Length == 0) { // No line, no token
-				Console.WriteLine("  " + "\t" + message);
-			}
-			else if (line != -1 && token.Length == 0) // Just Line
-                Console.WriteLine(":" + line + "\t" + message);
-            else {
-                Console.Write(":" + line + "\t" + message + "\"");
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(token);
-                Console.ResetColor();
-                Console.WriteLine("\"");
-            }
 		}
 
 		// Simple Print Error
 		public void Error(string message, int line = -1, string token = "") {
-			error_occurred = true;
-			Console.BackgroundColor = ConsoleColor.Red;
-			Console.ForegroundColor = ConsoleColor.Black;
-			Console.Write("[ERROR]");
-			Console.ResetColor();
-            if (line == -1) { // No line
-                Console.WriteLine("" + "\t" + message);
-            }
-            else if (token == "") { // No token
-                Console.WriteLine(":" + line + "\t" + message);
-            }
-            else {
-                Console.Write(":" + line + "\t" + message + "\"");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write(token);
-                Console.ResetColor();
-                Console.WriteLine("\"");
-            }
+            error_occurred = true;
+			ConsoleColor background = ConsoleColor.Red;
+			ConsoleColor foreground = ConsoleColor.Black;
+
+			WriteMain(message, "[ERROR]", line, background, foreground);
+
+			if (token.Length > 0) {
+				Console.Write("'");
+				WriteColor(token, ConsoleColor.Black, background);
+				Console.Write("'\n");
+			}
 		}
 		
 		// Simple Print Error
 		public void InfoLine(string message) {
-			error_occurred = true;
-			Console.BackgroundColor = ConsoleColor.DarkCyan;
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.Write("[Info]");
-			Console.ResetColor();
-			Console.WriteLine("\t" + message);
+            ConsoleColor background = ConsoleColor.DarkCyan;
+            ConsoleColor foreground = ConsoleColor.Black;
+
+            WriteMainLine(message, "[Info]", -1, background, foreground);
 		}
 
 		// Get number of warnings issued
