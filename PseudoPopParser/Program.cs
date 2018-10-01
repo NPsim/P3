@@ -95,6 +95,7 @@ namespace PseudoPopParser {
 					for (int j = 0; j < token_list[i].Length; j++) {
 						if (!string.IsNullOrWhiteSpace(token_list[i][j])) {
 
+                            // TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
 							/* TreeNode<string[]>.Value = {
 							*		Index 0 : Type : "Collection", "Key", "Value"
 							*		Index 1 : Name : "WaveSchedule", "Attribute", "AlwaysCrit"
@@ -449,18 +450,45 @@ namespace PseudoPopParser {
 			// Blank Line : Separate Ending Statements with Further Option Choices
 			Console.Write("\n");
 
-			// Show Next Options
-			p.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
-			p.WriteLineColor(" Quit");
+            // Show Next Options
+            p.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
+            p.WriteLineColor(" Credit Stats");
+
+            p.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
+            p.WriteLineColor(" WaveSpawn Names");
+
+            // Blank Line Separates Quit with Options
+            Console.Write("\n");
+
+            p.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
+            p.WriteLineColor(" Quit");
 
 			// Dev message
 			p.WriteColor("[ALPHA] P3 DEVELOPMENT BUILD", ConsoleColor.Green, ConsoleColor.Black);
 
-			Console.WriteLine(" ");
+            // Options Menu Handling
+            ConsoleKey key_pressed;
+            while (true) { // You should never do this but I need a quick inverse.
+                key_pressed = Console.ReadKey().Key;
+                Console.Write("\n");
 
-			// Exit on any key
-			Console.ReadKey();
+                // F1 Display Credit Stats
+                if (key_pressed == ConsoleKey.F1) {
+                    p.WriteCreditStats();
+                }
 
+                // F2
+                else if (key_pressed == ConsoleKey.F2) {
+                    p.WriteWaveSpawnNames();
+                }
+                
+                // Exit on Any Key
+                else {
+                    break;
+                }
+            }
+
+            Console.Write(""); // Debug Breakpoint
 		}
 
 	}

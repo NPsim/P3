@@ -15,7 +15,13 @@ namespace PseudoPopParser {
 		private static List<List<int>> wave_credits_list = new List<List<int>>();
 		private static int total_waves = 0;
 		private static Dictionary<string, string> attribute_pairs = new Dictionary<string, string>();
+        private static List<string> tfbot_templates = new List<string>();
+        private static List<string> wavespawn_templates = new List<string>();
+        private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
+        private static List<string> used_wavespawn_names = new List<string>();
+        private static List<int> used_wavespawn_lines = new List<int>();
 
+		// TODO Fix spaces vs tabs issue
 		/* Purpose of Class:
 		 * Check and return token types
 		 * Throw exceptions if invalid token recieved
@@ -62,8 +68,46 @@ namespace PseudoPopParser {
 			return 1;
 		}
 
-		// Parse Collections
-		public void ParseCollection(string token, int line = -1) {
+        // Exists in 2D String List
+        private bool ExistsTwoDimension (List<List<string>> list, string value) {
+            foreach (List<string> sublist in list) {
+                foreach (string member in sublist) {
+                    if (member == value) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Print Formatted Contents of Credits List
+        public void WriteCreditStats() {
+            InfoLine("Credit Stats:");
+            for (int i = 1; i <= wave_credits_list.Count; i++) {
+                List<int> wave_credits = wave_credits_list[i - 1];
+                InfoLine("\tW" + i + ": " + wave_credits.Sum() + " dropped during this wave");
+                foreach (int credits in wave_credits) {
+                    InfoLine("\t\t" + credits);
+                }
+            }
+
+            Console.Write("\n");
+        }
+
+        // Print Formatted Contents of WaveSpawn Names List
+        public void WriteWaveSpawnNames() {
+            InfoLine("Subwave Names:");
+            for (int i = 1; i < wave_wavespawn_names.Count; i++) {
+        		List<string> wave_names = wave_wavespawn_names[i - 1];
+        		InfoLine("\tW" + i + ": ");
+        		foreach (string name in wave_names) {
+        			InfoLine("\t\t" + name);
+        		}
+        	}
+        }
+
+        // Parse Collections
+        public void ParseCollection(string token, int line = -1) {
 			token = token.ToUpper();
 			switch (token) {
 				case "WAVE{}":
@@ -74,7 +118,10 @@ namespace PseudoPopParser {
 					// New credits list
 					wave_credits_list.Add(new List<int>());
 
-					break;
+                    // Separate wavespawn names
+                    wave_wavespawn_names.Add(new List<string>());
+
+                    break;
 
 				// TODO : Add more cases
 			}
@@ -95,7 +142,8 @@ namespace PseudoPopParser {
 
 					break;
 
-				case "ANY_VALID_STRING{}%":
+				case "ANY_VALID_STRING{}%": // End of Entire Schedule Second Pass Parsing
+                    // Second pass parsing does not require look ahead or look behind due to everything's already looked at.
 
 					// Warn physical money counter credits >30000
 					int total_credits = StartingCurrency + TotalCurrency + TotalWaveBonus;
@@ -103,7 +151,17 @@ namespace PseudoPopParser {
 						Warn("Credits counter physically cannot exceed reading of 30000: ", -1, total_credits.ToString());
 					}
 
-					break;
+                    // Compare WaveSpawn Names
+                    //foreach(string waitforname in used_wavespawn_names) {
+                    for(int i = 0; i < used_wavespawn_names.Count(); i++) {
+                        string waitforname = used_wavespawn_names[i];
+                        if (!ExistsTwoDimension(wave_wavespawn_names, waitforname)) {
+                            Warn("WaitForAllSpawned name does not exist: ", used_wavespawn_lines[i], waitforname);
+                        }
+                    }
+
+                    break;
+
 				// TODO : Add more cases
 			}
 		}
@@ -158,15 +216,37 @@ namespace PseudoPopParser {
                             // PotentialFix("Did you add too many zeros?");
                         }
                         else if (health < tank_warn_min) {
-                            Warn("Tank Health below mninmum warning: " + tank_warn_min + " > ", line, value);
+                            Warn("Tank Health below minimum warning: " + tank_warn_min + " > ", line, value);
                             // PotentialFix("Are you missing any zeros?");
                         }
 
                     }
                     break;
 
-				// TODO : Add more cases
-			}
+                case "NAME":
+                    if (parent == "WAVESPAWN") {
+                        wave_wavespawn_names.Last().Add(value);
+                    }
+                    break;
+
+                case "WAITFORALLSPAWNED":
+                    /*if (!ExistsTwoDimension(wave_wavespawn_names, value)) {
+                        Warn("WaitForAllSpawned name does not exist: ", line, value);
+                    }*/
+
+                    used_wavespawn_names.Add(value); // TODO Major Refactor
+                    used_wavespawn_lines.Add(line);
+                    break;
+                case "WAITFORALLDEAD":
+                    /*if (!ExistsTwoDimension(wave_wavespawn_names, value)) {
+                        Warn("WaitForAllDead name does not exist: ", line, value);
+                    }*/
+                    used_wavespawn_names.Add(value); // TODO Major Refactor
+                    used_wavespawn_lines.Add(line);
+                    break;
+
+                // TODO : Add more cases
+            }
 		}
 
 		// Check if Integer is a multiple of Value
@@ -301,12 +381,15 @@ namespace PseudoPopParser {
             ConsoleColor foreground = ConsoleColor.Black;
 
             WriteMain(message, "[Warning]", line, background, foreground);
-			
-			if (token.Length > 0) {
-				Console.Write("'");
+
+            if (token.Length > 0) {
+                Console.Write("'");
                 WriteColor(token, ConsoleColor.Black, background);
-				Console.Write("'\n");
-			}
+                Console.Write("'\n");
+            }
+            else {
+                Console.Write("\n");
+            }
 		}
 
 		// Simple Print Error
@@ -322,7 +405,10 @@ namespace PseudoPopParser {
 				WriteColor(token, ConsoleColor.Black, background);
 				Console.Write("'\n");
 			}
-		}
+            else {
+                Console.Write("\n");
+            }
+        }
 		
 		// Simple Print Error
 		public void InfoLine(string message) {
