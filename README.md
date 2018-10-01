@@ -44,17 +44,20 @@ Example:
  - Overflow Checking
  - Spawnbot Checking with BSP scanning
  - Sigsegv Support
-
+ 
+### Special Thanks
+ - what a nerd gamer
+ - Remilia Scarlet
 
 ### Contacting Me
 Add me on Steam: [NPOSim]
 
 Discord: Subsimple#9640
 
-Discord Server: [KuHGRKz]
+Discord Server: [gRPuRdj]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
-[KuHGRKz]: <https://discord.gg/KuHGRKz>
+[gRPuRdj]: <https://discord.gg/gRPuRdj>
 
 ### Bug Reports
 Contact me on Steam, Discord, or just submit an Issue, whatever works.
