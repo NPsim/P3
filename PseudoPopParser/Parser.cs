@@ -15,11 +15,11 @@ namespace PseudoPopParser {
 		private static List<List<int>> wave_credits_list = new List<List<int>>();
 		private static int total_waves = 0;
 		private static Dictionary<string, string> attribute_pairs = new Dictionary<string, string>();
-        private static List<string> tfbot_templates = new List<string>();
-        private static List<string> wavespawn_templates = new List<string>();
-        private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
-        private static List<string> used_wavespawn_names = new List<string>();
-        private static List<int> used_wavespawn_lines = new List<int>();
+		private static List<string> tfbot_templates = new List<string>();
+		private static List<string> wavespawn_templates = new List<string>();
+		private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
+		private static List<string> used_wavespawn_names = new List<string>();
+		private static List<int> used_wavespawn_lines = new List<int>();
 
 		// TODO Fix spaces vs tabs issue
 		/* Purpose of Class:
@@ -68,46 +68,46 @@ namespace PseudoPopParser {
 			return 1;
 		}
 
-        // Exists in 2D String List
-        private bool ExistsTwoDimension (List<List<string>> list, string value) {
-            foreach (List<string> sublist in list) {
-                foreach (string member in sublist) {
-                    if (member == value) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+		// Exists in 2D String List
+		private bool ExistsTwoDimension (List<List<string>> list, string value) {
+			foreach (List<string> sublist in list) {
+				foreach (string member in sublist) {
+					if (member == value) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 
-        // Print Formatted Contents of Credits List
-        public void WriteCreditStats() {
-            InfoLine("Credit Stats:");
-            for (int i = 1; i <= wave_credits_list.Count; i++) {
-                List<int> wave_credits = wave_credits_list[i - 1];
-                InfoLine("\tW" + i + ": " + wave_credits.Sum() + " dropped during this wave");
-                foreach (int credits in wave_credits) {
-                    InfoLine("\t\t" + credits);
-                }
-            }
+		// Print Formatted Contents of Credits List
+		public void WriteCreditStats() {
+			InfoLine("Credit Stats:");
+			for (int i = 1; i <= wave_credits_list.Count; i++) {
+				List<int> wave_credits = wave_credits_list[i - 1];
+				InfoLine("\tW" + i + ": " + wave_credits.Sum() + " dropped during this wave");
+				foreach (int credits in wave_credits) {
+					InfoLine("\t\t" + credits);
+				}
+			}
 
-            Console.Write("\n");
-        }
+			Console.Write("\n");
+		}
 
-        // Print Formatted Contents of WaveSpawn Names List
-        public void WriteWaveSpawnNames() {
-            InfoLine("Subwave Names:");
-            for (int i = 1; i < wave_wavespawn_names.Count; i++) {
-        		List<string> wave_names = wave_wavespawn_names[i - 1];
-        		InfoLine("\tW" + i + ": ");
-        		foreach (string name in wave_names) {
-        			InfoLine("\t\t" + name);
-        		}
-        	}
-        }
+		// Print Formatted Contents of WaveSpawn Names List
+		public void WriteWaveSpawnNames() {
+			InfoLine("Subwave Names:");
+			for (int i = 1; i <= wave_wavespawn_names.Count; i++) {
+				List<string> wave_names = wave_wavespawn_names[i - 1];
+				InfoLine("\tW" + i + ": ");
+				foreach (string name in wave_names) {
+					InfoLine("\t\t" + name);
+				}
+			}
+		}
 
-        // Parse Collections
-        public void ParseCollection(string token, int line = -1) {
+		// Parse Collections
+		public void ParseCollection(string token, int line = -1) {
 			token = token.ToUpper();
 			switch (token) {
 				case "WAVE{}":
@@ -118,10 +118,10 @@ namespace PseudoPopParser {
 					// New credits list
 					wave_credits_list.Add(new List<int>());
 
-                    // Separate wavespawn names
-                    wave_wavespawn_names.Add(new List<string>());
+					// Separate wavespawn names
+					wave_wavespawn_names.Add(new List<string>());
 
-                    break;
+					break;
 
 				// TODO : Add more cases
 			}
@@ -143,7 +143,7 @@ namespace PseudoPopParser {
 					break;
 
 				case "ANY_VALID_STRING{}%": // End of Entire Schedule Second Pass Parsing
-                    // Second pass parsing does not require look ahead or look behind due to everything's already looked at.
+					// Second pass parsing does not require look ahead or look behind due to everything's already looked at.
 
 					// Warn physical money counter credits >30000
 					int total_credits = StartingCurrency + TotalCurrency + TotalWaveBonus;
@@ -151,16 +151,16 @@ namespace PseudoPopParser {
 						Warn("Credits counter physically cannot exceed reading of 30000: ", -1, total_credits.ToString());
 					}
 
-                    // Compare WaveSpawn Names
-                    //foreach(string waitforname in used_wavespawn_names) {
-                    for(int i = 0; i < used_wavespawn_names.Count(); i++) {
-                        string waitforname = used_wavespawn_names[i];
-                        if (!ExistsTwoDimension(wave_wavespawn_names, waitforname)) {
-                            Warn("WaitForAllSpawned name does not exist: ", used_wavespawn_lines[i], waitforname);
-                        }
-                    }
+					// Compare WaveSpawn Names
+					//foreach(string waitforname in used_wavespawn_names) {
+					for(int i = 0; i < used_wavespawn_names.Count(); i++) {
+						string waitforname = used_wavespawn_names[i];
+						if (!ExistsTwoDimension(wave_wavespawn_names, waitforname)) {
+							Warn("WaitForAllSpawned name does not exist: ", used_wavespawn_lines[i], waitforname);
+						}
+					}
 
-                    break;
+					break;
 
 				// TODO : Add more cases
 			}
@@ -190,21 +190,21 @@ namespace PseudoPopParser {
 					attribute_pairs["STARTINGCURRENCY"] = Math.Max((int)0, Int32.Parse(value)).ToString();
 					break;
 
-                case "HEALTH":
-                    int health = Int32.Parse(value);
-                    int tank_warn_max = ConfigRead("tank_warn_maximum");
-                    int tank_warn_min = ConfigRead("tank_warn_minimum");
-                    int bot_health_multiple = ConfigRead("bot_health_multiple");
-                    int tank_health_multiple = ConfigRead("tank_health_multiple");
+				case "HEALTH":
+					int health = Int32.Parse(value);
+					int tank_warn_max = ConfigRead("tank_warn_maximum");
+					int tank_warn_min = ConfigRead("tank_warn_minimum");
+					int bot_health_multiple = ConfigRead("bot_health_multiple");
+					int tank_health_multiple = ConfigRead("tank_health_multiple");
 
-                    if (parent == "TFBOT") {
+					if (parent == "TFBOT") {
 
 						// Warn multiple
 						if (!IsMultiple(health, bot_health_multiple)) {
 							Warn("TFBot Health is not a multiple of " + bot_health_multiple.ToString() + ": ", line, value); //TODO Add line number and token
 						}
 					}
-                    else if (parent == "TANK") {
+					else if (parent == "TANK") {
 
 						if (!IsMultiple(health, tank_health_multiple)) {
 							Warn("Tank Health is not a multiple of " + tank_health_multiple.ToString() + ": ", line, value); //TODO Add line number and token
@@ -212,41 +212,41 @@ namespace PseudoPopParser {
 
 						// Warn exceeds boundaries
 						if (health > tank_warn_max) {
-                            Warn("Tank Health exceeds maximum warning: " + tank_warn_max + " < ", line, value);
-                            // PotentialFix("Did you add too many zeros?");
-                        }
-                        else if (health < tank_warn_min) {
-                            Warn("Tank Health below minimum warning: " + tank_warn_min + " > ", line, value);
-                            // PotentialFix("Are you missing any zeros?");
-                        }
+							Warn("Tank Health exceeds maximum warning: " + tank_warn_max + " < ", line, value);
+							// PotentialFix("Did you add too many zeros?");
+						}
+						else if (health < tank_warn_min) {
+							Warn("Tank Health below minimum warning: " + tank_warn_min + " > ", line, value);
+							// PotentialFix("Are you missing any zeros?");
+						}
 
-                    }
-                    break;
+					}
+					break;
 
-                case "NAME":
-                    if (parent == "WAVESPAWN") {
-                        wave_wavespawn_names.Last().Add(value);
-                    }
-                    break;
+				case "NAME":
+					if (parent == "WAVESPAWN") {
+						wave_wavespawn_names.Last().Add(value);
+					}
+					break;
 
-                case "WAITFORALLSPAWNED":
-                    /*if (!ExistsTwoDimension(wave_wavespawn_names, value)) {
-                        Warn("WaitForAllSpawned name does not exist: ", line, value);
-                    }*/
+				case "WAITFORALLSPAWNED":
+					/*if (!ExistsTwoDimension(wave_wavespawn_names, value)) {
+						Warn("WaitForAllSpawned name does not exist: ", line, value);
+					}*/
 
-                    used_wavespawn_names.Add(value); // TODO Major Refactor
-                    used_wavespawn_lines.Add(line);
-                    break;
-                case "WAITFORALLDEAD":
-                    /*if (!ExistsTwoDimension(wave_wavespawn_names, value)) {
-                        Warn("WaitForAllDead name does not exist: ", line, value);
-                    }*/
-                    used_wavespawn_names.Add(value); // TODO Major Refactor
-                    used_wavespawn_lines.Add(line);
-                    break;
+					used_wavespawn_names.Add(value); // TODO Major Refactor
+					used_wavespawn_lines.Add(line);
+					break;
+				case "WAITFORALLDEAD":
+					/*if (!ExistsTwoDimension(wave_wavespawn_names, value)) {
+						Warn("WaitForAllDead name does not exist: ", line, value);
+					}*/
+					used_wavespawn_names.Add(value); // TODO Major Refactor
+					used_wavespawn_lines.Add(line);
+					break;
 
-                // TODO : Add more cases
-            }
+				// TODO : Add more cases
+			}
 		}
 
 		// Check if Integer is a multiple of Value
@@ -366,35 +366,35 @@ namespace PseudoPopParser {
 			Console.Write("\t");
 			Console.BackgroundColor = ConsoleColor.Gray;
 			Console.ForegroundColor = ConsoleColor.Black;
-            if (false_positive) {
-                WriteMainLine(message, "[Ptl. False Positive]", -1, ConsoleColor.Gray, ConsoleColor.Black);
-            }
-            else {
-                WriteMainLine(message, "[Potential Fix]", -1, ConsoleColor.Gray, ConsoleColor.Black);
-            }
+			if (false_positive) {
+				WriteMainLine(message, "[Ptl. False Positive]", -1, ConsoleColor.Gray, ConsoleColor.Black);
+			}
+			else {
+				WriteMainLine(message, "[Potential Fix]", -1, ConsoleColor.Gray, ConsoleColor.Black);
+			}
 		}
 
 		// Simple Print Warning
 		public void Warn(string message, int line = -1, string token = "") {
-            number_of_warnings++;
-            ConsoleColor background = ConsoleColor.Yellow;
-            ConsoleColor foreground = ConsoleColor.Black;
+			number_of_warnings++;
+			ConsoleColor background = ConsoleColor.Yellow;
+			ConsoleColor foreground = ConsoleColor.Black;
 
-            WriteMain(message, "[Warning]", line, background, foreground);
+			WriteMain(message, "[Warning]", line, background, foreground);
 
-            if (token.Length > 0) {
-                Console.Write("'");
-                WriteColor(token, ConsoleColor.Black, background);
-                Console.Write("'\n");
-            }
-            else {
-                Console.Write("\n");
-            }
+			if (token.Length > 0) {
+				Console.Write("'");
+				WriteColor(token, ConsoleColor.Black, background);
+				Console.Write("'\n");
+			}
+			else {
+				Console.Write("\n");
+			}
 		}
 
 		// Simple Print Error
 		public void Error(string message, int line = -1, string token = "") {
-            error_occurred = true;
+			error_occurred = true;
 			ConsoleColor background = ConsoleColor.Red;
 			ConsoleColor foreground = ConsoleColor.Black;
 
@@ -405,17 +405,17 @@ namespace PseudoPopParser {
 				WriteColor(token, ConsoleColor.Black, background);
 				Console.Write("'\n");
 			}
-            else {
-                Console.Write("\n");
-            }
-        }
+			else {
+				Console.Write("\n");
+			}
+		}
 		
 		// Simple Print Error
 		public void InfoLine(string message) {
-            ConsoleColor background = ConsoleColor.DarkCyan;
-            ConsoleColor foreground = ConsoleColor.Black;
+			ConsoleColor background = ConsoleColor.DarkCyan;
+			ConsoleColor foreground = ConsoleColor.Black;
 
-            WriteMainLine(message, "[Info]", -1, background, foreground);
+			WriteMainLine(message, "[Info]", -1, background, foreground);
 		}
 
 		// Get number of warnings issued
@@ -443,7 +443,7 @@ namespace PseudoPopParser {
 				if (type.ToLower() == datatype.ToLower()) {
 
 					// Check primitives first
-                    // TODO Change this to a switch statement
+					// TODO Change this to a switch statement
 					if (type.ToUpper() == "BOOLEAN") {
 						return Regex.IsMatch(token, @"^(false|true|yes|no|1|0)$", RegexOptions.IgnoreCase);
 					}
@@ -495,10 +495,10 @@ namespace PseudoPopParser {
 
 					else if (type.ToUpper() == "SUPPORT TYPE") {
 
-                        // Warn 'limited' support is equal to having no support key
+						// Warn 'limited' support is equal to having no support key
 						if (token.ToUpper() == "LIMITED") {
 							Warn("Support value disables infinite spawn: ", line_number, token);
-                            PotentialFix("Support 'limited' is the same as no support.");
+							PotentialFix("Support 'limited' is the same as no support.");
 						}
 						return IsDatatype("STRING", token, line_number);
 					}
