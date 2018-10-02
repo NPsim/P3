@@ -7,7 +7,7 @@
     <ProjectGuid>{30E65569-5B04-42F5-A575-88D964DEB17C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>PseudoPopParser</RootNamespace>
-    <AssemblyName>PseudoPopParser</AssemblyName>
+    <AssemblyName>P3</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -80,9 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IniFile.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="IniFile.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseTree.cs" />
     <Compile Include="Program.cs" />
