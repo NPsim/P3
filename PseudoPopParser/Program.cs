@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace PseudoPopParser {
 
@@ -10,7 +11,7 @@ namespace PseudoPopParser {
 		private static IniFile _INI = new IniFile(@"config.ini");
 		private static Dictionary<string, string> _CONFIGURATION = new Dictionary<string, string>();
 
-		static bool _IsDebug(string key) {;
+		static bool _IsDebug(string key) {
 			if (_CONFIGURATION.ContainsKey(key)) {
 				return _CONFIGURATION[key] == "1";
 			}
@@ -21,6 +22,7 @@ namespace PseudoPopParser {
 			return false;
 		}
 
+		[STAThread]
 		static void Main(string[] args) {
 
 			// Debug Terminator
@@ -56,7 +58,8 @@ namespace PseudoPopParser {
 			ParseTree pt = new ParseTree(grammar_file);
 
 			// Get file_path if not defined in launch
-			if (file_path == null) {
+			if (file_path == "") {
+				Console.Write("Enter the path to your popfile: ");
 				file_path = Console.ReadLine();
 			}
 
@@ -66,11 +69,11 @@ namespace PseudoPopParser {
 
 			// Modify strings
 			for (int i = 0; i < file.Length; i++) {
-				file[i] = Regex.Replace(file[i], @"(\s|\/+|^)\/\/.*[\s]*", "");		// Remove Comments
-				file[i] = Regex.Replace(file[i], @"{", " { ");						// Separate Open Curly Braces
-				file[i] = Regex.Replace(file[i], @"}", " } ");						// Separate Close Curly Braces
-				file[i] = Regex.Replace(file[i], "\"", " \" ");						// Separate Double Quotes
-				file[i] = Regex.Replace(file[i], @"^\s+", "");						// Remove Indentation Whitespace
+				file[i] = Regex.Replace(file[i], @"(\s|\/+|^)\/\/.*[\s]*", "");     // Remove Comments
+				file[i] = Regex.Replace(file[i], @"{", " { ");                      // Separate Open Curly Braces
+				file[i] = Regex.Replace(file[i], @"}", " } ");                      // Separate Close Curly Braces
+				file[i] = Regex.Replace(file[i], "\"", " \" ");                     // Separate Double Quotes
+				file[i] = Regex.Replace(file[i], @"^\s+", "");                      // Remove Indentation Whitespace
 			}
 
 			// Get Tokens
@@ -95,7 +98,7 @@ namespace PseudoPopParser {
 					for (int j = 0; j < token_list[i].Length; j++) {
 						if (!string.IsNullOrWhiteSpace(token_list[i][j])) {
 
-                            // TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
+							// TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
 							/* TreeNode<string[]>.Value = {
 							*		Index 0 : Type : "Collection", "Key", "Value"
 							*		Index 1 : Name : "WaveSchedule", "Attribute", "AlwaysCrit"
@@ -157,7 +160,7 @@ namespace PseudoPopParser {
 										token = token.Substring(0, token.Length - 1);
 										global_token = token;
 
-                                        // Clear string builder
+										// Clear string builder
 										string_builder.Clear();
 										built_string = true;
 									}
@@ -282,39 +285,26 @@ namespace PseudoPopParser {
 									// Parse Key and Value
 									p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1]);
 
-                                    // Debug Token Lookback
-                                    // Writes all readable key-value pairs
-                                    if (_IsDebug("Print_Token_Lookback")) {
-                                        Console.WriteLine("Key is: " + look_back_token);
-                                        Console.WriteLine("\tValue is: " + token);
-                                        Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
-                                    }
+									// Debug Token Lookback
+									// Writes all readable key-value pairs
+									if (_IsDebug("Print_Token_Lookback")) {
+										Console.WriteLine("Key is: " + look_back_token);
+										Console.WriteLine("\tValue is: " + token);
+										Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
+									}
 
-                                        if (current.Value[1] == "$char_attribute%") { // Special Case Character Attribute
+									if (current.Value[1] == "$char_attribute%" || current.Value[1] == "$item_attribute%") { // Special Case Item/Character Attribute
 										found = true;
 
 										// Placeholder for item attribute verification
-										// look_back : "damage bonus"
+										// look_back_token : "damage bonus"
 										// token : "1.0"
 
 										if (_IsDebug("Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== UP C1: " + token);
 										}
 
-										pt.MoveUp();
-										break;
-									}
-
-									else if (current.Value[1] == "$item_attribute%") { // Special Case Item Attribute
-										found = true;
-
-										// Placeholder for item attribute verification
-										// look_back : "Attack not cancel charge"
-										// token : "1"
-
-										if (_IsDebug("Print_PT_Cursor_Traversal")) {
-											Console.WriteLine("==== UP I1: " + token);
-										}
+										//p.ParseAttribute(look_back_token, token, line);
 
 										pt.MoveUp();
 										break;
@@ -419,7 +409,7 @@ namespace PseudoPopParser {
 			if (_IsDebug("Print_Terminators")) {
 				Console.WriteLine(">>>>>End of file | Debug Level ");
 			}
-			
+
 			/* Ending Statement */
 			// Error Occurred
 			if (p.ErrorOccurred) {
@@ -441,54 +431,97 @@ namespace PseudoPopParser {
 				p.WriteLineColor("Finished with " + p.Warnings + " warning(s).", any_warning_back, any_warning_fore);
 
 				// Print Total Mission Currency
-				p.InfoLine("Starting Credits: " + p.StartingCurrency );
-				p.InfoLine("Total Dropped Credits: " + p.TotalCurrency );
-				p.InfoLine("Total Bonus Credits: " + p.TotalWaveBonus );
-				p.InfoLine("Maximum Possible Credits: " + (p.StartingCurrency + p.TotalCurrency + p.TotalWaveBonus) );
+				p.InfoLine("Starting Credits: " + p.StartingCurrency);
+				p.InfoLine("Total Dropped Credits: " + p.TotalCurrency);
+				p.InfoLine("Total Bonus Credits: " + p.TotalWaveBonus);
+				p.InfoLine("Maximum Possible Credits: " + (p.StartingCurrency + p.TotalCurrency + p.TotalWaveBonus));
 			}
 
 			// Blank Line : Separate Ending Statements with Further Option Choices
 			Console.Write("\n");
 
-            // Show Next Options
-            p.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
-            p.WriteLineColor(" Credit Stats");
+			// Show Next Options
+			p.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
+			p.WriteLineColor(" Credit Stats");
 
-            p.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
-            p.WriteLineColor(" WaveSpawn Names");
+			p.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
+			p.WriteLineColor(" WaveSpawn Names");
 
-            // Blank Line Separates Quit with Options
-            Console.Write("\n");
+			p.WriteColor("F3", ConsoleColor.White, ConsoleColor.Black);
+			p.WriteLineColor(" Update Attributes");
 
-            p.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
-            p.WriteLineColor(" Quit");
+			// Blank Line Separates Quit with Options
+			Console.Write("\n");
+
+			p.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
+			p.WriteLineColor(" Quit");
 
 			// Dev message
-			p.WriteColor("[ALPHA] P3 DEVELOPMENT BUILD", ConsoleColor.Green, ConsoleColor.Black);
+			p.WriteLineColor("[ALPHA] P3 DEVELOPMENT BUILD", ConsoleColor.Green, ConsoleColor.Black);
 
-            // Options Menu Handling
-            ConsoleKey key_pressed;
-            while (true) { // You should never do this but I need a quick inverse.
-                key_pressed = Console.ReadKey().Key;
-                Console.Write("\n");
+			// Options Menu Handling
+			ConsoleKey key_pressed;
+			while (true) { // You should never do this but I need a quick inverse.
+				key_pressed = Console.ReadKey().Key;
+				Console.Write("\n");
 
-                // F1 Display Credit Stats
-                if (key_pressed == ConsoleKey.F1) {
-                    p.WriteCreditStats();
-                }
+				// F1 Display Credit Stats
+				if (key_pressed == ConsoleKey.F1) {
+					p.InfoLine("===Writing Credit Statistics===");
+					p.WriteCreditStats();
+				}
 
-                // F2
-                else if (key_pressed == ConsoleKey.F2) {
-                    p.WriteWaveSpawnNames();
-                }
-                
-                // Exit on Any Key
-                else {
-                    break;
-                }
-            }
+				// F2 Display WaveSpawn Stats
+				else if (key_pressed == ConsoleKey.F2) {
+					p.InfoLine("===Writing WaveSpawn Statistics===");
+					p.WriteWaveSpawnNames();
+				}
 
-            Console.Write(""); // Debug Breakpoint
+				// F3 Scrape Attributes
+				else if (key_pressed == ConsoleKey.F3) {
+					p.InfoLine("===Updating Attributes Database===");
+					using (Scraper s = new Scraper(p)) {
+						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
+
+						Console.Write("");
+
+						// Verify Valid Configuration
+						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
+
+							p.InfoLine("Please specify your items_game.txt");
+
+							try {
+								OpenFileDialog ofd = new OpenFileDialog();
+								ofd.ShowDialog();
+								cfg_att_filepath = ofd.FileName;
+								_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
+								p.InfoLine("Input by Dialog: " + ofd.FileName);
+							}
+							catch {
+								p.Error("Failed to get file by dialog.");
+								p.Info("Input your path to items_game.txt: ");
+								cfg_att_filepath = Console.ReadLine();
+							}
+						}
+
+						// Scraper Operations
+						if (File.Exists(cfg_att_filepath)) {
+							p.InfoLine("Old version is " + s.Version);
+							s.ScrapeAttributes(cfg_att_filepath);
+						}
+						else {
+							p.Error("File does not exist");
+						}
+					}
+				}
+
+				// Exit on Any Key
+				else {
+					break;
+				}
+			}
+
+			Console.Write(""); // Debug Breakpoint
 		}
 
 	}

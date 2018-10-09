@@ -8,6 +8,7 @@ namespace PseudoPopParser {
 
 	class PopParser {
 
+		// TODO organize this
 		private static IniFile _INI = new IniFile(@"config.ini");
 		private static int number_of_warnings = 0;
 		private static bool error_occurred = false;
@@ -55,12 +56,13 @@ namespace PseudoPopParser {
 			"NAV FILTER AREA",			// Collection
 		};
 
-		// Base Constructor
+		// Constructors
+		public PopParser() {}
 		public PopParser(string folder) {
 			datatypes_folder_path = folder;
 		}
 
-		// Config exists
+		// Read config.ini
 		private int ConfigRead(string key) {
 			if (_INI.KeyExists(key, "Global")) {
 				return Int32.Parse(_INI.Read(key, "Global"));
@@ -156,7 +158,7 @@ namespace PseudoPopParser {
 					for(int i = 0; i < used_wavespawn_names.Count(); i++) {
 						string waitforname = used_wavespawn_names[i];
 						if (!ExistsTwoDimension(wave_wavespawn_names, waitforname)) {
-							Warn("WaitForAllSpawned name does not exist: ", used_wavespawn_lines[i], waitforname);
+							Warn("WaitForAll* name does not exist: ", used_wavespawn_lines[i], waitforname);
 						}
 					}
 
@@ -409,8 +411,14 @@ namespace PseudoPopParser {
 				Console.Write("\n");
 			}
 		}
-		
-		// Simple Print Error
+
+		// Simple Print Info
+		public void Info(string message) {
+			ConsoleColor background = ConsoleColor.DarkCyan;
+			ConsoleColor foreground = ConsoleColor.Black;
+
+			WriteMain(message, "[Info]", -1, background, foreground);
+		}
 		public void InfoLine(string message) {
 			ConsoleColor background = ConsoleColor.DarkCyan;
 			ConsoleColor foreground = ConsoleColor.Black;
