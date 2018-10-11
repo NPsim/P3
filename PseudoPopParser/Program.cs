@@ -304,7 +304,7 @@ namespace PseudoPopParser {
 											Console.WriteLine("==== UP C1: " + token);
 										}
 
-										//p.ParseAttribute(look_back_token, token, line);
+										p.ParseAttribute(look_back_token, token, line);
 
 										pt.MoveUp();
 										break;

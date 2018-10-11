@@ -21,6 +21,8 @@ namespace PseudoPopParser {
 		private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
 		private static List<string> used_wavespawn_names = new List<string>();
 		private static List<int> used_wavespawn_lines = new List<int>();
+		private static List<string[]> attributes_list = new List<string[]>();
+		private static List<string> tfbot_items = new List<string>();
 
 		// TODO Fix spaces vs tabs issue
 		/* Purpose of Class:
@@ -60,6 +62,23 @@ namespace PseudoPopParser {
 		public PopParser() {}
 		public PopParser(string folder) {
 			datatypes_folder_path = folder;
+			SetupAttributes();
+		}
+
+		// Setup Attributes Database
+		private void SetupAttributes() {
+			if (!File.Exists(@"datatypes/item_attributes.owo")) {
+				Error("Item attributes db does not exist!");
+				return;
+			}
+			string[] db = File.ReadAllLines(@"datatypes/item_attributes.owo");
+			for (int line = 2; line < db.Length; line+=3) {
+				attributes_list.Add(new string[] {
+					db[line],
+					db[line + 1].Substring(1, db[line + 1].Length - 1),
+					db[line + 2].Substring(1, db[line + 2].Length - 1)
+				});
+			}
 		}
 
 		// Read config.ini
@@ -164,7 +183,99 @@ namespace PseudoPopParser {
 
 					break;
 
-				// TODO : Add more cases
+				case "TFBot{}":
+
+					// Refresh Given Items
+					tfbot_items.Clear();
+
+					break;
+
+					// TODO : Add more cases
+			}
+		}
+
+		private string UnQuote(string token) {
+			if (Regex.IsMatch(token, "(\\\".*\\\")")) { // If token is surrounded in quotes, must be both start and end.
+				return Regex.Replace(token, "\"", "");
+			}
+			return token;
+		}
+
+		// Parse Attribute
+		public void ParseAttribute(string key, string value, int line = -1) {
+			double value_double = 0.0;
+			Double.TryParse(value, out value_double);
+
+			string[] sentinel_array = { "-1", "-1", "-1" };
+			string[] attribute = sentinel_array;
+
+			// Search database for key
+			foreach (string[] find in attributes_list) {
+				if (key == find[0]) {
+					attribute = find;
+					break;
+				}
+			}
+
+			// Key does not exist in database
+			if (Array.Equals(attribute, sentinel_array)) {
+				Warn("Invalid attribute name found: ", line, key);
+				return;
+			}
+
+			// Lint
+			string name = attribute[0];
+			string form = attribute[1];
+			string type = attribute[2];
+
+			/*	Forms
+			 * null_value
+			 * value_is_additive
+             * value_is_additive_percentage
+             * value_is_percentage
+             * value_is_inverted_percentage
+             * value_is_or // This is an integer boolean
+             * value_is_particle_index
+             * value_is_date
+             * value_is_account_id
+             * value_is_item_def
+             * value_is_from_lookup_table
+             * value_is_killstreakeffect_index
+             * value_is_killstreak_idleeffect_index
+			 * */
+
+			/*	Types
+			 * FLOAT
+			 * STRING
+			 * null_type
+			 * */
+
+			// Check Type
+			if (type == "FLOAT" && !Regex.IsMatch(UnQuote(value), @"^(-|)(\d*)(\.|)(\d*|)$")) {
+				Warn("Attribute has invalid number value: ", line, key + " " + value);
+			}
+			else if (type == "STRING" && !Regex.IsMatch(value, "(\\\".*\\\")")) {
+				Warn("Attribute value must be surrounded by quotes: ", line, value); // Pending Deletion
+			}
+
+			/* Check Bad Float Values */
+
+			if (type == "FLOAT") {
+
+				// Adding 0
+				if (value_double == 0.0 && (form == "value_is_additive" || form == "value_is_additive_percentage")) {
+					Warn("Attribute does nothing: ", line, key + " " + value);
+					PotentialFix("Value adds 0 to attribute");
+				}
+				// Multiplying by 100%
+				else if (value_double == 1.0 && (form == "value_is_percentage" || form == "value_is_inverted_percentage")) {
+					Warn("Attribute does nothing: ", line, key + " " + value);
+					PotentialFix("Value multiplies attribute by 1.00");
+				}
+				// Invalid Boolean
+				else if (!(value == "0" || value == "1") && form == "value_is_or") {
+					Warn("Attribute can only be values 0 or 1: ", line, key + " " + value);
+				}
 			}
 		}
 
@@ -247,7 +358,24 @@ namespace PseudoPopParser {
 					used_wavespawn_lines.Add(line);
 					break;
 
-				// TODO : Add more cases
+				case "ITEM":
+					tfbot_items.Add(value);
+					break;
+
+				case "ITEMNAME":
+					bool found = false;
+					foreach (string item in tfbot_items) {
+						if (item == value) {
+							found = true;
+						}
+					}
+
+					if (!found) {
+						Warn("TFBot does not have item: ", line, value);
+					}
+					break;
+
+					// TODO : Add more cases
 			}
 		}
 
