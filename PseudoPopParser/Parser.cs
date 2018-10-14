@@ -212,7 +212,7 @@ namespace PseudoPopParser {
 
 			// Search database for key
 			foreach (string[] find in attributes_list) {
-				if (key == find[0]) {
+				if (key.ToUpper() == find[0].ToUpper()) {
 					attribute = find;
 					break;
 				}

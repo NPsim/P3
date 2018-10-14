@@ -1,0 +1,2492 @@
+VERSION ID:
+4173563
+damage penalty
+	value_is_percentage
+	FLOAT
+damage bonus
+	value_is_percentage
+	FLOAT
+clip size penalty
+	value_is_percentage
+	FLOAT
+clip size bonus
+	value_is_percentage
+	FLOAT
+fire rate penalty
+	value_is_inverted_percentage
+	FLOAT
+fire rate bonus
+	value_is_inverted_percentage
+	FLOAT
+heal rate penalty
+	value_is_percentage
+	FLOAT
+heal rate bonus
+	value_is_percentage
+	FLOAT
+ubercharge rate penalty
+	value_is_percentage
+	FLOAT
+ubercharge rate bonus
+	value_is_percentage
+	FLOAT
+overheal bonus
+	value_is_percentage
+	FLOAT
+overheal decay penalty
+	value_is_inverted_percentage
+	FLOAT
+overheal decay bonus
+	value_is_inverted_percentage
+	FLOAT
+overheal decay disabled
+	value_is_percentage
+	FLOAT
+crit mod disabled
+	value_is_percentage
+	FLOAT
+heal on hit for rapidfire
+	value_is_additive
+	FLOAT
+add uber charge on hit
+	value_is_additive_percentage
+	FLOAT
+medigun charge is crit boost
+	value_is_additive
+	FLOAT
+tmp dmgbuff on hit
+	value_is_additive_percentage
+	FLOAT
+crit vs burning players
+	value_is_or
+	FLOAT
+dmg penalty vs nonburning
+	value_is_percentage
+	FLOAT
+no crit vs nonburning
+	value_is_additive
+	FLOAT
+mod flamethrower push
+	value_is_additive
+	FLOAT
+mod flamethrower back crit
+	value_is_additive
+	FLOAT
+hidden secondary max ammo penalty
+	value_is_percentage
+	FLOAT
+max health additive bonus
+	value_is_additive
+	FLOAT
+alt-fire disabled
+	value_is_additive
+	FLOAT
+crit mod disabled hidden
+	value_is_percentage
+	FLOAT
+fists have radial buff
+	value_is_additive
+	FLOAT
+critboost on kill
+	value_is_additive
+	FLOAT
+slow enemy on hit
+	value_is_additive_percentage
+	FLOAT
+set cloak is feign death
+	value_is_additive
+	FLOAT
+mult cloak meter consume rate
+	value_is_percentage
+	FLOAT
+mult cloak meter regen rate
+	value_is_percentage
+	FLOAT
+spread penalty
+	value_is_percentage
+	FLOAT
+hidden primary max ammo bonus
+	value_is_percentage
+	FLOAT
+mod bat launches balls
+	value_is_additive
+	FLOAT
+dmg penalty vs nonstunned
+	value_is_percentage
+	FLOAT
+zoom speed mod disabled
+	value_is_additive
+	FLOAT
+sniper charge per sec
+	value_is_percentage
+	FLOAT
+sniper no headshots
+	value_is_additive
+	FLOAT
+scattergun no reload single
+	value_is_additive
+	FLOAT
+scattergun has knockback
+	value_is_additive
+	FLOAT
+bullets per shot bonus
+	value_is_percentage
+	FLOAT
+sniper zoom penalty
+	value_is_percentage
+	FLOAT
+sniper no charge
+	value_is_additive
+	FLOAT
+set cloak is movement based
+	value_is_additive
+	FLOAT
+no double jump
+	value_is_additive
+	FLOAT
+absorb damage while cloaked
+	value_is_percentage
+	FLOAT
+revolver use hit locations
+	value_is_additive
+	FLOAT
+backstab shield
+	value_is_additive
+	FLOAT
+fire retardant
+	value_is_additive
+	FLOAT
+move speed penalty
+	value_is_inverted_percentage
+	FLOAT
+obsolete ammo penalty
+	value_is_percentage
+	FLOAT
+jarate description
+	value_is_percentage
+	FLOAT
+health regen
+	value_is_additive
+	FLOAT
+self dmg push force increased
+	value_is_percentage
+	FLOAT
+self dmg push force decreased
+	value_is_percentage
+	FLOAT
+dmg taken from fire reduced
+	value_is_inverted_percentage
+	FLOAT
+dmg taken from fire increased
+	value_is_percentage
+	FLOAT
+dmg taken from crit reduced
+	value_is_inverted_percentage
+	FLOAT
+dmg taken from crit increased
+	value_is_percentage
+	FLOAT
+dmg taken from blast reduced
+	value_is_inverted_percentage
+	FLOAT
+dmg taken from blast increased
+	value_is_percentage
+	FLOAT
+dmg taken from bullets reduced
+	value_is_inverted_percentage
+	FLOAT
+dmg taken from bullets increased
+	value_is_percentage
+	FLOAT
+increase player capture value
+	value_is_additive
+	FLOAT
+health from healers reduced
+	value_is_percentage
+	FLOAT
+health from healers increased
+	value_is_percentage
+	FLOAT
+weapon burn dmg increased
+	value_is_percentage
+	FLOAT
+weapon burn dmg reduced
+	value_is_percentage
+	FLOAT
+weapon burn time increased
+	value_is_percentage
+	FLOAT
+weapon burn time reduced
+	value_is_percentage
+	FLOAT
+aiming movespeed increased
+	value_is_percentage
+	FLOAT
+maxammo primary increased
+	value_is_percentage
+	FLOAT
+maxammo primary reduced
+	value_is_percentage
+	FLOAT
+maxammo secondary increased
+	value_is_percentage
+	FLOAT
+maxammo secondary reduced
+	value_is_percentage
+	FLOAT
+maxammo metal increased
+	value_is_percentage
+	FLOAT
+maxammo metal reduced
+	value_is_percentage
+	FLOAT
+cloak consume rate increased
+	value_is_percentage
+	FLOAT
+cloak consume rate decreased
+	value_is_inverted_percentage
+	FLOAT
+cloak regen rate increased
+	value_is_percentage
+	FLOAT
+cloak regen rate decreased
+	value_is_percentage
+	FLOAT
+minigun spinup time increased
+	value_is_percentage
+	FLOAT
+minigun spinup time decreased
+	value_is_inverted_percentage
+	FLOAT
+max pipebombs increased
+	value_is_additive
+	FLOAT
+max pipebombs decreased
+	value_is_additive
+	FLOAT
+SRifle Charge rate increased
+	value_is_percentage
+	FLOAT
+SRifle Charge rate decreased
+	value_is_inverted_percentage
+	FLOAT
+Construction rate increased
+	value_is_percentage
+	FLOAT
+Construction rate decreased
+	value_is_inverted_percentage
+	FLOAT
+Repair rate increased
+	value_is_percentage
+	FLOAT
+Repair rate decreased
+	value_is_inverted_percentage
+	FLOAT
+Reload time increased
+	value_is_percentage
+	FLOAT
+Reload time decreased
+	value_is_inverted_percentage
+	FLOAT
+selfdmg on hit for rapidfire
+	value_is_additive
+	FLOAT
+Blast radius increased
+	value_is_percentage
+	FLOAT
+Blast radius decreased
+	value_is_percentage
+	FLOAT
+Projectile range increased
+	value_is_percentage
+	FLOAT
+Projectile range decreased
+	value_is_percentage
+	FLOAT
+Projectile speed increased
+	value_is_percentage
+	FLOAT
+Projectile speed decreased
+	value_is_percentage
+	FLOAT
+overheal penalty
+	value_is_inverted_percentage
+	FLOAT
+weapon spread bonus
+	value_is_inverted_percentage
+	FLOAT
+move speed bonus
+	value_is_percentage
+	FLOAT
+health from packs increased
+	value_is_percentage
+	FLOAT
+health from packs decreased
+	value_is_percentage
+	FLOAT
+heal on hit for slowfire
+	value_is_additive
+	FLOAT
+selfdmg on hit for slowfire
+	value_is_additive
+	FLOAT
+ammo regen
+	value_is_additive_percentage
+	FLOAT
+metal regen
+	value_is_additive
+	FLOAT
+mod mini-crit airborne
+	value_is_additive
+	FLOAT
+mod shovel damage boost
+	value_is_additive
+	FLOAT
+mod soldier buff type
+	value_is_additive
+	FLOAT
+dmg falloff increased
+	value_is_inverted_percentage
+	FLOAT
+dmg falloff decreased
+	value_is_percentage
+	FLOAT
+sticky detonate mode
+	value_is_additive
+	FLOAT
+sticky arm time penalty
+	value_is_additive
+	FLOAT
+stickies detonate stickies
+	value_is_additive
+	FLOAT
+mod demo buff type
+	value_is_additive
+	FLOAT
+speed boost when active
+	value_is_percentage
+	FLOAT
+mod wrench builds minisentry
+	value_is_additive
+	FLOAT
+max health additive penalty
+	value_is_additive
+	FLOAT
+sticky arm time bonus
+	value_is_additive
+	FLOAT
+sticky air burst mode
+	value_is_additive
+	FLOAT
+provide on active
+	value_is_additive
+	FLOAT
+health drain
+	value_is_additive
+	FLOAT
+medic regen bonus
+	value_is_percentage
+	FLOAT
+medic regen penalty
+	value_is_percentage
+	FLOAT
+community description
+	value_is_percentage
+	FLOAT
+soldier model index
+	value_is_additive
+	FLOAT
+attach particle effect
+	value_is_particle_index
+	FLOAT
+rocket jump damage reduction
+	value_is_percentage
+	FLOAT
+mod sentry killed revenge
+	value_is_additive
+	FLOAT
+dmg bonus vs buildings
+	value_is_percentage
+	FLOAT
+dmg penalty vs players
+	value_is_percentage
+	FLOAT
+lunchbox adds maxhealth bonus
+	value_is_additive
+	FLOAT
+hidden maxhealth non buffed
+	value_is_additive
+	FLOAT
+selfmade description
+	value_is_percentage
+	FLOAT
+set item tint RGB
+	value_is_additive
+	FLOAT
+custom employee number
+	value_is_date
+	FLOAT
+lunchbox adds minicrits
+	value_is_additive
+	FLOAT
+taunt is highfive
+	value_is_additive
+	FLOAT
+damage applies to sappers
+	value_is_additive
+	FLOAT
+Wrench index
+	value_is_additive
+	FLOAT
+building cost reduction
+	value_is_percentage
+	FLOAT
+bleeding duration
+	value_is_additive
+	FLOAT
+turn to gold
+	value_is_additive
+	FLOAT
+DEPRECATED socketed item definition id DEPRECATED 
+	value_is_additive
+	FLOAT
+custom texture lo
+	value_is_additive
+	FLOAT
+cannot trade
+	value_is_additive
+	FLOAT
+disguise on backstab
+	value_is_additive
+	FLOAT
+cannot disguise
+	value_is_additive
+	FLOAT
+silent killer
+	value_is_additive
+	FLOAT
+disguise speed penalty
+	value_is_additive
+	FLOAT
+add cloak on kill
+	value_is_additive
+	FLOAT
+SET BONUS: cloak blink time penalty
+	value_is_additive
+	FLOAT
+SET BONUS: quiet unstealth
+	value_is_additive
+	FLOAT
+flame size penalty
+	value_is_percentage
+	FLOAT
+flame size bonus
+	value_is_percentage
+	FLOAT
+flame life penalty
+	value_is_percentage
+	FLOAT
+flame life bonus
+	value_is_percentage
+	FLOAT
+charged airblast
+	value_is_additive
+	FLOAT
+add cloak on hit
+	value_is_additive
+	FLOAT
+disguise damage reduction
+	value_is_percentage
+	FLOAT
+disguise no burn
+	value_is_additive
+	FLOAT
+SET BONUS: dmg from sentry reduced
+	value_is_inverted_percentage
+	FLOAT
+airblast cost increased
+	value_is_percentage
+	FLOAT
+airblast cost decreased
+	value_is_percentage
+	FLOAT
+purchased
+	value_is_additive
+	FLOAT
+flame ammopersec increased
+	value_is_percentage
+	FLOAT
+flame ammopersec decreased
+	value_is_percentage
+	FLOAT
+jarate duration
+	value_is_additive
+	FLOAT
+SET BONUS: no death from headshots
+	value_is_additive
+	FLOAT
+deploy time increased
+	value_is_percentage
+	FLOAT
+deploy time decreased
+	value_is_inverted_percentage
+	FLOAT
+minicrits become crits
+	value_is_additive
+	FLOAT
+heal on kill
+	value_is_additive
+	FLOAT
+no self blast dmg
+	value_is_additive
+	FLOAT
+slow enemy on hit major
+	value_is_additive
+	FLOAT
+aiming movespeed decreased
+	value_is_percentage
+	FLOAT
+duel loser account id
+	value_is_account_id
+	FLOAT
+event date
+	value_is_date
+	FLOAT
+gifter account id
+	value_is_account_id
+	FLOAT
+set supply crate series
+	value_is_additive
+	FLOAT
+preserve ubercharge
+	value_is_additive
+	FLOAT
+elevate quality
+	value_is_additive
+	FLOAT
+active health regen
+	value_is_additive
+	FLOAT
+active health degen
+	value_is_additive
+	FLOAT
+referenced item id low
+	value_is_additive
+	FLOAT
+referenced item id high
+	value_is_additive
+	FLOAT
+referenced item def UPDATED
+	value_is_item_def
+	FLOAT
+always tradable
+	value_is_additive
+	FLOAT
+noise maker
+	value_is_additive
+	FLOAT
+halloween item
+	value_is_additive
+	FLOAT
+collection bits DEPRECATED
+	value_is_additive
+	FLOAT
+switch from wep deploy time decreased
+	value_is_inverted_percentage
+	FLOAT
+enables aoe heal
+	value_is_additive
+	FLOAT
+gesture speed increase
+	value_is_percentage
+	FLOAT
+charge time increased
+	value_is_additive
+	FLOAT
+drop health pack on kill
+	value_is_additive
+	FLOAT
+hit self on miss
+	value_is_additive
+	FLOAT
+dmg from ranged reduced
+	value_is_percentage
+	FLOAT
+dmg from melee increased
+	value_is_percentage
+	FLOAT
+blast dmg to self increased
+	value_is_percentage
+	FLOAT
+Set DamageType Ignite
+	value_is_additive
+	FLOAT
+minicrit vs burning player
+	value_is_additive
+	FLOAT
+tradable after date
+	value_is_date
+	FLOAT
+force level display
+	value_is_additive
+	FLOAT
+kill eater
+	value_is_additive
+	FLOAT
+apply z velocity on damage
+	value_is_additive
+	FLOAT
+apply look velocity on damage
+	value_is_additive
+	FLOAT
+sanguisuge
+	value_is_additive
+	FLOAT
+mark for death
+	value_is_additive
+	FLOAT
+decapitate type
+	value_is_additive
+	FLOAT
+restore health on kill
+	value_is_additive
+	FLOAT
+mult decloak rate
+	value_is_additive
+	FLOAT
+mult sniper charge after bodyshot
+	value_is_percentage
+	FLOAT
+mult sniper charge after miss
+	value_is_percentage
+	FLOAT
+dmg bonus while half dead
+	value_is_percentage
+	FLOAT
+dmg penalty while half alive
+	value_is_percentage
+	FLOAT
+honorbound
+	value_is_additive
+	FLOAT
+custom texture hi
+	value_is_additive
+	FLOAT
+makers mark id
+	value_is_account_id
+	FLOAT
+unique craft index
+	value_is_additive
+	FLOAT
+mod medic killed revenge
+	value_is_additive
+	FLOAT
+medigun charge is megaheal
+	value_is_additive
+	FLOAT
+mod medic killed minicrit boost
+	value_is_additive
+	FLOAT
+mod medic healed damage bonus
+	value_is_percentage
+	FLOAT
+mod medic healed deploy time penalty
+	value_is_percentage
+	FLOAT
+mod shovel speed boost
+	value_is_additive
+	FLOAT
+mod weapon blocks healing
+	value_is_additive
+	FLOAT
+mult sniper charge after headshot
+	value_is_percentage
+	FLOAT
+minigun no spin sounds
+	value_is_additive
+	FLOAT
+ubercharge rate bonus for healer
+	value_is_percentage
+	FLOAT
+reload time decreased while healed
+	value_is_inverted_percentage
+	FLOAT
+reload time increased hidden
+	value_is_percentage
+	FLOAT
+mod medic killed marked for death
+	value_is_additive
+	FLOAT
+mod rage on hit penalty
+	value_is_additive
+	FLOAT
+mod rage on hit bonus
+	value_is_additive
+	FLOAT
+mod rage damage boost
+	value_is_percentage
+	FLOAT
+mult charge turn control
+	value_is_percentage
+	FLOAT
+no charge impact range
+	value_is_additive
+	FLOAT
+charge impact damage increased
+	value_is_percentage
+	FLOAT
+charge recharge rate increased
+	value_is_percentage
+	FLOAT
+air dash count
+	value_is_additive
+	FLOAT
+speed buff ally
+	value_is_additive
+	FLOAT
+damage force reduction
+	value_is_percentage
+	FLOAT
+mult cloak rate
+	value_is_additive
+	FLOAT
+airblast pushback scale
+	value_is_percentage
+	FLOAT
+mult airblast refire time
+	value_is_percentage
+	FLOAT
+airblast vertical pushback scale
+	value_is_percentage
+	FLOAT
+ammo becomes health
+	value_is_additive
+	FLOAT
+boots falling stomp
+	value_is_additive
+	FLOAT
+deflection size multiplier
+	value_is_additive
+	FLOAT
+set item tint RGB 2
+	value_is_additive
+	FLOAT
+saxxy award category
+	value_is_additive
+	FLOAT
+melee bounds multiplier
+	value_is_percentage
+	FLOAT
+melee range multiplier
+	value_is_percentage
+	FLOAT
+mod mini-crit airborne deploy
+	value_is_additive
+	FLOAT
+projectile penetration
+	value_is_additive
+	FLOAT
+mod crit while airborne
+	value_is_additive
+	FLOAT
+mult sniper charge penalty DISPLAY ONLY
+	value_is_percentage
+	FLOAT
+mod see enemy health
+	value_is_additive
+	FLOAT
+powerup max charges
+	value_is_additive
+	FLOAT
+powerup charges
+	value_is_additive
+	FLOAT
+powerup duration
+	value_is_additive
+	FLOAT
+critboost
+	value_is_additive
+	FLOAT
+ubercharge
+	value_is_additive
+	FLOAT
+cancel falling damage
+	value_is_additive
+	FLOAT
+bidirectional teleport
+	value_is_additive
+	FLOAT
+multiple sentries
+	value_is_additive
+	FLOAT
+effect bar recharge rate increased
+	value_is_inverted_percentage
+	FLOAT
+maxammo grenades1 increased
+	value_is_percentage
+	FLOAT
+override projectile type
+	value_is_additive
+	FLOAT
+energy weapon no ammo
+	value_is_additive
+	FLOAT
+energy weapon charged shot
+	value_is_additive
+	FLOAT
+energy weapon penetration
+	value_is_additive
+	FLOAT
+energy weapon no hurt building
+	value_is_additive
+	FLOAT
+energy weapon no deflect
+	value_is_additive
+	FLOAT
+engy building health bonus
+	value_is_percentage
+	FLOAT
+engy sentry damage bonus
+	value_is_percentage
+	FLOAT
+no crit boost
+	value_is_additive
+	FLOAT
+centerfire projectile
+	value_is_additive
+	FLOAT
+kill eater score type
+	value_is_additive
+	FLOAT
+kill eater score type 2
+	value_is_additive
+	FLOAT
+kill eater 2
+	value_is_additive
+	FLOAT
+has pipboy build interface
+	value_is_additive
+	FLOAT
+sapper kills collect crits
+	value_is_additive
+	FLOAT
+sniper only fire zoomed
+	value_is_additive
+	FLOAT
+mod ammo per shot
+	value_is_additive
+	FLOAT
+add onhit addammo
+	value_is_additive
+	FLOAT
+electrical airblast DISPLAY ONLY
+	value_is_additive_percentage
+	FLOAT
+mod use metal ammo type
+	value_is_additive
+	FLOAT
+expiration date
+	value_is_date
+	FLOAT
+mod max primary clip override
+	value_is_additive
+	FLOAT
+sniper full charge damage bonus
+	value_is_percentage
+	FLOAT
+sniper fires tracer
+	value_is_additive
+	FLOAT
+sniper no headshot without full charge
+	value_is_additive
+	FLOAT
+mod no reload DISPLAY ONLY
+	value_is_additive
+	FLOAT
+sniper penetrate players when charged
+	value_is_additive
+	FLOAT
+crit kill will gib
+	value_is_additive
+	FLOAT
+recall
+	value_is_additive
+	FLOAT
+unlimited quantity
+	value_is_additive
+	FLOAT
+disable weapon hiding for animations
+	value_is_additive
+	FLOAT
+applies snare effect
+	value_is_percentage
+	FLOAT
+uber duration bonus
+	value_is_additive
+	FLOAT
+refill_ammo
+	value_is_additive
+	FLOAT
+store sort override DEPRECATED
+	value_is_additive
+	FLOAT
+faster reload rate
+	value_is_inverted_percentage
+	FLOAT
+increase buff duration
+	value_is_percentage
+	FLOAT
+robo sapper
+	value_is_additive
+	FLOAT
+build rate bonus
+	value_is_inverted_percentage
+	FLOAT
+taunt is press and hold
+	value_is_additive
+	FLOAT
+attack projectiles
+	value_is_additive
+	FLOAT
+accuracy scales damage
+	value_is_percentage
+	FLOAT
+currency bonus
+	value_is_percentage
+	FLOAT
+increased jump height
+	value_is_percentage
+	FLOAT
+building instant upgrade
+	value_is_additive
+	FLOAT
+disable fancy class select anim
+	value_is_percentage
+	FLOAT
+airblast vulnerability multiplier
+	value_is_percentage
+	FLOAT
+override footstep sound set
+	value_is_additive
+	FLOAT
+spawn with physics toy
+	value_is_additive
+	FLOAT
+fish damage override
+	value_is_additive
+	FLOAT
+SET BONUS: special dsp
+	value_is_additive
+	FLOAT
+bombinomicon effect on death
+	value_is_additive
+	FLOAT
+clip size bonus upgrade
+	value_is_percentage
+	FLOAT
+hide enemy health
+	value_is_additive
+	FLOAT
+subtract victim medigun charge on hit
+	value_is_additive
+	FLOAT
+subtract victim cloak on hit
+	value_is_additive
+	FLOAT
+reveal cloaked victim on hit
+	value_is_additive
+	FLOAT
+reveal disguised victim on hit
+	value_is_additive
+	FLOAT
+jarate backstabber
+	value_is_additive
+	FLOAT
+engy sentry fire rate increased
+	value_is_inverted_percentage
+	FLOAT
+engy sentry radius increased
+	value_is_percentage
+	FLOAT
+engy dispenser radius increased
+	value_is_percentage
+	FLOAT
+mod bat launches ornaments
+	value_is_additive
+	FLOAT
+freeze backstab victim
+	value_is_additive
+	FLOAT
+fire rate penalty HIDDEN
+	value_is_inverted_percentage
+	FLOAT
+energy weapon no drain
+	value_is_additive
+	FLOAT
+ragdolls become ash
+	value_is_additive
+	FLOAT
+engy disposable sentries
+	value_is_additive
+	FLOAT
+alt fire teleport to spawn
+	value_is_additive
+	FLOAT
+cannot pick up buildings
+	value_is_additive
+	FLOAT
+stun enemies wielding same weapon
+	value_is_additive
+	FLOAT
+mod ammo per shot missed DISPLAY ONLY
+	value_is_additive
+	FLOAT
+airblast disabled
+	value_is_additive
+	FLOAT
+increase buff duration HIDDEN
+	value_is_percentage
+	FLOAT
+crit forces victim to laugh
+	value_is_additive
+	FLOAT
+melts in fire
+	value_is_additive
+	FLOAT
+damage all connected
+	value_is_additive
+	FLOAT
+become fireproof on hit by fire
+	value_is_additive
+	FLOAT
+crit from behind
+	value_is_additive
+	FLOAT
+crit does no damage
+	value_is_additive
+	FLOAT
+add jingle to footsteps
+	value_is_additive
+	FLOAT
+set icicle knife mode
+	value_is_additive
+	FLOAT
+mod stun waist high airborne
+	value_is_additive
+	FLOAT
+extinguish earns revenge crits
+	value_is_additive
+	FLOAT
+burn damage earns rage
+	value_is_additive
+	FLOAT
+tickle enemies wielding same weapon
+	value_is_additive
+	FLOAT
+attach particle effect static
+	value_is_particle_index
+	FLOAT
+cosmetic taunt sound
+	value_is_additive
+	STRING
+accepted wedding ring account id 1
+	value_is_account_id
+	FLOAT
+accepted wedding ring account id 2
+	value_is_account_id
+	FLOAT
+tool escrow until date
+	value_is_date
+	FLOAT
+generate rage on damage
+	value_is_additive
+	FLOAT
+aiming no flinch
+	value_is_additive
+	FLOAT
+aiming knockback resistance
+	value_is_inverted_percentage
+	FLOAT
+sniper aiming movespeed decreased
+	value_is_percentage
+	FLOAT
+kill eater user 1
+	value_is_additive
+	FLOAT
+kill eater user score type 1
+	value_is_additive
+	FLOAT
+kill eater user 2
+	value_is_additive
+	FLOAT
+kill eater user score type 2
+	value_is_additive
+	FLOAT
+kill eater user 3
+	value_is_additive
+	FLOAT
+kill eater user score type 3
+	value_is_additive
+	FLOAT
+strange part new counter ID
+	value_is_additive
+	FLOAT
+mvm completed challenges bitmask
+	value_is_additive
+	FLOAT
+rage on kill
+	value_is_additive
+	FLOAT
+kill eater kill type
+	value_is_additive
+	FLOAT
+shot penetrate all players
+	value_is_additive
+	FLOAT
+headshot damage increase
+	value_is_percentage
+	FLOAT
+SET BONUS: mystery solving time decrease
+	value_is_percentage
+	FLOAT
+damage penalty on bodyshot
+	value_is_percentage
+	FLOAT
+sniper rage DISPLAY ONLY
+	value_is_additive
+	FLOAT
+fire rate bonus HIDDEN
+	value_is_inverted_percentage
+	FLOAT
+explosive sniper shot
+	value_is_additive
+	FLOAT
+melee attack rate bonus
+	value_is_inverted_percentage
+	FLOAT
+projectile penetration heavy
+	value_is_additive
+	FLOAT
+rage on assists
+	value_is_additive
+	FLOAT
+armor piercing
+	value_is_additive
+	FLOAT
+cannot pick up intelligence
+	value_is_additive
+	FLOAT
+SET BONUS: chance of hunger decrease
+	value_is_percentage
+	FLOAT
+cannot be backstabbed
+	value_is_additive
+	FLOAT
+squad surplus claimer id DEPRECATED
+	value_is_account_id
+	FLOAT
+share consumable with patient
+	value_is_additive
+	FLOAT
+airblast vertical vulnerability multiplier
+	value_is_percentage
+	FLOAT
+vision opt in flags
+	value_is_or
+	FLOAT
+crit vs disguised players
+	value_is_or
+	FLOAT
+crit vs non burning players
+	value_is_or
+	FLOAT
+kill forces attacker to laugh
+	value_is_additive
+	FLOAT
+damage bonus while disguised
+	value_is_percentage
+	FLOAT
+projectile spread angle penalty
+	value_is_additive
+	FLOAT
+dmg taken increased
+	value_is_percentage
+	FLOAT
+auto fires full clip
+	value_is_additive
+	FLOAT
+self mark for death
+	value_is_additive
+	FLOAT
+counts as assister is some kind of pet this update is going to be awesome
+	value_is_additive
+	FLOAT
+mod flaregun fires pellets with knockback
+	value_is_additive
+	FLOAT
+can overload
+	value_is_additive
+	FLOAT
+boost on damage
+	value_is_additive
+	FLOAT
+hype resets on jump
+	value_is_additive
+	FLOAT
+pyro year number
+	value_is_additive
+	FLOAT
+no primary ammo from dispensers while active
+	value_is_additive
+	FLOAT
+pyrovision only DISPLAY ONLY
+	value_is_additive
+	FLOAT
+clip size penalty HIDDEN
+	value_is_percentage
+	FLOAT
+sapper damage bonus
+	value_is_percentage
+	FLOAT
+sapper damage penalty
+	value_is_percentage
+	FLOAT
+sapper damage leaches health
+	value_is_additive
+	FLOAT
+sapper health bonus
+	value_is_percentage
+	FLOAT
+sapper health penalty
+	value_is_percentage
+	FLOAT
+ring of fire while aiming
+	value_is_additive
+	FLOAT
+uses ammo while aiming
+	value_is_additive
+	FLOAT
+sapper degenerates buildings
+	value_is_additive
+	FLOAT
+sapper damage penalty hidden
+	value_is_percentage
+	FLOAT
+cleaver description
+	value_is_percentage
+	FLOAT
+ragdolls plasma effect
+	value_is_additive
+	FLOAT
+crit vs stunned players
+	value_is_or
+	FLOAT
+crit vs wet players
+	value_is_or
+	FLOAT
+override item level desc string
+	value_is_additive
+	FLOAT
+clip size upgrade atomic
+	value_is_additive
+	FLOAT
+auto fires full clip all at once
+	value_is_additive
+	FLOAT
+major move speed bonus
+	value_is_percentage
+	FLOAT
+major increased jump height
+	value_is_percentage
+	FLOAT
+head scale
+	value_is_additive
+	FLOAT
+pyrovision opt in DISPLAY ONLY
+	value_is_or
+	FLOAT
+halloweenvision opt in DISPLAY ONLY
+	value_is_or
+	FLOAT
+halloweenvision filter DISPLAY ONLY
+	value_is_or
+	FLOAT
+player skin override
+	value_is_additive
+	FLOAT
+never craftable
+	value_is_additive
+	FLOAT
+zombiezombiezombiezombie
+	value_is_additive
+	FLOAT
+sapper voice pak
+	value_is_additive
+	FLOAT
+sapper voice pak idle wait
+	value_is_additive
+	FLOAT
+merasmus hat level display ONLY
+	value_is_additive
+	FLOAT
+strange restriction type 1
+	value_is_additive
+	FLOAT
+strange restriction value 1
+	value_is_additive
+	FLOAT
+strange restriction type 2
+	value_is_additive
+	FLOAT
+strange restriction value 2
+	value_is_additive
+	FLOAT
+strange restriction user type 1
+	value_is_additive
+	FLOAT
+strange restriction user value 1
+	value_is_additive
+	FLOAT
+strange restriction user type 2
+	value_is_additive
+	FLOAT
+strange restriction user value 2
+	value_is_additive
+	FLOAT
+strange restriction user type 3
+	value_is_additive
+	FLOAT
+strange restriction user value 3
+	value_is_additive
+	FLOAT
+engineer sentry build rate multiplier
+	value_is_percentage
+	FLOAT
+engineer teleporter build rate multiplier
+	value_is_percentage
+	FLOAT
+grenade launcher mortar mode
+	value_is_additive
+	FLOAT
+grenade not explode on impact
+	value_is_additive
+	FLOAT
+strange score selector
+	value_is_additive
+	FLOAT
+engineer building teleporting pickup
+	value_is_additive
+	FLOAT
+grenade damage reduction on world contact
+	value_is_percentage
+	FLOAT
+engineer rage on dmg
+	value_is_additive
+	FLOAT
+mark for death on building pickup
+	value_is_additive
+	FLOAT
+medigun charge is resists
+	value_is_additive
+	FLOAT
+arrow heals buildings
+	value_is_additive
+	FLOAT
+Projectile speed increased HIDDEN
+	value_is_percentage
+	FLOAT
+damage bonus HIDDEN
+	value_is_percentage
+	FLOAT
+cannonball push back
+	value_is_additive
+	FLOAT
+rage giving scale
+	value_is_percentage
+	FLOAT
+overheal fill rate reduced
+	value_is_percentage
+	FLOAT
+canteen specialist
+	value_is_additive
+	FLOAT
+overheal expert
+	value_is_additive
+	FLOAT
+mad milk syringes
+	value_is_additive
+	FLOAT
+rocket specialist
+	value_is_additive
+	FLOAT
+SET BONUS: move speed set bonus
+	value_is_percentage
+	FLOAT
+SET BONUS: health regen set bonus
+	value_is_additive
+	FLOAT
+SET BONUS: dmg taken from crit reduced set bonus
+	value_is_inverted_percentage
+	FLOAT
+SET BONUS: dmg taken from fire reduced set bonus
+	value_is_inverted_percentage
+	FLOAT
+healing mastery
+	value_is_additive
+	FLOAT
+kill eater 3
+	value_is_additive
+	FLOAT
+kill eater score type 3
+	value_is_additive
+	FLOAT
+strange restriction type 3
+	value_is_additive
+	FLOAT
+strange restriction value 3
+	value_is_additive
+	FLOAT
+bot custom jump particle
+	value_is_additive
+	FLOAT
+generate rage on heal
+	value_is_additive
+	FLOAT
+custom name attr
+	value_is_additive
+	STRING
+custom desc attr
+	value_is_additive
+	STRING
+medigun bullet resist passive
+	value_is_additive
+	FLOAT
+medigun blast resist passive
+	value_is_additive
+	FLOAT
+medigun fire resist passive
+	value_is_additive
+	FLOAT
+medigun bullet resist deployed
+	value_is_additive
+	FLOAT
+medigun blast resist deployed
+	value_is_additive
+	FLOAT
+medigun fire resist deployed
+	value_is_additive
+	FLOAT
+medigun crit bullet percent bar deplete
+	value_is_additive
+	FLOAT
+medigun crit blast percent bar deplete
+	value_is_additive
+	FLOAT
+medigun crit fire percent bar deplete
+	value_is_additive
+	FLOAT
+throwable fire speed
+	value_is_percentage
+	FLOAT
+throwable damage
+	value_is_additive
+	FLOAT
+throwable healing
+	value_is_additive
+	FLOAT
+throwable particle trail only
+	value_is_additive
+	FLOAT
+SET BONUS: dmg taken from bullets increased
+	value_is_percentage
+	FLOAT
+SET BONUS: max health additive bonus
+	value_is_additive
+	FLOAT
+scattergun knockback mult
+	value_is_percentage
+	FLOAT
+particle effect vertical offset
+	value_is_additive
+	FLOAT
+particle effect use head origin
+	value_is_additive
+	FLOAT
+use large smoke explosion
+	value_is_additive
+	FLOAT
+damage causes airblast
+	value_is_additive
+	FLOAT
+increased jump height from weapon
+	value_is_percentage
+	FLOAT
+damage force increase
+	value_is_percentage
+	FLOAT
+healing received bonus
+	value_is_percentage
+	FLOAT
+afterburn immunity
+	value_is_additive
+	FLOAT
+decoded by itemdefindex
+	value_is_additive
+	FLOAT
+hype decays over time
+	value_is_additive
+	FLOAT
+SET BONUS: custom taunt particle attr
+	value_is_additive
+	FLOAT
+airblast vulnerability multiplier hidden
+	value_is_percentage
+	FLOAT
+damage force increase hidden
+	value_is_percentage
+	FLOAT
+damage force increase text
+	value_is_percentage
+	FLOAT
+SET BONUS: calling card on kill
+	value_is_additive
+	FLOAT
+set throwable type
+	value_is_additive
+	FLOAT
+add head on hit
+	value_is_additive_percentage
+	FLOAT
+item style override
+	value_is_additive
+	FLOAT
+paint decal enum
+	value_is_additive
+	FLOAT
+show paint description
+	value_is_additive
+	FLOAT
+bot medic uber health threshold
+	value_is_additive
+	FLOAT
+bot medic uber deploy delay duration
+	value_is_additive
+	FLOAT
+single wep deploy time decreased
+	value_is_inverted_percentage
+	FLOAT
+halloween reload time decreased
+	value_is_inverted_percentage
+	FLOAT
+halloween fire rate bonus
+	value_is_inverted_percentage
+	FLOAT
+halloween increased jump height
+	value_is_percentage
+	FLOAT
+special taunt
+	value_is_additive
+	FLOAT
+revive
+	value_is_additive
+	FLOAT
+taunt attack name
+	value_is_additive
+	STRING
+taunt attack time
+	value_is_additive
+	FLOAT
+taunt force move forward
+	value_is_additive
+	FLOAT
+taunt mimic
+	value_is_additive
+	FLOAT
+taunt success sound
+	value_is_additive
+	STRING
+taunt success sound offset
+	value_is_additive
+	FLOAT
+taunt success sound loop
+	value_is_additive
+	STRING
+taunt success sound loop offset
+	value_is_additive
+	FLOAT
+increased air control
+	value_is_percentage
+	FLOAT
+rocket launch impulse
+	value_is_additive
+	FLOAT
+minicritboost on kill
+	value_is_additive
+	FLOAT
+no metal from dispensers while active
+	value_is_additive
+	FLOAT
+projectile entity name
+	value_is_additive
+	STRING
+is throwable primable
+	value_is_additive
+	FLOAT
+throwable detonation time
+	value_is_additive
+	FLOAT
+throwable recharge time
+	value_is_additive
+	FLOAT
+closerange backattack minicrits
+	value_is_additive
+	FLOAT
+torso scale
+	value_is_additive
+	FLOAT
+rocketjump attackrate bonus
+	value_is_percentage
+	FLOAT
+is throwable chargeable
+	value_is_additive
+	FLOAT
+back headshot
+	value_is_additive
+	FLOAT
+rj air bombardment
+	value_is_additive
+	FLOAT
+projectile particle name
+	value_is_additive
+	STRING
+air jump on attack
+	value_is_additive
+	FLOAT
+sniper crit no scope
+	value_is_additive
+	FLOAT
+sniper independent zoom DISPLAY ONLY
+	value_is_additive
+	FLOAT
+axtinguisher properties
+	value_is_additive
+	FLOAT
+full charge turn control
+	value_is_additive
+	FLOAT
+parachute attribute
+	value_is_additive
+	FLOAT
+taunt force weapon slot
+	value_is_additive
+	STRING
+mini rockets
+	value_is_additive
+	FLOAT
+rocket jump damage reduction HIDDEN
+	value_is_percentage
+	FLOAT
+clipsize increase on kill
+	value_is_additive
+	FLOAT
+breadgloves properties
+	value_is_additive
+	FLOAT
+taunt turn speed
+	value_is_additive
+	FLOAT
+sniper fires tracer HIDDEN
+	value_is_additive
+	FLOAT
+fire rate bonus with reduced health
+	value_is_inverted_percentage
+	FLOAT
+tag__summer2014
+	value_is_additive
+	FLOAT
+crate generation code
+	value_is_additive
+	STRING
+stickybomb fizzle time
+	value_is_additive
+	FLOAT
+stickybomb charge rate
+	value_is_inverted_percentage
+	FLOAT
+grenade no bounce
+	value_is_additive
+	FLOAT
+class select override vcd
+	value_is_additive
+	STRING
+custom projectile model
+	value_is_additive
+	STRING
+lose demo charge on damage when charging
+	value_is_additive
+	FLOAT
+grenade no spin
+	value_is_additive
+	FLOAT
+grenade detonation damage penalty
+	value_is_percentage
+	FLOAT
+taunt turn acceleration time
+	value_is_additive
+	FLOAT
+taunt move acceleration time
+	value_is_additive
+	FLOAT
+taunt move speed
+	value_is_additive
+	FLOAT
+shuffle crate item def min
+	value_is_additive
+	FLOAT
+shuffle crate item def max
+	value_is_additive
+	FLOAT
+limited quantity item
+	value_is_additive
+	FLOAT
+SET BONUS: alien isolation xeno bonus pos
+	value_is_additive
+	FLOAT
+SET BONUS: alien isolation xeno bonus neg
+	value_is_additive
+	FLOAT
+SET BONUS: alien isolation merc bonus pos
+	value_is_additive
+	FLOAT
+SET BONUS: alien isolation merc bonus neg
+	value_is_additive
+	FLOAT
+disable weapon switch
+	value_is_additive
+	FLOAT
+hand scale
+	value_is_additive
+	FLOAT
+display duck leaderboard
+	value_is_additive
+	FLOAT
+duck rating
+	value_is_additive
+	FLOAT
+duck badge level
+	value_is_additive
+	FLOAT
+tag__eotlearlysupport
+	value_is_additive
+	FLOAT
+unlimited quantity hidden
+	value_is_additive
+	FLOAT
+duckstreaks active
+	value_is_additive
+	FLOAT
+panic_attack
+	value_is_additive
+	FLOAT
+panic_attack_negative
+	value_is_inverted_percentage
+	FLOAT
+auto fires full clip penalty
+	value_is_additive
+	FLOAT
+auto fires when full
+	value_is_additive
+	FLOAT
+force weapon switch
+	value_is_additive
+	FLOAT
+weapon_uses_stattrak_module
+	value_is_additive
+	STRING
+is_operation_pass
+	value_is_additive
+	FLOAT
+weapon_stattrak_module_scale
+	value_is_percentage
+	FLOAT
+set_item_texture_wear
+	value_is_additive
+	FLOAT
+cloak_consume_on_feign_death_activate
+	value_is_percentage
+	FLOAT
+stickybomb_charge_damage_increase
+	value_is_percentage
+	FLOAT
+NoCloakWhenCloaked
+	value_is_additive
+	FLOAT
+ReducedCloakFromAmmo
+	value_is_percentage
+	FLOAT
+elevate to unusual if applicable
+	value_is_additive
+	FLOAT
+weapon_allow_inspect
+	value_is_additive
+	FLOAT
+metal_pickup_decreased
+	value_is_inverted_percentage
+	FLOAT
+lose hype on take damage
+	value_is_additive
+	FLOAT
+healing received penalty
+	value_is_percentage
+	FLOAT
+crit_vs_burning_FLARES_DISPLAY_ONLY
+	value_is_or
+	FLOAT
+speed_boost_on_kill
+	value_is_additive
+	FLOAT
+speed_boost_on_hit
+	value_is_additive
+	FLOAT
+spunup_damage_resistance
+	value_is_percentage
+	FLOAT
+ubercharge overheal rate penalty
+	value_is_percentage
+	FLOAT
+reduced_healing_from_medics
+	value_is_percentage
+	FLOAT
+health on radius damage
+	value_is_additive
+	FLOAT
+style changes on strange level
+	null_value
+	null_type
+cannot restore
+	null_value
+	null_type
+hide crate series number
+	null_value
+	null_type
+has team color paintkit
+	value_is_additive
+	FLOAT
+cosmetic_allow_inspect
+	value_is_additive
+	FLOAT
+hat only unusual effect
+	value_is_particle_index
+	FLOAT
+items traded in for
+	value_is_additive
+	FLOAT
+texture_wear_default
+	value_is_additive
+	FLOAT
+taunt only unusual effect
+	value_is_particle_index
+	FLOAT
+deactive date
+	value_is_date
+	FLOAT
+is giger counter
+	value_is_additive
+	FLOAT
+hide_strange_prefix
+	value_is_additive
+	FLOAT
+always_transmit_so
+	value_is_additive
+	FLOAT
+allow_halloween_offering
+	value_is_additive
+	FLOAT
+cannot_transmute
+	value_is_additive
+	FLOAT
+single wep holster time increased
+	value_is_percentage
+	FLOAT
+single wep deploy time increased
+	value_is_inverted_percentage
+	FLOAT
+charge time decreased
+	value_is_additive
+	FLOAT
+dmg penalty vs buildings
+	value_is_percentage
+	FLOAT
+charge impact damage decreased
+	value_is_percentage
+	FLOAT
+non economy
+	value_is_additive
+	FLOAT
+charge meter on hit
+	value_is_additive_percentage
+	FLOAT
+minicrit_boost_when_charged
+	value_is_additive
+	FLOAT
+minicrit_boost_charge_rate
+	value_is_additive
+	FLOAT
+is_a_sword
+	value_is_additive
+	FLOAT
+ammo gives charge
+	value_is_additive
+	FLOAT
+extinguish restores health
+	value_is_additive
+	FLOAT
+extinguish reduces cooldown
+	value_is_percentage
+	FLOAT
+cannot giftwrap
+	null_value
+	null_type
+tool needs giftwrap
+	null_value
+	null_type
+fuse bonus
+	value_is_percentage
+	FLOAT
+move speed bonus shield required
+	value_is_percentage
+	FLOAT
+damage bonus bullet vs sentry target
+	value_is_percentage
+	FLOAT
+mod teleporter cost
+	value_is_percentage
+	FLOAT
+damage blast push
+	value_is_percentage
+	FLOAT
+move speed bonus resource level
+	value_is_percentage
+	FLOAT
+hype on damage
+	value_is_additive
+	FLOAT
+dmg taken from fire reduced on active
+	value_is_inverted_percentage
+	FLOAT
+damage bonus vs burning
+	value_is_percentage
+	FLOAT
+min_viewmodel_offset
+	value_is_additive
+	STRING
+dmg pierces resists absorbs
+	value_is_additive
+	FLOAT
+energy buff dmg taken multiplier
+	value_is_percentage
+	FLOAT
+lose revenge crits on death DISPLAY ONLY
+	value_is_percentage
+	FLOAT
+patient overheal penalty
+	value_is_percentage
+	FLOAT
+item_meter_charge_rate
+	value_is_additive
+	FLOAT
+mult_spread_scale_first_shot
+	value_is_additive
+	FLOAT
+unusualifier_attribute_template_name
+	value_is_additive
+	STRING
+tool_target_item_icon_offset
+	value_is_additive
+	STRING
+add_head_on_kill
+	value_is_additive_percentage
+	FLOAT
+mult_spread_scales_consecutive
+	value_is_additive_percentage
+	FLOAT
+fixed_shot_pattern
+	value_is_additive
+	FLOAT
+mod_cloak_no_regen_from_items
+	value_is_additive
+	FLOAT
+ubercharge_preserved_on_spawn_max
+	value_is_additive_percentage
+	FLOAT
+mod_air_control_blast_jump
+	value_is_percentage
+	FLOAT
+spunup_push_force_immunity
+	value_is_percentage
+	FLOAT
+mod_mark_attacker_for_death
+	value_is_percentage
+	FLOAT
+use_model_cache_icon
+	value_is_additive
+	FLOAT
+mod_disguise_consumes_cloak
+	value_is_additive
+	FLOAT
+inspect_viewmodel_offset
+	value_is_additive
+	STRING
+is_passive_weapon
+	value_is_additive
+	FLOAT
+no_jump
+	value_is_additive
+	FLOAT
+no_duck
+	value_is_additive
+	FLOAT
+no_attack
+	value_is_additive
+	FLOAT
+airblast_destroy_projectile
+	value_is_additive
+	FLOAT
+airblast_pushback_disabled
+	value_is_additive
+	FLOAT
+airblast_pushback_no_stun
+	value_is_additive
+	FLOAT
+airblast_pushback_no_viewpunch
+	value_is_additive
+	FLOAT
+airblast_deflect_projectiles_disabled
+	value_is_additive
+	FLOAT
+airblast_put_out_teammate_disabled
+	value_is_additive
+	FLOAT
+afterburn duration penalty
+	value_is_percentage
+	FLOAT
+afterburn duration bonus
+	value_is_percentage
+	FLOAT
+aoe_deflection
+	value_is_additive
+	FLOAT
+mult_end_flame_size
+	value_is_percentage
+	FLOAT
+airblast_give_teammate_speed_boost
+	value_is_additive
+	FLOAT
+airblast_turn_projectile_to_ammo
+	value_is_additive
+	FLOAT
+paintkit_proto_def_index
+	value_is_additive
+	FLOAT
+taunt_attr_player_invis_percent
+	value_is_additive
+	FLOAT
+redirected_flame_size_mult
+	value_is_percentage
+	FLOAT
+flame_reflect_on_collision
+	value_is_additive
+	FLOAT
+flame_spread_degree
+	value_is_additive
+	FLOAT
+holster_anim_time
+	value_is_additive
+	FLOAT
+flame_gravity
+	value_is_additive
+	FLOAT
+flame_ignore_player_velocity
+	value_is_additive
+	FLOAT
+flame_drag
+	value_is_additive
+	FLOAT
+flame_speed
+	value_is_additive
+	FLOAT
+grenades1_resupply_denied
+	value_is_additive
+	FLOAT
+grenades2_resupply_denied
+	value_is_additive
+	FLOAT
+grenades3_resupply_denied
+	value_is_additive
+	FLOAT
+item_meter_resupply_denied
+	value_is_additive
+	FLOAT
+mult_player_movespeed_active
+	value_is_percentage
+	FLOAT
+mult_dmgtaken_active
+	value_is_percentage
+	FLOAT
+mult_patient_overheal_penalty_active
+	value_is_percentage
+	FLOAT
+mult_health_fromhealers_penalty_active
+	value_is_percentage
+	FLOAT
+mod_maxhealth_drain_rate
+	value_is_additive
+	FLOAT
+item_meter_charge_type
+	value_is_additive
+	FLOAT
+max_flame_reflection_count
+	value_is_additive
+	FLOAT
+flame_reflection_add_life_time
+	value_is_additive
+	FLOAT
+reflected_flame_dmg_reduction
+	value_is_percentage
+	FLOAT
+flame_lifetime
+	value_is_additive
+	FLOAT
+flame_random_life_time_offset
+	value_is_additive
+	FLOAT
+flame_up_speed
+	value_is_additive
+	FLOAT
+custom_paintkit_seed_lo
+	value_is_additive
+	FLOAT
+custom_paintkit_seed_hi
+	value_is_additive
+	FLOAT
+crit_dmg_falloff
+	value_is_additive
+	FLOAT
+crits_become_minicrits
+	value_is_additive
+	FLOAT
+falling_impact_radius_pushback
+	value_is_additive
+	FLOAT
+falling_impact_radius_stun
+	value_is_additive
+	FLOAT
+thermal_thruster_air_launch
+	value_is_additive
+	FLOAT
+thermal_thruster
+	value_is_additive
+	FLOAT
+mult_item_meter_charge_rate
+	value_is_inverted_percentage
+	FLOAT
+explode_on_ignite
+	value_is_additive
+	FLOAT
+lunchbox healing decreased
+	value_is_percentage
+	FLOAT
+speed_boost_on_hit_enemy
+	value_is_additive
+	FLOAT
+item_meter_starts_empty_DISPLAY_ONLY
+	value_is_additive
+	FLOAT
+item_meter_charge_type_3_DISPLAY_ONLY
+	value_is_additive
+	FLOAT
+repair health to metal ratio DISPLAY ONLY
+	value_is_additive
+	FLOAT
+CARD: damage bonus
+	value_is_percentage
+	FLOAT
+CARD: dmg taken from bullets reduced
+	value_is_inverted_percentage
+	FLOAT
+CARD: move speed bonus
+	value_is_percentage
+	FLOAT
+CARD: health regen
+	value_is_additive
+	FLOAT
+SPELL: set item tint RGB
+	value_is_from_lookup_table
+	FLOAT
+SPELL: set Halloween footstep type
+	value_is_from_lookup_table
+	FLOAT
+SPELL: Halloween voice modulation
+	value_is_additive
+	FLOAT
+SPELL: Halloween pumpkin explosions
+	value_is_additive
+	FLOAT
+SPELL: Halloween green flames
+	value_is_additive
+	FLOAT
+SPELL: Halloween death ghosts
+	value_is_additive
+	FLOAT
+Attack not cancel charge
+	value_is_additive
+	FLOAT
+recipe component defined item 1
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 2
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 3
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 4
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 5
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 6
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 7
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 8
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 9
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+recipe component defined item 10
+	null_value
+	DYNAMIC_RECIPE_COMPONENT_DEFINED_ITEM
+start drop date
+	value_is_date
+	STRING
+end drop date
+	value_is_date
+	STRING
+tool target item
+	null_value
+	null_type
+killstreak effect
+	value_is_killstreakeffect_index
+	FLOAT
+killstreak idleeffect
+	value_is_killstreak_idleeffect_index
+	FLOAT
+spellbook page attr id
+	null_value
+	null_type
+Halloween Spellbook Page: Tumidum
+	value_is_additive
+	FLOAT
+Halloween Spellbook Page: Gratanter
+	value_is_additive
+	FLOAT
+Halloween Spellbook Page: Audere
+	value_is_additive
+	FLOAT
+Halloween Spellbook Page: Congeriae
+	value_is_additive
+	FLOAT
+Halloween Spellbook Page: Veteris
+	value_is_additive
+	FLOAT
+additional halloween response criteria name
+	value_is_additive
+	STRING
+loot rarity
+	value_is_additive
+	FLOAT
+quality text override
+	null_value
+	STRING
+item name text override
+	null_value
+	STRING
+killstreak tier
+	value_is_additive
+	FLOAT
+wide item level
+	null_value
+	null_type
+is australium item
+	value_is_additive
+	FLOAT
+is marketable
+	null_value
+	null_type
+allowed in medieval mode
+	null_value
+	null_type
+crit on hard hit
+	value_is_additive
+	FLOAT
+series number
+	null_value
+	null_type
+recipe no partial complete
+	null_value
+	null_type
+kill refills meter
+	value_is_additive_percentage
+	FLOAT
+random drop line item unusual chance
+	null_value
+	null_type
+random drop line item unusual list
+	null_value
+	STRING
+random drop line item 0
+	null_value
+	null_type
+random drop line item 1
+	null_value
+	null_type
+random drop line item 2
+	null_value
+	null_type
+random drop line item 3
+	null_value
+	null_type
+taunt attach particle index
+	value_is_particle_index
+	FLOAT
+loot list name
+	null_value
+	STRING
+upgrade rate decrease
+	value_is_inverted_percentage
+	FLOAT
+can shuffle crate contents
+	null_value
+	null_type
+random drop line item footer desc
+	null_value
+	STRING
+is commodity
+	null_value
+	null_type
+voice pitch scale
+	value_is_additive
+	FLOAT
+gunslinger punch combo
+	value_is_additive
+	FLOAT
+cannot delete
+	null_value
+	null_type
+quest loaner id low
+	null_value
+	null_type
+quest loaner id hi
+	null_value
+	null_type
+is_festivized
+	value_is_additive
+	FLOAT
+fire particle blue
+	null_value
+	STRING
+fire particle red
+	null_value
+	STRING
+fire particle blue crit
+	null_value
+	STRING
+fire particle red crit
+	null_value
+	STRING
+meter_label
+	null_value
+	STRING
+item_meter_damage_for_full_charge
+	value_is_additive
+	FLOAT
+airblast cost scale hidden
+	value_is_percentage
+	FLOAT
+dragons fury positive properties
+	value_is_additive
+	FLOAT
+dragons fury negative properties
+	value_is_additive
+	FLOAT
+dragons fury neutral properties
+	value_is_additive
+	FLOAT
+force center wrap
+	null_value
+	null_type
+attack_minicrits_and_consumes_burning
+	value_is_additive
+	FLOAT
+item slot criteria 1
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 1
+	null_value
+	UINT64
+item slot criteria 2
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 2
+	null_value
+	UINT64
+item slot criteria 3
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 3
+	null_value
+	UINT64
+item slot criteria 4
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 4
+	null_value
+	UINT64
+item slot criteria 5
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 5
+	null_value
+	UINT64
+item slot criteria 6
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 6
+	null_value
+	UINT64
+item slot criteria 7
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 7
+	null_value
+	UINT64
+item slot criteria 8
+	null_value
+	ITEM_SLOT_CRITERIA
+item in slot 8
+	null_value
+	UINT64
+quest earned standard points
+	null_value
+	null_type
+quest earned bonus points
+	null_value
+	null_type
+item drop wave
+	null_value
+	null_type
