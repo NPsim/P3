@@ -370,6 +370,11 @@ any_valid_string{}%
 				STRING
 			Action
 				STRING
+		InitWaveOutput{}
+			Target
+				STRING
+			Action
+				STRING
 		DoneOutput{}
 			Target
 				STRING

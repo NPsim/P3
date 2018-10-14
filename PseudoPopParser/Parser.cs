@@ -203,6 +203,7 @@ namespace PseudoPopParser {
 
 		// Parse Attribute
 		public void ParseAttribute(string key, string value, int line = -1) {
+
 			double value_double = 0.0;
 			Double.TryParse(value, out value_double);
 
@@ -370,7 +371,7 @@ namespace PseudoPopParser {
 						}
 					}
 
-					if (!found) {
+					if (!found & !Regex.IsMatch(value, "TF_")) {
 						Warn("TFBot does not have item: ", line, value);
 					}
 					break;
@@ -575,9 +576,11 @@ namespace PseudoPopParser {
 		 */
 		public bool IsDatatype(string type, string token, int line_number = -1) {
 			// Check valid datatype according to DATATYPES array
+			if (Regex.IsMatch(type, "%")) {
+				type = "$ANY_VALID_STRING";
+			}
 			foreach (string datatype in DATATYPES) {
 				if (type.ToLower() == datatype.ToLower()) {
-
 					// Check primitives first
 					// TODO Change this to a switch statement
 					if (type.ToUpper() == "BOOLEAN") {
