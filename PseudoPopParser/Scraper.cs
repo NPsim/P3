@@ -10,7 +10,7 @@ namespace PseudoPopParser {
 	class Scraper:IDisposable {
 
 		private PopParser p;
-		private const string attributes_filepath = @"datatypes\item_attributes.owo";
+		private string attributes_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo";
 
 		public Scraper (PopParser parser) {
 			p = parser;

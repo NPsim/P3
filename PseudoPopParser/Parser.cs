@@ -67,11 +67,11 @@ namespace PseudoPopParser {
 
 		// Setup Attributes Database
 		private void SetupAttributes() {
-			if (!File.Exists(@"datatypes/item_attributes.owo")) {
+			if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo")) {
 				Error("Item attributes db does not exist!");
 				return;
 			}
-			string[] db = File.ReadAllLines(@"datatypes/item_attributes.owo");
+			string[] db = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo");
 			for (int line = 2; line < db.Length; line+=3) {
 				attributes_list.Add(new string[] {
 					db[line],
@@ -371,7 +371,7 @@ namespace PseudoPopParser {
 						}
 					}
 
-					if (!found & !Regex.IsMatch(value, "TF_")) {
+					if (!found & !Regex.IsMatch(value, "(TF_|T_)")) { // TODO to be replaced with true item scanning
 						Warn("TFBot does not have item: ", line, value);
 					}
 					break;
