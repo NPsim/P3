@@ -22,6 +22,7 @@ namespace PseudoPopParser {
 		private static List<string> used_wavespawn_names = new List<string>();
 		private static List<int> used_wavespawn_lines = new List<int>();
 		private static List<string[]> attributes_list = new List<string[]>();
+		private static List<string> item_list = new List<string>();
 		private static List<string> tfbot_items = new List<string>();
 
 		// TODO Fix spaces vs tabs issue
@@ -63,21 +64,39 @@ namespace PseudoPopParser {
 		public PopParser(string folder) {
 			datatypes_folder_path = folder;
 			SetupAttributes();
+			SetupItems();
 		}
 
 		// Setup Attributes Database
 		private void SetupAttributes() {
-			if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo")) {
+			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo";
+			if (!File.Exists(db_file)) {
 				Error("Item attributes db does not exist!");
 				return;
 			}
-			string[] db = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo");
+			string[] db = File.ReadAllLines(db_file);
 			for (int line = 2; line < db.Length; line+=3) {
 				attributes_list.Add(new string[] {
 					db[line],
 					db[line + 1].Substring(1, db[line + 1].Length - 1),
 					db[line + 2].Substring(1, db[line + 2].Length - 1)
 				});
+			}
+		}
+
+		// Setup Items Database
+		private void SetupItems() {
+			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.owo";
+			if (!File.Exists(db_file)) {
+				Error("Items db does not exist!");
+				return;
+			}
+			string[] db = File.ReadAllLines(db_file);
+			for (int i = 2; i < db.Count(); i++) {
+				string line = db[i]; // TODO make use of all db data
+				if (Regex.IsMatch(line, @"^\S")) {
+					item_list.Add(line);
+				}
 			}
 		}
 
@@ -361,17 +380,35 @@ namespace PseudoPopParser {
 
 				case "ITEM":
 					tfbot_items.Add(value);
-					break;
+					bool item_exists = false;
 
-				case "ITEMNAME":
-					bool found = false;
-					foreach (string item in tfbot_items) {
-						if (item == value) {
-							found = true;
+					// Search database for key
+					foreach (string find in item_list) {
+						if (value.ToUpper() == find.ToUpper()) {
+							item_exists = true;
+							break;
 						}
 					}
 
-					if (!found & !Regex.IsMatch(value, "(TF_|T_)")) { // TODO to be replaced with true item scanning
+					// Item does not exist in database
+					if (!item_exists) {
+						Warn("Invalid item name: ", line, value);
+						return;
+					}
+
+					break;
+
+				case "ITEMNAME":
+					bool bot_has_item = false;
+
+					// Search for item owned by TFBot
+					foreach (string item in tfbot_items) {
+						if (item == value) {
+							bot_has_item = true;
+						}
+					}
+
+					if (!bot_has_item & !Regex.IsMatch(value, "TF_")) {
 						Warn("TFBot does not have item: ", line, value);
 					}
 					break;

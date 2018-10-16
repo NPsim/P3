@@ -450,6 +450,9 @@ namespace PseudoPopParser {
 			p.WriteColor("F3", ConsoleColor.White, ConsoleColor.Black);
 			p.WriteLineColor(" Update Attributes");
 
+			p.WriteColor("F4", ConsoleColor.White, ConsoleColor.Black);
+			p.WriteLineColor(" Update Items");
+
 			// Blank Line Separates Quit with Options
 			Console.Write("\n");
 
@@ -508,6 +511,44 @@ namespace PseudoPopParser {
 						if (File.Exists(cfg_att_filepath)) {
 							p.InfoLine("Old version is " + s.Version);
 							s.ScrapeAttributes(cfg_att_filepath);
+						}
+						else {
+							p.Error("File does not exist");
+						}
+					}
+				}
+
+				// F4 Scrape Items
+				else if (key_pressed == ConsoleKey.F4) {
+					p.InfoLine("===Updating Item Database===");
+					using (Scraper s = new Scraper(p)) {
+						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
+
+						Console.Write("");
+
+						// Verify Valid Configuration
+						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
+
+							p.InfoLine("Please specify your items_game.txt");
+
+							try {
+								OpenFileDialog ofd = new OpenFileDialog();
+								ofd.ShowDialog();
+								cfg_att_filepath = ofd.FileName;
+								_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
+								p.InfoLine("Input by Dialog: " + ofd.FileName);
+							}
+							catch {
+								p.Error("Failed to get file by dialog.");
+								p.Info("Input your path to items_game.txt: ");
+								cfg_att_filepath = Console.ReadLine();
+							}
+						}
+
+						// Scraper Operations
+						if (File.Exists(cfg_att_filepath)) {
+							p.InfoLine("Old version is " + s.Version);
+							s.ScrapeItems(cfg_att_filepath);
 						}
 						else {
 							p.Error("File does not exist");

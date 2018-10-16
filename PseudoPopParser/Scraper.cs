@@ -11,12 +11,21 @@ namespace PseudoPopParser {
 
 		private PopParser p;
 		private string attributes_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo";
+		private string items_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.owo";
 
 		public Scraper (PopParser parser) {
 			p = parser;
 		}
 
 		public void Dispose() {}
+
+		public bool WriteLineIfExists(StreamWriter sw, string value, string message) {
+			if (value.Length > 0) {
+				sw.WriteLine(message);
+				return true;
+			}
+			return false;
+		}
 
 		public string Version {
 			get {
@@ -153,6 +162,117 @@ namespace PseudoPopParser {
 			p.InfoLine("Finished scraping for attributes.");
 			p.InfoLine("Current version is now " + version);
 		}
-		public static void ScrapeItems(string source_filepath) {}
+		public void ScrapeItems(string source_filepath) { // A lot of this is redundant compared to ScrapeAttributes(). TODO refactor this
+
+			// File Path
+			string file_path = source_filepath;
+
+			// Raw File as String[]
+			string[] file;
+			try {
+				file = File.ReadAllLines(file_path);
+			}
+			catch (Exception e) {
+				//Console.WriteLine("Could not find directory: " + source_filepath);
+				p.Error(e.Message);
+				return;
+			}
+
+			// Make the new file to deposit the findings
+			StreamWriter writer = new StreamWriter(new FileStream(items_filepath, FileMode.Create));
+
+			// Write version of source file
+			long version = new FileInfo(source_filepath).Length;
+
+			writer.WriteLine("VERSION ID:");
+			writer.WriteLine(version);
+
+			// Insertion Point
+			int ip = 0; // Usually 20297 - 131757
+
+			// Find Insertion Point
+			for (int i = 0; i < file.Length; i++) {
+				if (Regex.IsMatch(file[i], "^\\t\"items\"$")) {
+					ip = i;
+					break;
+				}
+			}
+
+			// Stop if no insertion point found
+			if (ip == 0) {
+				Console.WriteLine("Could not find insertion point.");
+				return;
+			}
+
+			// Block Tracking
+			int block = 0;
+			int block_item = block;
+			string block_name = ""; // Everything has a name
+			string block_slot = "";
+			string block_base = "";
+			string block_reskin = "";
+
+			// Start Operation
+			for (int i = ip; i < file.Length; i++) {
+
+				string line = file[i];
+				List<string> tokens = new List<string>();
+
+				// Get Tokens of Line
+				foreach (Match match in Regex.Matches(line, "(\"([^\"]*)\"|{|})")) { // Match double quote bounded strings
+					tokens.Add(match.ToString());
+				}
+
+				// Read contents of line
+				for (int j = 0; j < tokens.Count; j++) {
+					if (block == 2) {
+						if (tokens[j].ToUpper() == "\"name\"".ToUpper()) {
+							block_name = tokens[j + 1].Replace("\"", "");
+							block_item = block;
+						}
+						if (tokens[j].ToUpper() == "\"item_slot\"".ToUpper()) {
+							block_slot = tokens[j + 1].Replace("\"", "");
+						}
+						if (tokens[j].ToUpper() == "\"baseitem\"".ToUpper()) {
+							block_base = tokens[j + 1].Replace("\"", "");
+						}
+						if (tokens[j].ToUpper() == "\"set_item_remap\"".ToUpper()) {
+							block_reskin = tokens[j + 1].Replace("\"", "");
+						}
+					}
+				}
+
+				// Curly Ops
+				if (Regex.IsMatch(line, "{")) {
+					block++;
+				}
+				else if (Regex.IsMatch(line, "}")) {
+					block--;
+
+					if (block == 0) {
+						break; // Terminate Scraping
+					}
+
+					// Write to file
+					if (block == 1) {
+						if (WriteLineIfExists(writer, block_name, block_name)) {
+							//Console.WriteLine("Wrote due to line " + (i + 1) + "\tBlock was " + block + " | " + block_item);
+							WriteLineIfExists(writer, block_slot, "\tslot " + block_slot);
+							WriteLineIfExists(writer, block_base, "\tbase " + block_base);
+							//WriteLineIfExists(writer, block_reskin, "\treskin " + block_reskin);
+						}
+
+						// Reset
+						block_name = "";
+						block_slot = "";
+						block_base = "";
+						block_reskin = "";
+					}
+				}
+			}
+			writer.Dispose();
+			p.InfoLine("Finished scraping for items.");
+			p.InfoLine("Current version is now " + version);
+		}
 	}
 }
