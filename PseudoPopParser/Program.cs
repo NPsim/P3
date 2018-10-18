@@ -30,11 +30,11 @@ namespace PseudoPopParser {
 				Console.WriteLine(">>>>>Start of file | Debug Level ");
 			}
 
-			string file_path = "",
-				grammar_file = AppDomain.CurrentDomain.BaseDirectory + "grammar.owo",
-				datatypes_folder = AppDomain.CurrentDomain.BaseDirectory;
-
+			string file_path = "";
+			string grammar_file = AppDomain.CurrentDomain.BaseDirectory + "grammar.owo";
+			string datatypes_folder = AppDomain.CurrentDomain.BaseDirectory;
 			string[] file = null;
+			bool bypass_print_config = false;
 
 			List<string[]> token_list = new List<string[]> {
 				new string[] { } // No 0 indexing
@@ -51,11 +51,39 @@ namespace PseudoPopParser {
 				if (args[i] == "-datatypes_folder_path") {
 					datatypes_folder = args[i + 1];
 				}
+				if (args[i] == "--print_config") {
+					bypass_print_config = true;
+				}
 			}
 
 			// Init Parser
 			PopParser p = new PopParser(datatypes_folder);
 			ParseTree pt = new ParseTree(grammar_file);
+
+			// Debug Print Config
+			if (_IsDebug("Print_Config") || bypass_print_config) {
+
+				// Global Config
+				p.DebugLine("\t[Global]");
+				p.DebugLine("items_source_file : " + _INI.Read("items_source_file", "Global"));
+				p.DebugLine("currency_multiple_warning : " + _INI.Read("currency_multiple_warning", "Global"));
+				p.DebugLine("tank_warn_maximum : " + _INI.Read("tank_warn_maximum", "Global"));
+				p.DebugLine("tank_warn_minimum : " + _INI.Read("tank_warn_minimum", "Global"));
+				p.DebugLine("bot_health_multiple : " + _INI.Read("bot_health_multiple", "Global"));
+				p.DebugLine("tank_health_multiple : " + _INI.Read("tank_health_multiple", "Global"));
+
+				// Debug Config
+				p.DebugLine("\t[Debug]");
+				p.DebugLine("Print_Config : " + _INI.Read("Print_Config", "Debug"));
+				p.DebugLine("Print_Token_Lookback : " + _INI.Read("Print_Token_Lookback", "Debug"));
+				p.DebugLine("Print_Terminators : " + _INI.Read("Print_Terminators", "Debug"));
+				p.DebugLine("Print_Tokens : " + _INI.Read("Print_Tokens", "Debug"));
+				p.DebugLine("Print_Token_Operations : " + _INI.Read("Print_Token_Operations", "Debug"));
+				p.DebugLine("Print_PT_Cursor_Traversal : " + _INI.Read("Print_PT_Cursor_Traversal", "Debug"));
+
+				// End of Configuration
+				p.DebugLine("\tEnd Config");
+			}
 
 			// Get file_path if not defined in launch
 			if (file_path == "") {
@@ -93,9 +121,16 @@ namespace PseudoPopParser {
 			bool look_ahead_open = false;
 			string look_back_token = "";
 			string look_ahead_buffer_node = "";
+			string template_name = "";
 			try {
+
+				// Iterate by Line List
 				for (int i = 0; i < token_list.Count; i++) {
+
+					// Iterate by Token List of Line
 					for (int j = 0; j < token_list[i].Length; j++) {
+
+						// Only Scan Real Tokens
 						if (!string.IsNullOrWhiteSpace(token_list[i][j])) {
 
 							// TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
@@ -120,6 +155,8 @@ namespace PseudoPopParser {
 
 							// Debug Level 2
 							if (_IsDebug("Print_Tokens")) Console.WriteLine(token + "\t\t\t" + i + " " + j);
+
+							{ } // Debug Breakpoint
 
 							// Debug Level 4
 							if (_IsDebug("Print_Token_Operations")) {
@@ -177,7 +214,12 @@ namespace PseudoPopParser {
 									found = true;
 
 									// Trigger End of Calculations Before Exiting
-									p.ParseCollectionEnd(pt.CurrentValue[1], line);
+									p.ParseCollectionEnd(pt.CurrentValue[1], line, pt.ParentValue[1]);
+
+									// Reset Template Name Tracker
+									if (pt.ParentValue[1] == "Templates{}") {
+										template_name = "";
+									}
 
 									pt.MoveUp();
 
@@ -205,7 +247,12 @@ namespace PseudoPopParser {
 									pt.Move(look_ahead_buffer_node);
 
 									// Parse Collection After Diving
-									p.ParseCollection(pt.CurrentValue[1], line);
+									p.ParseCollection(pt.CurrentValue[1], line, pt.ParentValue[1], look_back_token);
+
+									// Save Template Name for Parsing Later
+									if (pt.ParentValue[1] == "Templates{}") {
+										template_name = look_back_token;
+									}
 
 									look_ahead_buffer_node = "";
 									look_ahead_open = false;
@@ -283,7 +330,7 @@ namespace PseudoPopParser {
 								else if (current.Value[0].ToUpper() == "KEY") { // Handle All Keys
 
 									// Parse Key and Value
-									p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1]);
+									p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1], template_name);
 
 									// Debug Token Lookback
 									// Writes all readable key-value pairs
@@ -486,7 +533,7 @@ namespace PseudoPopParser {
 					using (Scraper s = new Scraper(p)) {
 						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
 
-						Console.Write("");
+						{ } // Debug Breakpoint
 
 						// Verify Valid Configuration
 						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
@@ -562,7 +609,7 @@ namespace PseudoPopParser {
 				}
 			}
 
-			Console.Write(""); // Debug Breakpoint
+			{ } // Debug Breakpoint
 		}
 
 	}

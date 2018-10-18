@@ -16,7 +16,7 @@ namespace PseudoPopParser {
 		private static List<List<int>> wave_credits_list = new List<List<int>>();
 		private static int total_waves = 0;
 		private static Dictionary<string, string> attribute_pairs = new Dictionary<string, string>();
-		private static List<string> tfbot_templates = new List<string>();
+		private static List<List<string>> tfbot_template_items = new List<List<string>>();
 		private static List<string> wavespawn_templates = new List<string>();
 		private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
 		private static List<string> used_wavespawn_names = new List<string>();
@@ -147,7 +147,7 @@ namespace PseudoPopParser {
 		}
 
 		// Parse Collections
-		public void ParseCollection(string token, int line = -1) {
+		public void ParseCollection(string token, int line = -1, string parent = "null", string any_string_token = "null") {
 			token = token.ToUpper();
 			switch (token) {
 				case "WAVE{}":
@@ -163,12 +163,22 @@ namespace PseudoPopParser {
 
 					break;
 
+				case "TFBOT{}%":
+
+					if (parent == "Templates{}") {
+						List<string> new_template = new List<string>();
+						new_template.Add(any_string_token.ToUpper());
+						tfbot_template_items.Add(new_template);
+					}
+
+					break;
+
 				// TODO : Add more cases
 			}
 		}
 
 		// Trigger Collection End
-		public void ParseCollectionEnd(string token, int line = -1) {
+		public void ParseCollectionEnd(string token, int line = -1, string parent = "null") {
 			token = token.ToUpper();
 			switch (token) {
 				case "WAVE{}":
@@ -300,7 +310,7 @@ namespace PseudoPopParser {
 		}
 
 		// Parse Key Value
-		public void ParseKeyValue (string key, string value, int line = -1, string parent = "") {
+		public void ParseKeyValue (string key, string value, int line = -1, string parent = "", string any_string_name = "") {
 			key = key.ToUpper();
 			parent = RemoveCurly(parent.ToUpper());
 			switch (key) {
@@ -382,6 +392,13 @@ namespace PseudoPopParser {
 					tfbot_items.Add(value);
 					bool item_exists = false;
 
+					// Add item to corresponding TFBot template item list
+					for (int i = tfbot_template_items.Count - 1; i >= 0; i--) {
+						if (tfbot_template_items[i][0] == any_string_name.ToUpper()) { // Items in list should already be in upper
+							tfbot_template_items[i].Add(value);
+						}
+					}
+
 					// Search database for key
 					foreach (string find in item_list) {
 						if (value.ToUpper() == find.ToUpper()) {
@@ -413,6 +430,20 @@ namespace PseudoPopParser {
 					}
 					break;
 
+				case "TEMPLATE":
+
+					// Find template value item list
+					foreach(List<string> template_item_list in tfbot_template_items) {
+						if (value.ToUpper() == template_item_list[0]) {
+
+							// Import template items into current bot items
+							for(int i = 1; i < template_item_list.Count; i++) {
+								tfbot_items.Add(template_item_list[i]);
+							}
+						}
+					}
+
+					break;
 					// TODO : Add more cases
 			}
 		}
@@ -590,6 +621,14 @@ namespace PseudoPopParser {
 			ConsoleColor foreground = ConsoleColor.Black;
 
 			WriteMainLine(message, "[Info]", -1, background, foreground);
+		}
+
+		// Simple Print Debug Line
+		public void DebugLine(string message) {
+			ConsoleColor background = ConsoleColor.Magenta;
+			ConsoleColor foreground = ConsoleColor.Black;
+
+			WriteMainLine(message, "[DEBUG]", -1, background, foreground);
 		}
 
 		// Get number of warnings issued

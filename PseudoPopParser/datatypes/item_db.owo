@@ -1,0 +1,5652 @@
+VERSION ID:
+4173565
+default
+	slot melee
+TF_WEAPON_BAT
+	base 1
+TF_WEAPON_BOTTLE
+	base 1
+TF_WEAPON_FIREAXE
+	base 1
+TF_WEAPON_CLUB
+	base 1
+TF_WEAPON_KNIFE
+	base 1
+TF_WEAPON_FISTS
+	base 1
+TF_WEAPON_SHOVEL
+	base 1
+TF_WEAPON_WRENCH
+	base 1
+TF_WEAPON_BONESAW
+	base 1
+TF_WEAPON_SHOTGUN_PRIMARY
+	slot primary
+	base 1
+TF_WEAPON_SHOTGUN_SOLDIER
+	slot secondary
+	base 1
+TF_WEAPON_SHOTGUN_HWG
+	slot secondary
+	base 1
+TF_WEAPON_SHOTGUN_PYRO
+	slot secondary
+	base 1
+TF_WEAPON_SCATTERGUN
+	base 1
+TF_WEAPON_SNIPERRIFLE
+	base 1
+TF_WEAPON_MINIGUN
+	base 1
+TF_WEAPON_SMG
+	slot secondary
+	base 1
+TF_WEAPON_SYRINGEGUN_MEDIC
+	base 1
+TF_WEAPON_ROCKETLAUNCHER
+	base 1
+TF_WEAPON_GRENADELAUNCHER
+	base 1
+TF_WEAPON_PIPEBOMBLAUNCHER
+	base 1
+TF_WEAPON_FLAMETHROWER
+	base 1
+TF_WEAPON_PISTOL
+	slot secondary
+	base 1
+TF_WEAPON_PISTOL_SCOUT
+	slot secondary
+	base 1
+TF_WEAPON_REVOLVER
+	slot secondary
+	base 1
+TF_WEAPON_PDA_ENGINEER_BUILD
+	slot pda
+	base 1
+TF_WEAPON_PDA_ENGINEER_DESTROY
+	slot pda2
+	base 1
+TF_WEAPON_PDA_SPY
+	slot pda
+	base 1
+TF_WEAPON_BUILDER
+	slot building
+	base 1
+TF_WEAPON_MEDIGUN
+	base 1
+TF_WEAPON_INVIS
+	base 1
+TF_WEAPON_BUILDER_SPY
+	base 1
+Upgradeable TF_WEAPON_BUILDER_SPY
+Upgradeable TF_WEAPON_PDA_ENGINEER_BUILD
+	slot pda
+TF_WEAPON_SPELLBOOK
+	base 1
+TF_WEAPON_GRAPPLINGHOOK
+	slot action
+	base 1
+Default Power Up Canteen (MvM)
+	base 1
+The Kritzkrieg
+The Blutsauger
+	slot primary
+The Ubersaw
+The Axtinguisher
+The Flare Gun
+The Backburner
+	slot primary
+Natascha
+	slot primary
+The Sandvich
+The Killing Gloves of Boxing
+	slot melee
+The Sandman
+	slot melee
+The Force-a-Nature
+Bonk! Atomic Punch
+Demoman's Fro
+Mining Light
+Football Helmet
+	slot head
+Prussian Pickelhaube
+	slot head
+Pyro's Beanie
+	slot head
+Batter's Helmet
+	slot head
+Trophy Belt
+	slot head
+Soldier's Stash
+	slot head
+Fancy Fedora
+The Huntsman
+The Razorback
+	slot secondary
+Jarate
+The Dead Ringer
+	slot pda2
+The Cloak and Dagger
+	slot pda2
+The Ambassador
+Texas Ten Gallon
+	slot head
+Engineer's Cap
+	slot head
+Officer's Ushanka
+Tough Guy's Toque
+	slot head
+Stainless Pot
+	slot head
+Tyrant's Helm
+	slot head
+Glengarry Bonnet
+	slot head
+Vintage Tyrolean
+	slot head
+Respectless Rubber Glove
+	slot head
+Camera Beard
+	slot misc
+Otolaryngologist's Mirror
+	slot head
+Brigade Helm
+	slot head
+Bonk Helm
+	slot head
+Ye Olde Baker Boy
+	slot head
+Backbiter's Billycock
+	slot head
+Professional's Panama
+	slot head
+Master's Yellow Belt
+	slot head
+Baseball Bill's Sports Shine
+	slot head
+Mildly Disturbing Halloween Mask
+	slot head
+Ghastly Gibus
+	slot head
+Ritzy Rick's Hair Fixative
+	slot head
+Texas Slim's Dome Shine
+	slot head
+Scotsman's Stove Pipe
+	slot head
+Web Easteregg Medal
+	slot misc
+CheatDetectedMinor
+	slot misc
+CheatDetectedMajor
+	slot misc
+CheatDetectedHonesty
+	slot misc
+Honest Halo
+	slot head
+L4D Hat
+	slot head
+The Direct Hit
+	slot primary
+The Equalizer
+	slot melee
+The Buff Banner
+The Scottish Resistance
+	slot secondary
+The Chargin' Targe
+The Eyelander
+The Gunboats
+	slot secondary
+Propaganda Contest First Place
+	slot head
+Towering Pillar of Hats
+	slot head
+Propaganda Contest Second Place
+	slot head
+Noble Amassment of Hats
+	slot head
+Propaganda Contest Third Place
+	slot head
+Modest Pile of Hat
+	slot head
+The Wrangler
+The Frontier Justice
+The Gunslinger
+	slot melee
+OSX Item
+	slot misc
+Medic Mask
+	slot misc
+Heavy Hair
+	slot head
+Demoman Hallmark
+	slot head
+Spy Noble Hair
+	slot head
+Engineer Welding Mask
+	slot head
+Scout Beanie
+	slot head
+Pyro Brain Sucker
+	slot head
+Soldier Samurai Hat
+	slot head
+The Homewrecker
+	slot melee
+The Pain Train
+	slot melee
+The Southern Hospitality
+	slot melee
+Sniper Pith Helmet
+	slot head
+The Dalokohs Bar
+TTG Max Pistol
+	slot secondary
+TTG Sam Revolver
+	slot secondary
+TTG Max Hat
+	slot head
+Crit-a-Cola
+Employee Badge A
+	slot misc
+Employee Badge B
+	slot misc
+Employee Badge C
+	slot misc
+High Five Taunt
+Golden Wrench
+	slot melee
+Employee Badge Plat
+	slot misc
+The Tribalman's Shiv
+	slot melee
+The Scotsman's Skullcutter
+The Vita-Saw
+	slot melee
+Scout Whoopee Cap
+	slot head
+Pyro Monocle
+	slot misc
+Medic Goggles
+	slot head
+Engineer Earmuffs
+	slot head
+Demoman Tricorne
+	slot head
+Spy Beret
+	slot head
+Sniper Fishing Hat
+	slot head
+Pyro Helm
+	slot head
+Soldier Drill Hat
+	slot head
+Medic Gatsby
+	slot head
+Heavy Do-rag
+	slot head
+Parasite Hat
+	slot head
+Upgradeable TF_WEAPON_BAT
+	slot melee
+Upgradeable TF_WEAPON_BOTTLE
+	slot melee
+Upgradeable TF_WEAPON_FIREAXE
+	slot melee
+Upgradeable TF_WEAPON_CLUB
+	slot melee
+Upgradeable TF_WEAPON_KNIFE
+	slot melee
+Upgradeable TF_WEAPON_FISTS
+	slot melee
+Upgradeable TF_WEAPON_SHOVEL
+	slot melee
+Upgradeable TF_WEAPON_WRENCH
+	slot melee
+Upgradeable TF_WEAPON_BONESAW
+Upgradeable TF_WEAPON_SHOTGUN_PRIMARY
+Upgradeable TF_WEAPON_SCATTERGUN
+Upgradeable TF_WEAPON_SNIPERRIFLE
+Upgradeable TF_WEAPON_MINIGUN
+Upgradeable TF_WEAPON_SMG
+Upgradeable TF_WEAPON_SYRINGEGUN_MEDIC
+	slot primary
+Upgradeable TF_WEAPON_ROCKETLAUNCHER
+	slot primary
+Upgradeable TF_WEAPON_GRENADELAUNCHER
+Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER
+Upgradeable TF_WEAPON_FLAMETHROWER
+Upgradeable TF_WEAPON_PISTOL
+Upgradeable TF_WEAPON_REVOLVER
+Upgradeable TF_WEAPON_MEDIGUN
+Upgradeable TF_WEAPON_INVIS
+	slot pda2
+The Attendant
+	slot head
+The Powerjack
+The Degreaser
+Rimmed Raincatcher
+	slot head
+The Milkman
+	slot head
+The Shortstop
+The Holy Mackerel
+Mad Milk
+The Familiar Fez
+	slot head
+L'Etranger
+	slot secondary
+Your Eternal Reward
+The Battalion's Backup
+	slot secondary
+The Grenadier's Softcap
+	slot head
+The Black Box
+Ol' Snaggletooth
+	slot head
+The Sydney Sleeper
+	slot primary
+Darwin's Danger Shield
+	slot secondary
+The Bushwacka
+	slot melee
+Gift - 1 Player
+	slot action
+Gift - 24 Players
+	slot action
+Rocket Jumper
+	slot primary
+	base 0
+Gloves of Running Urgently
+Worms Gear
+	slot head
+Duel MiniGame
+	slot action
+Duel Medal Bronze
+	slot misc
+Duel Medal Silver
+	slot misc
+Duel Medal Gold
+	slot misc
+Duel Medal Plat
+	slot misc
+Pugilist's Protector
+	slot head
+Old Guadalajara
+	slot head
+Napper's Respite
+	slot head
+Bombing Run
+	slot head
+Chieftain's Challenge
+	slot head
+Stout Shako
+	slot head
+Dr's Dapper Topper
+	slot head
+Handyman's Handle
+	slot head
+Hard Counter
+	slot head
+Sober Stuntman
+	slot head
+Carouser's Capotain
+	slot head
+Wiki Cap
+	slot head
+Mann Co. Cap
+	slot head
+Polycount Pin
+	slot misc
+Ellis Hat
+	slot head
+Frying Pan
+	slot melee
+Stickybomb Jumper
+	slot secondary
+	base 0
+The Horseless Headless Horseman's Headtaker
+Haunted Metal Scrap
+Halloween Mask - Scout
+	slot head
+Halloween Mask - Sniper
+	slot head
+Halloween Mask - Soldier
+	slot head
+Halloween Mask - Demoman
+	slot head
+Halloween Mask - Medic
+	slot head
+Halloween Mask - Heavy
+	slot head
+Halloween Mask - Spy
+	slot head
+Halloween Mask - Engineer
+	slot head
+Halloween Mask - Pyro
+	slot head
+Halloween Mask - Saxton Hale
+	slot head
+Horseless Headless Horseman's Head
+	slot head
+Ghastly Gibus 2010
+	slot head
+Halloween Noise Maker - Black Cat
+	slot action
+Halloween Noise Maker - Gremlin
+	slot action
+Halloween Noise Maker - Werewolf
+	slot action
+Halloween Noise Maker - Witch
+	slot action
+Halloween Noise Maker - Banshee
+	slot action
+Halloween Noise Maker - Crazy Laugh
+	slot action
+Spine-Chilling Skull
+	slot head
+Halloween Noise Maker - Stabby
+	slot action
+Voodoo Juju
+	slot head
+Cadaver's Cranium
+	slot head
+Horrific Headsplitter
+	slot head
+Poker Visor
+	slot head
+TTG Max Pistol - Poker Night
+	slot secondary
+TTG Glasses
+	slot misc
+TTG Badge
+	slot misc
+TTG Watch
+	slot pda2
+Iron Curtain
+	slot primary
+Portal 2 Pin
+	slot misc
+Camera Helm
+	slot head
+Berliner's Bucket Helm
+	slot head
+The Amputator
+The Crusader's Crossbow
+Scotch Bonnet
+	slot head
+The Ullapool Caber
+	slot melee
+The Loch-n-Load
+Big Chief
+	slot head
+Warrior's Spirit
+	slot melee
+The Buffalo Steak Sandvich
+The Brass Beast
+Magnificent Mongolian
+	slot head
+Larrikin Robin
+	slot head
+Blighted Beak
+	slot misc
+Pyromancer's Mask
+	slot head
+The Candy Cane
+	slot melee
+Prancer's Pride
+	slot head
+Detective Noir
+	slot head
+Madame Dixie
+	slot head
+Buckaroos Hat
+	slot head
+German Gonzila
+	slot head
+Flipped Trilby
+	slot head
+The Boston Basher
+	slot melee
+The Back Scratcher
+The Claidheamohmor
+The Jag
+Coupe D'isaster
+	slot head
+Fists of Steel
+	slot melee
+Treasure Hat 1
+	slot head
+Treasure Hat 2
+	slot head
+Treasure Hat 3
+	slot head
+KF Pyro Mask
+	slot misc
+KF Pyro Tie
+	slot misc
+Le Party Phantom
+Industrial Festivizer
+Exquisite Rack
+Defiant Spartan
+A Rather Festive Tree
+Prince Tavish's Crown
+Friendly Item
+	slot misc
+Crocleather Slouch
+MNC Hat
+MNC Mascot Hat
+MNC Mascot Outfit
+	slot misc
+Sharpened Volcano Fragment
+	slot melee
+Sun-on-a-Stick
+	slot melee
+The Detonator
+The Concheror
+	slot secondary
+The Fan O'War
+	slot melee
+Conniver's Kunai
+The Half-Zatoichi
+Heavy Topknot
+	slot head
+Demo Kabuto
+	slot head
+Hero's Hachimaki
+	slot head
+Spy Oni Mask
+	slot misc
+Charity Noise Maker - Bell
+	slot action
+Medic Geisha Hair
+	slot head
+Charity Noise Maker - Tingsha
+	slot action
+Promotional Noise Maker - Koto
+	slot action
+Hottie's Hoodie
+The Team Captain
+	slot head
+Western Wear
+	slot head
+Large Luchadore
+	slot misc
+Medic's Mountain Cap
+	slot head
+Big Country
+Grimm Hatte
+	slot head
+Professor's Peculiarity
+Teddy Roosebelt
+	slot misc
+Sight for Sore Eyes
+	slot misc
+Private Eye
+	slot head
+Googly Gazer
+	slot misc
+Reggaelator
+	slot head
+Honcho's Headgear
+	slot head
+Pocket Medic
+	slot misc
+Villain's Veil
+	slot misc
+Connoisseur's Cap
+	slot head
+Furious Fukaamigasa
+	slot head
+Charmer's Chapeau
+	slot head
+Doctor's Sack
+	slot head
+Ol' Geezer
+	slot head
+Desert Marauder
+	slot head
+The Shahanshah
+The Bazaar Bargain
+Sultan's Ceremonial
+	slot head
+The Persian Persuader
+Ali Baba's Wee Booties
+The Splendid Screen
+	slot secondary
+Humanitarian's Hachimaki
+	slot head
+Benefactor's Kanmuri
+	slot head
+Mangnanimous Monarch
+	slot head
+The Quick-Fix
+	slot secondary
+The Overdose
+	slot primary
+The Solemn Vow
+	slot melee
+The Liberty Launcher
+	slot primary
+The Reserve Shooter
+The Market Gardener
+	slot melee
+Jumper's Jeepcap
+	slot head
+Potato Hat
+	slot head
+Resurrection Associate Pin
+	slot misc
+Saxxy
+	slot melee
+Tomislav
+The Family Business
+The Eviction Notice
+	slot melee
+Capone's Capper
+	slot head
+Moustachium Bar
+SpaceChem Fishcake Fragment
+SpaceChem Pin Fragment
+SpaceChem Pin
+	slot misc
+Fishcake
+Bucket Hat
+	slot head
+Traffic Cone
+	slot head
+Polish War Babushka
+	slot head
+Janissary Hat
+	slot head
+Replay Taunt
+Lord Cockswain's Pith Helmet
+	slot head
+Lord Cockswain's Novelty Mutton Chops and Pipe
+	slot misc
+The Cow Mangler 5000
+	slot primary
+The Righteous Bison
+	slot secondary
+Dr. Grordbort's Crest
+	slot misc
+The Mantreads
+	slot secondary
+Armored Authority
+	slot head
+Fancy Dress Uniform
+	slot misc
+The Disciplinary Action
+The Soda Popper
+The Winger
+The Atomizer
+	slot melee
+Bonk Boy
+	slot misc
+Three-Rune Blade
+	slot melee
+Hero's Tail
+	slot head
+Sign of the Wolf's School
+	slot misc
+The Postal Pummeler
+Cosa Nostra Cap
+	slot head
+The Enforcer
+	slot secondary
+The Big Earner
+The Made Man
+	slot misc
+Laugh Taunt
+Conjurer's Cowl
+	slot head
+The Maul
+	slot melee
+Medic MtG Hat
+	slot head
+Scout MtG Hat
+	slot misc
+Lo-Fi Longwave
+	slot head
+Loyalty Reward
+	slot head
+Free Trial Premium Upgrade
+Spiral Sallet
+	slot head
+The Conscientious Objector
+	slot melee
+Meet the Medic Heroic Taunt
+Copper's Hard Top
+Security Shades
+	slot misc
+Tam O'Shanter
+	slot head
+Stately Steel Toe
+	slot head
+Nessie's Nine Iron
+Rogue's Col Roule
+	slot misc
+Prairie Heel Biters
+	slot misc
+Big Steel Jaw of Summer Fun
+	slot misc
+Summer Shades
+	slot misc
+Power Up Canteen (MvM)
+Scout Flip-Flops
+	slot misc
+Lucky No. 42
+	slot misc
+Summer Hat
+	slot head
+Promotional Noise Maker - Fireworks
+	slot action
+The Original
+	slot primary
+Mask of the Shaman
+	slot head
+Pilotka
+	slot head
+Stahlhelm
+	slot head
+Dragonborn Helmet
+	slot head
+The Anger
+	slot head
+Pip-Boy
+	slot misc
+Wingstick
+	slot misc
+Belltower Spec Ops
+	slot head
+The Deus Specs
+	slot misc
+The Sarif Cap
+	slot head
+The Purity Fist
+	slot misc
+The Diamondback
+	slot secondary
+The Machina
+The Widowmaker
+	slot primary
+The Short Circuit
+	slot secondary
+Clockwerk's Helm
+	slot head
+Sniper's Snipin' Glass
+	slot misc
+Storm Spirit's Jolly Hat
+	slot head
+Noise Maker - TF Birthday
+	slot action
+TF Birthday Hat 2011
+	slot head
+Killer Exclusive
+	slot head
+The El Jefe
+	slot head
+Ball-Kicking Boots
+	slot misc
+Merc's Pride Scarf
+	slot misc
+Noise Maker - Vuvuzela
+	slot action
+Hair of the Dog
+	slot head
+Scottish Snarl
+	slot misc
+Pickled Paws
+	slot misc
+Wrap Battler
+	slot head
+B-ankh!
+	slot misc
+Futankhamun
+	slot misc
+Blazing Bull
+	slot head
+Fallen Angel
+	slot misc
+Tail From the Crypt
+	slot misc
+Einstein
+	slot head
+Dr. Gogglestache
+	slot misc
+Emerald Jarate
+	slot misc
+Idiot Box
+	slot head
+Steel Pipes
+	slot misc
+Shoestring Budget
+	slot misc
+Under Cover
+	slot head
+Griffin's Gog
+	slot misc
+Intangible Ascot
+	slot misc
+Can Opener
+	slot head
+Soviet Stitch-Up
+	slot misc
+Steel-Toed Stompers
+	slot misc
+Holy Hunter
+	slot head
+Silver Bullets
+	slot misc
+Garlic Flank Stake
+	slot misc
+Buzz Killer
+	slot head
+Frontier Flyboy
+	slot misc
+Legend of Bugfoot
+	slot misc
+The Last Breath
+	slot misc
+Apparition's Aspect
+	slot misc
+Unarmed Combat
+	slot melee
+The Wanga Prick
+The Infernal Impaler
+	slot head
+Spine-Chilling Skull 2011
+	slot head
+Halloween Giveaway Package 2011 (Cauldron)
+	slot action
+Spine-Chilling Skull 2011 Style 1
+	slot head
+Spine-Chilling Skull 2011 Style 2
+	slot head
+Spine-Chilling Skull 2011 Style 3
+	slot head
+MONOCULUS!
+	slot head
+Seal Mask
+	slot head
+Bombinomicon
+	slot misc
+Ghastly Gibus 2011
+	slot head
+Cold War Luchador
+Mark of the Saint
+	slot misc
+Apoco-Fists
+	slot melee
+The Pomson 6000
+	slot primary
+The Eureka Effect
+	slot melee
+The Brainiac Hairpiece
+	slot misc
+The Brainiac Goggles
+	slot misc
+Dr. Grordbort's Copper Crest
+	slot misc
+The Third Degree
+	slot melee
+The Phlogistinator
+	slot primary
+The Manmelter
+	slot secondary
+The Moonman Backpack
+The Bubble Pipe
+Manniversary Paper Hat
+Manniversary Giveaway Package
+	slot action
+Your Worst Nightmare
+The One-Man Army
+The Counterfeit Billycock
+The Outdoorsman
+The Tavish DeGroot Experience
+The Pencil Pusher
+The Builder's Blueprints
+	slot misc
+The Buccaneer's Bicorne
+	slot head
+The Bootlegger
+The Scottish Handshake
+	slot melee
+A Whiff of the Old Brimstone
+The Salty Dog
+The Little Buddy
+The Gym Rat
+The Hot Dogger
+The Birdcage
+The Surgeon's Stahlhelm
+The Backwards Ballcap
+The Crocodile Smile
+	slot misc
+Flair!
+	slot misc
+Couvre Corner
+	slot misc
+The Surgeon's Stethoscope
+	slot misc
+L'Inspecteur
+Photo Badge
+	slot misc
+Clan Pride
+	slot misc
+The Swagman's Swatter
+The Flamboyant Flamenco
+The Virtual Reality Headset
+The Spectre's Spectacles
+	slot misc
+The Stereoscopic Shades
+	slot misc
+The Hat With No Name
+The Cremator's Conscience
+The Hermes
+Point and Shoot
+War Head
+	slot head
+Dr. Grordbort's Silver Crest
+	slot misc
+The Dashin' Hashshashin
+The Sharp Dresser
+	slot melee
+Bowtie
+	slot misc
+The Top Notch
+	slot head
+The Ornament Armament
+The Cozy Camper
+	slot secondary
+The Sandvich Safe
+	slot misc
+The Head Warmer
+The Outback Intellectual
+	slot misc
+The Itsy Bitsy Spyer
+	slot misc
+The All-Father
+	slot misc
+The Wrap Assassin
+	slot melee
+The Spy-cicle
+The Kringle Collection
+The Jingle Belt
+The Big Elfin Deal
+	slot head
+The Bootie Time
+	slot misc
+Festive Minigun 2011
+	base 0
+Spirit Of Giving
+	slot misc
+The Holiday Punch
+	slot melee
+The Nine-Pipe Problem
+Festive Rocket Launcher 2011
+	base 0
+Festive Flamethrower 2011
+	base 0
+Festive Bat 2011
+	base 0
+Festive Stickybomb Launcher 2011
+	base 0
+Festive Wrench 2011
+	base 0
+Festive Medigun 2011
+	base 0
+Festive Sniper Rifle 2011
+	base 0
+Festive Knife 2011
+	base 0
+The B.M.O.C.
+The Holiday Headcase
+The Full Head of Steam
+Festive Scattergun 2011
+	base 0
+The Stocking Stuffer
+The Brown Bomber
+Noise Maker - Winter 2011
+	slot action
+The Ebenezer
+Something Special For Someone Special
+The Lucky Shot
+The Warsworn Helmet
+The Bolgan
+The Bolgan Family Crest
+The Boston Boom-Bringer
+Aladdin's Private Reserve
+The Snapped Pupil
+Daily Duel Winner Reward Hat
+Daily Gift Giver Reward Hat
+Daily Map Stamp Reward Hat
+The Merc Medal
+	slot misc
+The Battle Bob
+The Bushman's Boonie
+The Conquistador
+The Fast Learner
+Tour of Duty Ticket
+Tour of Duty Badge Advanced 1
+	slot misc
+The Black Rose
+	slot melee
+Store Purchase Promotion Package
+	slot action
+The Beggar's Bazooka
+	slot primary
+The Captain's Cocktails
+The Helmet Without a Home
+Pet Robro
+	slot misc
+The Teufort Tooth Kicker
+	slot misc
+Pet Balloonicorn
+	slot misc
+The Lollichop
+	slot melee
+The Scorch Shot
+The Rainblower
+	slot primary
+Autogrant Pyrovision Goggles
+Pyrovision Goggles
+The Infernal Orchestrina
+	slot misc
+The Burning Bongos
+The Cleaner's Carbine
+	slot secondary
+	base 0
+The Hitman's Heatmaker
+	slot primary
+The Waxy Wayfinder
+The Scrap Pack
+The Texas Half-Pants
+The Bolt Action Blitzer
+	slot head
+The Toss-Proof Towel
+MvM Squad Surplus Voucher
+The Fruit Shoot
+The Front Runner
+The Triclops
+The Flamingo Kid
+The Sneaky Spats of Sneaking
+The Cross-Comm Crash Helmet
+The Cross-Comm Express
+The Doublecross-Comm
+The Atomic Accolade
+The Professor's Pineapple
+The Quadwrangler
+The Surgeon's Side Satchel
+The Liquor Locker
+Baby Face's Blaster
+	base 0
+Pretty Boy's Pocket Pistol
+	slot secondary
+	base 0
+The Gentle Munitionne of Leisure
+The Escape Plan
+	slot melee
+The Bird-Man of Aberdeen
+The Apparatchik's Apparel
+The Gentleman's Ushanka
+Liquidator's Lid
+The Fed-Fightin' Fedora
+Dillinger's Duffel
+The Business Casual
+The HazMat Headcase
+The Idea Tube
+Robot Chicken Hat
+The Grenadier Helm
+The Tribal Bones
+The Void Monk Hair
+The Ninja Cowl
+Sandvich Promo Package
+	slot action
+Companion Square Promo Package
+	slot action
+Silver Botkiller Sniper Rifle Mk.I
+	base 0
+Silver Botkiller Minigun Mk.I
+	base 0
+Silver Botkiller Knife Mk.I
+	base 0
+Silver Botkiller Wrench Mk.I
+	base 0
+Silver Botkiller Medi Gun Mk.I
+	base 0
+Silver Botkiller Stickybomb Launcher Mk.I
+	base 0
+Silver Botkiller Flame Thrower Mk.I
+	base 0
+Silver Botkiller Scattergun Mk.I
+	base 0
+Silver Botkiller Rocket Launcher Mk.I
+	base 0
+Gold Botkiller Sniper Rifle Mk.I
+	base 0
+Gold Botkiller Minigun Mk.I
+	base 0
+Gold Botkiller Knife Mk.I
+	base 0
+Gold Botkiller Wrench Mk.I
+	base 0
+Gold Botkiller Medi Gun Mk.I
+	base 0
+Gold Botkiller Stickybomb Launcher Mk.I
+	base 0
+Gold Botkiller Flame Thrower Mk.I
+	base 0
+Gold Botkiller Scattergun Mk.I
+	base 0
+Gold Botkiller Rocket Launcher Mk.I
+	base 0
+The Red-Tape Recorder
+The Huo Long Heatmaker
+The Flying Guillotine
+The Neon Annihilator
+The Triad Trinket
+The Champ Stamp
+The Marxman
+The Human Cannonball
+Awesomenauts Badge
+	slot misc
+The Lone Star
+The Russian Rocketeer
+The Soviet Gentleman
+The Pocket Purrer
+The Koala Compact
+Hat of Cards
+Medi-Mask
+The Track Terrorizer
+Archimedes
+The War Pig
+The Bearded Bombardier
+Promo Red-Tape Recorder
+Promo Huo Long Heatmaker
+Promo Flying Guillotine
+Promo Neon Annihilator
+Promo Triad Trinket
+Promo Champ Stamp
+Promo Marxman
+Promo Human Cannonball
+Steam Translation Package
+	slot action
+The U-clank-a
+The Stealth Steeler
+The Pyrobotics Pack
+The Medic Mech-bag
+The Tin Pot
+The Battery Bandolier
+The Robot Running Man
+The Bolted Bushman
+The Tin-1000
+Deflector
+	base 0
+The AWPer Hand
+	base 0
+The Soldier's Stogie
+The Crafty Hair
+Area 451
+The Vigilant Pin
+	slot misc
+The Pyrotechnic Tote
+Flunkyware
+The Hanger-On Hood
+The Flight of the Monarch
+The Robo-Sandvich
+The Friends Forever Companion Square Badge
+	slot misc
+The Triple A Badge
+	slot misc
+The Heavy Artillery Officer's Cap
+The Combat Medic's Crusher Cap
+The Heroic Companion Badge
+	slot misc
+The Rump-o'-Lantern
+Tour of Duty Badge Intermediate 1
+	slot misc
+Tour of Duty Badge Expert 1
+	slot misc
+The Lacking Moral Fiber Mask
+The Whale Bone Charm
+	slot misc
+The King of Scotland Cape
+	slot misc
+The Menpo
+	slot misc
+The K-9 Mane
+The Stovepipe Sniper Shako
+The Foppish Physician
+	slot misc
+The Distinguished Rogue
+	slot misc
+The Freedom Staff
+	slot melee
+Rust Botkiller Sniper Rifle Mk.I
+	base 0
+Rust Botkiller Minigun Mk.I
+	base 0
+Rust Botkiller Knife Mk.I
+	base 0
+Rust Botkiller Wrench Mk.I
+	base 0
+Rust Botkiller Medi Gun Mk.I
+	base 0
+Rust Botkiller Stickybomb Launcher Mk.I
+	base 0
+Rust Botkiller Flame Thrower Mk.I
+	base 0
+Rust Botkiller Scattergun Mk.I
+	base 0
+Rust Botkiller Rocket Launcher Mk.I
+	base 0
+Blood Botkiller Sniper Rifle Mk.I
+	base 0
+Blood Botkiller Minigun Mk.I
+	base 0
+Blood Botkiller Knife Mk.I
+	base 0
+Blood Botkiller Wrench Mk.I
+	base 0
+Blood Botkiller Medi Gun Mk.I
+	base 0
+Blood Botkiller Stickybomb Launcher Mk.I
+	base 0
+Blood Botkiller Flame Thrower Mk.I
+	base 0
+Blood Botkiller Scattergun Mk.I
+	base 0
+Blood Botkiller Rocket Launcher Mk.I
+	base 0
+Carbonado Botkiller Sniper Rifle Mk.I
+	base 0
+Carbonado Botkiller Minigun Mk.I
+	base 0
+Carbonado Botkiller Knife Mk.I
+	base 0
+Carbonado Botkiller Wrench Mk.I
+	base 0
+Carbonado Botkiller Medi Gun Mk.I
+	base 0
+Carbonado Botkiller Stickybomb Launcher Mk.I
+	base 0
+Carbonado Botkiller Flame Thrower Mk.I
+	base 0
+Carbonado Botkiller Scattergun Mk.I
+	base 0
+Carbonado Botkiller Rocket Launcher Mk.I
+	base 0
+Diamond Botkiller Sniper Rifle Mk.I
+	base 0
+Diamond Botkiller Minigun Mk.I
+	base 0
+Diamond Botkiller Knife Mk.I
+	base 0
+Diamond Botkiller Wrench Mk.I
+	base 0
+Diamond Botkiller Medi Gun Mk.I
+	base 0
+Diamond Botkiller Stickybomb Launcher Mk.I
+	base 0
+Diamond Botkiller Flame Thrower Mk.I
+	base 0
+Diamond Botkiller Scattergun Mk.I
+	base 0
+Diamond Botkiller Rocket Launcher Mk.I
+	base 0
+Sir Hootsalot
+The Master Mind
+The Scarecrow
+The Crone's Dome
+The Executioner
+The Bonedolier
+The Plutonidome
+The Spooky Shoes
+The Spooky Sleeves
+The Zipperface
+The Boo Balloon
+Portal 2 Soundtrack Promo Package
+	slot action
+The Unknown Monkeynaut
+The Grand Duchess Tutu
+The Grand Duchess Fairy Wings
+The Grand Duchess Tiara
+The Ap-Sap
+	slot building
+The Dead Little Buddy
+The Voodoo Juju (Slight Return)
+The Exorcizor
+The Wraith Wrap
+The Coffin Kit
+The Bat Outta Hell
+	slot melee
+Ghostly Gibus
+	slot head
+The Skull Island Topper
+	slot head
+The Cockfighter
+The Hitt Mann Badge
+That '70s Chapeau
+The Chief Constable
+The Siberian Sophisticate
+The Quackenbirdt
+	slot pda2
+The Deadliest Duckling
+The DethKapp
+Nose Candy
+Rail Spikes
+Brock's Locks
+The Saxxy Clapper Badge
+Memory Maker
+	slot melee
+The Tuxxy
+Faerie Solitaire Pin
+Silver Botkiller Sniper Rifle Mk.II
+	base 0
+Silver Botkiller Minigun Mk.II
+	base 0
+Silver Botkiller Knife Mk.II
+	base 0
+Silver Botkiller Wrench Mk.II
+	base 0
+Silver Botkiller Medi Gun Mk.II
+	base 0
+Silver Botkiller Stickybomb Launcher Mk.II
+	base 0
+Silver Botkiller Flame Thrower Mk.II
+	base 0
+Silver Botkiller Scattergun Mk.II
+	base 0
+Silver Botkiller Rocket Launcher Mk.II
+	base 0
+Gold Botkiller Sniper Rifle Mk.II
+	base 0
+Gold Botkiller Minigun Mk.II
+	base 0
+Gold Botkiller Knife Mk.II
+	base 0
+Gold Botkiller Wrench Mk.II
+	base 0
+Gold Botkiller Medi Gun Mk.II
+	base 0
+Gold Botkiller Stickybomb Launcher Mk.II
+	base 0
+Gold Botkiller Flame Thrower Mk.II
+	base 0
+Gold Botkiller Scattergun Mk.II
+	base 0
+Gold Botkiller Rocket Launcher Mk.II
+	base 0
+Tour of Duty Badge Advanced 2
+	slot misc
+The Winter Wonderland Wrap
+The Cut-Throat Concierge
+Der Wintermantel
+	slot misc
+The Cool Breeze
+Soldier's Slope Scopers
+The Cold Killer
+Doc's Holiday
+	slot misc
+The Digit Divulger
+	slot misc
+Tough Stuff Muffs
+Heavy's Hockey Hair
+	slot misc
+The Mutton Mann
+The Merc's Muffler
+The Barnstormer
+The Carl
+Aqua Flops
+The Hunger Force
+Smissmas Wreath
+Antlers
+Mann Co. Online Cap
+	slot head
+Pet Reindoonicorn
+	slot misc
+The Loose Cannon
+The Rescue Ranger
+The Vaccinator
+	slot secondary
+Festive Holy Mackerel
+Festive Axtinguisher
+Festive Buff Banner
+Festive Sandvich
+Festive Ubersaw
+Festive Frontier Justice
+Festive Huntsman
+Festive Ambassador
+Festive Grenade Launcher
+	base 0
+The Prize Plushy
+The Grizzled Growth
+The Last Straw
+Tux
+	slot misc
+The Wilson Weave
+The Ham Shank
+	slot melee
+The Brutal Bouffant
+The Shred Alert
+Buck Turner All-Stars
+Vox Diabolus
+The Pounding Father
+Blind Justice
+The Person in the Iron Mask
+The Doe-Boy
+The Sydney Straw Boat
+The Steel Songbird
+Croft's Crest
+The Fortune Hunter
+The Tomb Wrapper
+Random Droppable Paints Package
+	slot action
+The Samson Skewer
+The Bloodhound
+The Dapper Disguise
+The Necronomicrown
+The Long Fall Loafers
+The TF2VRH
+	slot misc
+The Conspiracy Cap
+	slot head
+The Public Accessor
+	slot head
+Pallet of Crates
+	slot action
+The Breather Bag
+The Weather Master
+The Bacteria Blocker
+MvM GateBot Light Scout
+MvM GateBot Light Pyro
+MvM GateBot Light Medic
+MvM GateBot Light Heavy
+MvM GateBot Light Demoman
+MvM GateBot Light Sniper
+MvM GateBot Light Soldier
+MvM GateBot Light Spy
+MvM GateBot Light Engineer
+Tour of Duty Badge Advanced 3
+	slot misc
+The Grandmaster
+Halloween Unfilled Spellbook
+Halloween Spellbook
+Basic Spellbook
+Gold Frying Pan
+	slot melee
+The Portable Smissmas Spirit Dispenser
+The War on Smissmas Battle Hood
+The War on Smissmas Battle Socks
+The Sack Fulla Smissmas
+The Smissmas Caribou
+Randolph the Blood-Nosed Caribou
+Festive Force-a-Nature
+Festive Crusader's Crossbow
+Festive Sapper
+Festive Flare Gun
+Festive Eyelander
+Festive Jarate
+Festive Gloves of Running Urgently
+Festive Black Box
+Festive Wrangler
+Der Maschinensoldaten-Helm
+Die Regime-Panzerung
+Mister Bubbles
+The Big Daddy
+The First American
+The Fortified Compound
+The Gilded Guard
+The Criminal Cloak
+The Dread Hiding Hood
+The Baronial Badge
+The Little Bear
+The Classic
+	slot primary
+The Tide Turner
+	slot secondary
+The Bread Bite
+	slot melee
+The B.A.S.E. Jumper
+	slot secondary
+The Snack Attack
+The Back Scatter
+	base 0
+The Air Strike
+The Self-Aware Beauty Mark
+	slot secondary
+Square Dance Taunt
+Flippin' Awesome Taunt
+Buy A Life Taunt
+Results Are In Taunt
+RPS Taunt
+Skullcracker Taunt
+Party Trick Taunt
+Fresh Brewed Victory Taunt
+Spent Well Spirits Taunt
+Rancho Relaxo Taunt
+I See You Taunt
+Battin' a Thousand Taunt
+Conga Taunt
+Deep Fried Desire Taunt
+Oblooterated Taunt
+Mutated Milk
+	slot secondary
+Towering Pillar of Summer Shades
+Necro Smasher
+	slot melee
+The Nabler
+	slot misc
+Duck Badge
+	slot action
+The Crossing Guard
+	slot melee
+Powerup Strength
+Powerup Haste
+Powerup Regen
+Powerup Resist
+Powerup Vampire
+Powerup Reflect
+Powerup Precision
+Powerup Agility
+Festive Shotgun 2014
+Festive Revolver 2014
+Festive Bonesaw 2014
+Festive Targe 2014
+Festive Bonk 2014
+Festive Backburner 2014
+Festive SMG 2014
+The Quickiebomb Launcher
+	slot secondary
+The Iron Bomber
+Panic Attack Shotgun
+Powerup Knockout
+TF_WEAPON_PASSTIME_GUN
+	slot utility
+	base 1
+Competitive Matchmaking Beta Pass - Vintage
+Taunt: Kazotsky Kick
+The Finder's Fee
+	slot head
+Powerup King
+Powerup Plague
+Powerup Supernova
+Taunt: Mannrobics
+Civilian Grade JACK Hat
+	slot head
+Competitive Matchmaking Beta Pass
+Competitive Matchmaking Beta Giftable Invite
+Competitive Matchmaking Official
+Taunt: The Carlton
+Military Grade JACK Hat
+	slot head
+PASS Time Miniature Half JACK
+	slot misc
+PASS Time Early Participation Pin
+	slot misc
+quest25000
+quest25001
+quest25002
+quest25003
+quest25004
+quest25005
+quest25006
+quest25007
+quest25008
+quest25009
+quest25010
+quest25011
+quest25012
+quest25013
+quest25014
+quest25015
+quest25016
+quest25017
+quest25018
+quest25019
+quest25020
+quest25021
+quest25022
+quest25023
+quest25024
+quest25025
+quest25026
+quest25027
+quest25028
+quest25029
+quest25030
+quest25031
+quest25032
+quest25033
+quest25034
+quest25035
+quest25036
+quest25037
+quest25038
+quest25039
+quest25040
+quest25041
+quest25042
+quest25043
+quest25044
+quest25045
+quest25046
+quest25047
+quest25048
+quest25049
+quest25050
+quest25051
+quest25052
+Taunt: The Victory Lap
+Unusual Cap
+	slot head
+Taunt: The Table Tantrum
+Taunt: The Boiling Point
+Team Fortress 2 Soundtrack Promo Package
+	slot action
+The Audio File
+The Dragon's Fury
+	slot primary
+The Thermal Thruster
+	slot secondary
+The Gas Passer
+	slot secondary
+The Hot Hand
+	slot melee
+Taunt: Yeti Punch
+Taunt: Yeti Smash
+Gloves of Running Urgently MvM
+	slot melee
+Saxton Hat
+	slot head
+Yeti Park Cap
+	slot head
+Yeti_Head
+Yeti_Legs
+Yeti_Arms
+The Second Banana
+Mercenary Park Cap
+	slot head
+Mannanas Cap
+	slot head
+Never Forget Cap
+	slot head
+Yeti Park Hardhat
+	slot head
+Halloween Contract Package
+	slot action
+concealedkiller_sniperrifle_nightowl
+concealedkiller_smg_woodsywidowmaker
+concealedkiller_scattergun_nightterror
+concealedkiller_shotgun_backwoodsboomstick
+concealedkiller_minigun_kingofthejungle
+concealedkiller_flamethrower_forestfire
+concealedkiller_rocketlauncher_woodlandwarrior
+concealedkiller_sniperrifle_purplerange
+concealedkiller_medigun_maskedmender
+concealedkiller_stickybomblauncher_suddenflurry
+concealedkiller_medigun_wrappedreviver
+concealedkiller_revolver_psychedelicslugger
+concealedkiller_stickybomblauncher_carpetbomber
+concealedkiller_pistol_redrockroscoe
+concealedkiller_rocketlauncher_sandcannon
+craftsmann_scattergun_tartantorpedo
+craftsmann_shotgun_rusticruiner
+craftsmann_flamethrower_barnburner
+craftsmann_pistol_homemadeheater
+craftsmann_sniperrifle_lumberfromdownunder
+craftsmann_minigun_ironwood
+craftsmann_scattergun_countrycrusher
+craftsmann_smg_plaidpotshotter
+craftsmann_sniperrifle_shotinthedark
+craftsmann_stickybomblauncher_blastedbombardier
+craftsmann_medigun_reclaimedreanimator
+craftsmann_minigun_antiqueannihilator
+craftsmann_revolver_oldcountry
+craftsmann_rocketlauncher_americanpastoral
+craftsmann_scattergun_backcountryblaster
+teufort_flamethrower_bovineblazemaker
+teufort_minigun_warroom
+teufort_smg_treadplatetormenter
+teufort_sniperrifle_bogtrotter
+teufort_flamethrower_earthskyandfire
+teufort_pistol_hickoryholepuncher
+teufort_scattergun_sprucedeuce
+teufort_smg_teamsprayer
+teufort_stickybomblauncher_rooftopwrangler
+teufort_medigun_civilservant
+teufort_minigun_citizenpain
+teufort_pistol_localhero
+teufort_revolver_mayor
+teufort_rocketlauncher_smalltownbringdown
+teufort_shotgun_civicduty
+powerhouse_stickybomblauncher_liquidasset
+powerhouse_pistol_blackdahlia
+powerhouse_shotgun_lightningrod
+powerhouse_stickybomblauncher_pinkelephant
+powerhouse_flamethrower_flashfryer
+powerhouse_medigun_sparkoflife
+powerhouse_revolver_deadreckoner
+powerhouse_rocketlauncher_shellshocker
+powerhouse_scattergun_currentevent
+powerhouse_flamethrower_turbinetorcher
+powerhouse_minigun_brickhouse
+powerhouse_pistol_sandstonespecial
+powerhouse_rocketlauncher_aquamarine
+powerhouse_smg_lowprofile
+powerhouse_sniperrifle_thunderbolt
+harvest_pistol_macabreweb
+harvest_pistol_nutcracker
+harvest_revolver_boneyard
+harvest_revolver_wildwood
+harvest_revolver_macabreweb
+harvest_scattergun_macabreweb
+harvest_flamethrower_autumn
+harvest_flamethrower_pumpkinpatch
+harvest_flamethrower_nutcracker
+harvest_scattergun_nutcracker
+harvest_sniperrifle_pumpkinpatch
+harvest_sniperrifle_boneyard
+harvest_sniperrifle_wildwood
+harvest_wrench_nutcracker
+harvest_wrench_autumn
+harvest_wrench_boneyard
+harvest_smg_wildwood
+harvest_grenadelauncher_autumn
+harvest_medigun_wildwood
+harvest_grenadelauncher_macabreweb
+harvest_knife_boneyard
+harvest_rocketlauncher_autumn
+harvest_stickybomblauncher_autumn
+harvest_stickybomblauncher_pumpkinpatch
+harvest_stickybomblauncher_macabreweb
+harvest_shotgun_autumn
+harvest_minigun_macabreweb
+harvest_minigun_pumpkinpatch
+harvest_minigun_nutcracker
+pyroland_flamethrower_balloonicorn
+pyroland_flamethrower_rainbow
+pyroland_grenadelauncher_rainbow
+pyroland_grenadelauncher_sweetdreams
+pyroland_knife_bluemew
+pyroland_knife_braincandy
+pyroland_knife_stabbedtohell
+pyroland_medigun_flowerpower
+pyroland_minigun_braincandy
+pyroland_minigun_mistercuddles
+pyroland_pistol_bluemew
+pyroland_pistol_braincandy
+pyroland_pistol_shottohell
+pyroland_revolver_flowerpower
+pyroland_rocketlauncher_bluemew
+pyroland_rocketlauncher_braincandy
+pyroland_scattergun_bluemew
+pyroland_scattergun_flowerpower
+pyroland_scattergun_shottohell
+pyroland_shotgun_flowerpower
+pyroland_smg_bluemew
+pyroland_sniperrifle_balloonicorn
+pyroland_sniperrifle_rainbow
+pyroland_stickybomblauncher_sweetdreams
+pyroland_wrench_torquedtohell
+gentlemanne_flamethrower_coffinnail
+gentlemanne_grenadelauncher_coffinnail
+gentlemanne_grenadelauncher_topshelf
+gentlemanne_knife_dressedtokill
+gentlemanne_knife_topshelf
+gentlemanne_medigun_coffinnail
+gentlemanne_medigun_dressedtokill
+gentlemanne_medigun_highrollers
+gentlemanne_minigun_coffinnail
+gentlemanne_minigun_dressedtokill
+gentlemanne_minigun_topshelf
+gentlemanne_pistol_dressedtokill
+gentlemanne_revolver_coffinnail
+gentlemanne_revolver_topshelf
+gentlemanne_rocketlauncher_coffinnail
+gentlemanne_rocketlauncher_highrollers
+gentlemanne_scattergun_coffinnail
+gentlemanne_shotgun_coffinnail
+gentlemanne_shotgun_dressedtokill
+gentlemanne_smg_highrollers
+gentlemanne_sniperrifle_coffinnail
+gentlemanne_sniperrifle_dressedtokill
+gentlemanne_stickybomblauncher_coffinnail
+gentlemanne_stickybomblauncher_dressedtokill
+gentlemanne_wrench_dressedtokill
+gentlemanne_wrench_topshelf
+warbird_flamethrower_warhawk
+warbird_grenadelauncher_warhawk
+warbird_knife_blitzkrieg
+warbird_knife_airwolf
+warbird_medigun_blitzkrieg
+warbird_medigun_corsair
+warbird_minigun_butcherbird
+warbird_pistol_blitzkrieg
+warbird_revolver_blitzkrieg
+warbird_rocketlauncher_warhawk
+warbird_scattergun_killerbee
+warbird_shotgun_redbear
+warbird_smg_blitzkrieg
+warbird_sniperrifle_airwolf
+warbird_stickybomblauncher_blitzkrieg
+warbird_wrench_airwolf
+warbird_scattergun_corsair
+warbird_grenadelauncher_butcherbird
+Paintkit
+Paintkit 102
+Paintkit 104
+Paintkit 105
+Paintkit 106
+Paintkit 109
+Paintkit 112
+Paintkit 113
+Paintkit 114
+Paintkit 120
+Paintkit 122
+Paintkit 130
+Paintkit 139
+Paintkit 143
+Paintkit 144
+Paintkit 151
+Paintkit 160
+Paintkit 161
+Paintkit 163
+Paintkit 300
+Paintkit 301
+Paintkit 302
+Paintkit 303
+Paintkit 304
+Paintkit 305
+Paintkit 306
+Paintkit 307
+Paintkit 308
+Paintkit 309
+Paintkit 310
+Paintkit 390
+Paintkit 391
+Paintkit 200
+Paintkit 201
+Paintkit 202
+Paintkit 203
+Paintkit 204
+Paintkit 205
+Paintkit 206
+Paintkit 207
+Paintkit 208
+Paintkit 209
+Paintkit 210
+Paintkit 211
+Paintkit 212
+Paintkit 213
+Paintkit 214
+Paintkit 215
+Paintkit 217
+Paintkit 218
+Paintkit 220
+Paintkit 221
+Paintkit 223
+Paintkit 224
+Paintkit 225
+Paintkit 226
+Paintkit 228
+Paintkit 230
+Paintkit 232
+Paintkit 234
+Warpaint Collection 1 Tier 1 Keyless Case
+Warpaint Collection 1 Tier 2 Keyless Case
+Warpaint Collection 1 Tier 3 Keyless Case
+Warpaint Collection 2 Tier 1 Keyless Case
+Warpaint Collection 2 Tier 2 Keyless Case
+Warpaint Collection 2 Tier 3 Keyless Case
+The Electric Badge-aloo
+Modest Metal Pile of Scrap
+Letch's LED
+The Galvanized Gibus
+Soldered Sensei
+Shooter's Tin Topi
+Noble Nickel Amassment of Hats
+Base Metal Billycock
+Towering Titanium Pillar of Hats
+The Megapixel Beard
+The HDMI Patch
+The Bolted Bombardier
+The Titanium Towel
+The Gridiron Guardian
+Tyrantium Helmet
+Battery Canteens
+The FR-0
+Steel Shako
+The Bot Dogger
+Ye Oiled Baker Boy
+The Scrap Sack
+The Pure Tin Capotain
+Plumber's Pipe
+Teddy Robobelt
+The Cyborg Stunt Helmet
+The Electric Escorter
+Full Metal Drill Hat
+The Bolt Boy
+The Metal Slug
+The Broadband Bonnet
+Bonk Leadwear
+The Plug-In Prospector
+The Rusty Reaper
+Soldier's Sparkplug
+The Bolted Bicorne
+The Timeless Topper
+The Filamental
+The Strontium Stove Pipe
+Firewall Helmet
+Respectless Robo-Glove
+Pyro's Boron Beanie
+Halogen Head Lamp
+Platinum Pickelhaube
+The Virus Doctor
+Texas Tin-Gallon
+Titanium Tyrolean
+Practitioner's Processing Mask
+Bootleg Base Metal Billycock
+Mecha-Medes
+The Tungsten Toque
+The Steam Pipe
+The Data Mining Light
+The Byte'd Beak
+The Googol Glass Eyes
+The Bunsen Brave
+The Scrumpy Strongbox
+The Dual-Core Devil Doll
+The Bolted Birdcage
+The Crosslinker's Coil
+The Beastly Bonnet
+The Cheet Sheet
+The Tartantaloons
+The Steel Sixpack
+The Centurion
+The Tartan Shade
+The Hardy Laurel
+The Brotherhood of Arms
+The Well-Rounded Rifleman
+The Breakneck Baggies
+The Powdered Practitioner
+The Pocket Pyro
+The Cloud Crasher
+The Pom-Pommed Provocateur
+The Dark Age Defender
+The Tyurtlenek
+The Mair Mask
+The Bigg Mann on Campus
+The Cool Cat Cardigan
+Greased Lightning
+The Red Army Robin
+The Heavy-Weight Champ
+The Tsarboosh
+The Glasgow Great Helm
+The Caffeine Cooler
+The Half-Pipe Hurdler
+The Macho Mann
+The Trash Toter
+The Dry Gulch Gulp
+El Muchacho
+The Backpack Broiler
+The Burning Bandana
+The Soot Suit
+The Hive Minder
+The Katyusha
+Das Hazmattenhatten
+Das Feelinbeterbager
+Das Ubersternmann
+Das Metalmeatencasen
+The Pardner's Pompadour
+The Birdman of Australiacatraz
+The Cobber Chameleon
+The Falconer
+Graybanns
+The Black Watch
+The Tartan Spartan
+The Gaelic Golf Bag
+The Borscht Belt
+Das Naggenvatcher
+The Whiskey Bib
+The Stormin' Norman
+The Flared Frontiersman
+The Valley Forge
+The Compatriot
+The Caribbean Conqueror
+The Colonial Clogs
+The Whirly Warrior
+The Federal Casemaker
+The Rebel Rouser
+Das Maddendoktor
+The Bear Necessities
+The Harmburg
+The Gaelic Garb
+The Rogue's Brogues
+The Shogun's Shoulder Guard
+Das Gutenkutteharen
+The Belgian Detective
+The Hornblower
+Lieutenant Bites
+The Brawling Buccaneer
+The Blood Banker
+The After Dark
+The Delinquent's Down Vest
+Wet Works
+Baron von Havenaplane
+Das Fantzipantzen
+The Bolshevik Biker
+The Pampered Pyro
+The Virtual Viewfinder
+The Gabe Glasses
+The Founding Father
+tw_demobot_armor
+tw_demobot_helmet
+tw_engineerbot_armor
+tw_engineerbot_helmet
+tw_heavybot_armor
+tw_heavybot_helmet
+tw_medibot_chariot
+tw_medibot_hat
+tw_pyrobot_armor
+tw_pyrobot_helmet
+tw_scoutbot_armor
+tw_scoutbot_hat
+tw_sniperbot_armor
+tw_sniperbot_helmet
+tw_soldierbot_armor
+tw_soldierbot_helmet
+tw_spybot_armor
+tw_spybot_hood
+tw_sentrybuster
+The Bone Dome
+The Air Raider
+The Viking Braider
+The Cuban Bristle Crisis
+The Beep Boy
+The Special Eyes
+Trickster's Turnout Gear
+The Chronomancer
+The Medical Mystery
+The Gold Digger
+Brim-Full Of Bullets
+The Cotton Head
+Pop-eyes
+Hong Kong Cone
+Weight Room Warmer
+The Hurt Locher
+Pirate Bandana
+Li'l Snaggletooth
+L'homme Burglerre
+Escapist
+The Flapjack
+A Brush with Death
+The Slick Cut
+The Frenchman's Formals
+The Ward
+The Beast From Below
+Hard-Headed Hardware
+Cap'n Calamari
+The Spectralnaut
+Ethereal Hood
+The Maniac's Manacles
+The Second Opinion
+The Pocket Horsemann
+The Last Bite
+The Baphomet Trotters
+Burny's Boney Bonnet
+The Crispy Golden Locks
+The Scorched Skirt
+The Accursed Apparition
+The Hound's Hood
+The Terrier Trousers
+The Horrific Head of Hare
+The Snaggletoothed Stetson
+Up Pyroscopes
+The One-Way Ticket
+The Birdie Bonnet
+The External Organ
+Ivan The Inedible
+The Rugged Respirator
+The Squid's Lid
+The Hollowhead
+Grub Grenades
+The Gothic Guise
+The Grease Monkey
+The Alternative Medicine Mann
+The Cauterizer's Caudal Appendage
+Polly Putrid
+The Faux Manchu
+The Hidden Dragon
+The Lo-Grav Loafers
+The Surgeon's Space Suit
+The Face Plante
+Das Blutliebhaber
+The Trepanabotomizer
+The Sackcloth Spook
+The Mucous Membrain
+Pin Pals
+Medimedes
+The Chicken Kiev
+The Freedom Feathers
+The Headtaker's Hood
+The Transylvania Top
+The Candleer
+The Horsemann's Hand-Me-Down
+Bozo's Bouffant
+Faun Feet
+The Halloweiner
+The Lordly Lapels
+The Cadaver's Capper
+Guano
+The Sprinting Cephalopod
+Unidentified Following Object
+The Beacon from Beyond
+The Hyperbaric Bowler
+The Death Support Pack
+The Carious Chameleon
+The Monster's Stompers
+The Bountiful Bow
+The Candyman's Cap
+The Vicar's Vestments
+The Hardium Helm
+The Jupiter Jumpers
+The Space Bracers
+The Handhunter
+The Spellbinder's Bonnet
+The Macabre Mask
+The Shaman's Skull
+The Vicious Visage
+The Tuque or Treat
+The Horned Honcho
+Lieutenant Bites the Dust
+The Grisly Gumbo
+The Dark Helm
+Archimedes the Undying
+The Monstrous Mandible
+The Shaolin Sash
+The Mann-Bird of Aberdeen
+The Foul Cowl
+Sir Shootsalot
+The Corpsemopolitan
+The Glob
+The Hallowed Headcase
+Carrion Companion
+Quoth
+PY-40 Incinibot
+The Parasight
+Teutonkahmun
+The Larval Lid
+The Manneater
+The Creature From The Heap
+The Magical Mercenary
+The Raven's Visage
+Ramses' Regalia
+The Haunted Hat
+Bozo's Brogues
+The Cryptic Keepsake
+The Abhorrent Appendages
+The Blizzard Breather
+The Sub Zero Suit
+The Dictator
+Neckwear Headwear
+The Trail-Blazer
+Dead of Night
+The Snow Scoper
+The Nunhood
+The Angel of Death
+The Kiss King
+The Slo-Poke
+Minnesota Slick
+The Toy Soldier
+The Five-Month Shadow
+The Mann of Reason
+The Mann of the House
+Chucklenuts
+Tiny Timber
+Face Full of Festive
+The Ruffled Ruprecht
+The Golden Garment
+The Little Drummer Mann
+The Scout Shako
+The Toy Tailor
+The Extra Layer
+The Polar Pullover
+The Dogfighter
+Antarctic Parka
+Runner's Warm-Up
+Highland High Heels
+Tartan Tyrolean
+Marshall's Mutton Chops
+The Trencher's Topper
+The Trencher's Tunic
+Ground Control
+The Killer's Kit
+Stylish DeGroot
+Ein
+The Heavy Lifter
+Gone Commando
+Bullet Buzz
+The Leftover Trap
+The Trash Man
+The Scotch Saver
+Bushi-Dou
+The Fashionable Megalomaniac
+The Dough Puncher
+The Teutonic Toque
+The Mustachioed Mann
+The Backstabber's Boomslang
+The Rat Stompers
+Sole Mate
+The Heat of Winter
+The Dark Falkirk Helm
+The Sole Saviors
+The Huntsman's Essentials
+The Napoleon Complex
+The Colonel's Coat
+The Law
+The Juggernaut Jacket
+The Warmth Preserver
+The Smock Surgeon
+The Sangu Sleeves
+The Cute Suit
+The War Goggles
+The Eliminators Safeguard
+The Archers Groundings
+Combat Slacks
+The Toowoomba Tunic
+The Sammy Cap
+The Deep Cover Operator
+The Ticket Boy
+The Antarctic Researcher
+Heer's Helmet
+The Gaiter Guards
+The Classified Coif
+The Rogue's Robe
+The Spook Specs
+The Sengoku Scorcher
+The Man in Slacks
+The Razor Cut
+The Frickin' Sweet Ninja Hood
+The Southie Shinobi
+The Red Socks
+The Bruiser's Bandanna
+The Gas Guzzler
+The Smoking Skid Lid
+The Lunatic's Leathers
+Yuri's Revenge
+The Tools of the Trade
+The Joe-on-the-Go
+The Aviator Assassin
+The Sky Captain
+The Peacenik's Ponytail
+The Level Three Chin
+The Egghead's Overalls
+The Lonesome Loafers
+Ze Ubermensch
+The Au Courant Assassin
+The Endothermic Exowear
+The Merc's Mohawk
+The Eye-Catcher
+The Medicine Manpurse
+Employee of the Mmmph
+The Frymaster
+The Combustible Kabuto
+The Chronoscarf
+The Danger
+The Frontier Djustice
+Vive La France
+The Scoper's Smoke
+The Triggerman's Tacticals
+Tipped Lid
+The Paisley Pro
+The Argyle Ace
+The Pomade Prince
+The Allbrero
+Seeing Double
+Six Pack Abs
+The Spycrab
+Horace
+The Biomech Backpack
+The Alien Cranium
+The Xeno Suit
+The MK 50
+The Nostromo Napalmer
+	slot primary
+The Mishap Mercenary
+The Lady Killer
+The Lone Survivor
+Poacher's Safari Jacket
+Thirst Blood
+Mann of the Seven Sees
+Hillbilly Speed-Bump
+The Unshaved Bear
+Pocket Heavy
+The Dadliest Catch
+Herzensbrecher
+Hundekopf
+Kriegsmaschine-9000
+Transylvanian Toupe
+Vampiric Vesture
+Nugget Noggin
+Fowl Fists
+Talon Trotters
+Head Hunter
+Claws And Infect
+Crazy Legs
+Ghost of Spies Checked Past
+The Hooded Haunter
+Conspiratorial Cut
+Skinless Slashers
+Marsupial Man
+Kanga Kickers
+Roo Rippers
+Marsupial Muzzle
+Shadowman's Shade
+Nightmare Hunter
+Rogue's Rabbit
+Iron Fist
+Beep Man
+Soul of 'Spenser's Past
+Tiny Texan
+Facepeeler
+Mr. Mundee's Wild Ride
+Templar's Spirit
+Wings of Purity
+Forgotten King's Restless Head
+Forgotten King's Pauldrons
+Eyeborg
+Explosive Mind
+Ghoul Gibbin' Gear
+Hellhunter's Headpiece
+Supernatural Stalker
+Garden Bristles
+Battle Bird
+Creature's Grin
+Arsonist Apparatus
+Moccasin Machinery
+Lollichop Licker
+Mr. Juice
+Vampyro
+Bone-Cut Belt
+Bull Locks
+Minsk Beef
+Immobile Suit
+Kritz Or Treat Canteen
+Cursed Cruise
+EOTL_Skier
+EOTL_Insulated_innovator
+EOTL_blinks_breeches
+EOTL_demo_dynamite
+EOTL_Brisk-weather Beanie
+EOTL_winter_pants
+EOTL_pyro_sweater
+EOTL_Flat_cap
+EOTL_FURCAP
+EOTL_summerhat
+EOTL_soldier_garrison
+EOTL_hiphunter_hat
+EOTL_hiphunter_jacket
+EOTL_hiphunter_boots
+EOTL_thermal_sleeves
+EOTL_soldierhat
+EOTL_beard
+EOTL_demopants
+EOTL_Ursa Major
+EOTL_sheavyshirt
+EOTL_Coldfront Curbstompers
+End of the Line Community Update Medal
+The Bootenkhamuns
+Jungle Booty
+Orion's Belt
+The Crown of the Old Kingdom
+The Tomb Readers
+Pool Party Taunt
+Brimstone
+Taunt: The Boston Breakdance
+dec2014 Marauders Mask
+dec2014 Truands Tunic
+dec2014 Fools Footwear
+dec2014 CoPilot_2014
+dec2014 Skullcap
+dec2014 2014_pyromancer_hood
+dec2014 Pyromancer's Raiments
+dec2014 Black Knights Bascinet
+dec2014 Torchers Tabard
+dec2014 Armoured Appendages
+dec2014 Viking Helmet
+dec2014 Viking Boots
+dec2014 heavy_parka
+dec2014 The Big Papa
+dec2014 engineer_detectiveholster
+dec2014 engineer_detectiveradio
+dec2014 engineer_detectiveglasses
+dec2014 engineer_seal
+dec2014 medic_unknown_mann
+dec2014 Surgeon's Shako
+dec2014 hunter_beard
+dec2014 hunter_ushanka
+dec2014 hunter_vest
+dec2014 Wally Pocket
+eotl_winter_coat
+dec2014 The Puffy Provocateur
+dec2014 Stealthy Scarf
+dec2014 Comforter
+dec2014 Thermal Insulation Layer
+dec2014 Pocket Momma
+The Pocket Raiders
+Taunt: The Killer Solo
+Taunt: Most Wanted
+Taunt: The Boxtrot
+Taunt: The Proletariat Showoff
+Taunt: Bucking Bronco
+Taunt: Burstchester
+The Rotation Sensation
+The Physician's Protector
+The Vascular Vestment
+Bruce's Bonnet
+Outta' Sight
+Support Spurs
+Lurker's Leathers
+Commissar's Coat
+Sheriff's Stetson
+Wild West Waistcoat
+Fortunate Son
+Flak Jack
+Captain Cardbeard Cutthroat
+Potassium Bonnett
+White Russian
+El Duderino
+Captain Space Mann
+Phononaut
+Corona Australis
+Final Frontiersman
+Starduster
+The Graylien
+Phobos Filter
+Sucker Slug
+Life Support System
+Rocket Operator
+Universal Translator
+Cadet Visor
+A Head Full of Hot Air
+Jupiter Jetpack
+The Space Diver
+Shooting Star
+The C.A.P.P.E.R
+Batsaber
+The Giger Counter
+Space Hamster Hammy
+Invasion Community Update Medal
+Taunt: True Scotsman's Call
+Taunt: Zoomin' Broom
+Taunt: Soldier's Requiem
+Roboot
+The Face of Mercy
+El Caballero
+El Patron
+Smokey Sombrero
+Neptune's Nightmare
+Thrilling Tracksuit
+Death Racer's Helmet
+Grim Tweeter
+Iron Lung
+Duck Billed Hatypus
+Prehistoric Pullover
+Catastrophic Companions
+Dead'er Alive
+The Hellmet
+Crusader's Getup
+Arthropod's Aspect
+B'aaarrgh-n-Bicorne
+B'aaarrgh-n-Britches
+Arkham Cowl
+The Firefly
+Batter's Bracers
+The Hood of Sorrows
+Fear Monger
+Pocket Villains
+The Caped Crusader
+Buttler
+Teufort Knight
+Sidekick's Side Slick
+The Bat Backup
+Crook Combatant
+Batbelt
+Promo Fear Monger
+Promo Arkham Cowl
+Promo The Firefly
+Shin Shredders
+The Patriot Peak
+The Diplomat
+Siberian Sweater
+A Well Wrapped Hat
+The Gift Bringer
+The Chill Chullo
+Winter Backup
+Medical Monarch
+Bonk Batter's Backup
+Chicago Overcoat
+A Hat to Kill For
+Hot Heels
+Berlin Brain Bowl
+Bunnyhopper's Ballistics Vest
+Prinny Pouch
+Prinny Machete
+	slot melee
+Prinny Hat
+Taunt: The Fubar Fanfare
+Taunt: Disco Fever
+Taunt: The Balloonibouncer
+The Airdog
+Bedouin Bandana
+Herald's Helm
+Courtly Cuirass
+Squire's Sabatons
+The Surgical Survivalist
+The Dead Head
+The Lurking Legionnaire
+The Dayjogger
+The Patriot's Pouches
+Dad Duds
+The Gauzed Gaze
+The Demo's Dustcatcher
+The Scoped Spartan
+Colossal Cranium
+Aerobatics Demonstrator
+Final Frontier Freighter
+Hovering Hotshot
+The Toadstool Topper
+Showstopper
+Big Topper
+Combustible Cutie
+The Cranial Carcharodon
+Spooktacles
+Heavy Tourism
+The El Paso Poncho
+The Wide-Brimmed Bandito
+The Corpus Christi Cranium
+Spirit of the Bombing Past
+Class Crown
+The Wing Mann
+Nasty Norsemann
+Pestering Jester
+Mo'Horn
+The Surgeon's Sidearms
+Lil' Bitey
+Mad Mask
+Taunt: Second Rate Sorcery
+Burly Beast
+Socked and Loaded
+Flammable Favor
+Snowwing
+Packable Provisions
+Handy Canes
+Bomb Beanie
+The Electric Twanger
+Santarchimedes
+Sweet Smissmas Sweater
+Brain-Warming Wear
+The Snowmann
+The Bomber Knight
+Reader's Choice
+Woolen Warmer
+Pyro the Flamedeer
+Elf Esteem
+The Head Prize
+Taunt: Didgeridrongo
+Taunt: Scotsmann's Stagger
+Taunt: The Dueling Banjo
+Taunt: The Russian Arms Race
+Taunt: The Soviet Strongarm
+Taunt: The Jumping Jack
+Plumber's Cap
+The Upgrade
+Pocket Pauling
+Flakcatcher
+Down Under Duster
+Guilden Guardian
+Hawk Eyed Hunter
+Airtight Arsonist
+Field Practice
+Blast Defense
+Warhood
+The Lightning Lid
+Legendary Lid
+Messenger's Mail Bag
+Flash of Inspiration
+Head Mounted Double Observatory
+Airborne Attire
+Archer's Sterling
+Speedster's Spandex
+Taunt: The Headcase
+The Hunter in Darkness
+Quizzical Quetzal
+The Aztec Warrior
+Pocket Saxton
+The Croaking Hazard
+Jungle Wreath
+The Slithering Scarf
+Aloha Apparel
+The Nuke
+Bananades
+The War Eagle
+Jungle Jersey
+Transparent Trousers
+Forest Footwear
+The Cammy Jammies
+The Conspicuous Camouflage
+The Classy Capper
+The Most Dangerous Mane
+Rifleman's Regalia
+Attack Packs
+The Shellmet
+Sharp Chest Pain
+The Crit Cloak
+Fireman's Essentials
+D-eye-monds
+Deity's Dress
+Feathered Fiend
+Sacrificial Stone
+The Hot Huaraches
+Vitals Vest
+Battle Boonie
+Conaghers' Utility Idol
+Tropical Toad
+Heavy Harness
+Fat Man's Field Cap
+Commando Elite
+Siberian Tigerstripe
+The Aztec Aggressor
+The Pithy Professional
+Bait and Bite
+Taunt: The Trackman's Touchdown
+Taunt: Surgeon's Squeezebox
+Taunt: The Skating Scorcher
+Taunt: The Bunnyhopper
+Taunt: Runner's Rhythm
+Taunt: Luxury Lounge
+Sledder's Sidekick
+Balloonihoodie
+Pocket Yeti
+Trucker's Topper
+Burning Beanie
+The Cat's Pajamas
+Coldfront Commander
+Coldfront Carapace
+Blast Blocker
+Hungover Hero
+The Handsome Hitman
+Puffy Polar Cap
+The Sinner's Shade
+Wild West Whiskers
+Polar Bear
+Brass Bucket
+Down Tundra Coat
+Pocket Santa
+Melody Of Misery
+The Caribou Companion
+Robin Walkers
+The Tundra Top
+Antarctic Eyewear
+The Head Hedge
+The Frag Proof Fragger
+Tsar Platinum
+Starboard Crusader
+Scourge of the Sky
+Veterans Attire
+Sky High Fly Guy
+Private Maggot Muncher
+The Hot Case
+The Burning Question
+Aristotle
+Assassin's Attire
+Wipe Out Wraps
+Blizzard Britches
+The Cold Case
+Punk's Pomp
+TournamentMedal - GWJ Winners
+TournamentMedal - GWJ Runnerups
+TournamentMedal - GWJ Participants
+TournamentMedal - ETF2LHL Winners
+TournamentMedal - ETF2LHL 2nd
+TournamentMedal - ETF2LHL 3rd
+TournamentMedal - ETF2LHL Participants
+TournamentMedal - UGCHL Participants
+TournamentMedal - UGCHLDiv1 Winners
+TournamentMedal - UGCHLDiv1 2nd
+TournamentMedal - UGCHLDiv1 3rd
+TournamentMedal - UGCHLDiv2 Winners
+TournamentMedal - UGCHLDiv2 2nd
+TournamentMedal - UGCHLDiv2 3rd
+TournamentMedal - UGCHLDiv3 Winners
+TournamentMedal - UGCHLDiv3 2nd
+TournamentMedal - UGCHLDiv3 3rd
+UGC Tournament Fall 2011 - Platinum 1st Place
+UGC Tournament Fall 2011 - Platinum 2nd Place
+UGC Tournament Fall 2011 - Platinum 3rd Place
+UGC Tournament Fall 2011 - Platinum Participant
+UGC Tournament Autumn 2011 - Euro Platinum
+UGC Tournament Fall 2011 - Silver 1st Place
+UGC Tournament Fall 2011 - Silver 2nd Place
+UGC Tournament Fall 2011 - Silver 3rd Place
+UGC Tournament Fall 2011 - Silver Participant
+UGC Tournament Autumn 2011 - Euro Silver
+UGC Tournament Fall 2011 - Iron 2nd Place
+UGC Tournament Fall 2011 - Iron 1st Place
+UGC Tournament Fall 2011 - Iron 3rd Place
+UGC Tournament Autumn 2011 - Euro Iron
+UGC Tournament Fall 2011 - Tin 1st Place
+UGC Tournament Fall 2011 - Tin 2nd Place
+UGC Tournament Fall 2011 - Tin 3rd Place
+UGC Tournament Fall 2011 - Participant
+UGC Tournament Autumn 2011 - Euro Participant
+The Map Maker's Medallion
+UGC Highlander 1st Place North American Platinum Season 6
+UGC Highlander 2nd Place North American Platinum Season 6
+UGC Highlander 3rd Place North American Platinum Season 6
+UGC Highlander 1st Place European Platinum Season 6
+UGC Highlander 2nd Place European Platinum Season 6
+UGC Highlander 3rd Place European Platinum Season 6
+UGC Highlander 1st Place South American Platinum Season 6
+UGC Highlander 2nd Place South American Platinum Season 6
+UGC Highlander 3rd Place South American Platinum Season 6
+UGC Highlander 1st Place North American Silver Season 6
+UGC Highlander 2nd Place North American Silver Season 6
+UGC Highlander 3rd Place North American Silver Season 6
+UGC Highlander 1st Place European Silver Season 6
+UGC Highlander 2nd Place European Silver Season 6
+UGC Highlander 3rd Place European Silver Season 6
+UGC Highlander 1st Place North American Steel Season 6
+UGC Highlander 2nd Place North American Steel Season 6
+UGC Highlander 3rd Place North American Steel Season 6
+UGC Highlander 1st Place European Steel Season 6
+UGC Highlander 2nd Place European Steel Season 6
+UGC Highlander 3rd Place European Steel Season 6
+UGC Highlander 1st Place South American Steel Season 6
+UGC Highlander 2nd Place South American Steel Season 6
+UGC Highlander 3rd Place South American Steel Season 6
+UGC Highlander Platinum Participant Season 6
+UGC Highlander Silver Participant Season 6
+UGC Highlander Steel Participant Season 6
+ESL Season VI Premier Division 1st Place
+ESL Season VI Premier Division 2nd Place
+ESL Season VI Premier Division 3rd Place
+ESL Season VI Premier Division Participant
+ESL Season VI Division 1 1st Place
+ESL Season VI Division 1 2nd Place
+ESL Season VI Division 1 3rd Place
+ESL Season VI Division 1 Participant
+ESL Season VI Division 2 1st Place
+ESL Season VI Division 2 2nd Place
+ESL Season VI Division 2 3rd Place
+ESL Season VI Division 2 Participant
+ESL Season VI Division 3 1st Place
+ESL Season VI Division 3 2nd Place
+ESL Season VI Division 3 3rd Place
+ESL Season VI Division 3 Participant
+ESL Season VI Division 4 1st Place
+ESL Season VI Division 4 2nd Place
+ESL Season VI Division 4 3rd Place
+ESL Season VI Division 4 Participant
+ESL Season VI Division 5 1st Place
+ESL Season VI Division 5 2nd Place
+ESL Season VI Division 5 3rd Place
+ESL Season VI Division 5 Participant
+ESL Season VII Premiership Division 1st Place
+ESL Season VII Premiership Division 2nd Place
+ESL Season VII Premiership Division 3rd Place
+ESL Season VII Premiership Division Participant
+ESL Season VII Division 1 1st Place
+ESL Season VII Division 1 2nd Place
+ESL Season VII Division 1 3rd Place
+ESL Season VII Division 2 1st Place
+ESL Season VII Division 2 2nd Place
+ESL Season VII Division 2 Participant
+ESL Season VII Division 3 Participant
+ESL Season VII Division 4 1st Place
+ESL Season VII Division 4 2nd Place
+ESL Season VII Division 4 3rd Place
+ESL Season VII Division 4 Participant
+ESL Season VII Division 5 1st Place
+ESL Season VII Division 5 2nd Place
+ESL Season VII Division 5 3rd Place
+ESL Season VII Division 5 Participant
+Ready Steady Pan Participant Season 1
+Ready Steady Pan Helper Season 1
+ETF2L 6v6 Premier Division Gold Medal Season 8
+ETF2L 6v6 Premier Division Silver Medal Season 8
+ETF2L 6v6 Premier Division Bronze Medal Season 8
+ETF2L 6v6 Premier Division Gold Medal Season 9
+ETF2L 6v6 Premier Division Silver Medal Season 9
+ETF2L 6v6 Premier Division Bronze Medal Season 9
+ETF2L 6v6 Premier Division Gold Medal Season 10
+ETF2L 6v6 Premier Division Silver Medal Season 10
+ETF2L 6v6 Premier Division Bronze Medal Season 10
+ETF2L 6v6 Premier Division Gold Medal Season 11
+ETF2L 6v6 Premier Division Silver Medal Season 11
+ETF2L 6v6 Premier Division Bronze Medal Season 11
+ETF2L 6v6 Premier Division Gold Medal Season 12
+ETF2L 6v6 Premier Division Silver Medal Season 12
+ETF2L 6v6 Premier Division Bronze Medal Season 12
+ETF2L 6v6 Premier Division Gold Medal Season 13
+ETF2L 6v6 Premier Division Silver Medal Season 13
+ETF2L 6v6 Premier Division Bronze Medal Season 13
+ETF2L 6v6 Division 1 Group Winner Season 8
+ETF2L 6v6 Division 2 Group Winner Season 8
+ETF2L 6v6 Division 3 Group Winner Season 8
+ETF2L 6v6 Division 4 Group Winner Season 8
+ETF2L 6v6 Division 5 Group Winner Season 8
+ETF2L 6v6 Division 6 Group Winner Season 8
+ETF2L 6v6 Division 1 Group Winner Season 9
+ETF2L 6v6 Division 2 Group Winner Season 9
+ETF2L 6v6 Division 3 Group Winner Season 9
+ETF2L 6v6 Division 4 Group Winner Season 9
+ETF2L 6v6 Division 5 Group Winner Season 9
+ETF2L 6v6 Division 6 Group Winner Season 9
+ETF2L 6v6 Division 1 Group Winner Season 10
+ETF2L 6v6 Division 2 Group Winner Season 10
+ETF2L 6v6 Division 3 Group Winner Season 10
+ETF2L 6v6 Division 4 Group Winner Season 10
+ETF2L 6v6 Division 5 Group Winner Season 10
+ETF2L 6v6 Division 6 Group Winner Season 10
+ETF2L 6v6 Division 1 Group Winner Season 11
+ETF2L 6v6 Division 2 Group Winner Season 11
+ETF2L 6v6 Division 3 Group Winner Season 11
+ETF2L 6v6 Division 4 Group Winner Season 11
+ETF2L 6v6 Division 5 Group Winner Season 11
+ETF2L 6v6 Division 6 Group Winner Season 11
+ETF2L 6v6 Division 1 Group Winner Season 12
+ETF2L 6v6 Division 2 Group Winner Season 12
+ETF2L 6v6 Division 3 Group Winner Season 12
+ETF2L 6v6 Division 4 Group Winner Season 12
+ETF2L 6v6 Division 5 Group Winner Season 12
+ETF2L 6v6 Division 6 Group Winner Season 12
+ETF2L 6v6 Division 1 Group Winner Season 13
+ETF2L 6v6 Division 2 Group Winner Season 13
+ETF2L 6v6 Division 3 Group Winner Season 13
+ETF2L 6v6 Division 4 Group Winner Season 13
+ETF2L 6v6 Division 5 Group Winner Season 13
+ETF2L 6v6 Division 6 Group Winner Season 13
+ETF2L 6v6 Premier Division Participation Medal Season 8
+ETF2L 6v6 Division 1 Participation Medal Season 8
+ETF2L 6v6 Division 2 Participation Medal Season 8
+ETF2L 6v6 Division 3 Participation Medal Season 8
+ETF2L 6v6 Division 4 Participation Medal Season 8
+ETF2L 6v6 Division 5 Participation Medal Season 8
+ETF2L 6v6 Division 6 Participation Medal Season 8
+ETF2L 6v6 Premier Division Participation Medal Season 9
+ETF2L 6v6 Division 1 Participation Medal Season 9
+ETF2L 6v6 Division 2 Participation Medal Season 9
+ETF2L 6v6 Division 3 Participation Medal Season 9
+ETF2L 6v6 Division 4 Participation Medal Season 9
+ETF2L 6v6 Division 5 Participation Medal Season 9
+ETF2L 6v6 Division 6 Participation Medal Season 9
+ETF2L 6v6 Premier Division Participation Medal Season 10
+ETF2L 6v6 Division 1 Participation Medal Season 10
+ETF2L 6v6 Division 2 Participation Medal Season 10
+ETF2L 6v6 Division 3 Participation Medal Season 10
+ETF2L 6v6 Division 4 Participation Medal Season 10
+ETF2L 6v6 Division 5 Participation Medal Season 10
+ETF2L 6v6 Division 6 Participation Medal Season 10
+ETF2L 6v6 Premier Division Participation Medal Season 11
+ETF2L 6v6 Division 1 Participation Medal Season 11
+ETF2L 6v6 Division 2 Participation Medal Season 11
+ETF2L 6v6 Division 3 Participation Medal Season 11
+ETF2L 6v6 Division 4 Participation Medal Season 11
+ETF2L 6v6 Division 5 Participation Medal Season 11
+ETF2L 6v6 Division 6 Participation Medal Season 11
+ETF2L 6v6 Premier Division Participation Medal Season 12
+ETF2L 6v6 Division 1 Participation Medal Season 12
+ETF2L 6v6 Division 2 Participation Medal Season 12
+ETF2L 6v6 Division 3 Participation Medal Season 12
+ETF2L 6v6 Division 4 Participation Medal Season 12
+ETF2L 6v6 Division 5 Participation Medal Season 12
+ETF2L 6v6 Division 6 Participation Medal Season 12
+ETF2L 6v6 Premier Division Participation Medal Season 13
+ETF2L 6v6 Division 1 Participation Medal Season 13
+ETF2L 6v6 Division 2 Participation Medal Season 13
+ETF2L 6v6 Division 3 Participation Medal Season 13
+ETF2L 6v6 Division 4 Participation Medal Season 13
+ETF2L 6v6 Division 5 Participation Medal Season 13
+ETF2L 6v6 Division 6 Participation Medal Season 13
+ETF2L Highlander Division 1 Gold Medal Season 1
+ETF2L Highlander Division 1 Silver Medal Season 1
+ETF2L Highlander Division 1 Bronze Medal Season 1
+ETF2L Highlander Division 1 Gold Medal Season 2
+ETF2L Highlander Division 1 Silver Medal Season 2
+ETF2L Highlander Division 1 Bronze Medal Season 2
+ETF2L Highlander Premier Division Gold Medal Season 3
+ETF2L Highlander Premier Division Silver Medal Season 3
+ETF2L Highlander Premier Division Bronze Medal Season 3
+ETF2L Highlander Division 2 Group Winner Season 1
+ETF2L Highlander Division 3 Group Winner Season 1
+ETF2L Highlander Division 4 Group Winner Season 1
+ETF2L Highlander Division 5 Group Winner Season 1
+ETF2L Highlander Division 6 Group Winner Season 1
+ETF2L Highlander Division 2 Group Winner Season 2
+ETF2L Highlander Division 3 Group Winner Season 2
+ETF2L Highlander Division 4 Group Winner Season 2
+ETF2L Highlander Division 5 Group Winner Season 2
+ETF2L Highlander Division 6 Group Winner Season 2
+ETF2L Highlander Division 1 Group Winner Season 3
+ETF2L Highlander Division 2 Group Winner Season 3
+ETF2L Highlander Division 3 Group Winner Season 3
+ETF2L Highlander Division 4 Group Winner Season 3
+ETF2L Highlander Division 5 Group Winner Season 3
+ETF2L Highlander Division 6 Group Winner Season 3
+ETF2L Highlander Division 1 Participation Medal Season 1
+ETF2L Highlander Division 2 Participation Medal Season 1
+ETF2L Highlander Division 3 Participation Medal Season 1
+ETF2L Highlander Division 4 Participation Medal Season 1
+ETF2L Highlander Division 5 Participation Medal Season 1
+ETF2L Highlander Division 6 Participation Medal Season 1
+ETF2L Highlander Division 1 Participation Medal Season 2
+ETF2L Highlander Division 2 Participation Medal Season 2
+ETF2L Highlander Division 3 Participation Medal Season 2
+ETF2L Highlander Division 4 Participation Medal Season 2
+ETF2L Highlander Division 5 Participation Medal Season 2
+ETF2L Highlander Division 6 Participation Medal Season 2
+ETF2L Highlander Premier Division Participation Medal Season 3
+ETF2L Highlander Division 1 Participation Medal Season 3
+ETF2L Highlander Division 2 Participation Medal Season 3
+ETF2L Highlander Division 3 Participation Medal Season 3
+ETF2L Highlander Division 4 Participation Medal Season 3
+ETF2L Highlander Division 5 Participation Medal Season 3
+ETF2L Highlander Division 6 Participation Medal Season 3
+ETF2L Ultiduo 1 Gold Medal
+ETF2L Ultiduo 2 Gold Medal
+ETF2L Ultiduo 3 Gold Medal
+ETF2L Ultiduo 4 Gold Medal
+ESH Ultiduo 1 Gold Medal
+ESH Ultiduo 2 Gold Medal
+ESH Ultiduo 3 Gold Medal
+ESH Ultiduo 4 Gold Medal
+ESH Ultiduo 5 Gold Medal
+ESH Ultiduo 6 Gold Medal
+ESH Ultiduo 7 Gold Medal
+Tournament Medal (Armory)
+UGC Highlander 1st Place Platinum Season 8
+UGC Highlander 2nd Place Platinum Season 8
+UGC Highlander 3rd Place Platinum Season 8
+UGC Highlander 1st Place Silver Season 8
+UGC Highlander 2nd Place Silver Season 8
+UGC Highlander 3rd Place Silver Season 8
+UGC Highlander 1st Place Steel Season 8
+UGC Highlander 2nd Place Steel Season 8
+UGC Highlander 3rd Place Steel Season 8
+UGC Highlander 1st Place Iron Season 8
+UGC Highlander 2nd Place Iron Season 8
+UGC Highlander 3rd Place Iron Season 8
+UGC Highlander 1st Place Season 8
+UGC Highlander 2nd Place Season 8
+UGC Highlander 3rd Place Season 8
+UGC Highlander Platinum Participant Season 8
+UGC Highlander Silver Participant Season 8
+UGC Highlander Steel Participant Season 8
+UGC Highlander Participant Season 8
+Ready Steady Pan First Place Season 2
+Ready Steady Pan Second Place Season 2
+Ready Steady Pan Third Place Season 2
+Ready Steady Pan Participant Season 2
+Ready Steady Pan Helper Season 2
+UGC Highlander 1st Place Platinum Season 9
+UGC Highlander 2nd Place Platinum Season 9
+UGC Highlander 3rd Place Platinum Season 9
+UGC Highlander 1st Place Gold Season 9
+UGC Highlander 2nd Place Gold Season 9
+UGC Highlander 3rd Place Gold Season 9
+UGC Highlander 1st Place Silver Season 9
+UGC Highlander 2nd Place Silver Season 9
+UGC Highlander 3rd Place Silver Season 9
+UGC Highlander 1st Place Steel Season 9
+UGC Highlander 2nd Place Steel Season 9
+UGC Highlander 3rd Place Steel Season 9
+UGC Highlander 1st Place Iron Season 9
+UGC Highlander 2nd Place Iron Season 9
+UGC Highlander 3rd Place Iron Season 9
+UGC Highlander 1st Place Season 9
+UGC Highlander 2nd Place Season 9
+UGC Highlander 3rd Place Season 9
+UGC Highlander Platinum Participant Season 9
+UGC Highlander Gold Participant Season 9
+UGC Highlander Silver Participant Season 9
+UGC Highlander Steel Participant Season 9
+UGC Highlander Iron Participant Season 9
+UGC 6vs6 Platinum Participant Season 11
+UGC 6vs6 Silver Participant Season 11
+UGC 6vs6 Steel Participant Season 11
+UGC 6vs6 European Participant Season 11
+ETF2L 6v6 Premier Division Gold Medal Season 14
+ETF2L 6v6 Premier Division Silver Medal Season 14
+ETF2L 6v6 Premier Division Bronze Medal Season 14
+ETF2L 6v6 Division 1 Group Winner Season 14
+ETF2L 6v6 Division 2 Group Winner Season 14
+ETF2L 6v6 Division 3 Group Winner Season 14
+ETF2L 6v6 Division 4 Group Winner Season 14
+ETF2L 6v6 Division 5 Group Winner Season 14
+ETF2L 6v6 Division 6 Group Winner Season 14
+ETF2L 6v6 Premier Division Participation Medal Season 14
+ETF2L 6v6 Division 1 Participation Medal Season 14
+ETF2L 6v6 Division 2 Participation Medal Season 14
+ETF2L 6v6 Division 3 Participation Medal Season 14
+ETF2L 6v6 Division 4 Participation Medal Season 14
+ETF2L 6v6 Division 5 Participation Medal Season 14
+ETF2L 6v6 Division 6 Participation Medal Season 14
+ETF2L Highlander Premier Division Gold Medal Season 4
+ETF2L Highlander Premier Division Silver Medal Season 4
+ETF2L Highlander Premier Division Bronze Medal Season 4
+ETF2L Highlander Division 1 Group Winner Season 4
+ETF2L Highlander Division 2 Group Winner Season 4
+ETF2L Highlander Division 3 Group Winner Season 4
+ETF2L Highlander Division 4 Group Winner Season 4
+ETF2L Highlander Division 5 Group Winner Season 4
+ETF2L Highlander Division 6 Group Winner Season 4
+ETF2L Highlander Premier Division Participation Medal Season 4
+ETF2L Highlander Division 1 Participation Medal Season 4
+ETF2L Highlander Division 2 Participation Medal Season 4
+ETF2L Highlander Division 3 Participation Medal Season 4
+ETF2L Highlander Division 4 Participation Medal Season 4
+ETF2L Highlander Division 5 Participation Medal Season 4
+ETF2L Highlander Division 6 Participation Medal Season 4
+ETF2L 6v6 Premier Division Gold Medal Season 15
+ETF2L 6v6 Premier Division Silver Medal Season 15
+ETF2L 6v6 Premier Division Bronze Medal Season 15
+ETF2L 6v6 Division 1 Group Winner Season 15
+ETF2L 6v6 Division 2 Group Winner Season 15
+ETF2L 6v6 Division 3 Group Winner Season 15
+ETF2L 6v6 Division 4 Group Winner Season 15
+ETF2L 6v6 Division 5 Group Winner Season 15
+ETF2L 6v6 Division 6 Group Winner Season 15
+ETF2L 6v6 Premier Division Participation Medal Season 15
+ETF2L 6v6 Division 1 Participation Medal Season 15
+ETF2L 6v6 Division 2 Participation Medal Season 15
+ETF2L 6v6 Division 3 Participation Medal Season 15
+ETF2L 6v6 Division 4 Participation Medal Season 15
+ETF2L 6v6 Division 5 Participation Medal Season 15
+ETF2L 6v6 Division 6 Participation Medal Season 15
+ETF2L 6v6 Premier Division Gold Medal Season 16
+ETF2L 6v6 Premier Division Silver Medal Season 16
+ETF2L 6v6 Premier Division Bronze Medal Season 16
+ETF2L 6v6 Division 1 Group Winner Season 16
+ETF2L 6v6 Division 2 Group Winner Season 16
+ETF2L 6v6 Division 3 Group Winner Season 16
+ETF2L 6v6 Division 4 Group Winner Season 16
+ETF2L 6v6 Division 5 Group Winner Season 16
+ETF2L 6v6 Division 6 Group Winner Season 16
+ETF2L 6v6 Premier Division Participation Medal Season 16
+ETF2L 6v6 Division 1 Participation Medal Season 16
+ETF2L 6v6 Division 2 Participation Medal Season 16
+ETF2L 6v6 Division 3 Participation Medal Season 16
+ETF2L 6v6 Division 4 Participation Medal Season 16
+ETF2L 6v6 Division 5 Participation Medal Season 16
+ETF2L 6v6 Division 6 Participation Medal Season 16
+OWL 10 Premier Division First Place
+OWL 10 Premier Division Second Place
+OWL 10 Premier Division Third Place
+OWL 10 Premier Division Participant
+OWL 10 Division 2 First Place
+OWL 10 Division 2 Second Place
+OWL 10 Division 2 Third Place
+OWL 10 Division 2 Participant
+OWL 10 Division 3 First Place
+OWL 10 Division 3 Second Place
+OWL 10 Division 3 Third Place
+OWL 10 Division 3 Participant
+OWL 10 Division 4 First Place
+OWL 10 Division 4 Second Place
+OWL 10 Division 4 Third Place
+OWL 10 Division 4 Participant
+OWL 10 Division 5 First Place
+OWL 10 Division 5 Second Place
+OWL 10 Division 5 Third Place
+OWL 10 Division 5 Participant
+OWL 10 Division 6 First Place
+OWL 10 Division 6 Second Place
+OWL 10 Division 6 Third Place
+OWL 10 Division 6 Participant
+AU Highlander Community League First Place Season 1
+AU Highlander Community League Second Place Season 1
+AU Highlander Community League Third Place Season 1
+AU Highlander Community League Participant Season 1
+Heart of Gold
+UGC Highlander 1st Place Platinum Season 11
+UGC Highlander 2nd Place Platinum Season 11
+UGC Highlander 3rd Place Platinum Season 11
+UGC Highlander Platinum Participant Season 11
+UGC Highlander 1st Place Gold Season 11
+UGC Highlander 2nd Place Gold Season 11
+UGC Highlander 3rd Place Gold Season 11
+UGC Highlander Gold Participant Season 11
+UGC Highlander 1st Place Silver Season 11
+UGC Highlander 2nd Place Silver Season 11
+UGC Highlander 3rd Place Silver Season 11
+UGC Highlander Silver Participant Season 11
+UGC Highlander 1st Place Steel Season 11
+UGC Highlander 2nd Place Steel Season 11
+UGC Highlander 3rd Place Steel Season 11
+UGC Highlander Steel Participant Season 11
+UGC Highlander 1st Place Iron Season 11
+UGC Highlander 2nd Place Iron Season 11
+UGC Highlander 3rd Place Iron Season 11
+UGC Highlander Iron Participant Season 11
+UGC 6vs6 1st Place Platinum Season 13
+UGC 6vs6 2nd Place Platinum Season 13
+UGC 6vs6 3rd Place Platinum Season 13
+UGC 6vs6 Platinum Participant Season 13
+UGC 6vs6 Silver Participant Season 13
+UGC 6vs6 Steel Participant Season 13
+UGC 6vs6 Iron Participant Season 13
+Tumblr Vs Reddit Participant Season 1
+InfoShow LAN Party 2014 Participant
+ETF2L 6v6 Premier Division Gold Medal Season 17
+ETF2L 6v6 Premier Division Silver Medal Season 17
+ETF2L 6v6 Premier Division Bronze Medal Season 17
+ETF2L 6v6 Division 1 Group Winner Season 17
+ETF2L 6v6 Division 2 Group Winner Season 17
+ETF2L 6v6 Division 3 Group Winner Season 17
+ETF2L 6v6 Division 4 Group Winner Season 17
+ETF2L 6v6 Division 5 Group Winner Season 17
+ETF2L 6v6 Division 6 Group Winner Season 17
+ETF2L 6v6 Premier Division Participation Medal Season 17
+ETF2L 6v6 Division 1 Participation Medal Season 17
+ETF2L 6v6 Division 2 Participation Medal Season 17
+ETF2L 6v6 Division 3 Participation Medal Season 17
+ETF2L 6v6 Division 4 Participation Medal Season 17
+ETF2L 6v6 Division 5 Participation Medal Season 17
+ETF2L 6v6 Division 6 Participation Medal Season 17
+ETF2L Highlander Premier Division Gold Medal Season 5
+ETF2L Highlander Premier Division Silver Medal Season 5
+ETF2L Highlander Premier Division Bronze Medal Season 5
+ETF2L Highlander Division 1 Group Winner Season 5
+ETF2L Highlander Division 2 Group Winner Season 5
+ETF2L Highlander Division 3 Group Winner Season 5
+ETF2L Highlander Division 4 Group Winner Season 5
+ETF2L Highlander Division 5 Group Winner Season 5
+ETF2L Highlander Division 6 Group Winner Season 5
+ETF2L Highlander Premier Division Participation Medal Season 5
+ETF2L Highlander Division 1 Participation Medal Season 5
+ETF2L Highlander Division 2 Participation Medal Season 5
+ETF2L Highlander Division 3 Participation Medal Season 5
+ETF2L Highlander Division 4 Participation Medal Season 5
+ETF2L Highlander Division 5 Participation Medal Season 5
+ETF2L Highlander Division 6 Participation Medal Season 5
+LBTF2 6v6 Elite 1st Place Season 9
+LBTF2 6v6 Elite 2nd Place Season 9
+LBTF2 6v6 Elite 3rd Place Season 9
+LBTF2 6v6 Elite Participant Season 9
+LBTF2 6v6 Central 1st Place Season 9
+LBTF2 6v6 Central 2nd Place Season 9
+LBTF2 6v6 Central 3rd Place Season 9
+LBTF2 6v6 Central Participant Season 9
+LBTF2 6v6 Access 1st Place Season 9
+LBTF2 6v6 Access 2nd Place Season 9
+LBTF2 6v6 Access 3rd Place Season 9
+LBTF2 6v6 Access Participant Season 9
+LBTF2 6v6 Open 1st Place Season 9
+LBTF2 6v6 Open 2nd Place Season 9
+LBTF2 6v6 Open 3rd Place Season 9
+LBTF2 6v6 Open Participant Season 9
+AsiaFortress Cup Division 1 1st Place Season 7
+AsiaFortress Cup Division 1 2nd Place Season 7
+AsiaFortress Cup Division 1 3rd Place Season 7
+AsiaFortress Cup Division 1 Participant Season 7
+AsiaFortress Cup Division 2 1st Place Season 7
+AsiaFortress Cup Division 2 2nd Place Season 7
+AsiaFortress Cup Division 2 3rd Place Season 7
+AsiaFortress Cup Division 2 Participant Season 7
+AsiaFortress Cup Division 3 1st Place Season 7
+AsiaFortress Cup Division 3 2nd Place Season 7
+AsiaFortress Cup Division 3 3rd Place Season 7
+AsiaFortress Cup Division 3 Participant Season 7
+OWL 11 Premier Division First Place
+OWL 11 Premier Division Second Place
+OWL 11 Premier Division Third Place
+OWL 11 Premier Division Participant
+OWL 11 Division 2 First Place
+OWL 11 Division 2 Second Place
+OWL 11 Division 2 Third Place
+OWL 11 Division 2 Participant
+OWL 11 Division 3 First Place
+OWL 11 Division 3 Second Place
+OWL 11 Division 3 Third Place
+OWL 11 Division 3 Participant
+OWL 11 Division 4 First Place
+OWL 11 Division 4 Second Place
+OWL 11 Division 4 Third Place
+OWL 11 Division 4 Participant
+OWL 11 Division 5 First Place
+OWL 11 Division 5 Second Place
+OWL 11 Division 5 Third Place
+OWL 11 Division 5 Participant
+Tumblr Vs Reddit Participant Season 2
+UGC Highlander 1st Place Platinum Season 12
+UGC Highlander 2nd Place Platinum Season 12
+UGC Highlander 3rd Place Platinum Season 12
+UGC Highlander Platinum Participant Season 12
+UGC Highlander 1st Place Gold Season 12
+UGC Highlander 2nd Place Gold Season 12
+UGC Highlander 3rd Place Gold Season 12
+UGC Highlander Gold Participant Season 12
+UGC Highlander 1st Place Silver Season 12
+UGC Highlander 2nd Place Silver Season 12
+UGC Highlander 3rd Place Silver Season 12
+UGC Highlander Silver Participant Season 12
+UGC Highlander Steel Participant Season 12
+UGC Highlander Iron Participant Season 12
+UGC 6vs6 1st Place Platinum Season 14
+UGC 6vs6 2nd Place Platinum Season 14
+UGC 6vs6 3rd Place Platinum Season 14
+UGC 6vs6 Platinum Participant Season 14
+UGC 6vs6 Gold Participant Season 14
+UGC 6vs6 Silver Participant Season 14
+UGC 6vs6 Steel Participant Season 14
+UGC 6vs6 Iron Participant Season 14
+UGC 4vs4 Silver Participant Season 1
+UGC 4vs4 Steel Participant Season 1
+ETF2L 6v6 Premier Division Gold Medal Season 18
+ETF2L 6v6 Premier Division Silver Medal Season 18
+ETF2L 6v6 Premier Division Bronze Medal Season 18
+ETF2L 6v6 Division 1 Group Winner Season 18
+ETF2L 6v6 Division 2 Group Winner Season 18
+ETF2L 6v6 Division 3 Group Winner Season 18
+ETF2L 6v6 Division 4 Group Winner Season 18
+ETF2L 6v6 Division 5 Group Winner Season 18
+ETF2L 6v6 Division 6 Group Winner Season 18
+ETF2L 6v6 Premier Division Participation Medal Season 18
+ETF2L 6v6 Division 1 Participation Medal Season 18
+ETF2L 6v6 Division 2 Participation Medal Season 18
+ETF2L 6v6 Division 3 Participation Medal Season 18
+ETF2L 6v6 Division 4 Participation Medal Season 18
+ETF2L 6v6 Division 5 Participation Medal Season 18
+ETF2L 6v6 Division 6 Participation Medal Season 18
+ETF2L Highlander Premier Division Gold Medal Season 6
+ETF2L Highlander Premier Division Silver Medal Season 6
+ETF2L Highlander Premier Division Bronze Medal Season 6
+ETF2L Highlander Division 1 Group Winner Season 6
+ETF2L Highlander Division 2 Group Winner Season 6
+ETF2L Highlander Division 3 Group Winner Season 6
+ETF2L Highlander Division 4 Group Winner Season 6
+ETF2L Highlander Division 5 Group Winner Season 6
+ETF2L Highlander Division 6 Group Winner Season 6
+ETF2L Highlander Premier Division Participation Medal Season 6
+ETF2L Highlander Division 1 Participation Medal Season 6
+ETF2L Highlander Division 2 Participation Medal Season 6
+ETF2L Highlander Division 3 Participation Medal Season 6
+ETF2L Highlander Division 4 Participation Medal Season 6
+ETF2L Highlander Division 5 Participation Medal Season 6
+ETF2L Highlander Division 6 Participation Medal Season 6
+ETF2L 6v6 Premier Division Gold Medal Season 19
+ETF2L 6v6 Premier Division Silver Medal Season 19
+ETF2L 6v6 Premier Division Bronze Medal Season 19
+ETF2L 6v6 Division 1 Group Winner Season 19
+ETF2L 6v6 Division 2 Group Winner Season 19
+ETF2L 6v6 Division 3 Group Winner Season 19
+ETF2L 6v6 Division 4 Group Winner Season 19
+ETF2L 6v6 Division 5 Group Winner Season 19
+ETF2L 6v6 Division 6 Group Winner Season 19
+ETF2L 6v6 Premier Division Participation Medal Season 19
+ETF2L 6v6 Division 1 Participation Medal Season 19
+ETF2L 6v6 Division 2 Participation Medal Season 19
+ETF2L 6v6 Division 3 Participation Medal Season 19
+ETF2L 6v6 Division 4 Participation Medal Season 19
+ETF2L 6v6 Division 5 Participation Medal Season 19
+ETF2L 6v6 Division 6 Participation Medal Season 19
+ETF2L Highlander Premier Division Gold Medal Season 7
+ETF2L Highlander Premier Division Silver Medal Season 7
+ETF2L Highlander Premier Division Bronze Medal Season 7
+ETF2L Highlander Division 1 Group Winner Season 7
+ETF2L Highlander Division 2 Group Winner Season 7
+ETF2L Highlander Division 3 Group Winner Season 7
+ETF2L Highlander Division 4 Group Winner Season 7
+ETF2L Highlander Division 5 Group Winner Season 7
+ETF2L Highlander Division 6 Group Winner Season 7
+ETF2L Highlander Premier Division Participation Medal Season 7
+ETF2L Highlander Division 1 Participation Medal Season 7
+ETF2L Highlander Division 2 Participation Medal Season 7
+ETF2L Highlander Division 3 Participation Medal Season 7
+ETF2L Highlander Division 4 Participation Medal Season 7
+ETF2L Highlander Division 5 Participation Medal Season 7
+ETF2L Highlander Division 6 Participation Medal Season 7
+RETF2 EE22 6v6 Winner Medal Season 1
+RETF2 EE22 6v6 Participant Medal Season 1
+RETF2 EE22 4v4 Winner Medal Season 1
+RETF2 EE22 4v4 Participant Medal Season 1
+RETF2 EE22 Dodgeball Winner Medal Season 1
+RETF2 EE22 Dodgeball Participant Medal Season 1
+RETF2 EE22 Pan Tournament Winner Medal Season 1
+RETF2 EE22 Pan Tournament Participant Medal Season 1
+RETF2 EE22 Contributor Medal Season 1
+ETF2L Highlander Open 1st Place Medal Season 1
+ETF2L Highlander Open 2nd Place Medal Season 1
+ETF2L Highlander Open 3rd Place Medal Season 1
+ETF2L Highlander Open Participant Medal Season 1
+BETA LAN 1st Place Medal 2014
+BETA LAN 2nd Place Medal 2014
+BETA LAN 3rd Place Medal 2014
+BETA LAN Participant Medal 2014
+Florida LAN Medal 2014
+Thought that Counts
+Gamers Assembly Gold Medal 2013
+Gamers Assembly Silver Medal 2013
+Gamers Assembly Bronze Medal 2013
+Gamers Assembly Participant Badge 2013
+GAlloween Gold Medal 2013
+GAlloween Silver Medal 2013
+GAlloween Bronze Medal 2013
+GAlloween Participant Badge 2013
+Gamers Assembly Gold Medal 2014
+Gamers Assembly Silver Medal 2014
+Gamers Assembly Bronze Medal 2014
+Gamers Assembly Participant Badge 2014
+GAlloween Gold Medal 2014
+GAlloween Silver Medal 2014
+GAlloween Bronze Medal 2014
+GAlloween Participant Badge 2014
+LBTF2 Highlander 1st Place Season 1
+LBTF2 Highlander 2nd Place Season 1
+LBTF2 Highlander 3rd Place Season 1
+LBTF2 Highlander Participant Season 1
+LBTF2 6v6 Elite 1st Place Season 10
+LBTF2 6v6 Elite 2nd Place Season 10
+LBTF2 6v6 Elite 3rd Place Season 10
+LBTF2 6v6 Elite Participant Season 10
+LBTF2 6v6 Central 1st Place Season 10
+LBTF2 6v6 Central 2nd Place Season 10
+LBTF2 6v6 Central 3rd Place Season 10
+LBTF2 6v6 Central Participant Season 10
+LBTF2 6v6 Access 1st Place Season 10
+LBTF2 6v6 Access 2nd Place Season 10
+LBTF2 6v6 Access 3rd Place Season 10
+LBTF2 6v6 Access Participant Season 10
+LBTF2 6v6 Open 1st Place Season 10
+LBTF2 6v6 Open 2nd Place Season 10
+LBTF2 6v6 Open 3rd Place Season 10
+LBTF2 6v6 Open Participant Season 10
+FBTF Cup 6v6 Wastex Miller 1st Place Season 3
+FBTF Cup 6v6 Wastex Miller 2nd Place Season 3
+FBTF Cup 6v6 Wastex Miller 3rd Place Season 3
+FBTF Cup 6v6 Wastex Miller Participant Season 3
+FBTF Cup 6v6 Barts Rimet 1st Place Season 3
+FBTF Cup 6v6 Barts Rimet 2nd Place Season 3
+FBTF Cup 6v6 Barts Rimet 3rd Place Season 3
+FBTF Cup 6v6 Barts Rimet Participant Season 3
+FBTF Cup 6v6 Vic Basten 1st Place Season 3
+FBTF Cup 6v6 Vic Basten 2nd Place Season 3
+FBTF Cup 6v6 Vic Basten 3rd Place Season 3
+FBTF Cup 6v6 Vic Basten Participant Season 3
+Asymmetric Accolade
+TF2Connexion Division 1 Gold Medal Season 14
+TF2Connexion Division 1 Silver Medal Season 14
+TF2Connexion Division 1 Bronze Medal Season 14
+TF2Connexion Division 1 Participant Season 14
+TF2Connexion Division 2 Gold Medal Season 14
+TF2Connexion Division 2 Silver Medal Season 14
+TF2Connexion Division 2 Bronze Medal Season 14
+TF2Connexion Division 2 Participant Season 14
+TF2Connexion Division 3 Gold Medal Season 14
+TF2Connexion Division 3 Silver Medal Season 14
+TF2Connexion Division 3 Bronze Medal Season 14
+TF2Connexion Division 3 Participant Season 14
+TF2Connexion Division 4 Gold Medal Season 14
+TF2Connexion Division 4 Silver Medal Season 14
+TF2Connexion Division 4 Bronze Medal Season 14
+TF2Connexion Division 4 Participant Season 14
+OWL 12 Premier Division First Place
+OWL 12 Premier Division Second Place
+OWL 12 Premier Division Third Place
+OWL 12 Premier Division Participant
+OWL 12 Division 2 First Place
+OWL 12 Division 2 Second Place
+OWL 12 Division 2 Third Place
+OWL 12 Division 2 Participant
+OWL 12 Division 3 First Place
+OWL 12 Division 3 Second Place
+OWL 12 Division 3 Third Place
+OWL 12 Division 3 Participant
+OWL 12 Division 4 First Place
+OWL 12 Division 4 Second Place
+OWL 12 Division 4 Third Place
+OWL 12 Division 4 Participant
+OWL 12 Division 5 First Place
+OWL 12 Division 5 Second Place
+OWL 12 Division 5 Third Place
+OWL 12 Division 5 Participant
+OSL.tf First Place Cup #1
+OSL.tf Second Place Cup #1
+OSL.tf Third Place Cup #1
+OSL.tf Participant Cup #1
+Florida LAN Medal 2015
+UGC Highlander 1st Place Platinum Season 13
+UGC Highlander 2nd Place Platinum Season 13
+UGC Highlander 3rd Place Platinum Season 13
+UGC Highlander Platinum Participant Season 13
+UGC Highlander 1st Place Gold Season 13
+UGC Highlander 2nd Place Gold Season 13
+UGC Highlander 3rd Place Gold Season 13
+UGC Highlander Gold Participant Season 13
+UGC Highlander 1st Place Silver Season 13
+UGC Highlander 2nd Place Silver Season 13
+UGC Highlander 3rd Place Silver Season 13
+UGC Highlander Silver Participant Season 13
+UGC Highlander Steel Participant Season 13
+UGC Highlander Iron Participant Season 13
+UGC 6vs6 1st Place Platinum Season 15
+UGC 6vs6 2nd Place Platinum Season 15
+UGC 6vs6 3rd Place Platinum Season 15
+UGC 6vs6 Platinum Participant Season 15
+UGC 6vs6 Gold Participant Season 15
+UGC 6vs6 Silver Participant Season 15
+UGC 6vs6 Steel Participant Season 15
+UGC 6vs6 Iron Participant Season 15
+UGC 4vs4 1st Place Gold Season 2
+UGC 4vs4 2nd Place Gold Season 2
+UGC 4vs4 3rd Place Gold Season 2
+UGC 4vs4 Gold Participant Season 2
+UGC 4vs4 Silver Participant Season 2
+UGC 4vs4 Steel Participant Season 2
+UGC 4vs4 Iron Participant Season 2
+UGC Highlander 1st Place Platinum Season 14
+UGC Highlander 2nd Place Platinum Season 14
+UGC Highlander 3rd Place Platinum Season 14
+UGC Highlander Platinum Participant Season 14
+UGC Highlander 1st Place Gold Season 14
+UGC Highlander 2nd Place Gold Season 14
+UGC Highlander 3rd Place Gold Season 14
+UGC Highlander Gold Participant Season 14
+UGC Highlander 1st Place Silver Season 14
+UGC Highlander 2nd Place Silver Season 14
+UGC Highlander 3rd Place Silver Season 14
+UGC Highlander Silver Participant Season 14
+UGC Highlander Steel Participant Season 14
+UGC Highlander Iron Participant Season 14
+UGC 6vs6 1st Place Platinum Season 16
+UGC 6vs6 2nd Place Platinum Season 16
+UGC 6vs6 3rd Place Platinum Season 16
+UGC 6vs6 Platinum Participant Season 16
+UGC 6vs6 Gold Participant Season 16
+UGC 6vs6 Silver Participant Season 16
+UGC 6vs6 Steel Participant Season 16
+UGC 6vs6 Iron Participant Season 16
+UGC 4vs4 1st Place Gold Season 3
+UGC 4vs4 2nd Place Gold Season 3
+UGC 4vs4 3rd Place Gold Season 3
+UGC 4vs4 Gold Participant Season 3
+UGC 4vs4 Silver Participant Season 3
+UGC 4vs4 Steel Participant Season 3
+UGC 4vs4 Iron Participant Season 3
+Gamers Assembly Gold Medal 2015
+Gamers Assembly Silver Medal 2015
+Gamers Assembly Bronze Medal 2015
+Gamers Assembly Participant Badge 2015
+ETF2L 6v6 Premiership Gold Medal Season 20
+ETF2L 6v6 Premiership Silver Medal Season 20
+ETF2L 6v6 Premiership Bronze Medal Season 20
+ETF2L 6v6 Premiership Participation Medal Season 20
+ETF2L 6v6 High Gold Medal Season 20
+ETF2L 6v6 High Silver Medal Season 20
+ETF2L 6v6 High Bronze Medal Season 20
+ETF2L 6v6 High Playoff Medal Season 20
+ETF2L 6v6 High Participation Medal Season 20
+ETF2L 6v6 Mid Gold Medal Season 20
+ETF2L 6v6 Mid Silver Medal Season 20
+ETF2L 6v6 Mid Bronze Medal Season 20
+ETF2L 6v6 Mid Playoff Medal Season 20
+ETF2L 6v6 Mid Participation Medal Season 20
+ETF2L 6v6 Open Gold Medal Season 20
+ETF2L 6v6 Open Silver Medal Season 20
+ETF2L 6v6 Open Bronze Medal Season 20
+ETF2L 6v6 Open Playoff Medal Season 20
+ETF2L 6v6 Open Participation Medal Season 20
+ETF2L Highlander Premiership Gold Medal Season 8
+ETF2L Highlander Premiership Silver Medal Season 8
+ETF2L Highlander Premiership Bronze Medal Season 8
+ETF2L Highlander Premiership Participation Medal Season 8
+ETF2L Highlander High Gold Medal Season 8
+ETF2L Highlander High Silver Medal Season 8
+ETF2L Highlander High Bronze Medal Season 8
+ETF2L Highlander High Playoff Medal Season 8
+ETF2L Highlander High Participation Medal Season 8
+ETF2L Highlander Mid Gold Medal Season 8
+ETF2L Highlander Mid Silver Medal Season 8
+ETF2L Highlander Mid Bronze Medal Season 8
+ETF2L Highlander Mid Playoff Medal Season 8
+ETF2L Highlander Mid Participation Medal Season 8
+ETF2L Highlander Open Gold Medal Season 8
+ETF2L Highlander Open Silver Medal Season 8
+ETF2L Highlander Open Bronze Medal Season 8
+ETF2L Highlander Open Playoff Medal Season 8
+ETF2L Highlander Open Participation Medal Season 8
+ETF2L Ultiduo 5 Gold Medal
+ETF2L Ultiduo 5 Silver Medal
+ETF2L Ultiduo 5 Bronze Medal
+ETF2L Ultiduo 5 Participation Medal
+Tip of the Hats 2015 Medal
+OWL 13 Premier Division First Place
+OWL 13 Premier Division Second Place
+OWL 13 Premier Division Third Place
+OWL 13 Premier Division Participant
+OWL 13 Division 2 First Place
+OWL 13 Division 2 Second Place
+OWL 13 Division 2 Third Place
+OWL 13 Division 2 Participant
+OWL 13 Division 3 First Place
+OWL 13 Division 3 Second Place
+OWL 13 Division 3 Third Place
+OWL 13 Division 3 Participant
+OWL 13 Division 4 First Place
+OWL 13 Division 4 Second Place
+OWL 13 Division 4 Third Place
+OWL 13 Division 4 Participant
+OWL 13 Division 5 First Place
+OWL 13 Division 5 Second Place
+OWL 13 Division 5 Third Place
+OWL 13 Division 5 Participant
+TF2Connexion Division 1 Gold Medal Season 15
+TF2Connexion Division 1 Silver Medal Season 15
+TF2Connexion Division 1 Bronze Medal Season 15
+TF2Connexion Division 1 Participant Season 15
+TF2Connexion Division 2 Gold Medal Season 15
+TF2Connexion Division 2 Silver Medal Season 15
+TF2Connexion Division 2 Bronze Medal Season 15
+TF2Connexion Division 2 Participant Season 15
+TF2Connexion Division 3 Gold Medal Season 15
+TF2Connexion Division 3 Silver Medal Season 15
+TF2Connexion Division 3 Bronze Medal Season 15
+TF2Connexion Division 3 Participant Season 15
+ETF2L 6v6 Premiership Gold Medal Season 21
+ETF2L 6v6 Premiership Silver Medal Season 21
+ETF2L 6v6 Premiership Bronze Medal Season 21
+ETF2L 6v6 Premiership Participation Medal Season 21
+ETF2L 6v6 High Gold Medal Season 21
+ETF2L 6v6 High Silver Medal Season 21
+ETF2L 6v6 High Bronze Medal Season 21
+ETF2L 6v6 High Playoff Medal Season 21
+ETF2L 6v6 High Participation Medal Season 21
+ETF2L 6v6 Mid Gold Medal Season 21
+ETF2L 6v6 Mid Silver Medal Season 21
+ETF2L 6v6 Mid Bronze Medal Season 21
+ETF2L 6v6 Mid Playoff Medal Season 21
+ETF2L 6v6 Mid Participation Medal Season 21
+ETF2L 6v6 Open Gold Medal Season 21
+ETF2L 6v6 Open Silver Medal Season 21
+ETF2L 6v6 Open Bronze Medal Season 21
+ETF2L 6v6 Open Playoff Medal Season 21
+ETF2L 6v6 Open Participation Medal Season 21
+Arms Race 1 1st Place
+Arms Race 1 2nd Place
+Arms Race 1 3rd Place
+Arms Race 1 Participant
+Arms Race 2 1st Place
+Arms Race 2 2nd Place
+Arms Race 2 3rd Place
+Arms Race 2 Participant
+OWL 14 Premier First Place
+OWL 14 Premier Second Place
+OWL 14 Premier Third Place
+OWL 14 Premier Participant
+OWL 14 Division 2 First Place
+OWL 14 Division 2 Second Place
+OWL 14 Division 2 Third Place
+OWL 14 Division 2 Participant
+OWL 14 Division 3 First Place
+OWL 14 Division 3 Second Place
+OWL 14 Division 3 Third Place
+OWL 14 Division 3 Participant
+OWL 14 Division 4 First Place
+OWL 14 Division 4 Second Place
+OWL 14 Division 4 Third Place
+OWL 14 Division 4 Participant
+OWL 14 Division 5 First Place
+OWL 14 Division 5 Second Place
+OWL 14 Division 5 Third Place
+OWL 14 Division 5 Participant
+DeutschLAN 1st Place 2015
+DeutschLAN 2nd Place 2015
+DeutschLAN 3rd Place 2015
+DeutschLAN Participant 2015
+DeutschLAN Supporter 2015
+LBTF2 Highlander Access 1st Place Season 2
+LBTF2 Highlander Access 2nd Place Season 2
+LBTF2 Highlander Access 3rd Place Season 2
+LBTF2 Highlander Access Participant Season 2
+LBTF2 6v6 Elite 1st Place Season 11
+LBTF2 6v6 Elite 2nd Place Season 11
+LBTF2 6v6 Elite 3rd Place Season 11
+LBTF2 6v6 Elite Participant Season 11
+LBTF2 6v6 Central 1st Place Season 11
+LBTF2 6v6 Central 2nd Place Season 11
+LBTF2 6v6 Central 3rd Place Season 11
+LBTF2 6v6 Central Participant Season 11
+LBTF2 6v6 Access 1st Place Season 11
+LBTF2 6v6 Access 2nd Place Season 11
+LBTF2 6v6 Access 3rd Place Season 11
+LBTF2 6v6 Access Participant Season 11
+LBTF2 6v6 Open 1st Place Season 11
+LBTF2 6v6 Open 2nd Place Season 11
+LBTF2 6v6 Open 3rd Place Season 11
+LBTF2 6v6 Open Participant Season 11
+LBTF2 Highlander Principal 1st Place Season 2
+LBTF2 Highlander Principal 2nd Place Season 2
+LBTF2 Highlander Principal 3rd Place Season 2
+LBTF2 Highlander Principal Participant Season 2
+UGC Highlander 1st Place Platinum Season 15
+UGC Highlander 2nd Place Platinum Season 15
+UGC Highlander 3rd Place Platinum Season 15
+UGC Highlander Platinum Participant Season 15
+UGC Highlander 1st Place Gold Season 15
+UGC Highlander 2nd Place Gold Season 15
+UGC Highlander 3rd Place Gold Season 15
+UGC Highlander Gold Participant Season 15
+UGC Highlander 1st Place Silver Season 15
+UGC Highlander 2nd Place Silver Season 15
+UGC Highlander 3rd Place Silver Season 15
+UGC Highlander Silver Participant Season 15
+UGC Highlander 1st Place Steel Season 15
+UGC Highlander 2nd Place Steel Season 15
+UGC Highlander 3rd Place Steel Season 15
+UGC Highlander Steel Participant Season 15
+UGC Highlander 1st Place Iron Season 15
+UGC Highlander 2nd Place Iron Season 15
+UGC Highlander 3rd Place Iron Season 15
+UGC Highlander Iron Participant Season 15
+UGC 6vs6 1st Place Platinum Season 17
+UGC 6vs6 2nd Place Platinum Season 17
+UGC 6vs6 3rd Place Platinum Season 17
+UGC 6vs6 Platinum Participant Season 17
+UGC 6vs6 Gold Participant Season 17
+UGC 6vs6 Silver Participant Season 17
+UGC 6vs6 Steel Participant Season 17
+UGC 6vs6 Iron Participant Season 17
+UGC 4vs4 1st Place Gold Season 4
+UGC 4vs4 2nd Place Gold Season 4
+UGC 4vs4 3rd Place Gold Season 4
+UGC 4vs4 Gold Participant Season 4
+UGC 4vs4 Silver Participant Season 4
+UGC 4vs4 Steel Participant Season 4
+UGC 4vs4 Iron Participant Season 4
+UGC Highlander 1st Place Platinum Season 16
+UGC Highlander 2nd Place Platinum Season 16
+UGC Highlander 3rd Place Platinum Season 16
+UGC Highlander Platinum Participant Season 16
+UGC Highlander 1st Place Gold Season 16
+UGC Highlander 2nd Place Gold Season 16
+UGC Highlander 3rd Place Gold Season 16
+UGC Highlander Gold Participant Season 16
+UGC Highlander 1st Place Silver Season 16
+UGC Highlander 2nd Place Silver Season 16
+UGC Highlander 3rd Place Silver Season 16
+UGC Highlander Silver Participant Season 16
+UGC Highlander 1st Place Steel Season 16
+UGC Highlander 2nd Place Steel Season 16
+UGC Highlander 3rd Place Steel Season 16
+UGC Highlander Steel Participant Season 16
+UGC Highlander 1st Place Iron Season 16
+UGC Highlander 2nd Place Iron Season 16
+UGC Highlander 3rd Place Iron Season 16
+UGC Highlander Iron Participant Season 16
+UGC 6vs6 1st Place Platinum Season 18
+UGC 6vs6 2nd Place Platinum Season 18
+UGC 6vs6 3rd Place Platinum Season 18
+UGC 6vs6 Platinum Participant Season 18
+UGC 6vs6 Gold Participant Season 18
+UGC 6vs6 Silver Participant Season 18
+UGC 6vs6 Steel Participant Season 18
+UGC 6vs6 Iron Participant Season 18
+UGC 4vs4 1st Place Gold Season 5
+UGC 4vs4 2nd Place Gold Season 5
+UGC 4vs4 3rd Place Gold Season 5
+UGC 4vs4 Gold Participant Season 5
+UGC 4vs4 Silver Participant Season 5
+UGC 4vs4 Steel Participant Season 5
+UGC 4vs4 Iron Participant Season 5
+GAlloween Gold Medal 2015
+GAlloween Silver Medal 2015
+GAlloween Bronze Medal 2015
+GAlloween Participant Badge 2015
+AsiaFortress Cup Division 1 1st Place Season 8
+AsiaFortress Cup Division 1 2nd Place Season 8
+AsiaFortress Cup Division 1 3rd Place Season 8
+AsiaFortress Cup Division 1 Participant Season 8
+AsiaFortress Cup Division 2 1st Place Season 8
+AsiaFortress Cup Division 2 2nd Place Season 8
+AsiaFortress Cup Division 2 3rd Place Season 8
+AsiaFortress Cup Division 2 Participant Season 8
+AsiaFortress Cup Division 3 1st Place Season 8
+AsiaFortress Cup Division 3 2nd Place Season 8
+AsiaFortress Cup Division 3 3rd Place Season 8
+AsiaFortress Cup Division 3 Participant Season 8
+Xephos' Philanthropic Physiognomy
+Honeydew's Charitable Countenance
+Special Snowflake
+Gift of Giving
+EdgeGamers UltiDuo Participant 2015
+LBTF2 6v6 Elite 1st Place Season 12
+LBTF2 6v6 Elite 2nd Place Season 12
+LBTF2 6v6 Elite 3rd Place Season 12
+LBTF2 6v6 Elite Participant Season 12
+LBTF2 6v6 Central 1st Place Season 12
+LBTF2 6v6 Central 2nd Place Season 12
+LBTF2 6v6 Central 3rd Place Season 12
+LBTF2 6v6 Central Participant Season 12
+LBTF2 6v6 Access 1st Place Season 12
+LBTF2 6v6 Access 2nd Place Season 12
+LBTF2 6v6 Access 3rd Place Season 12
+LBTF2 6v6 Access Participant Season 12
+LBTF2 6v6 Open 1st Place Season 12
+LBTF2 6v6 Open 2nd Place Season 12
+LBTF2 6v6 Open 3rd Place Season 12
+LBTF2 6v6 Open Participant Season 12
+LBTF2 Highlander Access 1st Place Season 3
+LBTF2 Highlander Access 2nd Place Season 3
+LBTF2 Highlander Access 3rd Place Season 3
+LBTF2 Highlander Access Participant Season 3
+LBTF2 Highlander Principal 1st Place Season 3
+LBTF2 Highlander Principal 2nd Place Season 3
+LBTF2 Highlander Principal 3rd Place Season 3
+LBTF2 Highlander Principal Participant Season 3
+Gamers Assembly Gold Medal 2016
+Gamers Assembly Silver Medal 2016
+Gamers Assembly Bronze Medal 2016
+Gamers Assembly Participant Badge 2016
+AsiaFortress Cup Division 1 1st Place Season 9
+AsiaFortress Cup Division 1 2nd Place Season 9
+AsiaFortress Cup Division 1 3rd Place Season 9
+AsiaFortress Cup Division 1 Participant Season 9
+AsiaFortress Cup Division 2 1st Place Season 9
+AsiaFortress Cup Division 2 2nd Place Season 9
+AsiaFortress Cup Division 2 3rd Place Season 9
+AsiaFortress Cup Division 2 Participant Season 9
+AsiaFortress Cup Division 3 1st Place Season 9
+AsiaFortress Cup Division 3 2nd Place Season 9
+AsiaFortress Cup Division 3 3rd Place Season 9
+AsiaFortress Cup Division 3 Participant Season 9
+ozfortress Premier 1st Place Season 15
+ozfortress Premier 2nd Place Season 15
+ozfortress Premier 3rd Place Season 15
+ozfortress Premier Participant Season 15
+ozfortress Intermediate 1st Place Season 15
+ozfortress Intermediate 2nd Place Season 15
+ozfortress Intermediate 3rd Place Season 15
+ozfortress Intermediate Participant Season 15
+ozfortress Open 1st Place Season 15
+ozfortress Open 2nd Place Season 15
+ozfortress Open 3rd Place Season 15
+ozfortress Open Participant Season 15
+ozfortress Summer Cup 1st Place 2016
+ozfortress Summer Cup 2nd Place 2016
+ozfortress Summer Cup 3rd Place 2016
+ozfortress Summer Cup Participant 2016
+ETF2L 6v6 Premiership Gold Medal Season 22
+ETF2L 6v6 Premiership Silver Medal Season 22
+ETF2L 6v6 Premiership Bronze Medal Season 22
+ETF2L 6v6 Premiership Participation Medal Season 22
+ETF2L 6v6 High Gold Medal Season 22
+ETF2L 6v6 High Silver Medal Season 22
+ETF2L 6v6 High Bronze Medal Season 22
+ETF2L 6v6 High Playoff Medal Season 22
+ETF2L 6v6 High Participation Medal Season 22
+ETF2L 6v6 Mid Gold Medal Season 22
+ETF2L 6v6 Mid Silver Medal Season 22
+ETF2L 6v6 Mid Bronze Medal Season 22
+ETF2L 6v6 Mid Playoff Medal Season 22
+ETF2L 6v6 Mid Participation Medal Season 22
+ETF2L 6v6 Open Gold Medal Season 22
+ETF2L 6v6 Open Silver Medal Season 22
+ETF2L 6v6 Open Bronze Medal Season 22
+ETF2L 6v6 Open Playoff Medal Season 22
+ETF2L 6v6 Open Participation Medal Season 22
+ETF2L 6v6 Premiership Gold Medal Season 23
+ETF2L 6v6 Premiership Silver Medal Season 23
+ETF2L 6v6 Premiership Bronze Medal Season 23
+ETF2L 6v6 Premiership Participation Medal Season 23
+ETF2L 6v6 High Gold Medal Season 23
+ETF2L 6v6 High Silver Medal Season 23
+ETF2L 6v6 High Bronze Medal Season 23
+ETF2L 6v6 High Playoff Medal Season 23
+ETF2L 6v6 High Participation Medal Season 23
+ETF2L 6v6 Mid Gold Medal Season 23
+ETF2L 6v6 Mid Silver Medal Season 23
+ETF2L 6v6 Mid Bronze Medal Season 23
+ETF2L 6v6 Mid Playoff Medal Season 23
+ETF2L 6v6 Mid Participation Medal Season 23
+ETF2L 6v6 Open Gold Medal Season 23
+ETF2L 6v6 Open Silver Medal Season 23
+ETF2L 6v6 Open Bronze Medal Season 23
+ETF2L 6v6 Open Playoff Medal Season 23
+ETF2L 6v6 Open Participation Medal Season 23
+ETF2L Highlander Premiership Gold Medal Season 9
+ETF2L Highlander Premiership Silver Medal Season 9
+ETF2L Highlander Premiership Bronze Medal Season 9
+ETF2L Highlander Premiership Participation Medal Season 9
+ETF2L Highlander High Gold Medal Season 9
+ETF2L Highlander High Silver Medal Season 9
+ETF2L Highlander High Bronze Medal Season 9
+ETF2L Highlander High Playoff Medal Season 9
+ETF2L Highlander High Participation Medal Season 9
+ETF2L Highlander Mid Gold Medal Season 9
+ETF2L Highlander Mid Silver Medal Season 9
+ETF2L Highlander Mid Bronze Medal Season 9
+ETF2L Highlander Mid Playoff Medal Season 9
+ETF2L Highlander Mid Participation Medal Season 9
+ETF2L Highlander Open Gold Medal Season 9
+ETF2L Highlander Open Silver Medal Season 9
+ETF2L Highlander Open Bronze Medal Season 9
+ETF2L Highlander Open Playoff Medal Season 9
+ETF2L Highlander Open Participation Medal Season 9
+ETF2L Highlander Premiership Gold Medal Season 10
+ETF2L Highlander Premiership Silver Medal Season 10
+ETF2L Highlander Premiership Bronze Medal Season 10
+ETF2L Highlander Premiership Participation Medal Season 10
+ETF2L Highlander High Gold Medal Season 10
+ETF2L Highlander High Silver Medal Season 10
+ETF2L Highlander High Bronze Medal Season 10
+ETF2L Highlander High Playoff Medal Season 10
+ETF2L Highlander High Participation Medal Season 10
+ETF2L Highlander Mid Gold Medal Season 10
+ETF2L Highlander Mid Silver Medal Season 10
+ETF2L Highlander Mid Bronze Medal Season 10
+ETF2L Highlander Mid Playoff Medal Season 10
+ETF2L Highlander Mid Participation Medal Season 10
+ETF2L Highlander Open Gold Medal Season 10
+ETF2L Highlander Open Silver Medal Season 10
+ETF2L Highlander Open Bronze Medal Season 10
+ETF2L Highlander Open Playoff Medal Season 10
+ETF2L Highlander Open Participation Medal Season 10
+UGC Highlander Platinum Participant Season 17
+UGC Highlander Gold Participant Season 17
+UGC Highlander Silver Participant Season 17
+UGC Highlander Steel Participant Season 17
+UGC Highlander Iron Participant Season 17
+UGC 6vs6 Platinum Participant Season 19
+UGC 6vs6 Gold Participant Season 19
+UGC 6vs6 Silver Participant Season 19
+UGC 6vs6 Steel Participant Season 19
+UGC 6vs6 Iron Participant Season 19
+UGC 4vs4 Gold Participant Season 6
+UGC 4vs4 Silver Participant Season 6
+UGC 4vs4 Steel Participant Season 6
+UGC 4vs4 Iron Participant Season 6
+UGC Highlander 1st Place Platinum Season 18
+UGC Highlander 2nd Place Platinum Season 18
+UGC Highlander 3rd Place Platinum Season 18
+UGC Highlander Platinum Participant Season 18
+UGC Highlander 1st Place Gold Season 18
+UGC Highlander 2nd Place Gold Season 18
+UGC Highlander 3rd Place Gold Season 18
+UGC Highlander Gold Participant Season 18
+UGC Highlander 1st Place Silver Season 18
+UGC Highlander 2nd Place Silver Season 18
+UGC Highlander 3rd Place Silver Season 18
+UGC Highlander Silver Participant Season 18
+UGC Highlander Steel Participant Season 18
+UGC Highlander Iron Participant Season 18
+UGC 6vs6 1st Place Gold Season 20
+UGC 6vs6 2nd Place Gold Season 20
+UGC 6vs6 3rd Place Gold Season 20
+UGC 6vs6 Gold Participant Season 20
+UGC 6vs6 Silver Participant Season 20
+UGC 6vs6 Steel Participant Season 20
+UGC 6vs6 Iron Participant Season 20
+UGC 4vs4 1st Place Gold Season 7
+UGC 4vs4 2nd Place Gold Season 7
+UGC 4vs4 3rd Place Gold Season 7
+UGC 4vs4 Gold Participant Season 7
+UGC 4vs4 Silver Participant Season 7
+UGC 4vs4 Steel Participant Season 7
+UGC 4vs4 Iron Participant Season 7
+AsiaFortress Mercenaries Cup 1st Place Season 7
+AsiaFortress Mercenaries Cup 2nd Place Season 7
+AsiaFortress Mercenaries Cup 3rd Place Season 7
+AsiaFortress Mercenaries Cup Participant Season 7
+TF2Maps 72hr TF2Jam Summer Participant 2016
+Altruist's Adornment
+Florida LAN Medal 2016
+Jaunty Camper 2016
+Jaunty Benefactor 2016
+Jaunty Trailblazer 2016
+ozfortress Premier 1st Place Season 16
+ozfortress Premier 2nd Place Season 16
+ozfortress Premier 3rd Place Season 16
+ozfortress Premier Participant Season 16
+ozfortress Intermediate 1st Place Season 16
+ozfortress Intermediate 2nd Place Season 16
+ozfortress Intermediate 3rd Place Season 16
+ozfortress Intermediate Participant Season 16
+ozfortress Open 1st Place Season 16
+ozfortress Open 2nd Place Season 16
+ozfortress Open 3rd Place Season 16
+ozfortress Open Participant Season 16
+ozfortress Premier 1st Place Season 17
+ozfortress Premier 2nd Place Season 17
+ozfortress Premier 3rd Place Season 17
+ozfortress Premier Participant Season 17
+ozfortress Intermediate 1st Place Season 17
+ozfortress Intermediate 2nd Place Season 17
+ozfortress Intermediate 3rd Place Season 17
+ozfortress Intermediate Participant Season 17
+ozfortress Open 1st Place Season 17
+ozfortress Open 2nd Place Season 17
+ozfortress Open 3rd Place Season 17
+ozfortress Open Participant Season 17
+LBTF2 6v6 Elite 1st Place Season 13
+LBTF2 6v6 Elite 2nd Place Season 13
+LBTF2 6v6 Elite 3rd Place Season 13
+LBTF2 6v6 Elite Participant Season 13
+LBTF2 6v6 Central 1st Place Season 13
+LBTF2 6v6 Central 2nd Place Season 13
+LBTF2 6v6 Central 3rd Place Season 13
+LBTF2 6v6 Central Participant Season 13
+LBTF2 6v6 Access 1st Place Season 13
+LBTF2 6v6 Access 2nd Place Season 13
+LBTF2 6v6 Access 3rd Place Season 13
+LBTF2 6v6 Access Participant Season 13
+LBTF2 6v6 Open 1st Place Season 13
+LBTF2 6v6 Open 2nd Place Season 13
+LBTF2 6v6 Open 3rd Place Season 13
+LBTF2 6v6 Open Participant Season 13
+AsiaFortress Cup Division 1 1st Place Season 10
+AsiaFortress Cup Division 1 2nd Place Season 10
+AsiaFortress Cup Division 1 3rd Place Season 10
+AsiaFortress Cup Division 1 Participant Season 10
+AsiaFortress Cup Division 2 1st Place Season 10
+AsiaFortress Cup Division 2 2nd Place Season 10
+AsiaFortress Cup Division 2 3rd Place Season 10
+AsiaFortress Cup Division 2 Participant Season 10
+AsiaFortress Cup Division 3 1st Place Season 10
+AsiaFortress Cup Division 3 2nd Place Season 10
+AsiaFortress Cup Division 3 3rd Place Season 10
+AsiaFortress Cup Division 3 Participant Season 10
+GAlloween Gold Medal 2016
+GAlloween Silver Medal 2016
+GAlloween Bronze Medal 2016
+GAlloween Participant Badge 2016
+Chapelaria 6v6 1st Place Season 1
+Chapelaria 6v6 2nd Place Season 1
+Chapelaria 6v6 3rd Place Season 1
+Chapelaria 6v6 Participant Season 1
+Hannah's Altruistic Aspect
+Duncan's Kindhearted Kisser
+Sips' Selfless Simulacrum
+Sjin's Generous Guise
+PASS Time Tournament Gold Medal Season 1
+PASS Time Tournament Silver Medal Season 1
+PASS Time Tournament Bronze Medal Season 1
+ESA Rewind 1st Place 2017
+ESA Rewind 2nd Place 2017
+ESA Rewind 3rd Place 2017
+ESA Rewind Participant 2017
+Special Snowflake 2016
+Gift of Giving 2016
+LBTF2 6v6 Elite 1st Place Season 14
+LBTF2 6v6 Elite 2nd Place Season 14
+LBTF2 6v6 Elite 3rd Place Season 14
+LBTF2 6v6 Elite Participant Season 14
+LBTF2 6v6 Access 1st Place Season 14
+LBTF2 6v6 Access 2nd Place Season 14
+LBTF2 6v6 Access 3rd Place Season 14
+LBTF2 6v6 Access Participant Season 14
+LBTF2 6v6 Open 1st Place Season 14
+LBTF2 6v6 Open 2nd Place Season 14
+LBTF2 6v6 Open 3rd Place Season 14
+LBTF2 6v6 Open Participant Season 14
+LBTF2 6v6 Central Participant Season 14
+TF2Maps 72hr TF2Jam Winter Participant 2017
+Rally Call 2017 - 1st place Medal
+Rally Call 2017 - 2nd Place Medal
+Rally Call 2017 Participant/Helper Medal
+Rally Call 2017 Donator Medal
+ozfortress Premier 1st Place Season 18
+ozfortress Premier 2nd Place Season 18
+ozfortress Premier 3rd Place Season 18
+ozfortress Premier Participant Season 18
+ozfortress Intermediate 1st Place Season 18
+ozfortress Intermediate 2nd Place Season 18
+ozfortress Intermediate 3rd Place Season 18
+ozfortress Intermediate Participant Season 18
+ozfortress Open 1st Place Season 18
+ozfortress Open 2nd Place Season 18
+ozfortress Open 3rd Place Season 18
+ozfortress Open Participant Season 18
+UGC Highlander 1st Place Platinum Season 19
+UGC Highlander 2nd Place Platinum Season 19
+UGC Highlander 3rd Place Platinum Season 19
+UGC Highlander Platinum Participant Season 19
+UGC Highlander 1st Place Gold Season 19
+UGC Highlander 2nd Place Gold Season 19
+UGC Highlander 3rd Place Gold Season 19
+UGC Highlander Gold Participant Season 19
+UGC Highlander 1st Place Silver Season 19
+UGC Highlander 2nd Place Silver Season 19
+UGC Highlander 3rd Place Silver Season 19
+UGC Highlander Silver Participant Season 19
+UGC Highlander Steel Participant Season 19
+UGC Highlander Iron Participant Season 19
+UGC 6vs6 1st Place Gold Season 21
+UGC 6vs6 2nd Place Gold Season 21
+UGC 6vs6 3rd Place Gold Season 21
+UGC 6vs6 Gold Participant Season 21
+UGC 6vs6 Silver Participant Season 21
+UGC 6vs6 Steel Participant Season 21
+UGC 6vs6 Iron Participant Season 21
+UGC 4vs4 1st Place Gold Season 8
+UGC 4vs4 2nd Place Gold Season 8
+UGC 4vs4 3rd Place Gold Season 8
+UGC 4vs4 Gold Participant Season 8
+UGC 4vs4 Silver Participant Season 8
+UGC 4vs4 Steel Participant Season 8
+UGC 4vs4 Iron Participant Season 8
+UGC Highlander 1st Place Platinum Season 20
+UGC Highlander 2nd Place Platinum Season 20
+UGC Highlander Steel Participant Season 20
+UGC Highlander Platinum Participant Season 20
+UGC Highlander 1st Place Gold Season 20
+UGC Highlander 2nd Place Gold Season 20
+UGC Highlander 3rd Place Gold Season 20
+UGC Highlander Gold Participant Season 20
+UGC Highlander 1st Place Silver Season 20
+UGC Highlander 2nd Place Silver Season 20
+UGC Highlander 3rd Place Silver Season 20
+UGC Highlander Silver Participant Season 20
+UGC Highlander 3rd Place Platinum Season 20
+UGC 6vs6 1st Place Platinum Season 22
+UGC 6vs6 2nd Place Platinum Season 22
+UGC 6vs6 3rd Place Platinum Season 22
+UGC 6vs6 Platinum Participant Season 22
+UGC 6vs6 Silver Participant Season 22
+UGC 6vs6 Steel Participant Season 22
+UGC 4vs4 1st Place Gold Season 9
+UGC 4vs4 2nd Place Gold Season 9
+UGC 4vs4 3rd Place Gold Season 9
+UGC 4vs4 Gold Participant Season 9
+UGC 4vs4 Silver Participant Season 9
+UGC 4vs4 Steel Participant Season 9
+RGB LAN 1st Place 2017
+RGB LAN 2nd Place 2017
+RGB LAN 3rd Place 2017
+RGB LAN Participant 2017
+Gamers Assembly Gold Medal 2017
+Gamers Assembly Silver Medal 2017
+Gamers Assembly Bronze Medal 2017
+Gamers Assembly Participant Badge 2017
+Chapelaria 6v6 Legatus 1st Place Season 2
+Chapelaria 6v6 Legatus 2nd Place Season 2
+Chapelaria 6v6 Legatus 3rd Place Season 2
+Chapelaria 6v6 Legatus Participant Season 2
+Chapelaria 6v6 Gladiator 1st Place Season 2
+Chapelaria 6v6 Gladiator 2nd Place Season 2
+Chapelaria 6v6 Gladiator 3rd Place Season 2
+Chapelaria 6v6 Gladiator Participant Season 2
+Chapelaria Ultiduo Gladiator 1st Place Season 1
+Chapelaria Ultiduo Gladiator 2nd Place Season 1
+Chapelaria Ultiduo Gladiator 3rd Place Season 1
+Chapelaria Ultiduo Gladiator Participant Season 1
+ETF2L 6v6 Premiership Gold Medal Season 24
+ETF2L 6v6 Premiership Silver Medal Season 24
+ETF2L 6v6 Premiership Bronze Medal Season 24
+ETF2L 6v6 Premiership Participation Medal Season 24
+ETF2L 6v6 High Gold Medal Season 24
+ETF2L 6v6 High Silver Medal Season 24
+ETF2L 6v6 High Bronze Medal Season 24
+ETF2L 6v6 High Playoff Medal Season 24
+ETF2L 6v6 High Participation Medal Season 24
+ETF2L 6v6 Mid Gold Medal Season 24
+ETF2L 6v6 Mid Silver Medal Season 24
+ETF2L 6v6 Mid Bronze Medal Season 24
+ETF2L 6v6 Mid Playoff Medal Season 24
+ETF2L 6v6 Mid Participation Medal Season 24
+ETF2L 6v6 Open Gold Medal Season 24
+ETF2L 6v6 Open Silver Medal Season 24
+ETF2L 6v6 Open Bronze Medal Season 24
+ETF2L 6v6 Open Playoff Medal Season 24
+ETF2L 6v6 Open Participation Medal Season 24
+ETF2L 6v6 Premiership Gold Medal Season 25
+ETF2L 6v6 Premiership Silver Medal Season 25
+ETF2L 6v6 Premiership Bronze Medal Season 25
+ETF2L 6v6 Premiership Participation Medal Season 25
+ETF2L 6v6 High Gold Medal Season 25
+ETF2L 6v6 High Silver Medal Season 25
+ETF2L 6v6 High Bronze Medal Season 25
+ETF2L 6v6 High Playoff Medal Season 25
+ETF2L 6v6 High Participation Medal Season 25
+ETF2L 6v6 Mid Gold Medal Season 25
+ETF2L 6v6 Mid Silver Medal Season 25
+ETF2L 6v6 Mid Bronze Medal Season 25
+ETF2L 6v6 Mid Playoff Medal Season 25
+ETF2L 6v6 Mid Participation Medal Season 25
+ETF2L 6v6 Open Gold Medal Season 25
+ETF2L 6v6 Open Silver Medal Season 25
+ETF2L 6v6 Open Bronze Medal Season 25
+ETF2L 6v6 Open Playoff Medal Season 25
+ETF2L 6v6 Open Participation Medal Season 25
+ETF2L 6v6 Premiership Gold Medal Season 26
+ETF2L 6v6 Premiership Silver Medal Season 26
+ETF2L 6v6 Premiership Bronze Medal Season 26
+ETF2L 6v6 Premiership Participation Medal Season 26
+ETF2L 6v6 High Gold Medal Season 26
+ETF2L 6v6 High Silver Medal Season 26
+ETF2L 6v6 High Bronze Medal Season 26
+ETF2L 6v6 High Playoff Medal Season 26
+ETF2L 6v6 High Participation Medal Season 26
+ETF2L 6v6 Mid Gold Medal Season 26
+ETF2L 6v6 Mid Silver Medal Season 26
+ETF2L 6v6 Mid Bronze Medal Season 26
+ETF2L 6v6 Mid Playoff Medal Season 26
+ETF2L 6v6 Mid Participation Medal Season 26
+ETF2L 6v6 Open Gold Medal Season 26
+ETF2L 6v6 Open Silver Medal Season 26
+ETF2L 6v6 Open Bronze Medal Season 26
+ETF2L 6v6 Open Playoff Medal Season 26
+ETF2L 6v6 Open Participation Medal Season 26
+ETF2L Highlander Premiership Gold Medal Season 11
+ETF2L Highlander Premiership Silver Medal Season 11
+ETF2L Highlander Premiership Bronze Medal Season 11
+ETF2L Highlander Premiership Participation Medal Season 11
+ETF2L Highlander High/Mid Gold Medal Season 11
+ETF2L Highlander High/Mid Silver Medal Season 11
+ETF2L Highlander High/Mid Bronze Medal Season 11
+ETF2L Highlander High/Mid Playoff Medal Season 11
+ETF2L Highlander High/Mid Participation Medal Season 11
+ETF2L Highlander Open Gold Medal Season 11
+ETF2L Highlander Open Silver Medal Season 11
+ETF2L Highlander Open Bronze Medal Season 11
+ETF2L Highlander Open Playoff Medal Season 11
+ETF2L Highlander Open Participation Medal Season 11
+ETF2L Highlander Premiership Gold Medal Season 12
+ETF2L Highlander Premiership Silver Medal Season 12
+ETF2L Highlander Premiership Bronze Medal Season 12
+ETF2L Highlander Premiership Participation Medal Season 12
+ETF2L Highlander High Gold Medal Season 12
+ETF2L Highlander High Silver Medal Season 12
+ETF2L Highlander High Bronze Medal Season 12
+ETF2L Highlander High Playoff Medal Season 12
+ETF2L Highlander High Participation Medal Season 12
+ETF2L Highlander Mid Gold Medal Season 12
+ETF2L Highlander Mid Silver Medal Season 12
+ETF2L Highlander Mid Bronze Medal Season 12
+ETF2L Highlander Mid Playoff Medal Season 12
+ETF2L Highlander Mid Participation Medal Season 12
+ETF2L Highlander Open Gold Medal Season 12
+ETF2L Highlander Open Silver Medal Season 12
+ETF2L Highlander Open Bronze Medal Season 12
+ETF2L Highlander Open Playoff Medal Season 12
+ETF2L Highlander Open Participation Medal Season 12
+ETF2L Ultiduo 6 Gold Medal
+ETF2L Ultiduo 6 Silver Medal
+ETF2L Ultiduo 6 Bronze Medal
+ETF2L Ultiduo 6 Participation Medal
+ETF2L Highlander Open 2 Gold Medal
+ETF2L Highlander Open 2 Silver Medal
+ETF2L Highlander Open 2 Bronze Medal
+ETF2L Highlander Open 2 Participation Medal
+Mappers vs. Machines Participant Medal 2017
+CappingTV Ultiduo Summer Brawl 1st Place 2017
+CappingTV Ultiduo Summer Brawl 2nd Place 2017
+CappingTV Ultiduo Summer Brawl 3rd Place 2017
+CappingTV Ultiduo Summer Brawl Participant 2017
+The Heartfelt Hug
+Snack's Summery Ultiduo Siesta Gold Medal 2017
+Snack's Summery Ultiduo Siesta Silver Medal 2017
+Snack's Summery Ultiduo Siesta Bronze Medal 2017
+Snack's Summery Ultiduo Siesta Participation Medal 2017
+FBTF Cup 6v6 Wastex Miller 1st Place Season 4
+FBTF Cup 6v6 Wastex Miller 2nd Place Season 4
+FBTF Cup 6v6 Wastex Miller 3rd Place Season 4
+FBTF Cup 6v6 Wastex Miller Participant Season 4
+FBTF Cup 6v6 Barts Rimet 1st Place Season 4
+FBTF Cup 6v6 Barts Rimet 2nd Place Season 4
+FBTF Cup 6v6 Barts Rimet 3rd Place Season 4
+FBTF Cup 6v6 Barts Rimet Participant Season 4
+FBTF Cup 6v6 Vic Basten 1st Place Season 4
+FBTF Cup 6v6 Vic Basten 2nd Place Season 4
+FBTF Cup 6v6 Vic Basten 3rd Place Season 4
+FBTF Cup 6v6 Vic Basten Participant Season 4
+Arms Race 3 1st Place
+Arms Race 3 2nd Place
+Arms Race 3 3rd Place
+Arms Race 3 Participant
+ozfortress Premier 1st Place Season 19
+ozfortress Premier 2nd Place Season 19
+ozfortress Premier 3rd Place Season 19
+ozfortress Premier Participant Season 19
+ozfortress Intermediate 1st Place Season 19
+ozfortress Intermediate 2nd Place Season 19
+ozfortress Intermediate 3rd Place Season 19
+ozfortress Intermediate Participant Season 19
+ozfortress Open 1st Place Season 19
+ozfortress Open 2nd Place Season 19
+ozfortress Open 3rd Place Season 19
+ozfortress Open Participant Season 19
+ETF2L 6v6 Premiership Gold Medal Season 27
+ETF2L 6v6 Premiership Silver Medal Season 27
+ETF2L 6v6 Premiership Bronze Medal Season 27
+ETF2L 6v6 Premiership Participation Medal Season 27
+ETF2L 6v6 High Gold Medal Season 27
+ETF2L 6v6 High Silver Medal Season 27
+ETF2L 6v6 High Bronze Medal Season 27
+ETF2L 6v6 High Playoff Medal Season 27
+ETF2L 6v6 High Participation Medal Season 27
+ETF2L 6v6 Mid Gold Medal Season 27
+ETF2L 6v6 Mid Silver Medal Season 27
+ETF2L 6v6 Mid Bronze Medal Season 27
+ETF2L 6v6 Mid Playoff Medal Season 27
+ETF2L 6v6 Mid Participation Medal Season 27
+ETF2L 6v6 Open Gold Medal Season 27
+ETF2L 6v6 Open Silver Medal Season 27
+ETF2L 6v6 Open Bronze Medal Season 27
+ETF2L 6v6 Open Playoff Medal Season 27
+ETF2L 6v6 Open Participation Medal Season 27
+ETF2L Fresh Meat Challenge Gold Medal Season 1
+ETF2L Fresh Meat Challenge Silver Medal Season 1
+ETF2L Fresh Meat Challenge Bronze Medal Season 1
+ETF2L Fresh Meat Challenge Participant Season 1
+AsiaFortress Cup Division 1 1st Place Season 11
+AsiaFortress Cup Division 1 2nd Place Season 11
+AsiaFortress Cup Division 1 3rd Place Season 11
+AsiaFortress Cup Division 1 Participant Season 11
+AsiaFortress Cup Division 2 1st Place Season 11
+AsiaFortress Cup Division 2 2nd Place Season 11
+AsiaFortress Cup Division 2 3rd Place Season 11
+AsiaFortress Cup Division 2 Participant Season 11
+AsiaFortress Cup Division 3 1st Place Season 11
+AsiaFortress Cup Division 3 2nd Place Season 11
+AsiaFortress Cup Division 3 3rd Place Season 11
+AsiaFortress Cup Division 3 Participant Season 11
+Chapelaria Ultiduo Brazuca Winner Season 1
+Chapelaria Ultiduo Brazuca Participant Season 1
+Chapelaria Ultiduo Hermanos Winner Season 1
+Chapelaria Ultiduo Hermanos Participant Season 1
+Chapelaria Ultiduo Legatus 1st Place Season 1
+Chapelaria Ultiduo Legatus 2nd Place Season 1
+Chapelaria Ultiduo Legatus 3rd Place Season 1
+Blapature Co. Contributor 2017
+TF2Maps 72hr TF2Jam Summer Participant 2017
+TFCL 6v6 Alpha
+TFCL 6v6 1st Place Alpha Season
+TFCL 6v6 2nd Place Alpha Season
+TFCL 6v6 3rd Place Alpha Season
+TFCL 6v6 1st Place Season 2
+TFCL 6v6 2nd Place Season 2
+TFCL 6v6 3rd Place Season 2
+TFCL 6v6 Participant Season 2
+TFCL Ultiduo Alpha
+TFCL Ultiduo 1st Place Alpha Season
+TFCL Ultiduo 2nd Place Alpha Season
+TFCL Ultiduo 3rd Place Alpha Season
+TFCL Ultiduo 1st Place Season 2
+TFCL Ultiduo 2nd Place Season 2
+TFCL Ultiduo 3rd Place Season 2
+TFCL Ultiduo Participant Season 2
+TFCL Ultiduo 1st Place Season 3
+TFCL Ultiduo 2nd Place Season 3
+TFCL Ultiduo 3rd Place Season 3
+TFCL Ultiduo Participant Season 3
+TF2Maps Charitable Heart 2017
+CappingTV Ultiduo Winter Chalice 1st Place 2017
+CappingTV Ultiduo Winter Chalice 2nd Place 2017
+CappingTV Ultiduo Winter Chalice 3rd Place 2017
+CappingTV Ultiduo Winter Chalice Participant 2017
+ozfortress Premier 1st Place Season 20
+ozfortress Premier 2nd Place Season 20
+ozfortress Premier 3rd Place Season 20
+ozfortress Premier Participant Season 20
+ozfortress Intermediate 1st Place Season 20
+ozfortress Intermediate 2nd Place Season 20
+ozfortress Intermediate 3rd Place Season 20
+ozfortress Intermediate Participant Season 20
+ozfortress Open 1st Place Season 20
+ozfortress Open 2nd Place Season 20
+ozfortress Open 3rd Place Season 20
+ozfortress Open Participant Season 20
+Jaunty Globetrotter 2017
+Jaunty Voyager 2017
+Jaunty Adventurer 2017
+Snack's Summery Ultiduo Siesta Gold Medal 2017 Season 2
+Snack's Summery Ultiduo Siesta Silver Medal 2017 Season 2
+Snack's Summery Ultiduo Siesta Bronze Medal 2017 Season 2
+Snack's Summery Ultiduo Siesta Participation Medal 2017 Season 2
+Ready Steady Pan Winner Season 3
+Ready Steady Pan Participant Season 3
+ETF2L 6v6 Low Gold Medal Season 27
+ETF2L 6v6 Low Silver Medal Season 27
+ETF2L 6v6 Low Bronze Medal Season 27
+ETF2L 6v6 Low Playoff Medal Season 27
+ETF2L 6v6 Low Participation Medal Season 27
+ETF2L Highlander Premiership Gold Medal Season 13
+ETF2L Highlander Premiership Silver Medal Season 13
+ETF2L Highlander Premiership Bronze Medal Season 13
+ETF2L Highlander Premiership Participation Medal Season 13
+ETF2L Highlander High Gold Medal Season 13
+ETF2L Highlander High Silver Medal Season 13
+ETF2L Highlander High Bronze Medal Season 13
+ETF2L Highlander High Playoff Medal Season 13
+ETF2L Highlander High Participation Medal Season 13
+ETF2L Highlander Mid Gold Medal Season 13
+ETF2L Highlander Mid Silver Medal Season 13
+ETF2L Highlander Mid Bronze Medal Season 13
+ETF2L Highlander Mid Playoff Medal Season 13
+ETF2L Highlander Mid Participation Medal Season 13
+ETF2L Highlander Open Gold Medal Season 13
+ETF2L Highlander Open Silver Medal Season 13
+ETF2L Highlander Open Bronze Medal Season 13
+ETF2L Highlander Open Playoff Medal Season 13
+ETF2L Highlander Open Participation Medal Season 13
+ETF2L 6v6 Premiership Gold Medal Season 28
+ETF2L 6v6 Premiership Silver Medal Season 28
+ETF2L 6v6 Premiership Bronze Medal Season 28
+ETF2L 6v6 Premiership Participation Medal Season 28
+ETF2L 6v6 High Gold Medal Season 28
+ETF2L 6v6 High Silver Medal Season 28
+ETF2L 6v6 High Bronze Medal Season 28
+ETF2L 6v6 High Playoff Medal Season 28
+ETF2L 6v6 High Participation Medal Season 28
+ETF2L 6v6 Mid Gold Medal Season 28
+ETF2L 6v6 Mid Silver Medal Season 28
+ETF2L 6v6 Mid Bronze Medal Season 28
+ETF2L 6v6 Mid Playoff Medal Season 28
+ETF2L 6v6 Mid Participation Medal Season 28
+ETF2L 6v6 Open Gold Medal Season 28
+ETF2L 6v6 Open Silver Medal Season 28
+ETF2L 6v6 Open Bronze Medal Season 28
+ETF2L 6v6 Open Playoff Medal Season 28
+ETF2L 6v6 Open Participation Medal Season 28
+TFCL Highlander 1st Place Season 1
+TFCL Highlander 2nd Place Season 1
+TFCL Highlander 3rd Place Season 1
+TFCL Highlander Participant Season 1
+TFCL 4v4 1st Place Season 1
+TFCL 4v4 2nd Place Season 1
+TFCL 4v4 3rd Place Season 1
+TFCL 4v4 Participant Season 1
+TFCL bball 1st Place Season 1
+TFCL bball 2nd Place Season 1
+TFCL bball 3rd Place Season 1
+TFCL bball Participant Season 1
+TFCL 6v6 1st Place Season 3
+TFCL 6v6 2nd Place Season 3
+TFCL 6v6 3rd Place Season 3
+TFCL 6v6 Participant Season 3
+TFCL Ultiduo 1st Place Season 4
+TFCL Ultiduo 2nd Place Season 4
+TFCL Ultiduo 3rd Place Season 4
+TFCL Ultiduo Participant Season 4
+AsiaFortress Cup Division 1 1st Place Season 12
+AsiaFortress Cup Division 1 2nd Place Season 12
+AsiaFortress Cup Division 1 3rd Place Season 12
+AsiaFortress Cup Division 1 Participant Season 12
+AsiaFortress Cup Division 2 1st Place Season 12
+AsiaFortress Cup Division 2 2nd Place Season 12
+AsiaFortress Cup Division 2 3rd Place Season 12
+AsiaFortress Cup Division 2 Participant Season 12
+AsiaFortress Cup Division 3 1st Place Season 12
+AsiaFortress Cup Division 3 2nd Place Season 12
+AsiaFortress Cup Division 3 3rd Place Season 12
+AsiaFortress Cup Division 3 Participant Season 12
+Insomnia 61 First Place Medal
+Insomnia 61 Second Place Medal
+Insomnia 61 Third Place Medal
+Insomnia 61 Participant Medal
+Insomnia 61 Contributor Medal
+RGLgg Pick Ban Prolander Participant Season 1
+Titanium Tank Participant Medal 2017
+Mandrew's Munificent Mug
+Israphel's Eleemosynary Expression
+Chapelaria 6v6 Legatus 1st Place Season 3
+Chapelaria 6v6 Legatus 2nd Place Season 3
+Chapelaria 6v6 Legatus 3rd Place Season 3
+Chapelaria 6v6 Legatus Participant Season 3
+Chapelaria 6v6 Gladiator 1st Place Season 3
+Chapelaria 6v6 Gladiator 2nd Place Season 3
+Chapelaria 6v6 Gladiator 3rd Place Season 3
+Chapelaria 6v6 Gladiator Participant Season 3
+Philanthropist's Indulgence
+Spectral Snowflake
+Heals for Reals Event 1st Place 2017
+Heals for Reals Event 2nd Place 2017
+Heals for Reals Event 3rd Place 2017
+Heals for Reals Event Participant 2017
+Heals for Reals Donor 2017
+Ready Steady Pan Playoff Season 3
+Ready Steady Pan Helper Season 3
+UGC Highlander 1st Place Platinum Season 21
+UGC Highlander 2nd Place Platinum Season 21
+UGC Highlander 3rd Place Platinum Season 21
+UGC Highlander Platinum Participant Season 21
+UGC Highlander 1st Place Silver Season 21
+UGC Highlander 2nd Place Silver Season 21
+UGC Highlander 3rd Place Silver Season 21
+UGC Highlander Silver Participant Season 21
+UGC Highlander 1st Place Steel Season 21
+UGC Highlander 2nd Place Steel Season 21
+UGC Highlander 3rd Place Steel Season 21
+UGC Highlander Steel Participant Season 21
+UGC Highlander 1st Place Platinum Season 22
+UGC Highlander 2nd Place Platinum Season 22
+UGC Highlander 3rd Place Platinum Season 22
+UGC Highlander Platinum Participant Season 22
+UGC Highlander 1st Place Silver Season 22
+UGC Highlander 2nd Place Silver Season 22
+UGC Highlander 3rd Place Silver Season 22
+UGC Highlander Silver Participant Season 22
+UGC Highlander 1st Place Steel Season 22
+UGC Highlander 2nd Place Steel Season 22
+UGC Highlander 3rd Place Steel Season 22
+UGC Highlander Steel Participant Season 22
+UGC Highlander 1st Place Platinum Season 23
+UGC Highlander 2nd Place Platinum Season 23
+UGC Highlander 3rd Place Platinum Season 23
+UGC Highlander Platinum Participant Season 23
+UGC Highlander 1st Place Silver Season 23
+UGC Highlander 2nd Place Silver Season 23
+UGC Highlander 3rd Place Silver Season 23
+UGC Highlander Silver Participant Season 23
+UGC Highlander 1st Place Steel Season 23
+UGC Highlander 2nd Place Steel Season 23
+UGC Highlander 3rd Place Steel Season 23
+UGC Highlander Steel Participant Season 23
+UGC 6vs6 1st Place Platinum Season 23
+UGC 6vs6 2nd Place Platinum Season 23
+UGC 6vs6 3rd Place Platinum Season 23
+UGC 6vs6 Platinum Participant Season 23
+UGC 6vs6 Silver Participant Season 23
+UGC 6vs6 Steel Participant Season 23
+UGC 6vs6 1st Place Platinum Season 24
+UGC 6vs6 2nd Place Platinum Season 24
+UGC 6vs6 3rd Place Platinum Season 24
+UGC 6vs6 Platinum Participant Season 24
+UGC 6vs6 Silver Participant Season 24
+UGC 6vs6 Steel Participant Season 24
+UGC 6vs6 1st Place Platinum Season 25
+UGC 6vs6 2nd Place Platinum Season 25
+UGC 6vs6 3rd Place Platinum Season 25
+UGC 6vs6 Platinum Participant Season 25
+UGC 6vs6 Silver Participant Season 25
+UGC 6vs6 Steel Participant Season 25
+UGC 4vs4 1st Place Gold Season 10
+UGC 4vs4 2nd Place Gold Season 10
+UGC 4vs4 3rd Place Gold Season 10
+UGC 4vs4 Gold Participant Season 10
+UGC 4vs4 Silver Participant Season 10
+UGC 4vs4 Steel Participant Season 10
+UGC 4vs4 1st Place Gold Season 11
+UGC 4vs4 2nd Place Gold Season 11
+UGC 4vs4 3rd Place Gold Season 11
+UGC 4vs4 Gold Participant Season 11
+UGC 4vs4 Silver Participant Season 11
+UGC 4vs4 Steel Participant Season 11
+UGC 4vs4 1st Place Gold Season 12
+UGC 4vs4 2nd Place Gold Season 12
+UGC 4vs4 3rd Place Gold Season 12
+UGC 4vs4 Gold Participant Season 12
+UGC 4vs4 Silver Participant Season 12
+UGC 4vs4 Steel Participant Season 12
+ozfortress Premier 1st Place Season 21
+ozfortress Premier 2nd Place Season 21
+ozfortress Premier 3rd Place Season 21
+ozfortress Premier Participant Season 21
+ozfortress Intermediate 1st Place Season 21
+ozfortress Intermediate 2nd Place Season 21
+ozfortress Intermediate 3rd Place Season 21
+ozfortress Intermediate Participant Season 21
+ozfortress Open 1st Place Season 21
+ozfortress Open 2nd Place Season 21
+ozfortress Open 3rd Place Season 21
+ozfortress Open Participant Season 21
+NHBL Sasha Heavyweight Champion Season 1
+NHBL Sasha Heavyweight Champion Season 2
+NHBL Sasha Heavyweight Champion Season 3
+NHBL Sasha Heavyweight Champion Season 4
+NHBL Sasha Heavyweight Champion Season 5
+NHBL Sasha Heavyweight Champion Season 6
+Florida LAN 2018 Donator Medal
+Florida LAN 2018 Participant Medal
+Florida LAN 2018 Contributor Medal
+NHBL Natascha Heavyweight Champion Season 7
+NHBL Finals Participant Season 7
+NHBL Finals 2nd Place Season 7
+NHBL Finals 3rd Place Season 7
+NHBL Finals 4th Place Season 7
+Ultimate Ultiduo 1st Place Season 1
+Ultimate Ultiduo 2nd Place Season 1
+Ultimate Ultiduo 3rd Place Season 1
+Ultimate Ultiduo Participant Season 1
+Ultimate Ultiduo Helper Season 1
+RGLgg Pick Ban Prolander Participant Season 2
+RGLgg One Day Prolander Cup North America Winter 2018
+RGLgg One Day Prolander Cup Europe Winter 2018
+Palaise MGE Doubles Community Clash Champion Season 1
+Palaise MGE Doubles Community Clash Runner-Up Season 1
+Palaise MGE Doubles Community Clash Contestant Season 1
+Journey to the East 1st Place
+Journey to the East 2nd Place
+Journey to the East 3rd Place
+Journey to the East Participant
+Newbie Prolander Cup Gold Medal Season 1
+Newbie Prolander Cup Silver Medal Season 1
+Newbie Prolander Cup Bronze Medal Season 1
+Newbie Prolander Cup Participant Season 1
+ESA Rewind II Tier 1 Donor
+ESA Rewind II Tier 2 Donor
+ESA Rewind II Tier 3 Donor
+ESA Rewind II Top 8
+ESA Rewind II Participant
+ETF2L Highlander Premiership Gold Medal Season 14
+ETF2L Highlander Premiership Silver Medal Season 14
+ETF2L Highlander Premiership Bronze Medal Season 14
+ETF2L Highlander Premiership Participation Medal Season 14
+ETF2L Highlander High Gold Medal Season 14
+ETF2L Highlander High Silver Medal Season 14
+ETF2L Highlander High Bronze Medal Season 14
+ETF2L Highlander High Participation Medal Season 14
+ETF2L Highlander Mid Gold Medal Season 14
+ETF2L Highlander Mid Silver Medal Season 14
+ETF2L Highlander Mid Bronze Medal Season 14
+ETF2L Highlander Mid Playoff Medal Season 14
+ETF2L Highlander Mid Participation Medal Season 14
+ETF2L Highlander Open Gold Medal Season 14
+ETF2L Highlander Open Silver Medal Season 14
+ETF2L Highlander Open Bronze Medal Season 14
+ETF2L Highlander Open Playoff Medal Season 14
+ETF2L Highlander Open Participation Medal Season 14
+ETF2L 6v6 Premiership Gold Medal Season 29
+ETF2L 6v6 Premiership Silver Medal Season 29
+ETF2L 6v6 Premiership Bronze Medal Season 29
+ETF2L 6v6 Premiership Participation Medal Season 29
+ETF2L 6v6 Division 1 Gold Medal Season 29
+ETF2L 6v6 Division 1 Silver Medal Season 29
+ETF2L 6v6 Division 1 Bronze Medal Season 29
+ETF2L 6v6 Division 1 Participation Medal Season 29
+ETF2L 6v6 Division 2 Gold Medal Season 29
+ETF2L 6v6 Division 2 Silver Medal Season 29
+ETF2L 6v6 Division 2 Bronze Medal Season 29
+ETF2L 6v6 Division 2 Participation Medal Season 29
+ETF2L 6v6 Mid Gold Medal Season 29
+ETF2L 6v6 Mid Silver Medal Season 29
+ETF2L 6v6 Mid Bronze Medal Season 29
+ETF2L 6v6 Mid Playoff Medal Season 29
+ETF2L 6v6 Mid Participation Medal Season 29
+ETF2L 6v6 Low Gold Medal Season 29
+ETF2L 6v6 Low Silver Medal Season 29
+ETF2L 6v6 Low Bronze Medal Season 29
+ETF2L 6v6 Low Playoff Medal Season 29
+ETF2L 6v6 Low Participation Medal Season 29
+ETF2L 6v6 Open Gold Medal Season 29
+ETF2L 6v6 Open Silver Medal Season 29
+ETF2L 6v6 Open Bronze Medal Season 29
+ETF2L 6v6 Open Playoff Medal Season 29
+ETF2L 6v6 Open Participation Medal Season 29
+Canteen Crasher Platinum Crit Medal 2018
+Canteen Crasher Gold Uber Medal 2018
+Canteen Crasher Silver Building Medal 2018
+Canteen Crasher Bronze Ammo Medal 2018
+Canteen Crasher Iron Recall Medal 2018
+Canteen Crasher Rust Starter Medal 2018
+AsiaFortress Cup Division 1 1st Place Season 13
+AsiaFortress Cup Division 1 2nd Place Season 13
+AsiaFortress Cup Division 1 3rd Place Season 13
+AsiaFortress Cup Division 1 Participant Season 13
+AsiaFortress Cup Division 2 1st Place Season 13
+AsiaFortress Cup Division 2 2nd Place Season 13
+AsiaFortress Cup Division 2 3rd Place Season 13
+AsiaFortress Cup Division 2 Participant Season 13
+AsiaFortress Cup Division 3 1st Place Season 13
+AsiaFortress Cup Division 3 2nd Place Season 13
+AsiaFortress Cup Division 3 3rd Place Season 13
+AsiaFortress Cup Division 3 Participant Season 13
+Copenhagen Games 6v6 Gold Medal 2018
+Copenhagen Games 6v6 Silver Medal 2018
+Copenhagen Games 6v6 Bronze Medal 2018
+Copenhagen Games 6v6 Iron Medal 2018
+Copenhagen Games Staff Medal 2018
+TFCL 6v6 Alpha FC
+TFCL 6v6 Alpha RK
+Gette it Onne Champion Season 1
+Gette it Onne Playoffs Season 1
+Gette it Onne Participant Season 1
+Gette it Onne Helper Season 1
+HLPugstf Highlander Cup Gold Season 1
+HLPugstf Highlander Cup Silver Season 1
+HLPugstf Highlander Cup Bronze Season 1
+HLPugstf Highlander Cup Participant Season 1
+HLPugstf Highlander Cup Contributor Season 1
+The Heartfelt Hero
+Essentials Monthly First Place
+Essentials Monthly Second Place
+Essentials Monthly Third Place
+Essentials Monthly Participant
+Essentials Monthly Contributor
+RGLgg Invite Champions Season 3
+RGLgg Invite 2nd Place Season 3
+RGLgg Invite 3rd Place Season 3
+RGLgg Invite Participant Season 3
+RGLgg Div1 Champions Season 3
+RGLgg Div1 2nd Place Season 3
+RGLgg Div1 3rd Place Season 3
+RGLgg Div1 Participant Season 3
+RGLgg Rec Participant Season 3
+RGLgg One Day Prolander Cup North America Spring 2018
+RGLgg Invite Champions EU Season 1
+RGLgg Invite 2nd Place EU Season 1
+RGLgg Invite 3rd Place EU Season 1
+RGLgg Invite Participant EU Season 1
+RGLgg Div2 Champions EU Season 1
+RGLgg Div2 2nd Place EU Season 1
+RGLgg Div2 3rd Place EU Season 1
+RGLgg Div2 Participant EU Season 1
+PURE League Premier First Place Season 1
+PURE League Premier Second Place Season 1
+PURE League Premier Third Place Season 1
+PURE League Premier Participant Season 1
+PURE League Intermediate First Place Season 1
+PURE League Intermediate Second Place Season 1
+PURE League Intermediate Third Place Season 1
+PURE League Intermediate Participant Season 1
+PURE League Open First Place Season 1
+PURE League Open Second Place Season 1
+PURE League Open Third Place Season 1
+PURE League Open Participant Season 1
+Copenhagen Games Highlander Gold Medal 2018
+Copenhagen Games Highlander Silver Medal 2018
+Copenhagen Games Highlander Bronze Medal 2018
+Copenhagen Games Highlander Iron Medal 2018
+ozfortress Premier 1st Place Season 22
+ozfortress Premier 2nd Place Season 22
+ozfortress Premier 3rd Place Season 22
+ozfortress Premier Participant Season 22
+ozfortress Intermediate 1st Place Season 22
+ozfortress Intermediate 2nd Place Season 22
+ozfortress Intermediate 3rd Place Season 22
+ozfortress Intermediate Participant Season 22
+ozfortress Open 1st Place Season 22
+ozfortress Open 2nd Place Season 22
+ozfortress Open 3rd Place Season 22
+ozfortress Open Participant Season 22
+Beginnings 5 First Place Medal
+Beginnings 5 Second Place Medal
+Beginnings 5 Third Place Medal
+Beginnings 5 Participant Medal
+Beginnings 5 Helper Medal
+HLMixes First Place Medal Season 1
+HLMixes Finalist Medal Season 1
+HLMixes Participant Medal Season 1
+HydroTF Participant Medal Season 1
+HydroTF All-Star Medal Season 1
+Ready Steady Pan First Place Season 4
+Ready Steady Pan Second Place Season 4
+Ready Steady Pan Third Place Season 4
+Ready Steady Pan Playoff Season 4
+Ready Steady Pan Participant Season 4
+Ready Steady Pan Helper Season 4
+Blapature Co. Backer 2018
+Blapature Co. Supporter 2018
+Blapature Co. Benefactor 2018
+NHBL Sasha Heavyweight Champion Season 7
+TF2Maps Ray of Sunshine 2018
+Chapelaria Ultiduo Gladiator 1st Place Season 2
+Chapelaria Ultiduo Gladiator 2nd Place Season 2
+Chapelaria Ultiduo Gladiator 3rd Place Season 2
+Chapelaria Ultiduo Gladiator Participant Season 2
+Chapelaria Ultiduo Legatus 1st Place Season 2
+Chapelaria Ultiduo Legatus 2nd Place Season 2
+Chapelaria Ultiduo Legatus 3rd Place Season 2
+Chapelaria Ultiduo Legatus Participant Season 2
+Newbie Highlander Cup Gold Medal Season 2
+Newbie Highlander Cup Silver Medal Season 2
+Newbie Highlander Cup Bronze Medal Season 2
+Newbie Highlander Cup Participant Season 2
+Rally Call 2018 Whale
+Rally Call 2018 Whale Donor
+Newbie Prolander Cup Gold Medal Season 3
+Newbie Prolander Cup Silver Medal Season 3
+Newbie Prolander Cup Bronze Medal Season 3
+Newbie Prolander Cup Participant Season 3
+TFCL 6v6 1st Place Season 4
+TFCL 6v6 2nd Place Season 4
+TFCL 6v6 3rd Place Season 4
+TFCL 6v6 Participant Season 4
+TFCL Ultiduo 1st Place Season 5
+TFCL Ultiduo 2nd Place Season 5
+TFCL Ultiduo 3rd Place Season 5
+TFCL Ultiduo Participant Season 5
+TFCL Highlander 1st Place Season 2
+TFCL Highlander 2nd Place Season 2
+TFCL Highlander 3rd Place Season 2
+TFCL Highlander Participant Season 2
+TF2Maps 72hr TF2Jam Summer Participant 2018
+Insomnia 63 First Place Medal
+Insomnia 63 Second Place Medal
+Insomnia 63 Third Place Medal
+Insomnia 63 Participant Medal
+Insomnia 63 Contributor Medal
+UGC Highlander 1st Place Platinum Season 24
+UGC Highlander 2nd Place Platinum Season 24
+UGC Highlander 3rd Place Platinum Season 24
+UGC Highlander Platinum Participant Season 24
+UGC Highlander 1st Place Silver Season 24
+UGC Highlander 2nd Place Silver Season 24
+UGC Highlander 3rd Place Silver Season 24
+UGC Highlander Silver Participant Season 24
+UGC Highlander 1st Place Steel Season 24
+UGC Highlander 2nd Place Steel Season 24
+UGC Highlander 3rd Place Steel Season 24
+UGC Highlander Steel Participant Season 24
+UGC 6vs6 1st Place Platinum Season 26
+UGC 6vs6 2nd Place Platinum Season 26
+UGC 6vs6 3rd Place Platinum Season 26
+UGC 6vs6 Platinum Participant Season 26
+UGC 6vs6 Silver Participant Season 26
+UGC 6vs6 Steel Participant Season 26
+UGC 4vs4 1st Place Gold Season 13
+UGC 4vs4 2nd Place Gold Season 13
+UGC 4vs4 3rd Place Gold Season 13
+UGC 4vs4 Gold Participant Season 13
+UGC 4vs4 Silver Participant Season 13
+UGC 4vs4 Steel Participant Season 13
+UGC Highlander 1st Place Platinum Season 25
+UGC Highlander 2nd Place Platinum Season 25
+UGC Highlander 3rd Place Platinum Season 25
+UGC Highlander Platinum Participant Season 25
+UGC Highlander 1st Place Silver Season 25
+UGC Highlander 2nd Place Silver Season 25
+UGC Highlander 3rd Place Silver Season 25
+UGC Highlander Silver Participant Season 25
+UGC Highlander 1st Place Steel Season 25
+UGC Highlander 2nd Place Steel Season 25
+UGC Highlander 3rd Place Steel Season 25
+UGC Highlander Steel Participant Season 25
+UGC 6vs6 1st Place Platinum Season 27
+UGC 6vs6 2nd Place Platinum Season 27
+UGC 6vs6 3rd Place Platinum Season 27
+UGC 6vs6 Platinum Participant Season 27
+UGC 6vs6 Silver Participant Season 27
+UGC 6vs6 Steel Participant Season 27
+UGC 4vs4 1st Place Gold Season 14
+UGC 4vs4 2nd Place Gold Season 14
+UGC 4vs4 3rd Place Gold Season 14
+UGC 4vs4 Gold Participant Season 14
+UGC 4vs4 Silver Participant Season 14
+UGC 4vs4 Steel Participant Season 14
+LBTF2 6v6 Elite 1st Place Season 15
+LBTF2 6v6 Elite 2nd Place Season 15
+LBTF2 6v6 Elite 3rd Place Season 15
+LBTF2 6v6 Elite Participant Season 15
+LBTF2 6v6 Central 1st Place Season 15
+LBTF2 6v6 Central 2nd Place Season 15
+LBTF2 6v6 Central 3rd Place Season 15
+LBTF2 6v6 Central Participant Season 15
+LBTF2 6v6 Open 1st Place Season 15
+LBTF2 6v6 Open 2nd Place Season 15
+LBTF2 6v6 Open 3rd Place Season 15
+LBTF2 6v6 Open Participant Season 15
+Fresh Meat Prolander Cup 1st Place Summer 2018
+Fresh Meat Prolander Cup 2nd Place Summer 2018
+Fresh Meat Prolander Cup 3rd Place Summer 2018
+Fresh Meat Prolander Cup Amateur 1st Place Summer 2018
+Fresh Meat Prolander Cup Amateur 2nd Place Summer 2018
+Fresh Meat Prolander Cup Amateur 3rd Place Summer 2018
+Fresh Meat Prolander Cup Helper Summer 2018
+Fresh Meat Prolander Cup Participant Summer 2018
+Fresh Meat Prolander Cup 1st Place Autumn 2018
+Fresh Meat Prolander Cup 2nd Place Autumn 2018
+Fresh Meat Prolander Cup 3rd Place Autumn 2018
+Fresh Meat Prolander Cup Amateur 1st Place Autumn 2018
+Fresh Meat Prolander Cup Amateur 2nd Place Autumn 2018
+Fresh Meat Prolander Cup Amateur 3rd Place Autumn 2018
+Fresh Meat Prolander Cup Elite 1st Place Autumn 2018
+Fresh Meat Prolander Cup Elite 2nd Place Autumn 2018
+Fresh Meat Prolander Cup Elite 3rd Place Autumn 2018
+Fresh Meat Prolander Cup Helper Autumn 2018
+Fresh Meat Prolander Cup Participant Autumn 2018
+NewbiDuo Cup 1st Place Summer 2018
+NewbiDuo Cup 2nd Place Summer 2018
+NewbiDuo Cup 3rd Place Summer 2018
+NewbiDuo Cup Participant Summer 2018
+NewbiDuo Cup Helper Summer 2018
+Ultimate Ultiduo 1st Place Season 2
+Ultimate Ultiduo 2nd Place Season 2
+Ultimate Ultiduo 3rd Place Season 2
+Ultimate Ultiduo Participant Season 2
+Ultimate Ultiduo Helper Season 2
+ETF2L Highlander Premiership Gold Medal Season 15
+ETF2L Highlander Premiership Silver Medal Season 15
+ETF2L Highlander Premiership Bronze Medal Season 15
+ETF2L Highlander Premiership Participation Medal Season 15
+ETF2L Highlander High Gold Medal Season 15
+ETF2L Highlander High Silver Medal Season 15
+ETF2L Highlander High Bronze Medal Season 15
+ETF2L Highlander High Participation Medal Season 15
+ETF2L Highlander Mid Gold Medal Season 15
+ETF2L Highlander Mid Silver Medal Season 15
+ETF2L Highlander Mid Bronze Medal Season 15
+ETF2L Highlander Mid Playoff Medal Season 15
+ETF2L Highlander Mid Participation Medal Season 15
+ETF2L Highlander Open Gold Medal Season 15
+ETF2L Highlander Open Silver Medal Season 15
+ETF2L Highlander Open Bronze Medal Season 15
+ETF2L Highlander Open Playoff Medal Season 15
+ETF2L Highlander Open Participation Medal Season 15
+ETF2L 6v6 Premiership Gold Medal Season 30
+ETF2L 6v6 Premiership Silver Medal Season 30
+ETF2L 6v6 Premiership Bronze Medal Season 30
+ETF2L 6v6 Premiership Participation Medal Season 30
+ETF2L 6v6 Division 1 Gold Medal Season 30
+ETF2L 6v6 Division 1 Silver Medal Season 30
+ETF2L 6v6 Division 1 Bronze Medal Season 30
+ETF2L 6v6 Division 1 Participation Medal Season 30
+ETF2L 6v6 Division 2 Gold Medal Season 30
+ETF2L 6v6 Division 2 Silver Medal Season 30
+ETF2L 6v6 Division 2 Bronze Medal Season 30
+ETF2L 6v6 Division 2 Participation Medal Season 30
+ETF2L 6v6 Mid Gold Medal Season 30
+ETF2L 6v6 Mid Silver Medal Season 30
+ETF2L 6v6 Mid Bronze Medal Season 30
+ETF2L 6v6 Mid Playoff Medal Season 30
+ETF2L 6v6 Mid Participation Medal Season 30
+ETF2L 6v6 Low Gold Medal Season 30
+ETF2L 6v6 Low Silver Medal Season 30
+ETF2L 6v6 Low Bronze Medal Season 30
+ETF2L 6v6 Low Playoff Medal Season 30
+ETF2L 6v6 Low Participation Medal Season 30
+ETF2L 6v6 Open Gold Medal Season 30
+ETF2L 6v6 Open Silver Medal Season 30
+ETF2L 6v6 Open Bronze Medal Season 30
+ETF2L 6v6 Open Playoff Medal Season 30
+ETF2L 6v6 Open Participation Medal Season 30
+ETF2L Highlander Premiership Gold Medal Season 16
+ETF2L Highlander Premiership Silver Medal Season 16
+ETF2L Highlander Premiership Bronze Medal Season 16
+ETF2L Highlander Premiership Participation Medal Season 16
+ETF2L Highlander Division 1 Gold Medal Season 16
+ETF2L Highlander Division 1 Silver Medal Season 16
+ETF2L Highlander Division 1 Bronze Medal Season 16
+ETF2L Highlander Division 1 Participation Medal Season 16
+ETF2L Highlander Division 2 Gold Medal Season 16
+ETF2L Highlander Division 2 Silver Medal Season 16
+ETF2L Highlander Division 2 Bronze Medal Season 16
+ETF2L Highlander Division 2 Participation Medal Season 16
+ETF2L Highlander Mid Gold Medal Season 16
+ETF2L Highlander Mid Silver Medal Season 16
+ETF2L Highlander Mid Bronze Medal Season 16
+ETF2L Highlander Mid Playoff Medal Season 16
+ETF2L Highlander Mid Participation Medal Season 16
+ETF2L Highlander Low Gold Medal Season 16
+ETF2L Highlander Low Silver Medal Season 16
+ETF2L Highlander Low Bronze Medal Season 16
+ETF2L Highlander Low Playoff Medal Season 16
+ETF2L Highlander Low Participation Medal Season 16
+ETF2L Highlander Open Gold Medal Season 16
+ETF2L Highlander Open Silver Medal Season 16
+ETF2L Highlander Open Bronze Medal Season 16
+ETF2L Highlander Open Playoff Medal Season 16
+ETF2L Highlander Open Participation Medal Season 16
+Newbie Highlander Cup Gold Medal Season 4
+Newbie Highlander Cup Silver Medal Season 4
+Newbie Highlander Cup Bronze Medal Season 4
+Newbie Highlander Cup Participant Season 4
+RGLgg Invite Champions Season 4
+RGLgg Invite 2nd Place Season 4
+RGLgg Invite 3rd Place Season 4
+RGLgg Invite Participant Season 4
+RGLgg Div2 Champions Season 4
+RGLgg Div2 2nd Place Season 4
+RGLgg Div2 3rd Place Season 4
+RGLgg Div2 Participant Season 4
+RGLgg Open Participant Season 4
+RGLgg Invite Champions Season 5
+RGLgg Invite 2nd Place Season 5
+RGLgg Invite 3rd Place Season 5
+RGLgg Invite Participant Season 5
+RGLgg Div1 Champions Season 5
+RGLgg Div1 2nd Place Season 5
+RGLgg Div1 3rd Place Season 5
+RGLgg Div1 Participant Season 5
+RGLgg Div2 Champions Season 5
+RGLgg Div2 2nd Place Season 5
+RGLgg Div2 3rd Place Season 5
+RGLgg Div2 Participant Season 5
+RGLgg Open Participant Season 5
+RGLgg One Day Prolander Cup North America Summer 2018
+RGLgg One Day Prolander Cup Australia Summer 2018
+PASS Time Federation 1st Place Medal Season 1
+PASS Time Federation 2nd Place Medal Season 1
+PASS Time Federation 3rd Place Medal Season 1
+PASS Time Federation Participant Season 1
+PASS Time Federation Helper Season 1
+Chapelaria Highlander Gladiator 1st Place Season 1
+Chapelaria Highlander Gladiator 2nd Place Season 1
+Chapelaria Highlander Gladiator 3rd Place Season 1
+Chapelaria Highlander Gladiator Participant Season 1
+Chapelaria Highlander Legatus 1st Place Season 1
+Chapelaria Highlander Legatus 2nd Place Season 1
+Chapelaria Highlander Legatus 3rd Place Season 1
+Chapelaria Highlander Legatus Participant Season 1
+Respawn League Highlander 1st Place Season 1
+Respawn League Highlander 2nd Place Season 1
+Respawn League Highlander 3rd Place Season 1
+Respawn League Highlander Participant Season 1
+Respawn League Highlander Founder Season 1
+Moscow LAN 1st Place Summer 2018
+Moscow LAN 2nd Place Summer 2018
+Moscow LAN 3rd Place Summer 2018
+Moscow LAN Participant Summer 2018
+Moscow LAN Helper Summer 2018
+World Traveler
+	slot head
+Map Token Egypt
+Map Token Coldfront
+Map Token Fastlane
+Map Token Turbine
+Map Token Steel
+Map Token Junction
+Map Token Watchtower
+Map Token Hoodoo
+Map Token Offblast
+Map Token Yukon
+Map Token Harvest
+Map Token Freight
+Map Token Mountain Lab
+Map Token Manor Event
+Map Token Nightfall
+Map Token Frontier
+Map Token Lakeside
+Map Token Gullywash
+Map Token Kong King
+Map Token Process
+Map Token Standin
+Map Token Snakewater
+Map Token Snowplow
+Map Token Borneo
+Map Token Suijin
+Map Token 2Fort Invasion
+Map Token Probed
+Map Token Watergate
+Map Token Byre
+Map Token Gorge Event
+Map Token Sunshine Event
+Map Token Moonshine Event
+Map Token Millstone Event
+Map Token Snowycoast
+Map Token Vanguard
+Map Token Landfall
+Map Token Highpass
+Map Token Sunshine
+Map Token Metalworks
+Map Token Swiftwater
+Map Token Maple Ridge Event
+Map Token Fifth Curve Event
+Map Token Pit Of Death
+Map Token Mossrock
+Map Token Lazarus
+Map Token Banana Bay
+Map Token Enclosure
+Map Token Brazil
+Craft Bar Level 1
+Craft Bar Level 2
+Craft Bar Level 3
+Scout Class Token
+Sniper Class Token
+Soldier Class Token
+Demoman Class Token
+Heavy Class Token
+Medic Class Token
+Pyro Class Token
+Spy Class Token
+Engineer Class Token
+Slot Token - Primary
+	slot primary
+Slot Token - Secondary
+	slot secondary
+Slot Token - Melee
+	slot melee
+Slot Token - PDA2
+	slot pda2
+Name Tag
+Decoder Ring
+Supply Crate
+Paint Can
+Customize Texture Tool
+Paint Can 1
+Paint Can 2
+Paint Can 3
+Paint Can 4
+Paint Can 5
+Paint Can 6
+Paint Can 7
+Paint Can 8
+Paint Can 9
+Paint Can 10
+Paint Can 11
+Paint Can 12
+Paint Can 13
+Paint Can 14
+Supply Crate 2
+Gift Wrap
+Wrapped Gift
+Description Tag
+Supply Crate 3
+Paint Can Team Color
+Winter Crate
+Winter Key
+Backpack Expander
+Paint Can 15
+Paint Can 16
+Paint Can 17
+Paint Can 18
+Paint Can 19
+Paint Can 20
+Christmas Key 2010
+Paint Can Team Color 2
+Paint Can Team Color 3
+Paint Can Team Color 4
+Paint Can Team Color 5
+Paint Can Team Color 6
+Paint Can Team Color 7
+Summer Crate
+Summer Key
+Supply Crate Rare
+Naughty Winter Crate 2011
+Nice Winter Crate 2011
+Naughty Winter Key 2011
+Nice Winter Key 2011
+Something Special For Someone Special (Tool)
+Something Special For Someone Special (Wearable)
+	slot misc
+Paint Can 21
+Paint Can 22
+Scorched Crate
+Scorched Key
+Fall Crate 2012
+Fall Key 2012
+Account Upgrade To Premium
+Giftapult Gift Wrap
+Wrapped Giftapult Package
+Delivered Giftapult Package
+Summer Starter Kit
+	slot action
+Summer Adventure Pack
+	slot action
+RIFT Spider Hat Code
+Goldfish
+Pocket Lint
+Cheese Wheel
+Banana Peel
+Barn Door Plank
+Secret Diary
+Damaged Capacitor
+	slot misc
+Pile Of Ash
+	slot action
+Voodoo-Cursed Item (Armory)
+Voodoo-Cursed Old Boot
+Voodoo-Cursed Skeleton
+Voodoo-Cursed Bag Of Quicklime
+Voodoo-Cursed Robot Arm
+Voodoo-Cursed Novelty Bass
+Voodoo-Cursed Sticky-Bomb
+Voodoo-Cursed Nail
+Voodoo-Cursed Soul (Armory)
+Zombie Scout
+Zombie Soldier
+Zombie Heavy
+Zombie Demo
+Zombie Engineer
+Zombie Medic
+Zombie Spy
+Zombie Pyro
+Zombie Sniper
+Pile Of Curses
+	slot action
+Eerie Crate
+Eerie Key
+Naughty Winter Crate 2012
+Nice Winter Crate 2012
+Naughty Winter Key 2012
+Nice Winter Key 2012
+Strange Bacon Grease
+Robo Crate 2013
+Robo Key 2013
+Gift - 23 RoboKeys 2013
+	slot action
+Gift - 1 RoboKey 2013
+	slot action
+July 2013 Claim Check
+July 2013 Early Crate
+July 2013 Early Key
+July 2013 Crate 01
+July 2013 Key 01
+July 2013 Crate 02
+July 2013 Key 02
+July 2013 Crate 03
+July 2013 Key 03
+July 2013 Crate 04
+July 2013 Key 04
+July 2013 Crate 05
+July 2013 Key 05
+July 2013 Crate 06
+July 2013 Key 06
+July 2013 Crate 07
+July 2013 Key 07
+July 2013 Crate 08
+July 2013 Key 08
+Gift - 23 SummerKeys 2013
+Gift - 1 SummerKey 2013
+Supply Crate Rare 2
+Pomson 6000 Strangifier
+Robits Loot 01
+Robits Loot 02
+Robits Loot 03
+Robits Loot 04
+Robits Loot 05
+Robits Loot 06
+Robits Loot 07
+Robits Loot 08
+Fall 2013 Acorns Crate
+Fall 2013 Gourd Crate
+Fall 2013 Acorns Key
+Fall 2013 Gourd Key
+Halloween 2013 Crate
+Halloween 2013 Key
+Naughty Winter Crate 2013
+Nice Winter Crate 2013
+Naughty Winter Key 2013
+Nice Winter Key 2013
+Self Gift - Stocking Stuffer 2013
+Strongbox Crate 2014
+Strongbox Key 2014
+Pretty Boy's Pocket Pistol Strangifier
+Phlogistinator Strangifier
+Cleaner's Carbine Strangifier
+Private Eye Strangifier
+Big Chief Strangifier
+Rocket Launcher Killstreakifier Basic
+Scattergun Killstreakifier Basic
+Sniperrifle Killstreakifier Basic
+Shotgun Killstreakifier Basic
+Ubersaw Killstreakifier Basic
+GRU Killstreakifier Basic
+Spy-cicle Launcher Killstreakifier Basic
+Axtinguisher Killstreakifier Basic
+Supply Crate Ration
+Supply Crate Ration 2
+Short 2014 Community Crate A
+Short 2014 Community Crate B
+Short 2014 Taunt Crate
+Short 2014 Key
+Self Gift - Mutated Bread Box
+Supply Crate Ration 3
+StickyLauncher Killstreakifier Basic
+Minigun Killstreakifier Basic
+DirectHit Killstreakifier Basic
+Huntsman Killstreakifier Basic
+Backburner Killstreakifier Basic
+Backscatter Killstreakifier Basic
+Kritzkrieg Killstreakifier Basic
+Ambassador Killstreakifier Basic
+Frontier Justice Killstreakifier Basic
+Supply Crate Ration 4
+Air Strike Strangifier
+Classic Strangifier
+Manmelter Strangifier
+Vaccinator Strangifier
+Widowmaker Strangifier
+Anger Strangifier
+Apparition's Aspect Strangifier
+Taunt Shuffle Crate
+Summer Crate 2014
+Limited Summer 2014 Key
+Halloween 2014 Scout Crate
+Halloween 2014 Pyro Crate
+Halloween 2014 Heavy Crate
+Halloween 2014 Engineer Crate
+Halloween 2014 Spy Crate
+Halloween 2014 Sniper Crate
+Halloween 2014 Soldier Crate
+Halloween 2014 Medic Crate
+Halloween 2014 Demo Crate
+Halloween Giveaway Cauldron 2014 (Base)
+	slot action
+Halloween Giveaway Cauldron 2014 (Achievement)
+	slot action
+EOTL Community Crate
+EOTL Community Key
+Gift - 23 EOTL Keys
+	slot action
+Gift - 1 EOTL Key
+	slot action
+Duck Token
+Gift - 23 Duck Tokens
+	slot action
+Gift - 1 Duck Token
+	slot action
+Supply Crate Ration 5
+Cow Mangler 5000 Strangifier
+Third Degree Strangifier
+Naughty Winter Crate 2014
+Nice Winter Crate 2014
+Naughty Key 2014 Key
+Nice Key 2014 Key
+Flaregun Killstreakifier Basic
+Wrench Killstreakifier Basic
+Revolver Killstreakifier Basic
+Machina Killstreakifier Basic
+Baby Face Blaster Killstreakifier Basic
+Huo Long Heatmaker Killstreakifier Basic
+Loose Cannon Killstreakifier Basic
+Vaccinator Killstreakifier Basic
+Air Strike Killstreakifier Basic
+Supply Crate Ration 6
+Supply Crate Ration 7
+Righteous Bison Strangifier
+Summer 2015 Operation Key
+Operation Summer 2015 Concealed Killer Case
+Operation Summer 2015 Powerhouse Case
+Unused Summer 2015 Operation Pass
+Activated Summer 2015 Operation Pass
+Concealed Killer Collection Dummy
+Craftsmann Collection Dummy
+Powerhouse Collection Dummy
+Teufort Collection Dummy
+Gun Mettle Cosmetics Collection Dummy
+Gun Mettle Cosmetic Key
+Gun Mettle Cosmetic Case
+Strange Count Transfer Tool
+Unused Invasion Pass
+Activated Invasion Pass
+Invasion Key
+Invasion Case 01
+Invasion Case 02
+Invasion Collection Dummy 01
+Invasion Collection Dummy 02
+Activated Halloween Pass
+Halloween 2015 Key
+Halloween 2015 case
+Unused Operation Tough Break Pass
+Activated Operation Tough Break Pass
+Tough Break Case 01 Pyroland
+Tough Break Case 02 Warbirds
+Tough Break Key
+Tough Break Collection Dummy 01
+Tough Break Collection Dummy 02
+Tough Break Collection Dummy 03
+Tough Break Collection Dummy 04
+Winter 2015 Mystery Box
+Festivizer
+Tough Break Cosmetics Collection Dummy
+Tough Break Cosmetic Key
+Tough Break Cosmetic Case
+Common Stat Clock
+Fall 2013 Acorns Key New
+Strongbox Key 2014 New
+Short 2014 Key New
+Halloween 2015 Key New
+Mayflower Cosmetic Key
+Mayflower Cosmetic Case
+Keyless Cosmetic Crate Scout
+Keyless Cosmetic Crate Sniper
+Keyless Cosmetic Crate Soldier
+Keyless Cosmetic Crate Demoman
+Keyless Cosmetic Crate Medic
+Keyless Cosmetic Crate Heavy
+Keyless Cosmetic Crate Pyro
+Keyless Cosmetic Crate Spy
+Keyless Cosmetic Crate Engineer
+Supply Crate Ration 8
+Keyless Cosmetic Crate MultiClass
+Halloween 2016 Case
+Halloween 2016 Key
+Halloween 2015 Collection Dummy
+Halloween 2016 Collection Dummy
+Keyless Winter 2016 Case
+Rainy Day Cosmetic Key
+Rainy Day Cosmetic Case
+Unused Campaign 3 Pass
+Activated Campaign 3 Pass
+	slot action
+Abominable Cosmetic Case
+Campaign 3 Cosmetics Case 1 Collection Dummy
+Abominable Cosmetic Key
+Unleash the Beast Cosmetic Case
+Campaign 3 Cosmetics Case 2 Collection Dummy
+Unleash the Beast Cosmetic Key
+Campaign 3 Contract Paintkit Collection Dummy 1
+Campaign 3 Contract Paintkit Collection Dummy 2
+Campaign 3 Paintkit Case Collection Dummy 1
+Campaign 3 Paintkit Case Collection Dummy 2
+Jungle Jackpot War Paint Key
+Jungle Jackpot War Paint Case
+Infernal Reward War Paint Key
+Infernal Reward War Paint Case
+Self Gift - Stocking Stuffer 2017
+Winter 2017 Cosmetic Key
+Winter 2017 Cosmetic Case
+Winter 2017 War Paint Key
+Winter 2017 War Paint Case
+Jungle Inferno Contracts Pass
+Blue Moon Cosmetic Key
+Blue Moon Cosmetic Case
+Strange Part (Armory)
+Strange Part: Heavies Killed
+Strange Part: Demomen Killed
+Strange Part: Soldiers Killed
+Strange Part: Scouts Killed
+Strange Part: Engineers Killed
+Strange Part: Snipers Killed
+Strange Part: Pyros Killed
+Strange Part: Medics Killed
+Strange Part: Spies Killed
+Strange Part: Buildings Destroyed
+Strange Part: Projectiles Reflected
+Strange Part: Headshot Kills
+Strange Part: Airborne Enemies Killed
+Strange Part: Enemies Gibbed
+Strange Part: Full Moon Kills
+Strange Part: Domination Kills
+Strange Part: Revenge Kills
+Strange Part: Posthumous Kills
+Strange Part: Allies Extinguished
+Strange Part: Critical Kills
+Strange Part: Kills While Explosive-Jumping
+Strange Part: Ubers Dropped
+Strange Part: Cloaked Spies Killed
+Strange Part: Sappers Destroyed
+Strange Part: Robots Destroyed
+Strange Part: Giant Robots Destroyed
+Strange Part: Kills While Low-Health
+Strange Part: Halloween Kills
+Strange Part: Robots Destroyed During Halloween
+Strange Part: Defender Kills
+Strange Part: Underwater Kills
+Strange Part: Kills While Ubercharged
+Strange Part: Tanks Destroyed
+Strange Part: Long-Distance Kills
+Strange Part: Victory Time Kills
+Strange Part: Robot Scout Kills
+Strange Part: Robot Spy Kills
+Strange Part: Taunt Kills
+Strange Part: Players Wearing Unusuals
+Strange Part: Burning Enemies Killed
+Strange Part: Killstreaks Ended
+Strange Cosmetic Part: Killcam Taunts
+Strange Part: Damage Dealt
+Strange Cosmetic Part: Fires Survived
+Strange Part: Ally Healing Done
+Strange Part: Point-Blank Kills
+Strange Cosmetic Part: Kills
+Strange Part: Full Health Kills
+Strange Part: Taunting Player Kills
+Strange Part: Non-Critical Kills
+Strange Part: Players Hit
+Strange Cosmetic Part: Assists
+Strange Filter: Coldfront (Community)
+Strange Filter: Egypt (Community)
+Strange Filter: Junction (Community)
+Strange Filter: Mountain Lab (Community)
+Strange Filter: Steel (Community)
+Strange Filter: Gullywash (Community)
+Strange Filter: Turbine (Community)
+Strange Filter: Fastlane (Community)
+Strange Filter: Freight (Community)
+Strange Filter: Yukon (Community)
+Strange Filter: Harvest (Community)
+Strange Filter: Lakeside (Community)
+Strange Filter: Kong King (Community)
+Strange Filter: Frontier (Community)
+Strange Filter: Hoodoo (Community)
+Strange Filter: Nightfall (Community)
+Strange Filter: Watchtower (Community)
+Strange Filter: Offblast (Community)
+Strange Filter: Mann Manor (Community)
+Strange Filter: Process (Community)
+Strange Filter: Standin (Community)
+Strangifier
+Killstreakifier
+Strange Filter: Snakewater (Community)
+Killstreakifier Rare
+Killstreakifier Basic
+Strange Filter: Snowplow (Community)
+Strange Filter: Borneo (Community)
+Strange Filter: Suijin (Community)
+Strange Filter: 2Fort Invasion (Community)
+Strange Filter: Probed (Community)
+Strange Filter: Watergate (Community)
+Strange Filter: Byre (Community)
+Strange Filter: Gorge Event (Community)
+Strange Filter: Sunshine Event (Community)
+Strange Filter: Moonshine Event (Community)
+Strange Filter: Millstone Event (Community)
+Strange Filter: Snowycoast (Community)
+Strange Filter: Vanguard (Community)
+Strange Filter: Landfall (Community)
+Strange Filter: Highpass (Community)
+Strange Filter: Competitive
+Strange Filter: Sunshine (Community)
+Strange Filter: Metalworks (Community)
+Strange Filter: Swiftwater (Community)
+Strange Filter: Maple Ridge Event (Community)
+Strange Filter: Fifth Curve Event (Community)
+Strange Filter: Pit of Death (Community)
+Strange Filter: Mossrock (Community)
+Strange Filter: Lazarus (Community)
+Strange Filter: Banana Bay (Community)
+Strange Filter: Enclosure (Community)
+Strange Filter: 2Fort
+Strange Filter: Dustbowl
+Strange Filter: Upward
+Strange Filter: Badwater
+Strange Filter: Hightower
+Strange Filter: Goldrush
+Strange Filter: DeGroot Keep
+Strange Filter: Thundermountain
+Strange Filter: Coaltown
+Strange Filter: Mannhattan
+Strange Filter: Brazil (Community)
+Halloween Transmogrifier: Pyro
+Halloween Transmogrifier: Scout
+Halloween Transmogrifier: Soldier
+Halloween Transmogrifier: Demo
+Halloween Transmogrifier: Heavy
+Halloween Transmogrifier: Medic
+Halloween Transmogrifier: Sniper
+Halloween Transmogrifier: Spy
+Halloween Transmogrifier: Engineer
+Halloween Spellbook Page
+Halloween Spellbook Page (Achievement)
+Eternaween Enchantment
+Glitched Circuit Board
+	slot misc
+Taunt Unusualifier
+Polycount Pyro Bundle
+Polycount Spy Bundle
+Polycount Soldier Bundle
+Polycount Sniper Bundle
+Polycount Scout Bundle
+Polycount Bundle
+Halloween Noise Maker Bundle
+Map Token Bundle
+Medieval Medic Bundle
+Hibernating Bear Bundle
+Expert's Ordnance Bundle
+Winter Update Bundle
+Fancy Hat Bundle
+Excessive Bundle of Bundles
+Nasty Weapon Bundle
+Map Token Bundle 2
+Shogun Complete Bundle
+Japan Charity Bundle
+Scout Starter Bundle
+Soldier Starter Bundle
+Pyro Starter Bundle
+Demoman Starter Bundle
+Heavy Starter Bundle
+Engineer Starter Bundle
+Medic Starter Bundle
+Sniper Starter Bundle
+Spy Starter Bundle
+Mobster Monday Bundle
+TimbukTuesday Bundle
+World War Wednesday Bundle
+Meet the Medic! Bundle
+Uber Bundle
+Summer Sun Bundle
+Dr. Grordbort's Victory Pack
+Dr. Grordbort ComicCon Promo Code
+Bethesda Employee Bundle
+Tripwire Employee Bundle
+Bethesda Employee Bundle Genuine
+Tripwire Employee Bundle Genuine
+Deus Ex Promo Bundle
+Deus Ex Purity Fist Promo
+DOTA2 Gamescom Winners Finals PROMO Bundle
+DOTA2 Gamescom Losers Finals PROMO Bundle
+DOTA2 Gamescom Championship PROMO Bundle
+Deus Ex Self-Made Bundle
+Shogun Complete Genuine Bundle
+Killer Exclusive PCGamer Bundle
+Deus Ex Contest Bundle
+Map Token Bundle 3
+Football Manager 2012 Promo Bundle
+Demo Halloween 2011 Bundle
+Scout Halloween 2011 Bundle
+Pyro Halloween 2011 Bundle
+Medic Halloween 2011 Bundle
+Soldier Halloween 2011 Bundle
+Spy Halloween 2011 Bundle
+Heavy Halloween 2011 Bundle
+Sniper Halloween 2011 Bundle
+Engineer Halloween 2011 Bundle
+Halloween 2011 Bundle
+Archimedes Promo
+Dr. Grordbort's Brainiac Pack
+Dr. Grordbort's Moonman Pack
+Dr. Grordbort's Moonbrain Double Pack
+Santa's Little Accomplice Bundle
+Pet Balloonicorn Promo
+Sandvich Promo
+Companion Square Promo
+Soldier Equalizer Escape Plan Bundle
+Robot Chicken Hat Promo
+Urban Professional Bundle
+Dumpster Diver Bundle
+Public Enemy Bundle
+Pyromania Bundle
+Summer 2012 Community Bundle
+Sleeping Dogs Bundle
+QuakeCon2012 Bundle
+Steam Translation Bundle
+Map Token Bundle 4
+Hero Academy Gold Bundle
+Sleeping Dogs Employee Bundle
+Portal 2 Soundtrack Promo
+Red Heavy Action Figure Promo
+Red Pyro Action Figure Promo
+Red Demoman Action Figure Promo
+Red Soldier Action Figure Promo
+Blue Heavy Action Figure Promo
+Blue Pyro Action Figure Promo
+Blue Demoman Action Figure Promo
+Blue Soldier Action Figure Promo
+Total War Bundle
+Halloween 2012 Community Bundle
+Name Tag For Bundles
+Scout Starter Bundle No Hat
+Soldier Starter Bundle No Hat
+Pyro Starter Bundle No Hat
+Demoman Starter Bundle No Hat
+Heavy Starter Bundle No Hat
+Engineer Starter Bundle No Hat
+Medic Starter Bundle No Hat
+Sniper Starter Bundle No Hat
+Spy Starter Bundle No Hat
+Purity Fist Promo
+The Henchmann Bundle
+The Rockzo Bundle
+The Brutananadilewski Bundle
+The Adult Swim Bundle
+Winter 2012 Bundle
+Pet Balloonicorn Plush Promo
+Sandvich v2 Promo
+Oculus Rift Promo
+Red Engineer Action Figure Promo
+Blue Engineer Action Figure Promo
+Red Spy Action Figure Promo
+Blue Spy Action Figure Promo
+Red Sniper Action Figure Promo
+Blue Sniper Action Figure Promo
+Red Scout Action Figure Promo
+Blue Scout Action Figure Promo
+Red Medic Action Figure Promo
+Blue Medic Action Figure Promo
+Team Fortress Chess Promo
+Map Token Bundle 5
+The Byzantine Bundle
+Map Token Bundle 6
+Halloween 2013 Everything Bundle
+TF2mixup Community Event 2013 Promo
+Robot Heavy Collectible Figure Promo
+Love & War Taunt Bundle
+Love & War Weapons Bundle
+Love & War Cosmetics Bundle
+Spycrab Promo
+RPS Promo
+Alien: Isolation Promo Bundle
+Halloween 2014 Everything Bundle
+Robot Pyro Collectible Figure Promo
+TF2mixup Community Event 2014 Promo
+Map Token Bundle 7
+Map Token Bundle 8
+Map Token Bundle 9
+Yogscast Jingle Jam 2015 Promo
+Batman Arkham Knight Promo Bundle
+Map Token Bundle 10
+Tough Break Community Maps Bundle
+Love & War Cosmetics Bundle New
+Scout Starter Bundle v2
+Soldier Starter Bundle v2
+Pyro Starter Bundle v2
+Demoman Starter Bundle v2
+Heavy Starter Bundle v2
+Engineer Starter Bundle v2
+Medic Starter Bundle v2
+Sniper Starter Bundle v2
+Spy Starter Bundle v2
+Map Token Bundle 11
+Map Token Bundle 12
+Yogscast Jingle Jam 2016 Promo
+ChefSteps Joule Promo
+Team Fortress 2 Soundtrack Promo
+Map Token Bundle 13
+Yogscast Jingle Jam 2017 Promo
+Halloween Spell: Paint 1
+Halloween Spell: Paint 2
+Halloween Spell: Paint 3
+Halloween Spell: Paint 4
+Halloween Spell: Paint 5
+Halloween Spell: Soldier Voice
+Halloween Spell: Scout Voice
+Halloween Spell: Sniper Voice
+Halloween Spell: Engineer Voice
+Halloween Spell: Heavy Voice
+Halloween Spell: Demoman Voice
+Halloween Spell: Pyro Voice
+Halloween Spell: Spy Voice
+Halloween Spell: Medic Voice
+Halloween Spell: Team Spirit Footprints
+Halloween Spell: Gangreen Footprints
+Halloween Spell: Corpse Gray Footprints
+Halloween Spell: Violent Violet Footprints
+Halloween Spell: Rotten Orange Footprints
+Halloween Spell: Bruised Purple Footprints
+Halloween Spell: Headless Horseshoes
+Halloween Spell: Exorcism
+Halloween Spell: Squash Rockets
+Halloween Spell: Gourd Grenades
+Halloween Spell: Sentry Quad-Pumpkins
+Halloween Spell: Spectral Flame
+Cosmetic Strangifier Recipe 1
+Cosmetic Strangifier Recipe 1 Rare
+MvM Killstreak Recipe 1
+MvM Killstreak Recipe 2
+Cosmetic Strangifier Recipe 2
+Collector Recipe 1
+Festive Collector Recipe 2013
+Rebuild Strange Weapon Recipe
+Cosmetic Strangifier Recipe 3
