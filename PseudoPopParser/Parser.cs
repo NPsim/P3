@@ -10,6 +10,7 @@ namespace PseudoPopParser {
 
 		// TODO organize this
 		private static IniFile _INI = new IniFile(@"config.ini");
+		private static string pop_directory = "";
 		private static int number_of_warnings = 0;
 		private static bool error_occurred = false;
 		private static string datatypes_folder_path = "";
@@ -24,6 +25,7 @@ namespace PseudoPopParser {
 		private static List<string[]> attributes_list = new List<string[]>();
 		private static List<string> item_list = new List<string>();
 		private static List<string> tfbot_items = new List<string>();
+		private static bool suppress_write_main = false;
 
 		// TODO Fix spaces vs tabs issue
 		/* Purpose of Class:
@@ -60,9 +62,10 @@ namespace PseudoPopParser {
 		};
 
 		// Constructors
-		public PopParser() {}
-		public PopParser(string folder) {
-			datatypes_folder_path = folder;
+		public PopParser() { }
+		public PopParser(string datatypes_folder, string pop_folder) {
+			datatypes_folder_path = datatypes_folder;
+			pop_directory = pop_folder;
 			SetupAttributes();
 			SetupItems();
 		}
@@ -75,7 +78,7 @@ namespace PseudoPopParser {
 				return;
 			}
 			string[] db = File.ReadAllLines(db_file);
-			for (int line = 2; line < db.Length; line+=3) {
+			for (int line = 2; line < db.Length; line += 3) {
 				attributes_list.Add(new string[] {
 					db[line],
 					db[line + 1].Substring(1, db[line + 1].Length - 1),
@@ -101,15 +104,25 @@ namespace PseudoPopParser {
 		}
 
 		// Read config.ini
-		private int ConfigRead(string key) {
-			if (_INI.KeyExists(key, "Global")) {
-				return Int32.Parse(_INI.Read(key, "Global"));
+		private int ConfigRead(string key, string section = "Global") {
+			if (_INI.KeyExists(key, section)) {
+				return Int32.Parse(_INI.Read(key, section));
 			}
-			return 1;
+			return -1;
+		}
+
+		// Read config.ini boolean
+		private bool ConfigReadBool(string key, string section = "Global") {
+			string[] true_values = { "1", "YES", "TRUE" };
+			return true_values.Contains(_INI.Read(key, section).ToUpper());
+		}
+
+		private bool _IsTemplateDebug(string key) {
+			return ConfigReadBool(key, "Debug");
 		}
 
 		// Exists in 2D String List
-		private bool ExistsTwoDimension (List<List<string>> list, string value) {
+		private bool ExistsTwoDimension(List<List<string>> list, string value) {
 			foreach (List<string> sublist in list) {
 				foreach (string member in sublist) {
 					if (member == value) {
@@ -166,14 +179,15 @@ namespace PseudoPopParser {
 				case "TFBOT{}%":
 
 					if (parent == "Templates{}") {
-						List<string> new_template = new List<string>();
-						new_template.Add(any_string_token.ToUpper());
+						List<string> new_template = new List<string> {
+							any_string_token.ToUpper()
+						};
 						tfbot_template_items.Add(new_template);
 					}
 
 					break;
 
-				// TODO : Add more cases
+					// TODO : Add more cases
 			}
 		}
 
@@ -233,9 +247,7 @@ namespace PseudoPopParser {
 		// Parse Attribute
 		public void ParseAttribute(string key, string value, int line = -1) {
 
-			double value_double = 0.0;
-			Double.TryParse(value, out value_double);
-
+			Double.TryParse(value, out double value_double);
 			string[] sentinel_array = { "-1", "-1", "-1" };
 			string[] attribute = sentinel_array;
 
@@ -309,10 +321,352 @@ namespace PseudoPopParser {
 			}
 		}
 
+		// Parse Template Pop FIle
+		public void ParseBase(string base_file, bool default_template = false) { // I know it's terrible.
+			string template_file_name = Regex.Match(base_file, @"[\w-]+\.pop").ToString();
+			try {
+				InfoLine("Template File - " + template_file_name);
+
+				// Do not warn for issues regarding a default template.
+				if (default_template) {
+					suppress_write_main = true;
+				}
+
+				/* Begin */
+
+				{ } // Debug Breakpoint
+
+				List<string[]> token_list = new List<string[]> {
+					new string[] { } // No 0 indexing
+				};
+				string grammar_file = datatypes_folder_path + "grammar.owo";
+				PopParser p = this; // new PopParser(datatypes_folder_path, pop_directory);
+				ParseTree template_pt = new ParseTree(grammar_file);
+
+				// Populate file[] var
+				string[] file = File.ReadAllLines(base_file);
+
+				// Modify strings
+				for (int i = 0; i < file.Length; i++) {
+					file[i] = Regex.Replace(file[i], @"(\s|\/+|^)\/\/.*[\s]*", "");     // Remove Comments
+					file[i] = Regex.Replace(file[i], @"{", " { ");                      // Separate Open Curly Braces
+					file[i] = Regex.Replace(file[i], @"}", " } ");                      // Separate Close Curly Braces
+					file[i] = Regex.Replace(file[i], "\"", " \" ");                     // Separate Double Quotes
+					file[i] = Regex.Replace(file[i], @"^\s+", "");                      // Remove Indentation Whitespace
+				}
+
+				// Get Tokens
+				for (int i = 0; i < file.Length; i++) {
+					token_list.Add(Regex.Split(file[i], @"\s+"));
+				}
+
+				/* Parse Tokens
+				 * i: line number (1 index)
+				 * j: token position in line (0 index)
+				 */
+				int global_line = 0;
+				string global_token = "";
+				List<string> string_builder = new List<string>();
+				bool building_string = false;
+				bool built_string = false;
+				bool look_ahead_open = false;
+				string look_back_token = "";
+				string look_ahead_buffer_node = "";
+				string template_name = "";
+				//try {
+
+				// Iterate by Line List
+				for (int i = 0; i < token_list.Count; i++) {
+
+					// Iterate by Token List of Line
+					for (int j = 0; j < token_list[i].Length; j++) {
+
+						// Only Scan Real Tokens
+						if (!string.IsNullOrWhiteSpace(token_list[i][j])) {
+
+							// TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
+							/* TreeNode<string[]>.Value = {
+							*		Index 0 : Type : "Collection", "Key", "Value"
+							*		Index 1 : Name : "WaveSchedule", "Attribute", "AlwaysCrit"
+							*		Index 2 : Parent Name : "Top Level", "WaveSchedule", "Attribute"
+							*		Index 3 : Datatype : "STRING", "UNSIGNED INTEGER", "SKILL"
+							*		Index 4 : Layer : "0", "2", "3"
+							*		Index 5 : Can Be Any Name : "TRUE" , "FALSE"
+							*		Index 6 : Required : "TRUE", "FALSE"
+							* }
+							*/
+
+							// Tokenized Information
+							int token_line = i;
+							global_line = i; // Redundant
+							string token = token_list[i][j];
+							global_token = token_list[i][j]; // Redundant
+							TreeNode<string[]> current = template_pt.Current;
+							List<TreeNode<string[]>> children = template_pt.Current.Children;
+
+							// Debug Level 2
+							if (_IsTemplateDebug("bool_Print_Tokens")) Console.WriteLine(token + "\t\t\t" + i + " " + j);
+
+							{ } // Debug Breakpoint
+
+							// Debug Level 4
+							if (_IsTemplateDebug("bool_Print_Token_Operations")) {
+								Console.WriteLine("->token:" + token);
+
+								if (building_string) Console.WriteLine("====STRINGBUILDER ACTIVE====");
+
+								Console.Write("->currentvalue:");
+								foreach (string vindex in current.Value) Console.Write(vindex + "|");
+								Console.WriteLine("");
+
+								Console.Write("->currentchildren:");
+								foreach (TreeNode<string[]> cindex in template_pt.Current.Children) Console.Write(cindex.Value[1] + "|");
+								Console.WriteLine("");
+							}
+
+							// Iterate through childen for token match
+							bool found = false; // Must be true to continue token
+							for (int c = 0; c < children.Count; c++) {
+								TreeNode<string[]> child = children[c];
+
+								/* String Builder */
+								if (token == "\"") {
+
+									if (!building_string) {
+										found = true;
+										building_string = true;
+										break;
+									}
+									else if (building_string) {
+										building_string = false;
+
+										// Finalize string
+										token = "";
+										foreach (string term in string_builder) {
+											token = token + term + " ";
+										}
+										token = token.Substring(0, token.Length - 1);
+										global_token = token;
+
+										// Clear string builder
+										string_builder.Clear();
+										built_string = true;
+									}
+								}
+								else if (building_string) {
+									found = true;
+									string_builder.Add(token);
+									break;
+								}
+
+								/* Parser Operations */
+								// Collection Emergence
+								if (token == "}") {
+									found = true;
+
+									// Trigger End of Calculations Before Exiting
+									ParseCollectionEnd(template_pt.CurrentValue[1], token_line, template_pt.ParentValue[1]);
+
+									// Reset Template Name Tracker
+									if (template_pt.ParentValue[1] == "Templates{}") {
+										template_name = "";
+									}
+
+									template_pt.MoveUp();
+
+									// Detect Possible Premature End of WaveSchedule : WaveSchedule closes in <99% of the total line count.
+									if (i < token_list.Count * 99 / 100 && template_pt.Current.Value[2] == "NONE") {
+										Warn("Possible premature end of WaveSchedule detected near ", global_line, global_token);
+										PotentialFix("Remove additional lines after end of WaveSchedule");
+										PotentialFix("Recount Curly Brackets");
+									}
+
+									if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+										Console.WriteLine("==== UP CLOSE BRACE");
+									}
+									break;
+								}
+
+								// Collection Diving
+								else if (look_ahead_open && token == "{") {
+
+									found = true;
+									if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+										Console.WriteLine("==== DOWN LOOK AHEAD OPEN");
+									}
+
+									template_pt.Move(look_ahead_buffer_node);
+
+									// Parse Collection After Diving
+									ParseCollection(template_pt.CurrentValue[1], token_line, template_pt.ParentValue[1], look_back_token);
+
+									// Save Template Name for Parsing Later
+									if (template_pt.ParentValue[1] == "Templates{}") {
+										template_name = look_back_token;
+									}
+
+									look_ahead_buffer_node = "";
+									look_ahead_open = false;
+									break;
+								}
+
+								// Handles collections and % (any valid string)
+								else if (token.ToUpper() == RemoveCurly(child.Value[1]).ToUpper() || Regex.IsMatch(child.Value[1], @"%")) {
+									found = true;
+
+									// Check for Valid String
+									if (Regex.IsMatch(child.Value[1], @"%") && !IsDatatype("$ANY_VALID_STRING", token) && !built_string) {
+										throw new Exception("IllegalIdentifierException");
+									}
+
+									// Move Down If Token Is Collection
+									if (child.Value[0].ToUpper() == "COLLECTION") {
+										if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+											Console.WriteLine("==== LOOK AHEAD OPEN " + token);
+										}
+
+										look_ahead_open = true;
+										look_ahead_buffer_node = child.Value[1];
+										break;
+									}
+
+									// Handles Keys
+									else if (child.Value[0].ToUpper() == "KEY") { // Move in if token is key
+
+										// Special case When versus When{} in PeriodicSpawn{}
+										if (token.ToUpper() == "WHEN" && token_list[i + 1][j] == "{") {
+											look_ahead_open = true;
+											look_ahead_buffer_node = children[c + 1].Value[1];
+
+											if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+												Console.WriteLine("SAW WHEN{}");
+											}
+
+											Warn("Using \"When\" with \"MinInterval\" and \"MaxInterval\" may stop spawning midwave", global_line);
+											break;
+										}
+
+										if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+											Console.WriteLine("==== DOWN " + token);
+										}
+
+										if (Regex.IsMatch(child.Value[1], @"%")) {
+											template_pt.Move(child.Value[1]);
+										}
+										else {
+											template_pt.Move(token);
+										}
+
+										break;
+									}
+
+									// Handles Values; assume token must be value string (catch by IsDatatype)
+									else {
+
+										string child_datatype = child.Value[3];
+
+										if (IsDatatype(child_datatype.ToUpper(), token, token_line)) {
+											if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+												Console.WriteLine("==== UP 1");
+											}
+											template_pt.MoveUp();
+											break;
+										}
+										else if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+											Console.WriteLine("==== CHILD DT DID NOT MATCH TOKEN 1");
+										}
+									}
+								}
+
+								else if (current.Value[0].ToUpper() == "KEY") { // Handle All Keys
+
+									// Parse Key and Value
+									ParseKeyValue(look_back_token, token, token_line, template_pt.ParentValue[1], template_name);
+
+									// Debug Token Lookback
+									// Writes all readable key-value pairs
+									if (_IsTemplateDebug("bool_Print_Token_Lookback")) {
+										Console.WriteLine("Key is: " + look_back_token);
+										Console.WriteLine("\tValue is: " + token);
+										Console.WriteLine("\tParent is: " + template_pt.ParentValue[1]);
+									}
+
+									if (current.Value[1] == "$char_attribute%" || current.Value[1] == "$item_attribute%") { // Special Case Item/Character Attribute
+										found = true;
+
+										// Placeholder for item attribute verification
+										// look_back_token : "damage bonus"
+										// token : "1.0"
+
+										if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+											Console.WriteLine("==== UP C1: " + token);
+										}
+
+										ParseAttribute(look_back_token, token, token_line);
+
+										template_pt.MoveUp();
+										break;
+									}
+
+									string child_datatype = child.Value[3];
+									if (IsDatatype(child_datatype.ToUpper(), token, token_line)) {
+										found = true;
+
+										if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+											Console.WriteLine("==== UP 2");
+										}
+
+										template_pt.MoveUp();
+										break;
+									}
+
+									else if (_IsTemplateDebug("bool_Print_PT_Cursor_Traversal")) {
+										Console.WriteLine("==== CHILD DT DID NOT MATCH TOKEN 2");
+									}
+								}
+							}
+
+							// Throw Exception If Nothing Matched
+							if (!found) {
+								throw new Exception("UnknownSymbolException");
+							}
+
+							// Set Look-Back Token; Avoid String Fragments
+							if (!building_string) {
+								look_back_token = token;
+							}
+
+							// Reset Global Values
+							built_string = false;
+						}
+					}
+				}
+				suppress_write_main = false;
+				InfoLine("Successfully parsed " + template_file_name);
+			}
+			catch (Exception err) {
+				suppress_write_main = false;
+				Error("Could not parse Template file: ", -1, template_file_name);
+				Error(err.Message);
+			}
+		}
+
 		// Parse Key Value
-		public void ParseKeyValue (string key, string value, int line = -1, string parent = "", string any_string_name = "") {
+		public void ParseKeyValue(string key, string value, int line = -1, string parent = "", string any_string_name = "") {
 			key = key.ToUpper();
 			parent = RemoveCurly(parent.ToUpper());
+
+			// Debug Print Key and Value (look back parsing, parsed on value scan)
+			if (ConfigReadBool("bool_Print_Parse_Key_Value", "Debug")) {
+				DebugLine("Key: " + key);
+				if (any_string_name.Length > 0) {
+					DebugLine("\tAnyStringName: " + any_string_name);
+				}
+				DebugLine("\tValue: " + value);
+				DebugLine("\tParent: " + parent);
+				DebugLine("\tLine: " + line);
+			}
+
 			switch (key) {
 				case "TOTALCURRENCY":
 					int credits = Int32.Parse(value);
@@ -330,7 +684,7 @@ namespace PseudoPopParser {
 					break;
 
 				case "STARTINGCURRENCY":
-					attribute_pairs["STARTINGCURRENCY"] = Math.Max((int)0, Int32.Parse(value)).ToString();
+					attribute_pairs["STARTINGCURRENCY"] = Math.Max(0, Int32.Parse(value)).ToString();
 					break;
 
 				case "HEALTH":
@@ -367,8 +721,15 @@ namespace PseudoPopParser {
 					break;
 
 				case "NAME":
+
+					// Create new wavespawn name entry
 					if (parent == "WAVESPAWN") {
 						wave_wavespawn_names.Last().Add(value);
+					}
+
+					// Configurable: Warn for non 'TankBoss' name
+					else if (parent == "TANK" && value.ToUpper() != "TANKBOSS" && ConfigReadBool("bool_tank_name_tankboss")) {
+						Warn("Tank not named 'TankBoss' does not explode on deployment: ", line, value);
 					}
 					break;
 
@@ -444,6 +805,7 @@ namespace PseudoPopParser {
 					}
 
 					break;
+
 					// TODO : Add more cases
 			}
 		}
@@ -526,6 +888,10 @@ namespace PseudoPopParser {
 
 		// Simple Print Color
 		public void WriteMain(string message, string header, int line = -1, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
+			if (suppress_write_main) {
+				return;
+			}
+
 			Console.BackgroundColor = background;
 			Console.ForegroundColor = foreground;
 
@@ -543,6 +909,9 @@ namespace PseudoPopParser {
 		}
 
 		public void WriteMainLine(string message, string header, int line = -1, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
+			if (suppress_write_main) {
+				return;
+			}
 			WriteMain(message, header, line, background, foreground);
 			Console.Write("\n");
 		}
@@ -562,6 +931,9 @@ namespace PseudoPopParser {
 
 		// Simple Print Potential Fix
 		public void PotentialFix(string message, bool false_positive = false) {
+			if (suppress_write_main) {
+				return;
+			}
 			Console.Write("\t");
 			Console.BackgroundColor = ConsoleColor.Gray;
 			Console.ForegroundColor = ConsoleColor.Black;
@@ -575,6 +947,9 @@ namespace PseudoPopParser {
 
 		// Simple Print Warning
 		public void Warn(string message, int line = -1, string token = "") {
+			if (suppress_write_main) {
+				return;
+			}
 			number_of_warnings++;
 			ConsoleColor background = ConsoleColor.Yellow;
 			ConsoleColor foreground = ConsoleColor.Black;
@@ -593,6 +968,9 @@ namespace PseudoPopParser {
 
 		// Simple Print Error
 		public void Error(string message, int line = -1, string token = "") {
+			if (suppress_write_main) {
+				return;
+			}
 			error_occurred = true;
 			ConsoleColor background = ConsoleColor.Red;
 			ConsoleColor foreground = ConsoleColor.Black;
@@ -611,12 +989,18 @@ namespace PseudoPopParser {
 
 		// Simple Print Info
 		public void Info(string message) {
+			if (suppress_write_main) {
+				return;
+			}
 			ConsoleColor background = ConsoleColor.DarkCyan;
 			ConsoleColor foreground = ConsoleColor.Black;
 
 			WriteMain(message, "[Info]", -1, background, foreground);
 		}
 		public void InfoLine(string message) {
+			if (suppress_write_main) {
+				return;
+			}
 			ConsoleColor background = ConsoleColor.DarkCyan;
 			ConsoleColor foreground = ConsoleColor.Black;
 

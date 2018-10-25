@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -12,12 +13,13 @@ namespace PseudoPopParser {
 		private static Dictionary<string, string> _CONFIGURATION = new Dictionary<string, string>();
 
 		static bool _IsDebug(string key) {
+			string[] true_values = { "1", "YES", "TRUE" };
 			if (_CONFIGURATION.ContainsKey(key)) {
-				return _CONFIGURATION[key] == "1";
+				return true_values.Contains(_CONFIGURATION[key].ToUpper());
 			}
 			else if (_INI.KeyExists(key, "Debug")) {
 				_CONFIGURATION.Add(key, _INI.Read(key, "Debug"));
-				return _INI.Read(key, "Debug") == "1";
+				return true_values.Contains(_INI.Read(key, "Debug").ToUpper());
 			}
 			return false;
 		}
@@ -26,13 +28,13 @@ namespace PseudoPopParser {
 		static void Main(string[] args) {
 
 			// Debug Terminator
-			if (_IsDebug("Print_Terminators")) {
+			if (_IsDebug("bool_Print_Terminators")) {
 				Console.WriteLine(">>>>>Start of file | Debug Level ");
 			}
-
+			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			string file_path = "";
-			string grammar_file = AppDomain.CurrentDomain.BaseDirectory + "grammar.owo";
-			string datatypes_folder = AppDomain.CurrentDomain.BaseDirectory;
+			string grammar_file = P3_root + "grammar.owo";
+			string datatypes_folder = P3_root;
 			string[] file = null;
 			bool bypass_print_config = false;
 
@@ -56,12 +58,17 @@ namespace PseudoPopParser {
 				}
 			}
 
+			// Get pop file's containing directory
+			string pop_folder = Regex.Match(file_path, @"^.*[\/\\]").ToString(); // Regex: Match everything up to last / or \
+
 			// Init Parser
-			PopParser p = new PopParser(datatypes_folder);
+			PopParser p = new PopParser(datatypes_folder, pop_folder);
 			ParseTree pt = new ParseTree(grammar_file);
 
 			// Debug Print Config
-			if (_IsDebug("Print_Config") || bypass_print_config) {
+			if (_IsDebug("bool_Print_Config") || bypass_print_config) {
+
+				// TODO: Actually make a string[] Key() method for IniFile
 
 				// Global Config
 				p.DebugLine("\t[Global]");
@@ -71,15 +78,16 @@ namespace PseudoPopParser {
 				p.DebugLine("tank_warn_minimum : " + _INI.Read("tank_warn_minimum", "Global"));
 				p.DebugLine("bot_health_multiple : " + _INI.Read("bot_health_multiple", "Global"));
 				p.DebugLine("tank_health_multiple : " + _INI.Read("tank_health_multiple", "Global"));
+				p.DebugLine("bool_tank_name_tankboss : " + _INI.Read("bool_tank_name_tankboss", "Global"));
 
 				// Debug Config
 				p.DebugLine("\t[Debug]");
-				p.DebugLine("Print_Config : " + _INI.Read("Print_Config", "Debug"));
-				p.DebugLine("Print_Token_Lookback : " + _INI.Read("Print_Token_Lookback", "Debug"));
-				p.DebugLine("Print_Terminators : " + _INI.Read("Print_Terminators", "Debug"));
-				p.DebugLine("Print_Tokens : " + _INI.Read("Print_Tokens", "Debug"));
-				p.DebugLine("Print_Token_Operations : " + _INI.Read("Print_Token_Operations", "Debug"));
-				p.DebugLine("Print_PT_Cursor_Traversal : " + _INI.Read("Print_PT_Cursor_Traversal", "Debug"));
+				p.DebugLine("bool_Print_Config : " + _INI.Read("bool_Print_Config", "Debug"));
+				p.DebugLine("bool_Print_Token_Lookback : " + _INI.Read("bool_Print_Token_Lookback", "Debug"));
+				p.DebugLine("bool_Print_Terminators : " + _INI.Read("bool_Print_Terminators", "Debug"));
+				p.DebugLine("bool_Print_Tokens : " + _INI.Read("bool_Print_Tokens", "Debug"));
+				p.DebugLine("bool_Print_Token_Operations : " + _INI.Read("bool_Print_Token_Operations", "Debug"));
+				p.DebugLine("bool_Print_PT_Cursor_Traversal : " + _INI.Read("bool_Print_PT_Cursor_Traversal", "Debug"));
 
 				// End of Configuration
 				p.DebugLine("\tEnd Config");
@@ -91,9 +99,11 @@ namespace PseudoPopParser {
 				file_path = Console.ReadLine();
 			}
 
+			/* Begin */
+
 			// Populate file[] var
 			file = File.ReadAllLines(file_path);
-			Console.WriteLine("Pop File: " + file_path);
+			p.InfoLine("Pop File - " + file_path);
 
 			// Modify strings
 			for (int i = 0; i < file.Length; i++) {
@@ -154,12 +164,12 @@ namespace PseudoPopParser {
 							List<TreeNode<string[]>> children = pt.Current.Children;
 
 							// Debug Level 2
-							if (_IsDebug("Print_Tokens")) Console.WriteLine(token + "\t\t\t" + i + " " + j);
+							if (_IsDebug("bool_Print_Tokens")) Console.WriteLine(token + "\t\t\t" + i + " " + j);
 
 							{ } // Debug Breakpoint
 
 							// Debug Level 4
-							if (_IsDebug("Print_Token_Operations")) {
+							if (_IsDebug("bool_Print_Token_Operations")) {
 								Console.WriteLine("->token:" + token);
 
 								if (building_string) Console.WriteLine("====STRINGBUILDER ACTIVE====");
@@ -230,7 +240,7 @@ namespace PseudoPopParser {
 										p.PotentialFix("Recount Curly Brackets");
 									}
 
-									if (_IsDebug("Print_PT_Cursor_Traversal")) {
+									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== UP CLOSE BRACE");
 									}
 									break;
@@ -240,7 +250,7 @@ namespace PseudoPopParser {
 								else if (look_ahead_open && token == "{") {
 
 									found = true;
-									if (_IsDebug("Print_PT_Cursor_Traversal")) {
+									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== DOWN LOOK AHEAD OPEN");
 									}
 
@@ -270,7 +280,7 @@ namespace PseudoPopParser {
 
 									// Move Down If Token Is Collection
 									if (child.Value[0].ToUpper() == "COLLECTION") {
-										if (_IsDebug("Print_PT_Cursor_Traversal")) {
+										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== LOOK AHEAD OPEN " + token);
 										}
 
@@ -287,7 +297,7 @@ namespace PseudoPopParser {
 											look_ahead_open = true;
 											look_ahead_buffer_node = children[c + 1].Value[1];
 
-											if (_IsDebug("Print_PT_Cursor_Traversal")) {
+											if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 												Console.WriteLine("SAW WHEN{}");
 											}
 
@@ -295,7 +305,7 @@ namespace PseudoPopParser {
 											break;
 										}
 
-										if (_IsDebug("Print_PT_Cursor_Traversal")) {
+										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== DOWN " + token);
 										}
 
@@ -315,13 +325,13 @@ namespace PseudoPopParser {
 										string child_datatype = child.Value[3];
 
 										if (p.IsDatatype(child_datatype.ToUpper(), token, line)) {
-											if (_IsDebug("Print_PT_Cursor_Traversal")) {
+											if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 												Console.WriteLine("==== UP 1");
 											}
 											pt.MoveUp();
 											break;
 										}
-										else if (_IsDebug("Print_PT_Cursor_Traversal")) {
+										else if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== CHILD DT DID NOT MATCH TOKEN 1");
 										}
 									}
@@ -329,12 +339,29 @@ namespace PseudoPopParser {
 
 								else if (current.Value[0].ToUpper() == "KEY") { // Handle All Keys
 
+									// Parse Template Pop File
+									if (look_back_token.ToUpper() == "#BASE") {
+										
+										// Detect Default Template
+										string[] default_templates = { "ROBOT_STANDARD.POP", "ROBOT_GIANT.POP", "ROBOT_GATEBOT.POP" };
+										bool is_default = false;
+										if (default_templates.Contains(token.ToUpper())) {
+											token = P3_root + "base_templates\\" + token;
+											is_default = true;
+										}
+
+										p.ParseBase(token, is_default);
+									}
 									// Parse Key and Value
-									p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1], template_name);
+									else {
+										p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1], template_name);
+									}
+
+									{ }
 
 									// Debug Token Lookback
 									// Writes all readable key-value pairs
-									if (_IsDebug("Print_Token_Lookback")) {
+									if (_IsDebug("bool_Print_Token_Lookback")) {
 										Console.WriteLine("Key is: " + look_back_token);
 										Console.WriteLine("\tValue is: " + token);
 										Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
@@ -347,7 +374,7 @@ namespace PseudoPopParser {
 										// look_back_token : "damage bonus"
 										// token : "1.0"
 
-										if (_IsDebug("Print_PT_Cursor_Traversal")) {
+										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== UP C1: " + token);
 										}
 
@@ -361,7 +388,7 @@ namespace PseudoPopParser {
 									if (p.IsDatatype(child_datatype.ToUpper(), token, line)) {
 										found = true;
 
-										if (_IsDebug("Print_PT_Cursor_Traversal")) {
+										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== UP 2");
 										}
 
@@ -369,7 +396,7 @@ namespace PseudoPopParser {
 										break;
 									}
 
-									else if (_IsDebug("Print_PT_Cursor_Traversal")) {
+									else if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== CHILD DT DID NOT MATCH TOKEN 2");
 									}
 								}
@@ -448,12 +475,13 @@ namespace PseudoPopParser {
 					p.WriteLineColor("Contact info can be found in the README", ConsoleColor.Blue);
 				}
 			}
+			/* End */
 
 			// Blank Line : Separate Warnings/Errors from Info Section
 			Console.Write("\n");
 
 			// Debug Terminator
-			if (_IsDebug("Print_Terminators")) {
+			if (_IsDebug("bool_Print_Terminators")) {
 				Console.WriteLine(">>>>>End of file | Debug Level ");
 			}
 

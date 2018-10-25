@@ -11,12 +11,9 @@ namespace PseudoPopParser {
 		 * Throw exception if invalid token path
 		 */
 
-		private static TreeNode<string[]> tree = new TreeNode<string[]>( // Main Parse Tree
-			new string[] { "Tree", "Tree", "NONE", "Tree", "-1", "FALSE", "TRUE" }
-		);
-		private static TreeNode<string[]> current_node = tree; // Cursor Node
-
-		private List<string> node_path = new List<string>();
+		private TreeNode<string[]> tree;
+		private TreeNode<string[]> current_node; // Cursor Node
+		private List<string> node_path;
 
 		// Get rid of prefix and suffix whitespace
 		private string RemovePolarWhitespace(string str) {
@@ -30,6 +27,12 @@ namespace PseudoPopParser {
 		 * SubParentNotFoundException
 		 */
 		public ParseTree(string read_from_file, int DEBUG_LEVEL = 0) {
+			tree = new TreeNode<string[]>( // Main Parse Tree
+				new string[] { "Tree", "Tree", "NONE", "Tree", "-1", "FALSE", "TRUE" }
+			);
+			current_node = tree;
+			node_path = new List<string>();
+
 			string[] grammar = File.ReadAllLines(read_from_file);
 			bool is_subtree = false;
 			List<List<string>> available_subtrees = new List<List<string>>();
