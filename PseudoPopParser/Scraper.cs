@@ -67,7 +67,7 @@ namespace PseudoPopParser {
 			}
 			catch (Exception e) {
 				//Console.WriteLine("Could not find directory: " + source_filepath);
-				p.Error(e.Message);
+				PrintColor.Error(e.Message);
 				return;
 			}
 
@@ -159,8 +159,8 @@ namespace PseudoPopParser {
 				}
 			}
 			writer.Dispose();
-			p.InfoLine("Finished scraping for attributes.");
-			p.InfoLine("Current version is now " + version);
+			PrintColor.InfoLine("Finished scraping for attributes.");
+			PrintColor.InfoLine("Current version is now " + version);
 		}
 		public void ScrapeItems(string source_filepath) { // A lot of this is redundant compared to ScrapeAttributes(). TODO refactor this
 
@@ -174,7 +174,7 @@ namespace PseudoPopParser {
 			}
 			catch (Exception e) {
 				//Console.WriteLine("Could not find directory: " + source_filepath);
-				p.Error(e.Message);
+				PrintColor.Error(e.Message);
 				return;
 			}
 
@@ -271,8 +271,8 @@ namespace PseudoPopParser {
 				}
 			}
 			writer.Dispose();
-			p.InfoLine("Finished scraping for items.");
-			p.InfoLine("Current version is now " + version);
+			PrintColor.InfoLine("Finished scraping for items.");
+			PrintColor.InfoLine("Current version is now " + version);
 		}
 	}
 }

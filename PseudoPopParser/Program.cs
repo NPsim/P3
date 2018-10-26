@@ -27,6 +27,9 @@ namespace PseudoPopParser {
 		[STAThread]
 		static void Main(string[] args) {
 
+			// Version Message
+			PrintColor.InfoLine("P3 v1.0.0");
+
 			// Debug Terminator
 			if (_IsDebug("bool_Print_Terminators")) {
 				Console.WriteLine(">>>>>Start of file | Debug Level ");
@@ -58,52 +61,63 @@ namespace PseudoPopParser {
 				}
 			}
 
+			// Get file_path if not defined in launch
+			while (!Regex.IsMatch(file_path, @"\.pop$")) {
+				Console.Write("Enter the path to your Pop file: ");
+				file_path = Console.ReadLine();
+
+				if (!Regex.IsMatch(file_path, @"\.pop$")) {
+					PrintColor.ErrorNoTrigger("Pop file must have *.pop file extension.");
+				}
+			}
+
 			// Get pop file's containing directory
 			string pop_folder = Regex.Match(file_path, @"^.*[\/\\]").ToString(); // Regex: Match everything up to last / or \
+
+			// Get pop file's name
+			string pop_file_name = Regex.Match(file_path, @"[\w-]+\.pop").ToString();
 
 			// Init Parser
 			PopParser p = new PopParser(datatypes_folder, pop_folder);
 			ParseTree pt = new ParseTree(grammar_file);
 
+			string[] globalkeys = _INI.Keys("Debug");
+
 			// Debug Print Config
 			if (_IsDebug("bool_Print_Config") || bypass_print_config) {
 
-				// TODO: Actually make a string[] Key() method for IniFile
+				string[] keys;
+				// Global Config
+				PrintColor.DebugLine("\t[Global]");
+				keys = _INI.Keys("Global");
+				foreach(string key in keys) {
+					PrintColor.DebugLine(key + " : " + _INI.Read(key, "Global"));
+				}
 
 				// Global Config
-				p.DebugLine("\t[Global]");
-				p.DebugLine("items_source_file : " + _INI.Read("items_source_file", "Global"));
-				p.DebugLine("currency_multiple_warning : " + _INI.Read("currency_multiple_warning", "Global"));
-				p.DebugLine("tank_warn_maximum : " + _INI.Read("tank_warn_maximum", "Global"));
-				p.DebugLine("tank_warn_minimum : " + _INI.Read("tank_warn_minimum", "Global"));
-				p.DebugLine("bot_health_multiple : " + _INI.Read("bot_health_multiple", "Global"));
-				p.DebugLine("tank_health_multiple : " + _INI.Read("tank_health_multiple", "Global"));
-				p.DebugLine("bool_tank_name_tankboss : " + _INI.Read("bool_tank_name_tankboss", "Global"));
-
-				// Debug Config
-				p.DebugLine("\t[Debug]");
-				p.DebugLine("bool_Print_Config : " + _INI.Read("bool_Print_Config", "Debug"));
-				p.DebugLine("bool_Print_Token_Lookback : " + _INI.Read("bool_Print_Token_Lookback", "Debug"));
-				p.DebugLine("bool_Print_Terminators : " + _INI.Read("bool_Print_Terminators", "Debug"));
-				p.DebugLine("bool_Print_Tokens : " + _INI.Read("bool_Print_Tokens", "Debug"));
-				p.DebugLine("bool_Print_Token_Operations : " + _INI.Read("bool_Print_Token_Operations", "Debug"));
-				p.DebugLine("bool_Print_PT_Cursor_Traversal : " + _INI.Read("bool_Print_PT_Cursor_Traversal", "Debug"));
+				PrintColor.DebugLine("\t[Debug]");
+				keys = _INI.Keys("Debug");
+				foreach (string key in keys) {
+					PrintColor.DebugLine(key + " : " + _INI.Read(key, "Debug"));
+				}
 
 				// End of Configuration
-				p.DebugLine("\tEnd Config");
-			}
-
-			// Get file_path if not defined in launch
-			if (file_path == "") {
-				Console.Write("Enter the path to your popfile: ");
-				file_path = Console.ReadLine();
+				PrintColor.DebugLine("\tEnd Config");
 			}
 
 			/* Begin */
 
 			// Populate file[] var
-			file = File.ReadAllLines(file_path);
-			p.InfoLine("Pop File - " + file_path);
+			try {
+				file = File.ReadAllLines(file_path);
+				PrintColor.InfoLine("Pop File - {f:Cyan}{0}{r}", file_path);
+			}
+			catch {
+				PrintColor.ErrorNoTrigger("Could not open Pop file.");
+				PrintColor.ColorLinef("Press Any Key to quit.");
+				Console.ReadKey();
+				return;
+			}
 
 			// Modify strings
 			for (int i = 0; i < file.Length; i++) {
@@ -234,10 +248,10 @@ namespace PseudoPopParser {
 									pt.MoveUp();
 
 									// Detect Possible Premature End of WaveSchedule : WaveSchedule closes in <99% of the total line count.
-									if (i < token_list.Count * 99 / 100 && pt.Current.Value[2] == "NONE") {
-										p.Warn("Possible premature end of WaveSchedule detected near ", global_line, global_token);
-										p.PotentialFix("Remove additional lines after end of WaveSchedule");
-										p.PotentialFix("Recount Curly Brackets");
+									if (p.ConfigReadBool("bool_early_end_wave_schedule", "Global") && (i < token_list.Count * 99 / 100 && pt.Current.Value[2] == "NONE")) {
+										PrintColor.Warn("Possible premature end of WaveSchedule detected near '{f:Yellow}{0}{r}'", global_line, global_token);
+										PrintColor.PotentialFix("Remove additional lines after end of WaveSchedule");
+										PrintColor.PotentialFix("Recount Curly Brackets");
 									}
 
 									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
@@ -301,7 +315,7 @@ namespace PseudoPopParser {
 												Console.WriteLine("SAW WHEN{}");
 											}
 
-											p.Warn("Using \"When\" with \"MinInterval\" and \"MaxInterval\" may stop spawning midwave", global_line);
+											PrintColor.Warn("Using {f:Cyan}When{r} with {f:Cyan}MinInterval{r} and {f:Cyan}MaxInterval{r} may stop spawning midwave", global_line);
 											break;
 										}
 
@@ -341,16 +355,18 @@ namespace PseudoPopParser {
 
 									// Parse Template Pop File
 									if (look_back_token.ToUpper() == "#BASE") {
+										string base_file_path = pop_folder + token;
 										
 										// Detect Default Template
 										string[] default_templates = { "ROBOT_STANDARD.POP", "ROBOT_GIANT.POP", "ROBOT_GATEBOT.POP" };
 										bool is_default = false;
 										if (default_templates.Contains(token.ToUpper())) {
-											token = P3_root + "base_templates\\" + token;
+											base_file_path = P3_root + "base_templates\\" + token;
 											is_default = true;
 										}
 
-										p.ParseBase(token, is_default);
+										// Do the thing.
+										p.ParseBase(base_file_path, is_default);
 									}
 									// Parse Key and Value
 									else {
@@ -404,6 +420,12 @@ namespace PseudoPopParser {
 
 							// Throw Exception If Nothing Matched
 							if (!found) {
+								// Catch Collection within Collection
+								string[] collections = { "SQUAD{}", "MOB{}", "RANDOMCHOICE{}", "SQUAD", "MOB", "RANDOMCHOICE" };
+								if (collections.Contains(token.ToUpper()) && collections.Contains(pt.CurrentValue[1].ToUpper())) {
+									throw new Exception("CollectionWithinCollectionException");
+								}
+								
 								throw new Exception("UnknownSymbolException");
 							}
 
@@ -417,6 +439,7 @@ namespace PseudoPopParser {
 						}
 					}
 				}
+				PrintColor.InfoLine("\tDone parsing Pop File - {f:Cyan}{0}{r}", pop_file_name);
 			}
 			catch (Exception ex) {
 
@@ -424,13 +447,13 @@ namespace PseudoPopParser {
 
 					// Lexer Exception : No space found before a "//" single-line comment token
 					if (Regex.IsMatch(global_token, @"\/\/.*[\s]*")) {
-						p.Error("Bad comment found near ", global_line, global_token);
+						PrintColor.Error("Bad comment found near '{f:Red}{0}{r}'", global_line, global_token);
 						p.PotentialFix("Insert a space between \"" + Regex.Replace(global_token, @"\/\/.*[\s]*", "") + "\" and \"//\"");
 					}
 
 					// Generic unknown symbol exception
 					else {
-						p.Error("Unknown symbol found near ", global_line, global_token);
+						PrintColor.Error("{f:Red}Invalid symbol{r} found near '{f:Red}{0}{r}'", global_line, global_token);
 					}
 
 				}
@@ -438,41 +461,49 @@ namespace PseudoPopParser {
 				/* IllegalIdentifierException */
 				// Lexer Exception : $ANY_VALID_STRING contains one of the following symbols { } " #base #include
 				else if (ex.Message == "IllegalIdentifierException") {
-					p.Error("Invalid name found near ", global_line, global_token);
+					PrintColor.Error("{f:Red}Invalid name{r} found near '{f:Red}{0}{r}'", global_line, global_token);
 				}
 
 				/* InvalidTypeException */
 				// Grammar Exception : Datatype does not exist within IsDatatype()
 				else if (ex.Message == "InvalidTypeException") {
-					p.Error("Invalid value found near ", global_line, global_token);
+					PrintColor.Error("{f:Red}Invalid value{r} found near '{f:Red}{0}{r}'", global_line, global_token);
 				}
 
 				/* ParentNotFoundException */
 				// Parse Tree Exception : Cursor attempted to move to null or illegal parent
 				else if (ex.Message == "ParentNotFoundException") {
-					p.Error("Invalid Closing Curly Bracket found: ", global_line, global_token);
-					p.PotentialFix("Recount and remove excess Close Curly Brackets");
+					PrintColor.Error("{f:Red}Invalid Closing Curly Bracket{r} found: '{f:Red}{0}{r}'", global_line, global_token);
+					//PrintColor.PotentialFix("Recount and remove excess Close Curly Brackets");
 				}
 
 				/* DatatypeNotFoundException */
 				// Grammar Exception : Datatype does not exist as a special definitions file
 				else if (ex.Message == "DatatypeNotFoundException") {
-					p.Error("Invalid key found near ", global_line, global_token);
+					PrintColor.Error("{f:Red}Invalid key{r} found near '{f:Red}{0}{r}'", global_line, global_token);
 				}
 
 				/* FileNotFoundException */
 				// Grammar Exception : invalid grammar file path
 				// Generic file not found exception
 				else if (ex.Message == "FileNotFoundException") {
-					p.Error("Invalid grammar file selected.");
+					PrintColor.Error("{f:Red}Invalid grammar file{r} selected.");
+				}
+
+				/* CollectionWithinCollectionException */
+				// Parse Tree Exception : Collection within Collection
+				else if (ex.Message == "CollectionWithinCollectionException") {
+					PrintColor.Error("Cannot have Collection within Collection: '{f:Red}{0}{r}'", global_line, global_token);
+					PrintColor.PotentialFix("Cannot have Squad, Mob, or RandomChoice within a Squad, Mob, or RandomChoice.");
+					PrintColor.PotentialFix("Valve has not implemented a recursive spawner.");
 				}
 
 				/* Exception */
 				// Generic Exception : Unknown exception
 				else {
-					p.Error("Unknown exception \'" + ex.Message + "\' near ", global_line, global_token);
-					p.WriteLineColor("Please contact the developer regarding this error", ConsoleColor.Blue);
-					p.WriteLineColor("Contact info can be found in the README", ConsoleColor.Blue);
+					PrintColor.Error("{f:Cyan}Unknown{r} exception '{f:Red}{1}{r}' near '{f:Red} {0}{r}'", global_line, global_token, ex.Message);
+					PrintColor.WriteLineColor("Please contact the developer regarding this error", ConsoleColor.Blue);
+					PrintColor.WriteLineColor("Contact info can be found in the README", ConsoleColor.Blue);
 				}
 			}
 			/* End */
@@ -488,54 +519,54 @@ namespace PseudoPopParser {
 			/* Ending Statement */
 			// Error Occurred
 			if (p.ErrorOccurred) {
-				p.WriteLineColor("Finished with an error.", ConsoleColor.Red, ConsoleColor.Black);
+				PrintColor.ColorLinef("{f:Black}{b:Red}Finished with an error.{r}");
 			}
 
 			// No Error Occurred
 			else {
-				ConsoleColor any_warning_back = ConsoleColor.Green;
-				ConsoleColor any_warning_fore = ConsoleColor.Black;
-
 				// Warning Occurred
 				if (p.Warnings > 0) {
-					any_warning_back = ConsoleColor.Yellow;
-					any_warning_fore = ConsoleColor.Black;
+					PrintColor.ColorLinef("{f:Black}{b:Yellow}Finished with {0} warning(s).{r}", p.Warnings.ToString());
+				}
+				// No Warnings
+				else {
+					PrintColor.ColorLinef("{f:Black}{b:Green}Finished with 0 warning(s).{r}");
 				}
 
-				// Print Total Warnings
-				p.WriteLineColor("Finished with " + p.Warnings + " warning(s).", any_warning_back, any_warning_fore);
-
 				// Print Total Mission Currency
-				p.InfoLine("Starting Credits: " + p.StartingCurrency);
-				p.InfoLine("Total Dropped Credits: " + p.TotalCurrency);
-				p.InfoLine("Total Bonus Credits: " + p.TotalWaveBonus);
-				p.InfoLine("Maximum Possible Credits: " + (p.StartingCurrency + p.TotalCurrency + p.TotalWaveBonus));
+				PrintColor.InfoLine("Starting Credits: {f:Cyan}{0}{r}", p.StartingCurrency.ToString());
+				PrintColor.InfoLine("Total Dropped Credits: {f:Cyan}{0}{r}", p.TotalCurrency.ToString());
+				PrintColor.InfoLine("Total Bonus Credits: {f:Cyan}{0}{r}", p.TotalWaveBonus.ToString());
+				PrintColor.InfoLine("Maximum Possible Credits: {f:Cyan}{0}{r}", (p.StartingCurrency + p.TotalCurrency + p.TotalWaveBonus).ToString());
 			}
 
 			// Blank Line : Separate Ending Statements with Further Option Choices
 			Console.Write("\n");
 
 			// Show Next Options
-			p.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
-			p.WriteLineColor(" Credit Stats");
+			PrintColor.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Credit Stats");
 
-			p.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
-			p.WriteLineColor(" WaveSpawn Names");
+			PrintColor.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" WaveSpawn Names");
 
-			p.WriteColor("F3", ConsoleColor.White, ConsoleColor.Black);
-			p.WriteLineColor(" Update Attributes");
+			PrintColor.WriteColor("F3", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Update Attributes");
 
-			p.WriteColor("F4", ConsoleColor.White, ConsoleColor.Black);
-			p.WriteLineColor(" Update Items");
+			PrintColor.WriteColor("F4", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Update Items");
+
+			PrintColor.WriteColor("F5", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" TFBot Template Names");
+
+			PrintColor.WriteColor("F6", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" How to Calculate Credits");
 
 			// Blank Line Separates Quit with Options
 			Console.Write("\n");
 
-			p.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
-			p.WriteLineColor(" Quit");
-
-			// Dev message
-			p.WriteLineColor("[ALPHA] P3 DEVELOPMENT BUILD", ConsoleColor.Green, ConsoleColor.Black);
+			PrintColor.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Quit");
 
 			// Options Menu Handling
 			ConsoleKey key_pressed;
@@ -545,19 +576,19 @@ namespace PseudoPopParser {
 
 				// F1 Display Credit Stats
 				if (key_pressed == ConsoleKey.F1) {
-					p.InfoLine("===Writing Credit Statistics===");
+					PrintColor.InfoLine("===Credit Statistics===");
 					p.WriteCreditStats();
 				}
 
 				// F2 Display WaveSpawn Stats
 				else if (key_pressed == ConsoleKey.F2) {
-					p.InfoLine("===Writing WaveSpawn Statistics===");
+					PrintColor.InfoLine("===WaveSpawn Names===");
 					p.WriteWaveSpawnNames();
 				}
 
 				// F3 Scrape Attributes
 				else if (key_pressed == ConsoleKey.F3) {
-					p.InfoLine("===Updating Attributes Database===");
+					PrintColor.InfoLine("===Updating Attributes Database===");
 					using (Scraper s = new Scraper(p)) {
 						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
 
@@ -566,36 +597,36 @@ namespace PseudoPopParser {
 						// Verify Valid Configuration
 						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
 
-							p.InfoLine("Please specify your items_game.txt");
+							PrintColor.InfoLine("Please specify your items_game.txt");
 
 							try {
 								OpenFileDialog ofd = new OpenFileDialog();
 								ofd.ShowDialog();
 								cfg_att_filepath = ofd.FileName;
 								_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
-								p.InfoLine("Input by Dialog: " + ofd.FileName);
+								PrintColor.InfoLine("Input by Dialog: " + ofd.FileName);
 							}
 							catch {
-								p.Error("Failed to get file by dialog.");
-								p.Info("Input your path to items_game.txt: ");
-								cfg_att_filepath = Console.ReadLine();
+								PrintColor.Error("Failed to get file by dialog.");
+								//p.Info("Input your path to items_game.txt: ");
+								//cfg_att_filepath = Console.ReadLine();
 							}
 						}
 
 						// Scraper Operations
 						if (File.Exists(cfg_att_filepath)) {
-							p.InfoLine("Old version is " + s.Version);
+							PrintColor.InfoLine("Old version is " + s.Version);
 							s.ScrapeAttributes(cfg_att_filepath);
 						}
 						else {
-							p.Error("File does not exist");
+							PrintColor.Error("File does not exist");
 						}
 					}
 				}
 
 				// F4 Scrape Items
 				else if (key_pressed == ConsoleKey.F4) {
-					p.InfoLine("===Updating Item Database===");
+					PrintColor.InfoLine("===Updating Item Database===");
 					using (Scraper s = new Scraper(p)) {
 						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
 
@@ -604,31 +635,48 @@ namespace PseudoPopParser {
 						// Verify Valid Configuration
 						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
 
-							p.InfoLine("Please specify your items_game.txt");
+							PrintColor.InfoLine("Please specify your items_game.txt");
 
 							try {
 								OpenFileDialog ofd = new OpenFileDialog();
 								ofd.ShowDialog();
 								cfg_att_filepath = ofd.FileName;
 								_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
-								p.InfoLine("Input by Dialog: " + ofd.FileName);
+								PrintColor.InfoLine("Input by Dialog: " + ofd.FileName);
 							}
 							catch {
-								p.Error("Failed to get file by dialog.");
-								p.Info("Input your path to items_game.txt: ");
-								cfg_att_filepath = Console.ReadLine();
+								PrintColor.Error("Failed to get file by dialog.");
+								//p.Info("Input your path to items_game.txt: ");
+								//cfg_att_filepath = Console.ReadLine();
 							}
 						}
 
 						// Scraper Operations
 						if (File.Exists(cfg_att_filepath)) {
-							p.InfoLine("Old version is " + s.Version);
+							PrintColor.InfoLine("Old version is " + s.Version);
 							s.ScrapeItems(cfg_att_filepath);
 						}
 						else {
-							p.Error("File does not exist");
+							PrintColor.Error("File does not exist");
 						}
 					}
+				}
+
+				// F5 Display TFBot Templates
+				else if (key_pressed == ConsoleKey.F5) {
+					PrintColor.InfoLine("===TFBot Template Names===");
+					p.WriteTFBotTemplateNames();
+				}
+
+				// F6 How to Calculate Total Credits
+				else if (key_pressed == ConsoleKey.F6) {
+					PrintColor.InfoLine("===How to Calculate Total Credits===");
+					PrintColor.InfoLine("Calculate credits {f:Cyan}dropped{r} by adding up");
+					PrintColor.InfoLine("  every WaveSpawn's {f:Cyan}TotalCurrency{r} in a Wave.");
+					PrintColor.InfoLine("A bonus of maximum {f:Cyan}$100{r} is awarded on completion of wave if");
+					PrintColor.InfoLine("  it is {f:cyan}not the final wave{r} and {f:cyan}all credits{r} are picked up.");
+					PrintColor.InfoLine("A half bonus of {f:Cyan}$50{r} is awarded on completion of wave if it is");
+					PrintColor.InfoLine("  {f:cyan}not the final wave{r} and missed credits is between {f:cyan}$1 and $50{r}.");
 				}
 
 				// Exit on Any Key

@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
 
@@ -45,6 +46,56 @@ namespace PseudoPopParser {
 			return Read(Key, Section).Length > 0;
 		}
 
+		public string[] Keys() {
+			var keys = new System.Collections.Generic.List<string>();
+			string[] ini_lines = File.ReadAllLines(Path);
+			foreach (string line in ini_lines) {
+				string key = Regex.Match(line, @".*\s=").ToString();
+				if (key.Length > 0) {
+					key = key.Substring(0, key.Length - 2);
+					keys.Add(key);
+				}
+			}
+			return keys.ToArray();
+		}
+
+		public string[] Keys(string section) {
+			var keys = new System.Collections.Generic.List<string>();
+			bool read = false;
+			string[] ini_lines = File.ReadAllLines(Path);
+			foreach (string line in ini_lines) {
+				string section_match = Regex.Match(line, @"\[.*\]").ToString();
+				// Stop Reading
+				if (section_match.Length > 0 && section_match != "[" + section + "]") {
+					read = false;
+				}
+				// Start Reading
+				else if (section_match == "[" + section + "]") {
+					read = true;
+				}
+				else if (read) {
+					string key = Regex.Match(line, @".*\s=").ToString();
+					if (key.Length > 0) {
+						key = key.Substring(0, key.Length - 2);
+						keys.Add(key);
+					}
+				}
+			}
+			return keys.ToArray();
+		}
+
+		public string[] Sections() {
+			var sections = new System.Collections.Generic.List<string>();
+			string[] ini_lines = File.ReadAllLines(Path);
+			foreach (string line in ini_lines) {
+				string section = Regex.Match(line, @"\[.*\]").ToString();
+				if (section.Length > 0) {
+					section = section.Substring(1, section.Length - 2);
+					sections.Add(section);
+				}
+			}
+			return sections.ToArray();
+		}
 	}
 
 }
