@@ -17,8 +17,10 @@ Check the GitHub releases or find the download link on the Discord server below.
 ### Connecting P3 to a text editor (Notepad++)
     # Save the following command as a Run.. command
     path\to\P3.exe -pop "$(FULL_CURRENT_PATH)"
+	
     # Example:
     C:\Users\Simple\Desktop\P3\P3.exe -pop "$(FULL_CURRENT_PATH)"
+	
     # Optional:
     Add a Hotkey to your Run.. command to parse instantly.
 
