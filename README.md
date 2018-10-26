@@ -52,7 +52,9 @@ Check the GitHub releases or find the download link on the Discord server below.
 
 ### Contacting Me
 Add me on Steam: [NPOSim]
+
 Discord: `Subsimple#9640`
+
 Discord Server: [gRPuRdj]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
