@@ -9,7 +9,7 @@ namespace PseudoPopParser {
 
 	class Program {
 
-		private static IniFile _INI = new IniFile(@"config.ini");
+		private static IniFile _INI;
 		private static Dictionary<string, string> _CONFIGURATION = new Dictionary<string, string>();
 
 		static bool _IsDebug(string key) {
@@ -28,18 +28,20 @@ namespace PseudoPopParser {
 		static void Main(string[] args) {
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.0.0");
+			PrintColor.InfoLine("P3 v1.0.1");
 
-			// Debug Terminator
-			if (_IsDebug("bool_Print_Terminators")) {
-				Console.WriteLine(">>>>>Start of file | Debug Level ");
-			}
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
+			_INI = new IniFile(P3_root + @"config.ini");
 			string file_path = "";
 			string grammar_file = P3_root + "grammar.owo";
 			string datatypes_folder = P3_root;
 			string[] file = null;
 			bool bypass_print_config = false;
+
+			// Debug Terminator
+			if (_IsDebug("bool_Print_Terminators")) {
+				Console.WriteLine(">>>>>Start of file | Debug Level ");
+			}
 
 			List<string[]> token_list = new List<string[]> {
 				new string[] { } // No 0 indexing
@@ -562,6 +564,9 @@ namespace PseudoPopParser {
 			PrintColor.WriteColor("F6", ConsoleColor.White, ConsoleColor.Black);
 			PrintColor.WriteLineColor(" How to Calculate Credits");
 
+			PrintColor.WriteColor("F12", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Common Conventions Enforcement");
+
 			// Blank Line Separates Quit with Options
 			Console.Write("\n");
 
@@ -677,6 +682,20 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("  it is {f:cyan}not the final wave{r} and {f:cyan}all credits{r} are picked up.");
 					PrintColor.InfoLine("A half bonus of {f:Cyan}$50{r} is awarded on completion of wave if it is");
 					PrintColor.InfoLine("  {f:cyan}not the final wave{r} and missed credits is between {f:cyan}$1 and $50{r}.");
+				}
+
+				// F12 Notice: Conventions
+				else if (key_pressed == ConsoleKey.F12) {
+					PrintColor.InfoLine("===Common Conventions Enforcement===");
+					PrintColor.InfoLine("P3 enforces {f:Cyan}common conventions{r}. The list of conventions is as follows.");
+					PrintColor.InfoLine("Templates defined {f:Cyan}{0} usage{r}.", "before");
+					PrintColor.InfoLine("Templates imported {f:Cyan}{0} ItemAttribute modification{r}.", "before");
+					PrintColor.InfoLine("Items must be given to TFBot {f:Cyan}{0} ItemAttributes modification{r}.", "before");
+					PrintColor.InfoLine("Do not use {f:Cyan}WaveSpawn Templates{r}.");
+					PrintColor.InfoLine("TotalCurrency must be {f:Cyan}greater than 0{r}. {f:Yellow}(Configurable){r}");
+					PrintColor.InfoLine("Support cannot be {f:Cyan}limited{r}.");
+					PrintColor.InfoLine("Warnings (or possibly errors) are given when a convention is broken.");
+					PrintColor.InfoLine("This list may shrink as P3 updates to accomodate outlier creators.");
 				}
 
 				// Exit on Any Key

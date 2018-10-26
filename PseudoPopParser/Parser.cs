@@ -9,7 +9,7 @@ namespace PseudoPopParser {
 	class PopParser {
 
 		// TODO organize this
-		private static IniFile _INI = new IniFile(@"config.ini");
+		private static IniFile _INI;
 		private static string pop_directory = "";
 		private static int number_of_warnings = 0;
 		private static bool error_occurred = false;
@@ -64,6 +64,7 @@ namespace PseudoPopParser {
 		public PopParser() { }
 		public PopParser(string datatypes_folder, string pop_folder) {
 			datatypes_folder_path = datatypes_folder;
+			_INI = new IniFile(datatypes_folder + @"config.ini");
 			pop_directory = pop_folder;
 			SetupAttributes();
 			SetupItems();
@@ -124,7 +125,7 @@ namespace PseudoPopParser {
 		private bool ExistsTwoDimension(List<List<string>> list, string value) {
 			foreach (List<string> sublist in list) {
 				foreach (string member in sublist) {
-					if (member == value) {
+					if (member.ToUpper() == value.ToUpper()) {
 						return true;
 					}
 				}
@@ -209,7 +210,7 @@ namespace PseudoPopParser {
 					int wave_credits = wave_credits_list.Last().Sum();
 					int credits_multiple = ConfigRead("currency_multiple_warning");
 					if (!IsMultiple(wave_credits, credits_multiple)) {
-						PrintColor.Warn("{f:Cyan}Wave {1}{r}'s credits is {f:Yellow}not a multiple{r} of {f:Cyan}{2}{r}: '{f:Yellow}{0}{r}'", -1, 12.ToString(), total_waves.ToString(), credits_multiple.ToString());
+						PrintColor.Warn("{f:Cyan}Wave {1}{r}'s credits is {f:Yellow}not a multiple{r} of {f:Cyan}{2}{r}: '{f:Yellow}{0}{r}'", -1, wave_credits.ToString(), total_waves.ToString(), credits_multiple.ToString());
 					}
 
 					break;
@@ -677,10 +678,10 @@ namespace PseudoPopParser {
 					if (credits > 0) {
 						wave_credits_list.Last().Add(credits);
 					}
-					else if (credits == 0) {
+					else if (credits == 0 && ConfigReadBool("bool_warn_totalcurrency_zero", "Global")) {
 						PrintColor.Warn("{f:Cyan}TotalCurrency{r} value {f:Yellow}equal to 0{r} drops nothing: '{f:Yellow}{0}{r}'", line, value);
 					}
-					else if (credits < 0) {
+					else if (credits < 0 && ConfigReadBool("bool_warn_totalcurrency_zero", "Global")) {
 						PrintColor.Warn("{f:Cyan}TotalCurrency{r} value {f:Yellow}less than 0{r} drops nothing: '{f:Yellow}{0}{r}'", line, value);
 					}
 					break;
@@ -780,7 +781,7 @@ namespace PseudoPopParser {
 						}
 					}
 
-					if (!bot_has_item & !Regex.IsMatch(value, "TF_")) {
+					if (!bot_has_item & !Regex.IsMatch(value, "TF_", RegexOptions.IgnoreCase)) {
 						PrintColor.Warn("{f:Cyan}TFBot{r} does not have {f:Cyan}item{r}: '{f:Yellow}{0}{r}'", line, value);
 					}
 					break;
