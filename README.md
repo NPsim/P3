@@ -2,11 +2,13 @@
 ### What is this?
 
 This is my 2018 summer side project.
+
 P3 is a program that aids mvm popfile creators in avoiding simple errors such as invalid attributes, typo'd values, and general structure.
 
 ### Why Pseudo?
 
 This isn't the actual parser that's used in the game.
+
 P3 emulates it to a degree.
 
 ### How do I get it?
