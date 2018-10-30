@@ -26,6 +26,7 @@ namespace PseudoPopParser {
 		private static List<string> item_list = new List<string>();
 		private static List<string> tfbot_items = new List<string>();
 		private static bool suppress_write_main = false;
+		private static List<string> icons_list = new List<string>();
 
 		/* Purpose of Class:
 		 * Check and return token types
@@ -162,8 +163,25 @@ namespace PseudoPopParser {
 
 		// Print Formatted Contents of TFBot_Template_Items
 		public void WriteTFBotTemplateNames() {
-			foreach(List<string> items_list in tfbot_template_items) {
-				PrintColor.InfoLine("\t" + items_list[0]);
+			foreach (List<string> items_list in tfbot_template_items.OrderBy(str => str[0])) { // List.OrderBy() returns sorted IEnumerable
+				PrintColor.InfoLine("\t{0}", items_list[0]);
+			}
+		}
+
+		// Print Used Custom Icons
+		public void WriteCustomIcons() {
+			List<string> icons_list_distinct = icons_list.Distinct().ToList();
+
+			// Remove default icons
+			string file_path = datatypes_folder_path + "base_templates\\default_icons.txt";
+			List<string> default_icons = new List<string>(File.ReadAllLines(file_path));
+			foreach(string icon in default_icons) {
+				icons_list_distinct.Remove(icon);
+			}
+
+			// Print Contents
+			foreach(string icon in icons_list_distinct.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+				PrintColor.InfoLine("\t{0}", icon);
 			}
 		}
 
@@ -313,12 +331,12 @@ namespace PseudoPopParser {
 				// Adding 0
 				if (ConfigReadBool("bool_attribute_value_type_scan") && (value_double == 0.0 && (form == "value_is_additive" || form == "value_is_additive_percentage"))) {
 					PrintColor.Warn("{f.Cyan}Attribute{r} does nothing: '{f:Yellow}{0}{r}'", line, key + " " + value);
-					PrintColor.PotentialFix("Value adds 0 to attribute"); // TODO BADVALUE
+					PotentialFix("Value adds 0 to attribute");
 				}
 				// Multiplying by 100%
 				else if (ConfigReadBool("bool_attribute_value_type_scan") && (value_double == 1.0 && (form == "value_is_percentage" || form == "value_is_inverted_percentage"))) {
 					PrintColor.Warn("{f.Cyan}Attribute does nothing: '{f:Yellow}{0}{r}'", line, key + " " + value);
-					PrintColor.PotentialFix("Value multiplies attribute by 1.00"); // TODO BADVALUE
+					PotentialFix("Value multiplies attribute by 1.00");
 				}
 				// Invalid Boolean
 				else if (!(value == "0" || value == "1") && form == "value_is_or") {
@@ -715,7 +733,7 @@ namespace PseudoPopParser {
 							PrintColor.Warn("{f:Cyan}Tank Health{r} {f:Yellow}exceeds maximum{r} warning [{f:Cyan}{1}{r}]: '{f:Yellow}{0}{r}'", line, value, tank_warn_max.ToString());
 						}
 						else if (health < tank_warn_min) {
-							PrintColor.Warn("{f:Cyan}Tank Health{r} {f:Yellow}is below minimum{r} warning [{f:Cyan}{1}{r}]: '{f:Yellow}{0}{r}'", line, value, tank_warn_min.ToString());
+							PrintColor.Warn("{f:Cyan}Tank Health{r} is {f:Yellow}{2} minimum{r} warning [{f:Cyan}{1}{r}]: '{f:Yellow}{0}{r}'", line, value, tank_warn_min.ToString(), "below");
 						}
 
 					}
@@ -833,6 +851,19 @@ namespace PseudoPopParser {
 								}
 							}
 						}
+					}
+
+					break;
+
+				case "CLASSICON": // Icon Scanning
+					icons_list.Add(value.ToLower());
+
+					break;
+
+				case "SUPPORT":
+					if (value.ToUpper() == "LIMITED" && ConfigReadBool("bool_warn_support_limited")) {
+						PrintColor.Warn("Support value disables infinite spawn: '{f:Yellow}{0}{r}'", line, value);
+						PotentialFix("Support '{f:Cyan}limited{r}' is the same as {f:Yellow}no support{r}.");
 					}
 
 					break;
@@ -963,21 +994,13 @@ namespace PseudoPopParser {
 			Console.Write("\n");
 		}
 
-		// Simple Print Potential Fix
-		public void PotentialFix(string message, bool false_positive = false) { // TODO Deprecated: Pending Removal
-			if (suppress_write_main) {
-				return;
-			}
-			Console.Write("\t");
-			Console.BackgroundColor = ConsoleColor.Gray;
-			Console.ForegroundColor = ConsoleColor.Black;
-			if (false_positive) {
-				WriteMainLine(message, "[Ptl. False Positive]", -1, ConsoleColor.Gray, ConsoleColor.Black);
-			}
-			else {
-				WriteMainLine(message, "[Potential Fix]", -1, ConsoleColor.Gray, ConsoleColor.Black);
+		// Configurable Potential Fix
+		public void PotentialFix(string message, params string[] args) {
+			if (ConfigReadBool("bool_show_potential_fix")) {
+				PrintColor.PotentialFix(message, args);
 			}
 		}
+
 
 		public void IncrementWarnings() {
 			number_of_warnings++;
@@ -1142,14 +1165,7 @@ namespace PseudoPopParser {
 					else if (type.ToUpper() == "TEMPLATE NAME") {
 						return IsDatatype("STRING", token, line_number); // fall back to any string
 					}
-
 					else if (type.ToUpper() == "SUPPORT TYPE") {
-
-						// Warn 'limited' support is equal to having no support key
-						if (token.ToUpper() == "LIMITED") {
-							PrintColor.Warn("Support value disables infinite spawn: '{f:Yellow}{0}{r}'", line_number, token);
-							PrintColor.PotentialFix("Support '{f:Cyan}limited{r}' is the same as {f:Yellow}no support{r}.");
-						}
 						return IsDatatype("STRING", token, line_number);
 					}
 					else if (type.ToUpper() == "FILE") {

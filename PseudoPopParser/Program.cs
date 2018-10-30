@@ -28,7 +28,7 @@ namespace PseudoPopParser {
 		static void Main(string[] args) {
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.0.1");
+			PrintColor.InfoLine("P3 v1.1.0");
 
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(P3_root + @"config.ini");
@@ -252,8 +252,8 @@ namespace PseudoPopParser {
 									// Detect Possible Premature End of WaveSchedule : WaveSchedule closes in <99% of the total line count.
 									if (p.ConfigReadBool("bool_early_end_wave_schedule", "Global") && (i < token_list.Count * 99 / 100 && pt.Current.Value[2] == "NONE")) {
 										PrintColor.Warn("Possible premature end of WaveSchedule detected near '{f:Yellow}{0}{r}'", global_line, global_token);
-										PrintColor.PotentialFix("Remove additional lines after end of WaveSchedule");
-										PrintColor.PotentialFix("Recount Curly Brackets");
+										p.PotentialFix("Remove additional lines after end of WaveSchedule");
+										p.PotentialFix("Recount Curly Brackets");
 									}
 
 									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
@@ -375,7 +375,7 @@ namespace PseudoPopParser {
 										p.ParseKeyValue(look_back_token, token, line, pt.ParentValue[1], template_name);
 									}
 
-									{ }
+									{ } // Debug Breakpoint
 
 									// Debug Token Lookback
 									// Writes all readable key-value pairs
@@ -476,7 +476,7 @@ namespace PseudoPopParser {
 				// Parse Tree Exception : Cursor attempted to move to null or illegal parent
 				else if (ex.Message == "ParentNotFoundException") {
 					PrintColor.Error("{f:Red}Invalid Closing Curly Bracket{r} found: '{f:Red}{0}{r}'", global_line, global_token);
-					//PrintColor.PotentialFix("Recount and remove excess Close Curly Brackets");
+					//p.PotentialFix("Recount and remove excess Close Curly Brackets");
 				}
 
 				/* DatatypeNotFoundException */
@@ -496,8 +496,8 @@ namespace PseudoPopParser {
 				// Parse Tree Exception : Collection within Collection
 				else if (ex.Message == "CollectionWithinCollectionException") {
 					PrintColor.Error("Cannot have Collection within Collection: '{f:Red}{0}{r}'", global_line, global_token);
-					PrintColor.PotentialFix("Cannot have Squad, Mob, or RandomChoice within a Squad, Mob, or RandomChoice.");
-					PrintColor.PotentialFix("Valve has not implemented a recursive spawner.");
+					p.PotentialFix("Cannot have Squad, Mob, or RandomChoice within a Squad, Mob, or RandomChoice.");
+					p.PotentialFix("Valve has not implemented a recursive spawner.");
 				}
 
 				/* Exception */
@@ -547,10 +547,10 @@ namespace PseudoPopParser {
 
 			// Show Next Options
 			PrintColor.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
-			PrintColor.WriteLineColor(" Credit Stats");
+			PrintColor.WriteLineColor(" Show Credit Stats");
 
 			PrintColor.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
-			PrintColor.WriteLineColor(" WaveSpawn Names");
+			PrintColor.WriteLineColor(" Show WaveSpawn Names");
 
 			PrintColor.WriteColor("F3", ConsoleColor.White, ConsoleColor.Black);
 			PrintColor.WriteLineColor(" Update Attributes");
@@ -559,10 +559,19 @@ namespace PseudoPopParser {
 			PrintColor.WriteLineColor(" Update Items");
 
 			PrintColor.WriteColor("F5", ConsoleColor.White, ConsoleColor.Black);
-			PrintColor.WriteLineColor(" TFBot Template Names");
+			PrintColor.WriteLineColor(" Show TFBot Template Names");
 
 			PrintColor.WriteColor("F6", ConsoleColor.White, ConsoleColor.Black);
 			PrintColor.WriteLineColor(" How to Calculate Credits");
+
+			PrintColor.WriteColor("F7", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Show Used Custom Icons");
+
+			PrintColor.WriteColor("F10", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Set items_game.txt Location");
+
+			PrintColor.WriteColor("F11", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.WriteLineColor(" Enter Fullscreen (Windows Default)");
 
 			PrintColor.WriteColor("F12", ConsoleColor.White, ConsoleColor.Black);
 			PrintColor.WriteLineColor(" Common Conventions Enforcement");
@@ -591,78 +600,42 @@ namespace PseudoPopParser {
 					p.WriteWaveSpawnNames();
 				}
 
-				// F3 Scrape Attributes
+				// F3 Scrape Attributes | Update item_attributes.owo
 				else if (key_pressed == ConsoleKey.F3) {
 					PrintColor.InfoLine("===Updating Attributes Database===");
-					using (Scraper s = new Scraper(p)) {
+					using (Scraper s = new Scraper()) {
 						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
-
-						{ } // Debug Breakpoint
 
 						// Verify Valid Configuration
 						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
-
-							PrintColor.InfoLine("Please specify your items_game.txt");
-
-							try {
-								OpenFileDialog ofd = new OpenFileDialog();
-								ofd.ShowDialog();
-								cfg_att_filepath = ofd.FileName;
-								_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
-								PrintColor.InfoLine("Input by Dialog: " + ofd.FileName);
-							}
-							catch {
-								PrintColor.Error("Failed to get file by dialog.");
-								//p.Info("Input your path to items_game.txt: ");
-								//cfg_att_filepath = Console.ReadLine();
-							}
+							PrintColor.ErrorNoTrigger("Invalid items_game.txt");
+							PrintColor.InfoLine("Please set your items_game.txt with F10");
 						}
 
 						// Scraper Operations
-						if (File.Exists(cfg_att_filepath)) {
-							PrintColor.InfoLine("Old version is " + s.Version);
-							s.ScrapeAttributes(cfg_att_filepath);
-						}
 						else {
-							PrintColor.Error("File does not exist");
+							PrintColor.InfoLine("Old version is " + s.VersionAttr);
+							s.ScrapeAttributes(cfg_att_filepath);
 						}
 					}
 				}
 
-				// F4 Scrape Items
+				// F4 Scrape Items | Update item_db.owo
 				else if (key_pressed == ConsoleKey.F4) {
 					PrintColor.InfoLine("===Updating Item Database===");
-					using (Scraper s = new Scraper(p)) {
+					using (Scraper s = new Scraper()) {
 						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
-
-						Console.Write("");
 
 						// Verify Valid Configuration
 						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
-
-							PrintColor.InfoLine("Please specify your items_game.txt");
-
-							try {
-								OpenFileDialog ofd = new OpenFileDialog();
-								ofd.ShowDialog();
-								cfg_att_filepath = ofd.FileName;
-								_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
-								PrintColor.InfoLine("Input by Dialog: " + ofd.FileName);
-							}
-							catch {
-								PrintColor.Error("Failed to get file by dialog.");
-								//p.Info("Input your path to items_game.txt: ");
-								//cfg_att_filepath = Console.ReadLine();
-							}
+							PrintColor.ErrorNoTrigger("Invalid items_game.txt");
+							PrintColor.InfoLine("Please set your items_game.txt with F10");
 						}
 
 						// Scraper Operations
-						if (File.Exists(cfg_att_filepath)) {
-							PrintColor.InfoLine("Old version is " + s.Version);
-							s.ScrapeItems(cfg_att_filepath);
-						}
 						else {
-							PrintColor.Error("File does not exist");
+							PrintColor.InfoLine("Old version is " + s.VersionItem);
+							s.ScrapeItems(cfg_att_filepath);
 						}
 					}
 				}
@@ -670,6 +643,7 @@ namespace PseudoPopParser {
 				// F5 Display TFBot Templates
 				else if (key_pressed == ConsoleKey.F5) {
 					PrintColor.InfoLine("===TFBot Template Names===");
+					PrintColor.InfoLine("Names are not case sensitive.");
 					p.WriteTFBotTemplateNames();
 				}
 
@@ -682,6 +656,34 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("  it is {f:cyan}not the final wave{r} and {f:cyan}all credits{r} are picked up.");
 					PrintColor.InfoLine("A half bonus of {f:Cyan}$50{r} is awarded on completion of wave if it is");
 					PrintColor.InfoLine("  {f:cyan}not the final wave{r} and missed credits is between {f:cyan}$1 and $50{r}.");
+				}
+
+				// F7 Show Used Custom Icons
+				else if (key_pressed == ConsoleKey.F7) {
+					PrintColor.InfoLine("===Custom Icons Used===");
+					PrintColor.InfoLine("Names are not case sensitive.");
+					p.WriteCustomIcons();
+				}
+
+				// F10 Set items_game.txt
+				else if (key_pressed == ConsoleKey.F10) {
+					PrintColor.InfoLine("===Set items_game.txt Location===");
+					PrintColor.InfoLine(@"Please open your items_game.txt at");
+					PrintColor.InfoLine(@".\Team Fortress 2\tf\scripts\items\items_game.txt");
+
+					// File Dialog
+					try {
+						OpenFileDialog ofd = new OpenFileDialog();
+						ofd.ShowDialog();
+						_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
+						if (ofd.FileName.Length == 0) {
+							throw new Exception("NoFile");
+						}
+						PrintColor.InfoLine("Path: " + ofd.FileName);
+					}
+					catch {
+						PrintColor.Error("Failed to get file by dialog.");
+					}
 				}
 
 				// F12 Notice: Conventions
