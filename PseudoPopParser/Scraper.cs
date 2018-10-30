@@ -7,15 +7,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PseudoPopParser {
-	class Scraper:IDisposable {
+	class Scraper : IDisposable {
 
-		private PopParser p;
 		private string attributes_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo";
 		private string items_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.owo";
 
-		public Scraper (PopParser parser) {
-			p = parser;
-		}
+		public Scraper() { }
 
 		public void Dispose() {}
 
@@ -27,13 +24,24 @@ namespace PseudoPopParser {
 			return false;
 		}
 
-		public string Version {
+		public string VersionAttr {
 			get {
 				string return_value = "VERSION DOES NOT EXIST";
 				try {
 					return_value = File.ReadLines(attributes_filepath).Skip(1).Take(1).First();
 				}
 				catch {}
+				return return_value;
+			}
+		}
+
+		public string VersionItem {
+			get {
+				string return_value = "VERSION DOES NOT EXIST";
+				try {
+					return_value = File.ReadLines(items_filepath).Skip(1).Take(1).First();
+				}
+				catch { }
 				return return_value;
 			}
 		}
@@ -67,7 +75,7 @@ namespace PseudoPopParser {
 			}
 			catch (Exception e) {
 				//Console.WriteLine("Could not find directory: " + source_filepath);
-				PrintColor.Error(e.Message);
+				PrintColor.ErrorNoTrigger(e.Message);
 				return;
 			}
 
@@ -174,7 +182,7 @@ namespace PseudoPopParser {
 			}
 			catch (Exception e) {
 				//Console.WriteLine("Could not find directory: " + source_filepath);
-				PrintColor.Error(e.Message);
+				PrintColor.ErrorNoTrigger(e.Message);
 				return;
 			}
 
