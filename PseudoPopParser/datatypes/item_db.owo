@@ -1,5 +1,5 @@
 VERSION ID:
-4173565
+4229355
 default
 	slot melee
 TF_WEAPON_BAT
@@ -1675,6 +1675,8 @@ Yeti Park Hardhat
 	slot head
 Halloween Contract Package
 	slot action
+Taunt: Panzer Pants
+Taunt: The Scooty Scoot
 concealedkiller_sniperrifle_nightowl
 concealedkiller_smg_woodsywidowmaker
 concealedkiller_scattergun_nightterror
@@ -1893,6 +1895,16 @@ Paintkit 228
 Paintkit 230
 Paintkit 232
 Paintkit 234
+Paintkit 235
+Paintkit 236
+Paintkit 237
+Paintkit 238
+Paintkit 239
+Paintkit 240
+Paintkit 241
+Paintkit 242
+Paintkit 243
+Paintkit 244
 Warpaint Collection 1 Tier 1 Keyless Case
 Warpaint Collection 1 Tier 2 Keyless Case
 Warpaint Collection 1 Tier 3 Keyless Case
@@ -2704,6 +2716,30 @@ Wipe Out Wraps
 Blizzard Britches
 The Cold Case
 Punk's Pomp
+A Shell of a Mann
+Dell in the Shell
+Terror-antula
+Deadbeats
+Lucky Cat Hat
+Olympic Leapers
+Hephaistos' Handcraft
+Athenian Attire
+The Tank Top
+Vampire Vanquisher
+Pyro in Chinatown
+Scopers Scales
+Mr. Quackers
+The Arachno-Arsonist
+Mann-O-War
+Crocodile Mun-Dee
+Highway Star
+Defragmenting Hard Hat 17%
+Aim Assistant
+Mini-Engy
+Dressperado
+Bandit's Boots
+Murderer's Motif
+Gaelic Glutton
 TournamentMedal - GWJ Winners
 TournamentMedal - GWJ Runnerups
 TournamentMedal - GWJ Participants
@@ -4929,6 +4965,33 @@ Moscow LAN 2nd Place Summer 2018
 Moscow LAN 3rd Place Summer 2018
 Moscow LAN Participant Summer 2018
 Moscow LAN Helper Summer 2018
+Jaunty Mountaineer 2018
+Jaunty Ranger 2018
+Jaunty Explorer 2018
+ozfortress Premier 1st Place Season 23
+ozfortress Premier 2nd Place Season 23
+ozfortress Premier 3rd Place Season 23
+ozfortress Premier Participant Season 23
+ozfortress Intermediate 1st Place Season 23
+ozfortress Intermediate 2nd Place Season 23
+ozfortress Intermediate 3rd Place Season 23
+ozfortress Intermediate Participant Season 23
+ozfortress Open 1st Place Season 23
+ozfortress Open 2nd Place Season 23
+ozfortress Open 3rd Place Season 23
+ozfortress Open Participant Season 23
+TFNew Cup 1st Place Medal
+TFNew Cup 2nd Place Medal
+TFNew Cup 3rd Place Medal
+TFNew Cup Participant Medal
+RGB 3 LAN 1st Place 2018
+RGB 3 LAN 2nd Place 2018
+RGB 3 LAN 3rd Place 2018
+RGB 3 LAN Participant 2018
+UDL 1st Place 2018
+UDL 2nd Place 2018
+UDL 3rd Place 2018
+UDL Participant 2018
 World Traveler
 	slot head
 Map Token Egypt
@@ -4979,6 +5042,11 @@ Map Token Lazarus
 Map Token Banana Bay
 Map Token Enclosure
 Map Token Brazil
+Map Token Bagel Event
+Map Token Rumble Event
+Map Token Monster Bash
+Map Token Slasher
+Map Token Cursed Cove
 Craft Bar Level 1
 Craft Bar Level 2
 Craft Bar Level 3
@@ -5323,6 +5391,12 @@ Winter 2017 War Paint Case
 Jungle Inferno Contracts Pass
 Blue Moon Cosmetic Key
 Blue Moon Cosmetic Case
+Halloween 2018 Case
+Halloween 2018 Key
+Halloween 2018 Collection Dummy
+Scream Fortress 2018 War Paint Case
+Scream Fortress 2018 War Paint Key
+Scream Fortress 2018 War Paint Dummy
 Strange Part (Armory)
 Strange Part: Heavies Killed
 Strange Part: Demomen Killed
@@ -5439,6 +5513,11 @@ Strange Filter: Thundermountain
 Strange Filter: Coaltown
 Strange Filter: Mannhattan
 Strange Filter: Brazil (Community)
+Strange Filter: Bagel Event (Community)
+Strange Filter: Rumble Event (Community)
+Strange Filter: Monster Bash (Community)
+Strange Filter: Slasher (Community)
+Strange Filter: Cursed Cove (Community)
 Halloween Transmogrifier: Pyro
 Halloween Transmogrifier: Scout
 Halloween Transmogrifier: Soldier
@@ -5615,6 +5694,7 @@ ChefSteps Joule Promo
 Team Fortress 2 Soundtrack Promo
 Map Token Bundle 13
 Yogscast Jingle Jam 2017 Promo
+Map Token Bundle 14
 Halloween Spell: Paint 1
 Halloween Spell: Paint 2
 Halloween Spell: Paint 3
