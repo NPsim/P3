@@ -104,10 +104,10 @@
     <None Include="config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\item_attributes.owo">
+    <None Include="datatypes\item_attributes.UwU">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\item_db.owo">
+    <None Include="datatypes\item_db.UwU">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\app.manifest" />
@@ -128,40 +128,40 @@
     <Content Include="base_templates\default_icons.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="datatypes\ATTRIBUTE_NAME.txt">
+    <None Include="datatypes\ATTRIBUTE_NAME.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\BEHAVIOR_MODIFIER.txt">
+    </None>
+    <None Include="datatypes\BEHAVIOR_MODIFIER.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\BOOLEAN.txt">
+    </None>
+    <None Include="datatypes\BOOLEAN.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\CLASS_NAME.txt">
+    </None>
+    <None Include="datatypes\CLASS_NAME.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\EVENT_POP_FILE.txt">
+    </None>
+    <None Include="datatypes\EVENT_POP_FILE.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\MISSION_OBJECTIVE.txt">
+    </None>
+    <None Include="datatypes\MISSION_OBJECTIVE.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\NAV_FILTER_AREA.txt">
+    </None>
+    <None Include="datatypes\NAV_FILTER_AREA.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\SENTRYGUN_LEVEL.txt">
+    </None>
+    <None Include="datatypes\SENTRYGUN_LEVEL.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\SKILL.txt">
+    </None>
+    <None Include="datatypes\SKILL.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\SUPPORT_TYPE.txt">
+    </None>
+    <None Include="datatypes\SUPPORT_TYPE.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="datatypes\WEAPON_RESTRICTION.txt">
+    </None>
+    <None Include="datatypes\WEAPON_RESTRICTION.OwO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="grammar.owo">
+    </None>
+    <None Include="datatypes\grammar.TwT">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

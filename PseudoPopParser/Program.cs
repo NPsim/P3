@@ -33,8 +33,8 @@ namespace PseudoPopParser {
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(P3_root + @"config.ini");
 			string file_path = "";
-			string grammar_file = P3_root + "grammar.owo";
 			string datatypes_folder = P3_root;
+			string grammar_file = P3_root + @"\datatypes\grammar.twt";
 			string[] file = null;
 			bool bypass_print_config = false;
 
@@ -600,7 +600,7 @@ namespace PseudoPopParser {
 					p.WriteWaveSpawnNames();
 				}
 
-				// F3 Scrape Attributes | Update item_attributes.owo
+				// F3 Scrape Attributes | Update item_attributes.uwu
 				else if (key_pressed == ConsoleKey.F3) {
 					PrintColor.InfoLine("===Updating Attributes Database===");
 					using (Scraper s = new Scraper()) {
@@ -620,7 +620,7 @@ namespace PseudoPopParser {
 					}
 				}
 
-				// F4 Scrape Items | Update item_db.owo
+				// F4 Scrape Items | Update item_db.uwu
 				else if (key_pressed == ConsoleKey.F4) {
 					PrintColor.InfoLine("===Updating Item Database===");
 					using (Scraper s = new Scraper()) {

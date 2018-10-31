@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace PseudoPopParser {
 	class Scraper : IDisposable {
 
-		private string attributes_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo";
-		private string items_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.owo";
+		private string attributes_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
+		private string items_filepath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
 
 		public Scraper() { }
 

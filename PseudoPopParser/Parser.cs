@@ -73,7 +73,7 @@ namespace PseudoPopParser {
 
 		// Setup Attributes Database
 		private void SetupAttributes() {
-			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.owo";
+			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
 			if (!File.Exists(db_file)) {
 				PrintColor.Error("Item attributes db does not exist!");
 				return;
@@ -90,7 +90,7 @@ namespace PseudoPopParser {
 
 		// Setup Items Database
 		private void SetupItems() {
-			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.owo";
+			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
 			if (!File.Exists(db_file)) {
 				PrintColor.Error("Items db does not exist!");
 				return;
@@ -368,7 +368,7 @@ namespace PseudoPopParser {
 				List<string[]> token_list = new List<string[]> {
 					new string[] { } // No 0 indexing
 				};
-				string grammar_file = datatypes_folder_path + "grammar.owo";
+				string grammar_file = datatypes_folder_path + @"\datatypes\grammar.twt";
 				PopParser p = this; // new PopParser(datatypes_folder_path, pop_directory);
 				ParseTree template_pt = new ParseTree(grammar_file);
 
@@ -1113,94 +1113,96 @@ namespace PseudoPopParser {
 			}
 			foreach (string datatype in DATATYPES) {
 				if (type.ToLower() == datatype.ToLower()) {
+					string[] datatype_file;
 					// Check primitives first
-					// TODO Change this to a switch statement
-					if (type.ToUpper() == "BOOLEAN") {
-						return Regex.IsMatch(token, @"^(false|true|yes|no|1|0)$", RegexOptions.IgnoreCase);
-					}
-					else if (type.ToUpper() == "FLOAT") {
-						if (IsDatatype("INTEGER", token, line_number)) { // Float can be interpreted as Integer
-							return IsDatatype("INTEGER", token, line_number);
-						}
-						return Regex.IsMatch(token, @"^\d+.\d+$");
-					}
-					else if (type.ToUpper() == "UNSIGNED INTEGER") {
+					switch (type.ToUpper()) {
+						case "BOOLEAN":
+							return Regex.IsMatch(token, @"^(false|true|yes|no|1|0)$", RegexOptions.IgnoreCase);
 
-						// Warn for Negative Values
-						if (Regex.IsMatch(token, "-")) {
-							PrintColor.Warn("Negative value will be interpreted as 0: '{f:Yellow}{0}{r}'", line_number, token);
-							return IsDatatype("INTEGER", token, line_number);
-						}
-
-						return Regex.IsMatch(token, @"^\d+$");
-					}
-					else if (type.ToUpper() == "INTEGER") {
-						return Regex.IsMatch(token, @"^(-?)\d+$");
-					}
-					else if (type.ToUpper() == "STRING") {
-						return !String.IsNullOrWhiteSpace(token); // return false on empty or blank string; should always 
-					}
-					else if (type.ToUpper() == "SENTRYGUN LEVEL") {
-						return Regex.IsMatch(token, @"^[1|2|3]$");
-					}
-					else if (type.ToUpper() == @"$ANY_VALID_STRING") {
-						return !Regex.IsMatch(token, "^(\\S|\\s|)*(\"|\\s|#base|#include)(\\S|\\s|)*$", RegexOptions.IgnoreCase);
-					}
-					else if (type.ToUpper() == "BOT NAME") { // Bot Name
-						if (Regex.IsMatch(token, "%")) {
-							PrintColor.Warn("Invalid symbol '{f:Yellow}%{r}'", line_number);
-						}
-						if (Regex.IsMatch(token, "#")) {
-							PrintColor.Warn("Invalid symbol '{f:Yellow}#{r}'", line_number);
-						}
-						return true;
-					}
-					else if (type.ToUpper() == "ITEM NAME") {
-						return IsDatatype("STRING", token, line_number); // fall back to any string
-					}
-
-					else if (type.ToUpper() == "WHERE") {
-						return IsDatatype("STRING", token, line_number); // fall back to any string
-					}
-					else if (type.ToUpper() == "TEMPLATE NAME") {
-						return IsDatatype("STRING", token, line_number); // fall back to any string
-					}
-					else if (type.ToUpper() == "SUPPORT TYPE") {
-						return IsDatatype("STRING", token, line_number);
-					}
-					else if (type.ToUpper() == "FILE") {
-						return Regex.IsMatch(token, @"\S+\.pop$", RegexOptions.IgnoreCase);
-					}
-					else if (type.ToUpper() == "CLASS NAME") {
-						type = Regex.Replace(type, " ", "_");
-						string[] datatype_file = File.ReadAllLines(datatypes_folder_path + "\\datatypes\\" + type + ".txt");
-						foreach (string line in datatype_file) {
-							if (Regex.IsMatch(token, line, RegexOptions.IgnoreCase)) {
-								return true;
+						case "FLOAT":
+							if (IsDatatype("INTEGER", token, line_number)) { // Float can be interpreted as Integer
+								return IsDatatype("INTEGER", token, line_number);
 							}
-						}
-						return false;
-					}
+							return Regex.IsMatch(token, @"^\d+.\d+$");
 
-					// Check special datatypes according to datatypes definitions folder
-					else {
-						try {
-							type = Regex.Replace(type, " ", "_");
-							string[] datatype_file = File.ReadAllLines(datatypes_folder_path + "\\datatypes\\" + type + ".txt");
+						case "UNSIGNED INTEGER":
+
+							// Warn for Negative Values
+							if (Regex.IsMatch(token, "-")) {
+								PrintColor.Warn("Negative value will be interpreted as 0: '{f:Yellow}{0}{r}'", line_number, token);
+								return IsDatatype("INTEGER", token, line_number);
+							}
+							return Regex.IsMatch(token, @"^\d+$");
+
+						case "INTEGER": 
+							return Regex.IsMatch(token, @"^(-?)\d+$");
+
+						case "STRING":
+							return !String.IsNullOrWhiteSpace(token); // return false on empty or blank string; should always 
+
+						case "SENTRYGUN LEVEL":
+							return Regex.IsMatch(token, @"^[1|2|3]$");
+
+						case @"$ANY_VALID_STRING":
+							//return !Regex.IsMatch(token, "^(\\S|\\s|)*(\"|\\s|#base|#include)(\\S|\\s|)*$", RegexOptions.IgnoreCase);
+							//return !Regex.IsMatch(token, "^.*(\"|{|}|#base|#include).*$", RegexOptions.IgnoreCase);
+							return !Regex.IsMatch(token, "^.*(\"|\\s|#base|#include).*$", RegexOptions.IgnoreCase);
+
+						case "BOT NAME":
+							if (Regex.IsMatch(token, "%")) {
+								PrintColor.Warn("Invalid symbol '{f:Yellow}%{r}'", line_number);
+								PotentialFix("HUD cannot display this symbol.");
+							}
+							if (Regex.IsMatch(token, "#")) {
+								PrintColor.Warn("Invalid symbol '{f:Yellow}#{r}'", line_number);
+								PotentialFix("HUD cannot display this symbol.");
+							}
+							return true;
+
+						case "ITEM NAME":
+							return IsDatatype("STRING", token, line_number); // Accepts only strings
+
+						case "WHERE":
+							return IsDatatype("STRING", token, line_number); // Accepts only strings
+
+						case "TEMPLATE NAME":
+							return IsDatatype("STRING", token, line_number); // Accepts only strings
+
+						case "SUPPORT TYPE":
+							return IsDatatype("STRING", token, line_number);
+
+						case "FILE":
+							return Regex.IsMatch(token, @"\S+\.pop$", RegexOptions.IgnoreCase);
+
+						case "CLASS NAME":
+							datatype_file = File.ReadAllLines(datatypes_folder_path + "\\datatypes\\CLASS_NAME.owo");
 							foreach (string line in datatype_file) {
-								if (line.ToUpper() == token.ToUpper()) {
+								if (Regex.IsMatch(token, line, RegexOptions.IgnoreCase)) {
 									return true;
 								}
 							}
 							return false;
-						}
-						catch (FileNotFoundException) {
-							throw new Exception("DatatypeNotFoundException");
-						}
+						
+						// Check special datatypes according to datatypes definitions folder
+						default:
+							try {
+								type = Regex.Replace(type, " ", "_");
+								datatype_file = File.ReadAllLines(datatypes_folder_path + "\\datatypes\\" + type + ".owo");
+								foreach (string line in datatype_file) {
+									if (line.ToUpper() == token.ToUpper()) {
+										return true;
+									}
+								}
+								return false;
+							}
+							catch (FileNotFoundException) {
+								throw new Exception("DatatypeNotFoundException");
+							}
 					}
-
 				}
 			}
+			
+			// Datatype was not found. 'type' did not match anything
 			throw new Exception("InvalidTypeException");
 		}
 	}
