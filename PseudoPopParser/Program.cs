@@ -546,34 +546,34 @@ namespace PseudoPopParser {
 			Console.Write("\n");
 
 			// Show Next Options
-			PrintColor.WriteColor("F1", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F1{r}");
 			PrintColor.WriteLineColor(" Show Credit Stats");
 
-			PrintColor.WriteColor("F2", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F2{r}");
 			PrintColor.WriteLineColor(" Show WaveSpawn Names");
 
-			PrintColor.WriteColor("F3", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F3{r}");
 			PrintColor.WriteLineColor(" Update Attributes");
 
-			PrintColor.WriteColor("F4", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F4{r}");
 			PrintColor.WriteLineColor(" Update Items");
 
-			PrintColor.WriteColor("F5", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F5{r}");
 			PrintColor.WriteLineColor(" Show TFBot Template Names");
 
-			PrintColor.WriteColor("F6", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F6{r}");
 			PrintColor.WriteLineColor(" How to Calculate Credits");
 
-			PrintColor.WriteColor("F7", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F7{r}");
 			PrintColor.WriteLineColor(" Show Used Custom Icons");
 
-			PrintColor.WriteColor("F10", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F10{r}");
 			PrintColor.WriteLineColor(" Set items_game.txt Location");
 
-			PrintColor.WriteColor("F11", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F11{r}");
 			PrintColor.WriteLineColor(" Enter Fullscreen (Windows Default)");
 
-			PrintColor.WriteColor("F12", ConsoleColor.White, ConsoleColor.Black);
+			PrintColor.Colorf("{b:White}{f:Black}F12{r}");
 			PrintColor.WriteLineColor(" Common Conventions Enforcement");
 
 			// Blank Line Separates Quit with Options
