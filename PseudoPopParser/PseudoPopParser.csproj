@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IniFile.cs" />
+    <Compile Include="MapScraper.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseTree.cs" />
     <Compile Include="PrintColor.cs" />

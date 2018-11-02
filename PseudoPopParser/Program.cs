@@ -28,13 +28,13 @@ namespace PseudoPopParser {
 		static void Main(string[] args) {
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.1.0");
+			PrintColor.InfoLine("P3 v1.2.0");
 
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(P3_root + @"config.ini");
 			string file_path = "";
 			string datatypes_folder = P3_root;
-			string grammar_file = P3_root + @"\datatypes\grammar.twt";
+			string grammar_file = P3_root + @"datatypes\grammar.twt";
 			string[] file = null;
 			bool bypass_print_config = false;
 
@@ -63,7 +63,25 @@ namespace PseudoPopParser {
 				}
 			}
 
-			// Get file_path if not defined in launch
+			if (!Regex.IsMatch(file_path, @"\.pop$")) {
+				PrintColor.InfoLine("Open your Pop file.");
+				try {
+					OpenFileDialog ofd = new OpenFileDialog {
+						InitialDirectory = Path.GetFullPath(P3_root),
+						Filter = "Population Files|*.pop"
+				};
+					ofd.ShowDialog();
+					if (ofd.FileName.Length == 0 || !Regex.IsMatch(ofd.FileName, @"\.pop$")) {
+						throw new Exception("NoFile");
+					}
+					file_path = ofd.FileName;
+				}
+				catch {
+					PrintColor.Error("Failed to get file by dialog. Defaulting to manual entry.");
+				}
+			}
+
+			// Get file_path if not defined previously
 			while (!Regex.IsMatch(file_path, @"\.pop$")) {
 				Console.Write("Enter the path to your Pop file: ");
 				file_path = Console.ReadLine();
@@ -174,7 +192,8 @@ namespace PseudoPopParser {
 							// Tokenized Information
 							int line = i;
 							global_line = i; // Redundant
-							string token = token_list[i][j];
+							string token_raw_comment = token_list[i][j]; // Only used to throw CollectionBadCommentException
+							string token = Regex.Replace(token_list[i][j], @"\/\/.*$", "");
 							global_token = token_list[i][j]; // Redundant
 							TreeNode<string[]> current = pt.Current;
 							List<TreeNode<string[]>> children = pt.Current.Children;
@@ -298,6 +317,10 @@ namespace PseudoPopParser {
 									if (child.Value[0].ToUpper() == "COLLECTION") {
 										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== LOOK AHEAD OPEN " + token);
+										}
+
+										if (Regex.IsMatch(token_raw_comment, @"\S\/\/")) {
+											throw new Exception("CollectionBadCommentException");
 										}
 
 										look_ahead_open = true;
@@ -446,18 +469,14 @@ namespace PseudoPopParser {
 			catch (Exception ex) {
 
 				if (ex.Message == "UnknownSymbolException") {
+					PrintColor.Error("{f:Red}Invalid symbol{r} found near '{f:Red}{0}{r}'", global_line, global_token);
+				}
 
-					// Lexer Exception : No space found before a "//" single-line comment token
-					if (Regex.IsMatch(global_token, @"\/\/.*[\s]*")) {
-						PrintColor.Error("Bad comment found near '{f:Red}{0}{r}'", global_line, global_token);
-						p.PotentialFix("Insert a space between \"" + Regex.Replace(global_token, @"\/\/.*[\s]*", "") + "\" and \"//\"");
-					}
-
-					// Generic unknown symbol exception
-					else {
-						PrintColor.Error("{f:Red}Invalid symbol{r} found near '{f:Red}{0}{r}'", global_line, global_token);
-					}
-
+				/* BadCommentException */
+				// Lexer Exception : No space found before a "//" single-line comment token; only applies to collections
+				else if (ex.Message == "CollectionBadCommentException") {
+					PrintColor.Error("Bad comment found near '{f:Red}{0}{r}'", global_line, global_token);
+					p.PotentialFix("Insert a space between \"" + Regex.Replace(global_token, @"\/\/.*[\s]*", "") + "\" and \"//\"");
 				}
 
 				/* IllegalIdentifierException */
@@ -567,6 +586,9 @@ namespace PseudoPopParser {
 			PrintColor.Colorf("{b:White}{f:Black}F7{r}");
 			PrintColor.WriteLineColor(" Show Used Custom Icons");
 
+			PrintColor.Colorf("{b:White}{f:Black}F8{r}");
+			PrintColor.WriteLineColor(" Analyze Map (.bsp)");
+
 			PrintColor.Colorf("{b:White}{f:Black}F10{r}");
 			PrintColor.WriteLineColor(" Set items_game.txt Location");
 
@@ -665,6 +687,39 @@ namespace PseudoPopParser {
 					p.WriteCustomIcons();
 				}
 
+				// F8 Scrape Map
+				else if (key_pressed == ConsoleKey.F8) {
+					PrintColor.InfoLine("===Analyze Map (.bsp)===");
+					PrintColor.InfoLine("Some maps are not able to be analyzed.");
+					string map_path = "";
+					try {
+						OpenFileDialog ofd = new OpenFileDialog {
+							InitialDirectory = Path.GetFullPath(pop_folder),
+							Filter = "MvM Map Files|*.bsp"
+						};
+						ofd.ShowDialog();
+						if (ofd.FileName.Length == 0) {
+							throw new Exception("NoFile");
+						}
+						PrintColor.InfoLine("Map: " + ofd.FileName);
+						map_path = ofd.FileName;
+					}
+					catch {
+						PrintColor.Error("Failed to get file by dialog.");
+					}
+					if (map_path.Length > 0) {
+						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays);
+						PrintColor.InfoLine("Bot Spawns:");
+						foreach(string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+							PrintColor.InfoLine("\t" + location);
+						}
+						PrintColor.InfoLine("Logic Relays:");
+						foreach (string relay in logic_relays.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+							PrintColor.InfoLine("\t" + relay);
+						}
+					}
+				}
+
 				// F10 Set items_game.txt
 				else if (key_pressed == ConsoleKey.F10) {
 					PrintColor.InfoLine("===Set items_game.txt Location===");
@@ -673,13 +728,17 @@ namespace PseudoPopParser {
 
 					// File Dialog
 					try {
-						OpenFileDialog ofd = new OpenFileDialog();
+						OpenFileDialog ofd = new OpenFileDialog {
+							InitialDirectory = Path.GetFullPath(pop_folder),
+							Filter = "|items_game.txt"
+						};
 						ofd.ShowDialog();
 						_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
 						if (ofd.FileName.Length == 0) {
 							throw new Exception("NoFile");
 						}
 						PrintColor.InfoLine("Path: " + ofd.FileName);
+						PrintColor.InfoLine("Successfully set location!");
 					}
 					catch {
 						PrintColor.Error("Failed to get file by dialog.");
