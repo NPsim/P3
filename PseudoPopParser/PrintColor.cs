@@ -5,11 +5,51 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.IO;
 
 namespace PseudoPopParser {
 	class PrintColor {
 		private static ConsoleColor default_foreground = ConsoleColor.White;
 		private static ConsoleColor default_background = ConsoleColor.Black;
+		public static string log_path = "";
+
+		private static void LogWrite(string message, string[] args = default(string[]), string line = "-1") {
+			if (log_path.Length == 0) {
+				return;
+			}
+			using (StreamWriter sw = new StreamWriter(log_path, true)) {
+
+				string[] segments = Regex.Split(message, "[{}]");
+				for (int i = 0; i < segments.Count(); i++) {
+					string token = segments[i];
+					if (token.Length == 0) {
+						continue;
+					}
+					else if (Int32.TryParse(token[0].ToString(), out int arg_index) && args.Count() > arg_index) {
+						sw.Write(args[arg_index]);
+					}
+					else if (token[0] == 'f') { }
+					else if (token[0] == 'b') { }
+					else if (token[0] == 'r') { }
+					else {
+						sw.Write(token);
+					}
+				}
+				if (line != "-1") {
+					sw.Write(" Line:" + line + "\n");
+				}
+				else {
+					sw.Write("\n");
+				}
+				/*
+				sw.Write(message);
+				foreach (string s in args) {
+					sw.Write("|" + s);
+				}
+				sw.Write("|\n");
+				*/
+			}
+		}
 
 		private static void ResetColor() {
 			Console.ForegroundColor = default_foreground;
@@ -118,6 +158,7 @@ namespace PseudoPopParser {
 			if (p.SuppressPrint) {
 				return;
 			}
+			LogWrite("\tWarn: " + message, args, line);
 			p.IncrementWarnings();
 
 			if (line != "-1") {
@@ -134,6 +175,7 @@ namespace PseudoPopParser {
 		public static void Error(string message, string line, params string[] args) {
 			PopParser p = new PopParser();
 			p.SetError();
+			LogWrite("\tErrr: " + message, args, line);
 
 			if (line != "-1") {
 				ColorLinef("{f:Black}{b:Red}[Error]{r}:" + line + "\t" + message, args);
@@ -147,6 +189,7 @@ namespace PseudoPopParser {
 		}
 
 		public static void ErrorNoTrigger(string message, string line, params string[] args) {
+			LogWrite("\tErNT: " + message, args, line);
 			if (line != "-1") {
 				ColorLinef("{f:Black}{b:Red}[Error]{r}:" + line + "\t" + message, args);
 			}
@@ -159,6 +202,9 @@ namespace PseudoPopParser {
 		}
 
 		public static void InfoLine(string message, params string[] args) {
+			if (Regex.IsMatch(message, "^Pop File")) {
+				LogWrite("Info: " + message, args);
+			}
 			ColorLinef("{f:Black}{b:DarkCyan}[Info]{r}\t" + message, args);
 		}
 

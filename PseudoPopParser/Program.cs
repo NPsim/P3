@@ -11,6 +11,7 @@ namespace PseudoPopParser {
 
 		private static IniFile _INI;
 		private static Dictionary<string, string> _CONFIGURATION = new Dictionary<string, string>();
+		private static bool auto_close = false;
 
 		static bool _IsDebug(string key) {
 			string[] true_values = { "1", "YES", "TRUE" };
@@ -60,6 +61,12 @@ namespace PseudoPopParser {
 				}
 				if (args[i] == "--print_config") {
 					bypass_print_config = true;
+				}
+				if (args[i] == "-output_log") {
+					PrintColor.log_path = args[i + 1];
+				}
+				if (args[i] == "--auto_close") {
+					auto_close = true;
 				}
 			}
 
@@ -141,7 +148,7 @@ namespace PseudoPopParser {
 
 			// Modify strings
 			for (int i = 0; i < file.Length; i++) {
-				file[i] = Regex.Replace(file[i], @"(\s|\/+|^)\/\/.*[\s]*", "");     // Remove Comments
+				//file[i] = Regex.Replace(file[i], @"(\s|\/+|^)\/\/.*[\s]*", "");     // Remove Comments; breaks // within string
 				file[i] = Regex.Replace(file[i], @"{", " { ");                      // Separate Open Curly Braces
 				file[i] = Regex.Replace(file[i], @"}", " } ");                      // Separate Close Curly Braces
 				file[i] = Regex.Replace(file[i], "\"", " \" ");                     // Separate Double Quotes
@@ -163,6 +170,7 @@ namespace PseudoPopParser {
 			bool building_string = false;
 			bool built_string = false;
 			bool look_ahead_open = false;
+			bool found_comment = false;
 			string look_back_token = "";
 			string look_ahead_buffer_node = "";
 			string template_name = "";
@@ -170,13 +178,22 @@ namespace PseudoPopParser {
 
 				// Iterate by Line List
 				for (int i = 0; i < token_list.Count; i++) {
-
+					found_comment = false;
 					// Iterate by Token List of Line
 					for (int j = 0; j < token_list[i].Length; j++) {
 
 						// Only Scan Real Tokens
-						if (string.IsNullOrWhiteSpace(token_list[i][j]) || Regex.IsMatch(token_list[i][j], @"^\/\/")) {
+						if (string.IsNullOrWhiteSpace(token_list[i][j]) || found_comment) {
 							continue;
+						}
+
+						if (!building_string && Regex.IsMatch(token_list[i][j], @"\/\/")) {
+							found_comment = true;
+
+							// Continue if no value attached to front of comment token
+							if (Regex.IsMatch(token_list[i][j], @"^\/\/")) {
+								continue;
+							}
 						}
 
 						// TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
@@ -195,8 +212,8 @@ namespace PseudoPopParser {
 						int line = i;
 						global_line = i; // Redundant
 						string token_raw_comment = token_list[i][j]; // Only used to throw CollectionBadCommentException
-						string token = Regex.Replace(token_list[i][j], @"\/\/.*$", "");
-						global_token = token_list[i][j]; // Redundant
+						string token = Regex.Replace(token_list[i][j], @"\/\/.*", "");
+						global_token = token; // Redundant
 						TreeNode<string[]> current = pt.Current;
 						List<TreeNode<string[]>> children = pt.Current.Children;
 
@@ -251,7 +268,7 @@ namespace PseudoPopParser {
 							}
 							else if (building_string) {
 								found = true;
-								string_builder.Add(token);
+								string_builder.Add(token_raw_comment);
 								break;
 							}
 
@@ -523,7 +540,7 @@ namespace PseudoPopParser {
 				/* Exception */
 				// Generic Exception : Unknown exception
 				else {
-					PrintColor.Error("{f:Cyan}Unknown{r} exception '{f:Red}{1}{r}' near '{f:Red} {0}{r}'", global_line, global_token, ex.Message);
+					PrintColor.Error("{f:Cyan}Unknown{r} exception '{f:Red}{1}{r}' near '{f:Red}{0}{r}'", global_line, global_token, ex.Message);
 					PrintColor.WriteLineColor("Please contact the developer regarding this error", ConsoleColor.Blue);
 					PrintColor.WriteLineColor("Contact info can be found in the README", ConsoleColor.Blue);
 				}
@@ -608,6 +625,12 @@ namespace PseudoPopParser {
 			// Options Menu Handling
 			ConsoleKey key_pressed;
 			while (true) { // You should never do this but I need a quick inverse.
+				
+				// Debug flag auto close after parsing
+				if (auto_close) {
+					break;
+				}
+
 				key_pressed = Console.ReadKey().Key;
 				Console.Write("\n");
 
