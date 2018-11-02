@@ -1153,10 +1153,6 @@ namespace PseudoPopParser {
 								PrintColor.Warn("Invalid symbol '{f:Yellow}%{r}'", line_number);
 								PotentialFix("HUD cannot display this symbol.");
 							}
-							if (Regex.IsMatch(token, "#")) {
-								PrintColor.Warn("Invalid symbol '{f:Yellow}#{r}'", line_number);
-								PotentialFix("HUD cannot display this symbol.");
-							}
 							return true;
 
 						case "ITEM NAME":
