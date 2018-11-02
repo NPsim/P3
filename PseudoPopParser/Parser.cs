@@ -182,7 +182,7 @@ namespace PseudoPopParser {
 			// Print Contents
 			foreach(string icon in icons_list_distinct.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 				if (icon == "scout_sunstick") {
-					PrintColor.InfoLine("\t{0} - used in Valve template without default icon", icon);
+					PrintColor.InfoLine("\t{0} - used in Valve template but has no default icon", icon);
 				}
 				else {
 					PrintColor.InfoLine("\t{0}", icon);
