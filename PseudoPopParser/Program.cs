@@ -28,7 +28,7 @@ namespace PseudoPopParser {
 		static void Main(string[] args) {
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.2.0");
+			PrintColor.InfoLine("P3 v1.2.1");
 
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(P3_root + @"config.ini");
