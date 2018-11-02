@@ -26,14 +26,14 @@ namespace PseudoPopParser {
 		 * HeadSubParentNotFoundException
 		 * SubParentNotFoundException
 		 */
-		public ParseTree(string read_from_file, int DEBUG_LEVEL = 0) {
+		public ParseTree(string grammar_file) {
 			tree = new TreeNode<string[]>( // Main Parse Tree
 				new string[] { "Tree", "Tree", "NONE", "Tree", "-1", "FALSE", "TRUE" }
 			);
 			current_node = tree;
 			node_path = new List<string>();
 
-			string[] grammar = File.ReadAllLines(read_from_file);
+			string[] grammar = File.ReadAllLines(grammar_file);
 			bool is_subtree = false;
 			List<List<string>> available_subtrees = new List<List<string>>();
 
