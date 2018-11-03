@@ -105,7 +105,7 @@ namespace PseudoPopParser {
 			string pop_file_name = Regex.Match(file_path, @"[\w-]+\.pop").ToString();
 
 			// Init Parser
-			PopParser p = new PopParser(datatypes_folder, pop_folder);
+			PopParser p = new PopParser(datatypes_folder, pop_folder, pop_file_name);
 			ParseTree pt = new ParseTree(grammar_file);
 
 			string[] globalkeys = _INI.Keys("Debug");

@@ -11,6 +11,8 @@ namespace PseudoPopParser {
 		// TODO organize this
 		private static IniFile _INI;
 		private static string pop_directory = "";
+		private static string pop_name = "";
+		private static string base_name = "";
 		private static int number_of_warnings = 0;
 		private static bool error_occurred = false;
 		private static string datatypes_folder_path = "";
@@ -63,9 +65,10 @@ namespace PseudoPopParser {
 
 		// Constructors
 		public PopParser() { }
-		public PopParser(string datatypes_folder, string pop_folder) {
+		public PopParser(string datatypes_folder, string pop_folder, string pop_file_name) {
 			datatypes_folder_path = datatypes_folder;
 			_INI = new IniFile(datatypes_folder + @"config.ini");
+			pop_name = pop_file_name;
 			pop_directory = pop_folder;
 			SetupAttributes();
 			SetupItems();
@@ -163,8 +166,36 @@ namespace PseudoPopParser {
 
 		// Print Formatted Contents of TFBot_Template_Items
 		public void WriteTFBotTemplateNames() {
-			foreach (List<string> items_list in tfbot_template_items.OrderBy(str => str[0])) { // List.OrderBy() returns sorted IEnumerable
-				PrintColor.InfoLine("\t{0}", items_list[0]);
+			//foreach (List<string> items_list in tfbot_template_items.OrderBy(str => str[1])) { // List.OrderBy() returns sorted IEnumerable
+			// Build lists to sort
+			string current_file = "";
+			List<string> base_names = new List<string>();
+			List<List<string>> base_templates = new List<List<string>>();
+			foreach (List<string> items_list in tfbot_template_items) { // List.OrderBy() returns sorted IEnumerable
+				//PrintColor.InfoLine("\t{0} {1}", items_list[0], items_list[1]);
+				if (current_file != items_list[1]) {
+					current_file = items_list[1];
+					base_names.Add(items_list[1]);
+					base_templates.Add(new List<string> {
+						items_list[0]
+					});
+					//PrintColor.InfoLine("{0}", items_list[1]);
+					//PrintColor.InfoLine("\t{0}", items_list[0]);
+				}
+				else {
+					base_templates.Last().Add(items_list[0]);
+					//PrintColor.InfoLine("\t{0}", items_list[0]);
+				}
+			}
+			
+			// Print sorted lists
+			//foreach(List<string> template_list in base_templates) {
+			for(int i = 0; i < base_templates.Count; i++) {
+				PrintColor.InfoLine("File: " + base_names[i]);
+				List<string> template_list = base_templates[i];
+				foreach (string template in template_list.OrderBy(str => str)) {
+					PrintColor.InfoLine("\t" + template);
+				}
 			}
 		}
 
@@ -214,6 +245,15 @@ namespace PseudoPopParser {
 						List<string> new_template = new List<string> {
 							any_string_token.ToUpper()
 						};
+						
+						// Record base name
+						if (base_name.Length > 0) {
+							new_template.Add(base_name);
+						}
+						else {
+							new_template.Add(pop_name);
+						}
+
 						tfbot_template_items.Add(new_template);
 					}
 
@@ -353,6 +393,7 @@ namespace PseudoPopParser {
 		// Parse Template Pop FIle
 		public void ParseBase(string base_file, bool default_template = false) { // I know it's terrible.
 			string template_file_name = Regex.Match(base_file, @"[\w-]+\.pop").ToString();
+			base_name = template_file_name;
 			try {
 				if (ConfigReadBool("bool_skip_base_template")) {
 					PrintColor.InfoLine("Skipping Base - {f:Cyan}{0}{r}", template_file_name);
@@ -675,6 +716,7 @@ namespace PseudoPopParser {
 				suppress_write_main = false;
 				PrintColor.ErrorNoTrigger("Could not parse Template file '{f:Red}{0}{r}' at location: '{f:Red}{1}{r}' | {2}", -1, template_file_name, base_file, err.Message);
 			}
+			base_name = "";
 		}
 
 		// Parse Key Value
@@ -788,7 +830,7 @@ namespace PseudoPopParser {
 
 					// Item does not exist in database
 					if (!item_exists) {
-						PrintColor.Warn("Invalid {f:Cyan}Item Name{r}: '{f:Yellow}{0}{r}'", line, value);
+						PrintColor.Warn("Invalid TF2 {f:Cyan}Item Name{r}: '{f:Yellow}{0}{r}'", line, value);
 						return;
 					}
 
@@ -831,7 +873,7 @@ namespace PseudoPopParser {
 						if (value.ToUpper() == template_item_list[0]) {
 
 							// Import template items into current bot items
-							for(int i = 1; i < template_item_list.Count; i++) {
+							for(int i = 2; i < template_item_list.Count; i++) { // Index 0 is tfbot anystring name, Index 1 is origin file name
 								tfbot_items.Add(template_item_list[i]);
 							}
 						}
