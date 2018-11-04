@@ -48,7 +48,7 @@ TFBot{}%
 			BehaviorModifiers
 				BEHAVIOR MODIFIER
 			MaxVisionRange
-				UNSIGNED INTEGER
+				FLOAT
 			Item
 				ITEM NAME
 			TeleportWhere
@@ -89,7 +89,7 @@ TFBot{}%
 			BehaviorModifiers
 				BEHAVIOR MODIFIER
 			MaxVisionRange
-				UNSIGNED INTEGER
+				FLOAT
 			Item
 				ITEM NAME
 			TeleportWhere
@@ -125,7 +125,7 @@ TFBot{}%
 	BehaviorModifiers
 		BEHAVIOR MODIFIER
 	MaxVisionRange
-		UNSIGNED INTEGER
+		FLOAT
 	Item
 		ITEM NAME
 	TeleportWhere
@@ -174,7 +174,7 @@ TFBot{}
 			BehaviorModifiers
 				BEHAVIOR MODIFIER
 			MaxVisionRange
-				UNSIGNED INTEGER
+				FLOAT
 			Item
 				ITEM NAME
 			TeleportWhere
@@ -215,7 +215,7 @@ TFBot{}
 			BehaviorModifiers
 				BEHAVIOR MODIFIER
 			MaxVisionRange
-				UNSIGNED INTEGER
+				FLOAT
 			Item
 				ITEM NAME
 			TeleportWhere
@@ -251,7 +251,7 @@ TFBot{}
 	BehaviorModifiers
 		BEHAVIOR MODIFIER
 	MaxVisionRange
-		UNSIGNED INTEGER
+		FLOAT
 	Item
 		ITEM NAME
 	TeleportWhere

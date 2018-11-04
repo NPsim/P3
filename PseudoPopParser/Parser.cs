@@ -737,7 +737,7 @@ namespace PseudoPopParser {
 
 			switch (key) {
 				case "TOTALCURRENCY":
-					int credits = Int32.Parse(value);
+					int credits = Int32.Parse(Regex.Match(value, @"^\d*").ToString());
 
 					// Warn negative or zero value
 					if (credits > 0) {
@@ -756,7 +756,7 @@ namespace PseudoPopParser {
 					break;
 
 				case "HEALTH":
-					int health = Int32.Parse(value);
+					int health = Int32.Parse(Regex.Match(value, @"^\d*").ToString());
 					int tank_warn_max = ConfigRead("tank_warn_maximum");
 					int tank_warn_min = ConfigRead("tank_warn_minimum");
 					int bot_health_multiple = ConfigRead("bot_health_multiple");
@@ -1167,12 +1167,17 @@ namespace PseudoPopParser {
 							return Regex.IsMatch(token, @"^(false|true|yes|no|1|0)$", RegexOptions.IgnoreCase);
 
 						case "FLOAT":
-							if (IsDatatype("INTEGER", token, line_number)) { // Float can be interpreted as Integer
+							if (Regex.IsMatch(token, @"^(-?)\d+$")) { // Float can be interpreted as Integer
 								return IsDatatype("INTEGER", token, line_number);
 							}
-							return Regex.IsMatch(token, @"^\d+.\d+$");
+							return Regex.IsMatch(token, @"^\d+\.\d+$");
 
 						case "UNSIGNED INTEGER":
+
+							if (Regex.IsMatch(token, @"^(-|)\d+\.\d*$")) {
+								PrintColor.Warn("Decimal value will be truncated: '{f:Yellow}{0}{r}'", line_number, token);
+								return true;
+							}
 
 							// Warn for Negative Values
 							if (Regex.IsMatch(token, "-")) {
@@ -1182,6 +1187,10 @@ namespace PseudoPopParser {
 							return Regex.IsMatch(token, @"^\d+$");
 
 						case "INTEGER": 
+							if (Regex.IsMatch(token, @"^\d+\.\d+$")) {
+								PrintColor.Warn("Decimal value will be truncated: '{f:Yellow}{0}{r}'", line_number, token);
+								return true;
+							}
 							return Regex.IsMatch(token, @"^(-?)\d+$");
 
 						case "STRING":
