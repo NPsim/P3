@@ -701,7 +701,7 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("A bonus of maximum {f:Cyan}$100{r} is awarded on completion of wave if");
 					PrintColor.InfoLine("  it is {f:cyan}not the final wave{r} and {f:cyan}all credits{r} are picked up.");
 					PrintColor.InfoLine("A half bonus of {f:Cyan}$50{r} is awarded on completion of wave if it is");
-					PrintColor.InfoLine("  {f:cyan}not the final wave{r} and missed credits is between {f:cyan}$1 and $50{r}.");
+					PrintColor.InfoLine("  {f:cyan}not the final wave{r} and missed credits is within {f:cyan}5%{r} of the total.");
 				}
 
 				// F7 Show Used Custom Icons
