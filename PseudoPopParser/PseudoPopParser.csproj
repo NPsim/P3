@@ -81,15 +81,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IniFile.cs" />
-    <Compile Include="MapScraper.cs" />
+    <Compile Include="Modules\AttributeScraper.cs" />
+    <Compile Include="Modules\FloatingPoint.cs" />
+    <Compile Include="Modules\IniFile.cs" />
+    <Compile Include="Modules\MapScraper.cs" />
+    <Compile Include="Modules\Item.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseTree.cs" />
-    <Compile Include="PrintColor.cs" />
+    <Compile Include="Modules\PrintColor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PTreeNode.cs" />
-    <Compile Include="Scraper.cs" />
+    <Compile Include="Modules\ItemScraper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

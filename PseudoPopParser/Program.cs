@@ -589,12 +589,6 @@ namespace PseudoPopParser {
 			PrintColor.Colorf("{b:White}{f:Black}F2{r}");
 			PrintColor.WriteLineColor(" Show WaveSpawn Names");
 
-			PrintColor.Colorf("{b:White}{f:Black}F3{r}");
-			PrintColor.WriteLineColor(" Update Attributes");
-
-			PrintColor.Colorf("{b:White}{f:Black}F4{r}");
-			PrintColor.WriteLineColor(" Update Items");
-
 			PrintColor.Colorf("{b:White}{f:Black}F5{r}");
 			PrintColor.WriteLineColor(" Show TFBot Template Names");
 
@@ -606,6 +600,9 @@ namespace PseudoPopParser {
 
 			PrintColor.Colorf("{b:White}{f:Black}F8{r}");
 			PrintColor.WriteLineColor(" Analyze Map (.bsp)");
+
+			PrintColor.Colorf("{b:White}{f:Black}F9{r}");
+			PrintColor.WriteLineColor(" Update Item and Attribute Databases");
 
 			PrintColor.Colorf("{b:White}{f:Black}F10{r}");
 			PrintColor.WriteLineColor(" Set items_game.txt Location");
@@ -646,44 +643,12 @@ namespace PseudoPopParser {
 					p.WriteWaveSpawnNames();
 				}
 
-				// F3 Scrape Attributes | Update item_attributes.uwu
+				// F3 Unused
 				else if (key_pressed == ConsoleKey.F3) {
-					PrintColor.InfoLine("===Updating Attributes Database===");
-					using (Scraper s = new Scraper()) {
-						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
-
-						// Verify Valid Configuration
-						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
-							PrintColor.ErrorNoTrigger("Invalid items_game.txt");
-							PrintColor.InfoLine("Please set your items_game.txt with F10");
-						}
-
-						// Scraper Operations
-						else {
-							PrintColor.InfoLine("Old version is " + s.VersionAttr);
-							s.ScrapeAttributes(cfg_att_filepath);
-						}
-					}
 				}
 
-				// F4 Scrape Items | Update item_db.uwu
+				// F4 Unused
 				else if (key_pressed == ConsoleKey.F4) {
-					PrintColor.InfoLine("===Updating Item Database===");
-					using (Scraper s = new Scraper()) {
-						string cfg_att_filepath = _INI.Read("items_source_file", "Global");
-
-						// Verify Valid Configuration
-						if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
-							PrintColor.ErrorNoTrigger("Invalid items_game.txt");
-							PrintColor.InfoLine("Please set your items_game.txt with F10");
-						}
-
-						// Scraper Operations
-						else {
-							PrintColor.InfoLine("Old version is " + s.VersionItem);
-							s.ScrapeItems(cfg_att_filepath);
-						}
-					}
 				}
 
 				// F5 Display TFBot Templates
@@ -744,7 +709,39 @@ namespace PseudoPopParser {
 					}
 				}
 
-				// F10 Set items_game.txt
+				// F9 Scrape Items and Attributes Database
+				else if (key_pressed == ConsoleKey.F9) {
+
+					string cfg_att_filepath = _INI.Read("items_source_file", "Global");
+
+					// Verify Valid Configuration
+					if (cfg_att_filepath.Length == 0 || !File.Exists(cfg_att_filepath)) {
+						PrintColor.ErrorNoTrigger("Invalid items_game.txt");
+						PrintColor.InfoLine("Please set your items_game.txt with F10");
+					}
+					else {
+						// Attributes
+						PrintColor.InfoLine("===Updating Databases===");
+						using (AttributesScraper s = new AttributesScraper()) {
+
+							PrintColor.InfoLine("> Attributes Database");
+							PrintColor.InfoLine("Old version: {f:Yellow}{0}{r}", s.Version);
+							s.Scrape(cfg_att_filepath);
+							PrintColor.InfoLine("New version: {f:Green}{0}{r}", s.Version);
+						}
+
+						// Items
+						using (ItemScraper s = new ItemScraper()) {
+
+							PrintColor.InfoLine("> Items Database");
+							PrintColor.InfoLine("Old version: {f:Yellow}{0}{r}", s.Version);
+							s.Scrape(cfg_att_filepath);
+							PrintColor.InfoLine("New version: {f:Green}{0}{r}", s.Version);
+						}
+					}
+				}
+
+				// F10 Set items_game.txt or rescrape items_game.txt
 				else if (key_pressed == ConsoleKey.F10) {
 					PrintColor.InfoLine("===Set items_game.txt Location===");
 					PrintColor.InfoLine(@"Please open your items_game.txt at");
@@ -777,10 +774,9 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("Templates imported {f:Cyan}{0} ItemAttribute modification{r}.", "before");
 					PrintColor.InfoLine("Items must be given to TFBot {f:Cyan}{0} ItemAttributes modification{r}.", "before");
 					PrintColor.InfoLine("Do not use {f:Cyan}WaveSpawn Templates{r}.");
-					PrintColor.InfoLine("TotalCurrency must be {f:Cyan}greater than 0{r}. {f:Yellow}(Configurable){r}");
-					PrintColor.InfoLine("Support cannot be {f:Cyan}limited{r}.");
-					PrintColor.InfoLine("Warnings (or possibly errors) are given when a convention is broken.");
+					PrintColor.InfoLine("{f:Yellow}Warnings{r} (or possibly {f:Red}errors{r}) are given when a convention is broken.");
 					PrintColor.InfoLine("This list may shrink as P3 updates to accomodate outlier creators.");
+					PrintColor.InfoLine("Additional {f:Yellow}warnings are configurable{r} in the INI file in the P3 folder.");
 				}
 
 				// Exit on Any Key

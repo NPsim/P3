@@ -82,7 +82,7 @@ namespace PseudoPopParser {
 				return;
 			}
 			string[] db = File.ReadAllLines(db_file);
-			for (int line = 2; line < db.Length; line += 3) {
+			for (int line = 1; line < db.Length; line += 3) {
 				attributes_list.Add(new string[] {
 					db[line],
 					db[line + 1].Substring(1, db[line + 1].Length - 1),
@@ -99,7 +99,7 @@ namespace PseudoPopParser {
 				return;
 			}
 			string[] db = File.ReadAllLines(db_file);
-			for (int i = 2; i < db.Count(); i++) {
+			for (int i = 1; i < db.Count(); i++) {
 				string line = db[i]; // TODO make use of all db data
 				if (Regex.IsMatch(line, @"^\S")) {
 					item_list.Add(line);
@@ -1048,7 +1048,6 @@ namespace PseudoPopParser {
 			}
 		}
 
-
 		public void IncrementWarnings() {
 			number_of_warnings++;
 		}
@@ -1167,28 +1166,32 @@ namespace PseudoPopParser {
 							return Regex.IsMatch(token, @"^(false|true|yes|no|1|0)$", RegexOptions.IgnoreCase);
 
 						case "FLOAT":
+							Double.TryParse(token, out double d);
+							if (FloatingPoint.IsOverflow(d, out double actual)) {
+								PrintColor.Warn("Bad decimal value: '{f:Yellow}{0}{r}' will be interpreted as '{f:Yellow}{1}{r}'", line_number, token, actual.ToString());
+							}
+
 							if (Regex.IsMatch(token, @"^(-?)\d+$")) { // Float can be interpreted as Integer
 								return IsDatatype("INTEGER", token, line_number);
 							}
 							return Regex.IsMatch(token, @"^\d+\.\d+$");
 
 						case "UNSIGNED INTEGER":
-
 							if (Regex.IsMatch(token, @"^(-|)\d+\.\d*$")) {
-								PrintColor.Warn("Decimal value will be truncated: '{f:Yellow}{0}{r}'", line_number, token);
+								PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, FloatingPoint.IntegerInterpCast(token).ToString());
 								return true;
 							}
 
 							// Warn for Negative Values
 							if (Regex.IsMatch(token, "-")) {
-								PrintColor.Warn("Negative value will be interpreted as 0: '{f:Yellow}{0}{r}'", line_number, token);
+								PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, "0");
 								return IsDatatype("INTEGER", token, line_number);
 							}
 							return Regex.IsMatch(token, @"^\d+$");
 
 						case "INTEGER": 
 							if (Regex.IsMatch(token, @"^\d+\.\d+$")) {
-								PrintColor.Warn("Decimal value will be truncated: '{f:Yellow}{0}{r}'", line_number, token);
+								PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, FloatingPoint.IntegerInterpCast(token).ToString());
 								return true;
 							}
 							return Regex.IsMatch(token, @"^(-?)\d+$");
