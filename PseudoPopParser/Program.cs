@@ -567,10 +567,10 @@ namespace PseudoPopParser {
 			Console.Write("\n");
 
 			// Show Next Options
-			PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21)				+ "{b:White}{f:Black}F5{r} Open Map Analyzer (BETA)".PadRight(33 + 21)	+ "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21)		+ "\n");
-			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} -Unused-".PadRight(33 + 21)					+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
-			PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21)		+ "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21)					+ "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)		+ "\n");
-			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Reparse Pop File (Restart)".PadRight(33 + 21)					+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21)				+ "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21)	+ "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} -Unused-".PadRight(33 + 21)						+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21)		+ "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21)						+ "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Open Map Analyzer (BETA)".PadRight(33 + 21)		+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
 
 			// Blank Line : Separate Quit with Options
 			Console.Write("\n");
@@ -616,8 +616,25 @@ namespace PseudoPopParser {
 					p.WriteCustomIcons();
 				}
 
-				// F5 Map Analyzer
+				// F5 Map Reparse
 				else if (key_pressed == ConsoleKey.F5) {
+					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+					myProcess.StartInfo.FileName = P3_root + "P3.exe";
+					myProcess.StartInfo.Arguments = "-pop " + file_path;
+					myProcess.Start();
+					break;
+				}
+
+				// F6 Unused
+				else if (key_pressed == ConsoleKey.F6) {
+				}
+
+				// F7 Unused
+				else if (key_pressed == ConsoleKey.F7) {
+				}
+
+				// F8 Map Analyzer
+				else if (key_pressed == ConsoleKey.F8) {
 					PrintColor.InfoLine("===Analyze Map (.bsp)===");
 					PrintColor.InfoLine("Compressed maps are currently not able to be analyzed.");
 					string map_path = "";
@@ -647,23 +664,6 @@ namespace PseudoPopParser {
 							PrintColor.InfoLine("\t" + relay);
 						}
 					}
-				}
-
-				// F6 Unused
-				else if (key_pressed == ConsoleKey.F6) {
-				}
-
-				// F7 Unused
-				else if (key_pressed == ConsoleKey.F7) {
-				}
-
-				// F8 Reparse
-				else if (key_pressed == ConsoleKey.F8) {
-					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
-					myProcess.StartInfo.FileName = "P3.exe";
-					myProcess.StartInfo.Arguments = "-pop " + file_path;
-					myProcess.Start();
-					break;
 				}
 
 				// F9 Scrape Items and Attributes Database
@@ -730,7 +730,7 @@ namespace PseudoPopParser {
 				else if (key_pressed == ConsoleKey.F12) {
 					PrintColor.InfoLine("Opening P3 Reference PDF");
 					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
-					myProcess.StartInfo.FileName = "P3_Reference.pdf";
+					myProcess.StartInfo.FileName = P3_root + "P3_Reference.pdf";
 					myProcess.Start();
 				}
 

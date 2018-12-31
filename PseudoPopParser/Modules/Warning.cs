@@ -199,7 +199,7 @@ namespace PseudoPopParser {
 			string config_key = "bool_warn_tfbot_bad_character";
 			uint code = 0212;
 			if (!ReadBool(config_key)) return;
-			PrintColor.Warn("{f:Cyan}Bot name{r} cannot not display symbol: '{f:Yellow}%{r}'", line, code);
+			PrintColor.Warn("{f:Cyan}Bot name{r} cannot display symbol: '{f:Yellow}%{r}'", line, code);
 
 			if (ReadBool(("bool_show_potential_fix"))) {
 				PrintColor.PotentialFix("HUD cannot display this symbol.");
