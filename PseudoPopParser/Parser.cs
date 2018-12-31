@@ -8,13 +8,11 @@ namespace PseudoPopParser {
 
 	class PopParser {
 
-		// TODO organize this
+		// TODO organize this, pls
 		private static IniFile _INI;
 		private static string pop_directory = "";
 		private static string pop_name = "";
 		private static string base_name = "";
-		private static int number_of_warnings = 0;
-		private static bool error_occurred = false;
 		private static string datatypes_folder_path = "";
 		private static List<List<int>> wave_credits_list = new List<List<int>>();
 		private static int total_waves = 0;
@@ -29,11 +27,6 @@ namespace PseudoPopParser {
 		private static List<string> tfbot_items = new List<string>();
 		private static bool suppress_write_main = false;
 		private static List<string> icons_list = new List<string>();
-
-		/* Purpose of Class:
-		 * Check and return token types
-		 * Throw exceptions if invalid token recieved
-		 */
 
 		private static string[] DATATYPES = {
 			"$any_valid_string",		// Special
@@ -78,7 +71,8 @@ namespace PseudoPopParser {
 		private void SetupAttributes() {
 			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
 			if (!File.Exists(db_file)) {
-				PrintColor.Error("Item attributes db does not exist!");
+				//PrintColor.Error("Item attributes db does not exist!");
+				Error.NoTrigger.MissingDatabase();
 				return;
 			}
 			string[] db = File.ReadAllLines(db_file);
@@ -95,7 +89,8 @@ namespace PseudoPopParser {
 		private void SetupItems() {
 			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
 			if (!File.Exists(db_file)) {
-				PrintColor.Error("Items db does not exist!");
+				//PrintColor.Error("Items db does not exist!");
+				Error.NoTrigger.MissingDatabase();
 				return;
 			}
 			string[] db = File.ReadAllLines(db_file);
@@ -144,7 +139,6 @@ namespace PseudoPopParser {
 				List<int> wave_credits = wave_credits_list[i - 1];
 				string write_string = "";
 				foreach (int credits in wave_credits) {
-					//PrintColor.InfoLine("\t\t" + credits);
 					write_string += " + " + credits.ToString();
 				}
 				PrintColor.InfoLine("W" + i + ": " + wave_credits.Sum() + " = " + write_string.Substring(Math.Min(write_string.Length, 3)));
@@ -155,41 +149,35 @@ namespace PseudoPopParser {
 		// Print Formatted Contents of WaveSpawn Names List
 		public void WriteWaveSpawnNames() {
 			for (int i = 1; i <= wave_wavespawn_names.Count; i++) {
+				PrintColor.InfoLine("Wave " + i);
+
 				List<string> wave_names = wave_wavespawn_names[i - 1];
-				string write_string = "";
 				foreach (string name in wave_names) {
-					write_string += ", " + name;
+					PrintColor.InfoLine("\t" + name);
 				}
-				PrintColor.InfoLine("W" + i + ": " + write_string.Substring(Math.Min(write_string.Length, 2)));
 			}
 		}
 
 		// Print Formatted Contents of TFBot_Template_Items
 		public void WriteTFBotTemplateNames() {
-			//foreach (List<string> items_list in tfbot_template_items.OrderBy(str => str[1])) { // List.OrderBy() returns sorted IEnumerable
 			// Build lists to sort
 			string current_file = "";
 			List<string> base_names = new List<string>();
 			List<List<string>> base_templates = new List<List<string>>();
 			foreach (List<string> items_list in tfbot_template_items) { // List.OrderBy() returns sorted IEnumerable
-				//PrintColor.InfoLine("\t{0} {1}", items_list[0], items_list[1]);
 				if (current_file != items_list[1]) {
 					current_file = items_list[1];
 					base_names.Add(items_list[1]);
 					base_templates.Add(new List<string> {
 						items_list[0]
 					});
-					//PrintColor.InfoLine("{0}", items_list[1]);
-					//PrintColor.InfoLine("\t{0}", items_list[0]);
 				}
 				else {
 					base_templates.Last().Add(items_list[0]);
-					//PrintColor.InfoLine("\t{0}", items_list[0]);
 				}
 			}
 			
 			// Print sorted lists
-			//foreach(List<string> template_list in base_templates) {
 			for(int i = 0; i < base_templates.Count; i++) {
 				PrintColor.InfoLine("File: " + base_names[i]);
 				List<string> template_list = base_templates[i];
@@ -271,9 +259,9 @@ namespace PseudoPopParser {
 
 					// Warn wave credits nonmultiple
 					int wave_credits = wave_credits_list.Last().Sum();
-					int credits_multiple = ConfigRead("currency_multiple_warning");
+					int credits_multiple = ConfigRead("int_warn_credits_multiple");
 					if (!IsMultiple(wave_credits, credits_multiple)) {
-						PrintColor.Warn("{f:Cyan}Wave {1}{r}'s credits is {f:Yellow}not a multiple{r} of {f:Cyan}{2}{r}: '{f:Yellow}{0}{r}'", -1, wave_credits.ToString(), total_waves.ToString(), credits_multiple.ToString());
+						Warning.CreditMultiple(wave_credits, total_waves, credits_multiple);
 					}
 
 					break;
@@ -284,15 +272,14 @@ namespace PseudoPopParser {
 					// Warn physical money counter credits >30000
 					int total_credits = StartingCurrency + TotalCurrency + TotalWaveBonus;
 					if (total_credits > 30000) {
-						PrintColor.Warn("{f:Cyan}Total Possible Credits{r} exceeds maximum possible reading of {f:Cyan}30000{r}: '{f:Yellow}{0}{r}'", -1, total_credits.ToString());
+						Warning.TotalCreditGreater30000(total_credits);
 					}
 
 					// Compare WaveSpawn Names
-					//foreach(string waitforname in used_wavespawn_names) {
 					for(int i = 0; i < used_wavespawn_names.Count(); i++) {
 						string waitforname = used_wavespawn_names[i];
 						if (!ExistsTwoDimension(wave_wavespawn_names, waitforname)) {
-							PrintColor.Warn("{f:Cyan}WaitForAll*{r} name does not exist: '{f:Yellow}{0}{r}'", used_wavespawn_lines[i], waitforname);
+							Warning.WaitForAllMissing(used_wavespawn_lines[i], waitforname);
 						}
 					}
 
@@ -333,7 +320,7 @@ namespace PseudoPopParser {
 
 			// Key does not exist in database
 			if (Array.Equals(attribute, sentinel_array)) {
-				PrintColor.Warn("Invalid {f:Cyan}Attribute Name{r} found: '{f:Yellow}{0}{r}'", line, key);
+				Warning.InvalidAttributeKey(line, key);
 				return;
 			}
 
@@ -365,27 +352,25 @@ namespace PseudoPopParser {
 			 * */
 
 			// Check Type
-			if (type == "FLOAT" && !Regex.IsMatch(UnQuote(value), @"^(-|)(\d*)(\.|)(\d*|)$")) {
-				PrintColor.Warn("{f:Cyan}Attribute{r} has invalid {f:Cyan}number value{r}: '{f:Yellow}{0}{r}'", line, key + " " + value);
-			}
+			/*if (type == "FLOAT" && !Regex.IsMatch(UnQuote(value), @"^(-|)(\d*)(\.|)(\d*|)$")) { // Regex !match decimal number
+				Warning.InvalidNumberValue(line, key, value);
+			}*/
 
 			/* Check Bad Float Values */
 
 			if (type == "FLOAT") {
 
 				// Adding 0
-				if (ConfigReadBool("bool_attribute_value_type_scan") && (value_double == 0.0 && (form == "value_is_additive" || form == "value_is_additive_percentage"))) {
-					PrintColor.Warn("{f.Cyan}Attribute{r} does nothing: '{f:Yellow}{0}{r}'", line, key + " " + value);
-					PotentialFix("Value adds 0 to attribute");
+				if (value_double == 0.0 && (form == "value_is_additive" || form == "value_is_additive_percentage")) {
+					Warning.AttributeAdd0(line, key, value);
 				}
 				// Multiplying by 100%
-				else if (ConfigReadBool("bool_attribute_value_type_scan") && (value_double == 1.0 && (form == "value_is_percentage" || form == "value_is_inverted_percentage"))) {
-					PrintColor.Warn("{f.Cyan}Attribute does nothing: '{f:Yellow}{0}{r}'", line, key + " " + value);
-					PotentialFix("Value multiplies attribute by 1.00");
+				else if (value_double == 1.0 && (form == "value_is_percentage" || form == "value_is_inverted_percentage")) {
+					Warning.AttributeMultiply1(line, key, value);
 				}
 				// Invalid Boolean
 				else if (!(value == "0" || value == "1") && form == "value_is_or") {
-					PrintColor.Warn("{f:Cyan}Attribute{r} can only be values {f:Cyan}0 or 1{r}: '{f:Yellow}{0}{r}'", line, key + " " + value); // TODO BADVALUE
+					Warning.AttributeOnly1Or0(line, key, value);
 				}
 			}
 		}
@@ -610,7 +595,7 @@ namespace PseudoPopParser {
 												Console.WriteLine("SAW WHEN{}");
 											}
 
-											PrintColor.Warn("Using {f:Cyan}When{r} with {f:Cyan}MinInterval{r} and {f:Cyan}MaxInterval{r} may stop spawning midwave", global_line);
+											Warning.MinMaxIntervalStopSpawn(global_line);
 											break;
 										}
 
@@ -712,42 +697,41 @@ namespace PseudoPopParser {
 				suppress_write_main = false;
 				PrintColor.InfoLine("\tDone parsing Base File - {f:Cyan}{0}{r}", template_file_name);
 			}
-			catch (Exception err) {
+			catch (Exception) {
 				suppress_write_main = false;
-				PrintColor.ErrorNoTrigger("Could not parse Template file '{f:Red}{0}{r}' at location: '{f:Red}{1}{r}' | {2}", -1, template_file_name, base_file, err.Message);
+				Error.NoTrigger.FailedParseTemplate(template_file_name, base_file);
 			}
 			base_name = "";
 		}
 
 		// Parse Key Value
 		public void ParseKeyValue(string key, string value, int line = -1, string parent = "", string any_string_name = "") {
+			Int32.TryParse(value, out int value_int);
 			key = key.ToUpper();
 			parent = RemoveCurly(parent.ToUpper());
 
 			// Debug Print Key and Value (look back parsing, parsed on value scan)
 			if (ConfigReadBool("bool_Print_Parse_Key_Value", "Debug")) {
-				DebugLine("Key: " + key);
+				PrintColor.DebugLine("Key: " + key);
 				if (any_string_name.Length > 0) {
-					DebugLine("\tAnyStringName: " + any_string_name);
+					PrintColor.DebugLine("\tAnyStringName: " + any_string_name);
 				}
-				DebugLine("\tValue: " + value);
-				DebugLine("\tParent: " + parent);
-				DebugLine("\tLine: " + line);
+				PrintColor.DebugLine("\tValue: " + value);
+				PrintColor.DebugLine("\tParent: " + parent);
+				PrintColor.DebugLine("\tLine: " + line);
 			}
 
 			switch (key) {
 				case "TOTALCURRENCY":
-					int credits = Int32.Parse(Regex.Match(value, @"^\d*").ToString());
-
+					//int credits = Int32.Parse(Regex.Match(value, @"^\d*").ToString());
+					Int32.TryParse(value, out int credits);
+					{ }
 					// Warn negative or zero value
 					if (credits > 0) {
 						wave_credits_list.Last().Add(credits);
 					}
-					else if (credits == 0 && ConfigReadBool("bool_warn_totalcurrency_zero", "Global")) {
-						PrintColor.Warn("{f:Cyan}TotalCurrency{r} value {f:Yellow}equal to 0{r} drops nothing: '{f:Yellow}{0}{r}'", line, value);
-					}
-					else if (credits < 0 && ConfigReadBool("bool_warn_totalcurrency_zero", "Global")) {
-						PrintColor.Warn("{f:Cyan}TotalCurrency{r} value {f:Yellow}less than 0{r} drops nothing: '{f:Yellow}{0}{r}'", line, value);
+					else if (credits == 0) {
+						Warning.TotalCurrencyEqual0(line, value);
 					}
 					break;
 
@@ -757,30 +741,30 @@ namespace PseudoPopParser {
 
 				case "HEALTH":
 					int health = Int32.Parse(Regex.Match(value, @"^\d*").ToString());
-					int tank_warn_max = ConfigRead("tank_warn_maximum");
-					int tank_warn_min = ConfigRead("tank_warn_minimum");
-					int bot_health_multiple = ConfigRead("bot_health_multiple");
-					int tank_health_multiple = ConfigRead("tank_health_multiple");
+					int tank_warn_max = ConfigRead("int_tank_warn_maximum");
+					int tank_warn_min = ConfigRead("int_tank_warn_minimum");
+					int bot_health_multiple = ConfigRead("int_bot_health_multiple");
+					int tank_health_multiple = ConfigRead("int_tank_health_multiple");
 
 					if (parent == "TFBOT") {
 
 						// Warn multiple
 						if (!IsMultiple(health, bot_health_multiple)) {
-							PrintColor.Warn("{f:Cyan}TFBot Health{r} is {f:Yellow}not a multiple{r} of {f:Cyan}{1}{r}: '{f:Yellow}{0}{r}'", line, value, bot_health_multiple.ToString());
+							Warning.TFBotHealthMultiple(line, value_int, bot_health_multiple);
 						}
 					}
 					else if (parent == "TANK") {
 
 						if (!IsMultiple(health, tank_health_multiple)) {
-							PrintColor.Warn("{f:Cyan}Tank Health{r} is {f:Yellow}not a multiple{r} of {f:Cyan}{1}{r}: '{f:Yellow}{0}{r}'", line, value, tank_health_multiple.ToString());
+							Warning.TankHealthMultiple(line, value_int, tank_health_multiple);
 						}
 
 						// Warn exceeds boundaries
 						if (health > tank_warn_max) {
-							PrintColor.Warn("{f:Cyan}Tank Health{r} {f:Yellow}exceeds maximum{r} warning [{f:Cyan}{1}{r}]: '{f:Yellow}{0}{r}'", line, value, tank_warn_max.ToString());
+							Warning.TankHealthExceed(line, value_int, tank_warn_max);
 						}
 						else if (health < tank_warn_min) {
-							PrintColor.Warn("{f:Cyan}Tank Health{r} is {f:Yellow}{2} minimum{r} warning [{f:Cyan}{1}{r}]: '{f:Yellow}{0}{r}'", line, value, tank_warn_min.ToString(), "below");
+							Warning.TankHealthBelow(line, value_int, tank_warn_min);
 						}
 
 					}
@@ -794,8 +778,8 @@ namespace PseudoPopParser {
 					}
 
 					// Configurable: Warn for non 'TankBoss' name
-					else if (parent == "TANK" && value.ToUpper() != "TANKBOSS" && ConfigReadBool("bool_tank_name_tankboss")) {
-						PrintColor.Warn("{f:Cyan}Tank{r} not named '{f:Cyan}TankBoss{r}' {f:Yellow}does not explode{r} on deployment: '{f:Yellow}{0}{r}'", line, value);
+					else if (parent == "TANK" && value.ToUpper() != "TANKBOSS") {
+						Warning.TankDeploy(line, value);
 					}
 					break;
 
@@ -830,7 +814,7 @@ namespace PseudoPopParser {
 
 					// Item does not exist in database
 					if (!item_exists) {
-						PrintColor.Warn("Invalid TF2 {f:Cyan}Item Name{r}: '{f:Yellow}{0}{r}'", line, value);
+						Warning.ItemInvalid(line, value);
 						return;
 					}
 
@@ -847,7 +831,7 @@ namespace PseudoPopParser {
 					}
 
 					if (!bot_has_item & !Regex.IsMatch(value, "TF_", RegexOptions.IgnoreCase)) {
-						PrintColor.Warn("{f:Cyan}TFBot{r} does not have {f:Cyan}item{r}: '{f:Yellow}{0}{r}'", line, value);
+						Warning.ItemMissing(line, value);
 					}
 					break;
 
@@ -864,7 +848,7 @@ namespace PseudoPopParser {
 					}
 
 					if (!found) {
-						PrintColor.Warn("{f:Cyan}Template{r} does not exist: '{f:Yellow}{0}{r}'", line, value);
+						Warning.TemplateInvalid(line, value);
 						break;
 					}
 
@@ -892,7 +876,6 @@ namespace PseudoPopParser {
 										// Add found template's items to new template (new template's name is any_string_name)
 										for (int i = 1; i < tfbot_template_add.Count(); i++) { // Skip 0th index; [0] is template name
 											tfbot_template_new.Add(tfbot_template_add[i]);
-											//DebugLine("added " + tfbot_template_add[i] + " to " + tfbot_template_new[0]);
 										}
 									}
 								}
@@ -908,9 +891,8 @@ namespace PseudoPopParser {
 					break;
 
 				case "SUPPORT":
-					if (value.ToUpper() == "LIMITED" && ConfigReadBool("bool_warn_support_limited")) {
-						PrintColor.Warn("Support value disables infinite spawn: '{f:Yellow}{0}{r}'", line, value);
-						PotentialFix("Support '{f:Cyan}limited{r}' is the same as {f:Yellow}no support{r}.");
+					if (value.ToUpper() == "LIMITED") {
+						Warning.SupportLimited(line);
 					}
 
 					break;
@@ -930,8 +912,7 @@ namespace PseudoPopParser {
 				try {
 					return Int32.Parse(attribute_pairs["STARTINGCURRENCY"]);
 				}
-				// Catch KeyNotFoundException, return $0 starting credits
-				catch {
+				catch { // Catch KeyNotFoundException, return $0 starting credits
 					return 0;
 				}
 			}
@@ -984,166 +965,10 @@ namespace PseudoPopParser {
 			return Regex.Replace(collection_token, "({})", ""); // Must be exactly "{}" sequence
 		}
 
-		// Returns primitive datatype of token
-		// Pending Removal
-		public string GetDataTypePrimitive(string token) {
-			if (Regex.IsMatch(token, @"^\d+.\d+$")) return "FLOAT";
-			else if (Regex.IsMatch(token, @"^\d+$")) return "UNSIGNED INTEGER";
-			else if (Regex.IsMatch(token, @"^(-?)\d+$")) return "INTEGER";
-			else if (Regex.IsMatch(token, @"^[false|true|yes|no|1|0]$")) return "BOOLEAN";
-			else return "STRING";
-		}
-
-		// Simple Print Color
-		// TODO Deprecated: Pending Removal
-		public void WriteMain(string message, string header, int line = -1, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
-			if (suppress_write_main) {
-				return;
-			}
-
-			Console.BackgroundColor = background;
-			Console.ForegroundColor = foreground;
-
-			// Write Header
-			Console.Write(header);
-			Console.ResetColor();
-
-			// Line Number and Message
-			if (line > 0) { // Line Number exists
-				Console.Write(":" + line + "\t" + message);
-			}
-			else { // Line number does not exist
-				Console.Write("\t" + message);
-			}
-		}
-
-		// TODO Deprecated: Pending Removal
-		public void WriteMainLine(string message, string header, int line = -1, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
-			if (suppress_write_main) {
-				return;
-			}
-			WriteMain(message, header, line, background, foreground);
-			Console.Write("\n");
-		}
-
-		// TODO Deprecated: Pending Removal
-		public void WriteColor(string message, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.White) {
-			Console.BackgroundColor = background;
-			Console.ForegroundColor = foreground;
-			Console.Write(message);
-			Console.ResetColor();
-		}
-
-		// Simple Print Color Line
-		// TODO Deprecated: Pending Removal
-		public void WriteLineColor(string message, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.Gray) {
-			WriteColor(message, background, foreground);
-			Console.Write("\n");
-		}
-
-		// Configurable Potential Fix
-		public void PotentialFix(string message, params string[] args) {
-			if (ConfigReadBool("bool_show_potential_fix")) {
-				PrintColor.PotentialFix(message, args);
-			}
-		}
-
-		public void IncrementWarnings() {
-			number_of_warnings++;
-		}
-
-		public void SetError() {
-			error_occurred = true;
-		}
-
-		// Simple Print Warning
-		public void Warn(string message, int line = -1, string token = "") { // TODO Deprecated: Pending Removal
-			if (suppress_write_main) {
-				return;
-			}
-			number_of_warnings++;
-			ConsoleColor background = ConsoleColor.Yellow;
-			ConsoleColor foreground = ConsoleColor.Black;
-
-			WriteMain(message, "[Warning]", line, background, foreground);
-
-			if (token.Length > 0) {
-				Console.Write("'");
-				WriteColor(token, ConsoleColor.Black, background);
-				Console.Write("'\n");
-			}
-			else {
-				Console.Write("\n");
-			}
-		}
-
-		// Simple Print Error
-		public void Error(string message, int line = -1, string token = "") { // TODO Deprecated: Pending Removal
-			if (suppress_write_main) {
-				return;
-			}
-			error_occurred = true;
-			ConsoleColor background = ConsoleColor.Red;
-			ConsoleColor foreground = ConsoleColor.Black;
-
-			WriteMain(message, "[ERROR]", line, background, foreground);
-
-			if (token.Length > 0) {
-				Console.Write("'");
-				WriteColor(token, ConsoleColor.Black, background);
-				Console.Write("'\n");
-			}
-			else {
-				Console.Write("\n");
-			}
-		}
-
-		// Simple Print Info
-		public void Info(string message) { // TODO Deprecated: Pending Removal
-			if (suppress_write_main) {
-				return;
-			}
-			ConsoleColor background = ConsoleColor.DarkCyan;
-			ConsoleColor foreground = ConsoleColor.Black;
-
-			WriteMain(message, "[Info]", -1, background, foreground);
-		}
-		public void InfoLine(string message) { // TODO Deprecated: Pending Removal
-			if (suppress_write_main) {
-				return;
-			}
-			ConsoleColor background = ConsoleColor.DarkCyan;
-			ConsoleColor foreground = ConsoleColor.Black;
-
-			WriteMainLine(message, "[Info]", -1, background, foreground);
-		}
-
-		// Simple Print Debug Line
-		public void DebugLine(string message) { // TODO Deprecated: Pending Removal
-			ConsoleColor background = ConsoleColor.Magenta;
-			ConsoleColor foreground = ConsoleColor.Black;
-
-			WriteMainLine(message, "[DEBUG]", -1, background, foreground);
-		}
-
 		// Get warning suppression status
 		public bool SuppressPrint {
 			get {
 				return suppress_write_main;
-			}
-		}
-
-		// Get number of warnings issued
-		public int Warnings {
-			get {
-				return number_of_warnings;
-			}
-		}
-
-		// Get if an error ever happened
-		public bool ErrorOccurred {
-			get {
-				return error_occurred;
 			}
 		}
 
@@ -1167,33 +992,36 @@ namespace PseudoPopParser {
 
 						case "FLOAT":
 							Double.TryParse(token, out double d);
-							if (FloatingPoint.IsOverflow(d, out double actual)) {
-								PrintColor.Warn("Bad decimal value: '{f:Yellow}{0}{r}' will be interpreted as '{f:Yellow}{1}{r}'", line_number, token, actual.ToString());
-							}
+							/*if (FloatingPoint.IsOverflow(d, out double actual)) {
+								//PrintColor.Warn("Bad decimal value: '{f:Yellow}{0}{r}' will be interpreted as '{f:Yellow}{1}{r}'", line_number, token, actual.ToString());
+								Warning.FloatBadDecimal(line_number, token, actual); // TODO: FloatingPoint
+							}*/
 
 							if (Regex.IsMatch(token, @"^(-?)\d+$")) { // Float can be interpreted as Integer
 								return IsDatatype("INTEGER", token, line_number);
 							}
-							return Regex.IsMatch(token, @"^\d+\.\d+$");
+							return Regex.IsMatch(token, @"^\d*\.\d+$");
 
 						case "UNSIGNED INTEGER":
-							if (Regex.IsMatch(token, @"^(-|)\d+\.\d*$")) {
-								PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, FloatingPoint.IntegerInterpCast(token).ToString());
+							/*if (Regex.IsMatch(token, @"^(-|)\d+\.\d*$")) {
+								//PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, FloatingPoint.IntegerInterpCast(token).ToString());
+								Warning.FloatReinterpretedFromTo(line_number, token, FloatingPoint.IntegerInterpCast(token)); // TODO: FloatingPoint
 								return true;
-							}
+							}*/
 
 							// Warn for Negative Values
 							if (Regex.IsMatch(token, "-")) {
-								PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, "0");
+								Warning.NegativeInterpreted0(line_number, token);
 								return IsDatatype("INTEGER", token, line_number);
 							}
 							return Regex.IsMatch(token, @"^\d+$");
 
 						case "INTEGER": 
-							if (Regex.IsMatch(token, @"^\d+\.\d+$")) {
-								PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, FloatingPoint.IntegerInterpCast(token).ToString());
+							/*if (Regex.IsMatch(token, @"^\d+\.\d+$")) {
+								//PrintColor.Warn("Decimal value will be reinterpreted from '{f:Yellow}{0}{r}' to '{f:Yellow}{1}{r}'", line_number, token, FloatingPoint.IntegerInterpCast(token).ToString());
+								Warning.FloatReinterpretedFromTo(line_number, token, FloatingPoint.IntegerInterpCast(token)); // TODO: FloatingPoint
 								return true;
-							}
+							}*/
 							return Regex.IsMatch(token, @"^(-?)\d+$");
 
 						case "STRING":
@@ -1203,14 +1031,11 @@ namespace PseudoPopParser {
 							return Regex.IsMatch(token, @"^[1|2|3]$");
 
 						case @"$ANY_VALID_STRING":
-							//return !Regex.IsMatch(token, "^(\\S|\\s|)*(\"|\\s|#base|#include)(\\S|\\s|)*$", RegexOptions.IgnoreCase);
-							//return !Regex.IsMatch(token, "^.*(\"|{|}|#base|#include).*$", RegexOptions.IgnoreCase);
 							return !Regex.IsMatch(token, "^.*(\"|\\s|#base|#include).*$", RegexOptions.IgnoreCase);
 
 						case "BOT NAME":
 							if (Regex.IsMatch(token, "%")) {
-								PrintColor.Warn("Invalid symbol '{f:Yellow}%{r}'", line_number);
-								PotentialFix("HUD cannot display this symbol.");
+								Warning.TFBotNameBadCharacter(line_number);
 							}
 							return true;
 

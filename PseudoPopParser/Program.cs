@@ -9,18 +9,15 @@ namespace PseudoPopParser {
 
 	class Program {
 
-		private static IniFile _INI;
-		private static Dictionary<string, string> _CONFIGURATION = new Dictionary<string, string>();
+		public static IniFile _INI;
+		public static string launch_arguments = "";
 		private static bool auto_close = false;
 
 		static bool _IsDebug(string key) {
 			string[] true_values = { "1", "YES", "TRUE" };
-			if (_CONFIGURATION.ContainsKey(key)) {
-				return true_values.Contains(_CONFIGURATION[key].ToUpper());
-			}
-			else if (_INI.KeyExists(key, "Debug")) {
-				_CONFIGURATION.Add(key, _INI.Read(key, "Debug"));
-				return true_values.Contains(_INI.Read(key, "Debug").ToUpper());
+			string dict_value = _INI.Read(key);
+			if (true_values.Contains(dict_value.ToUpper())) {
+				return true;
 			}
 			return false;
 		}
@@ -28,8 +25,15 @@ namespace PseudoPopParser {
 		[STAThread]
 		static void Main(string[] args) {
 
+			foreach(string argument in args) {
+				launch_arguments += argument + " ";
+			}
+
+			// Console Size
+			Console.SetWindowSize(100, 50);
+
 			// Version Message
-			PrintColor.InfoLine("P3 v1.2.2");
+			PrintColor.InfoLine("P3 v1.3.0");
 
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(P3_root + @"config.ini");
@@ -84,7 +88,7 @@ namespace PseudoPopParser {
 					file_path = ofd.FileName;
 				}
 				catch {
-					PrintColor.Error("Failed to get file by dialog. Defaulting to manual entry.");
+					Error.NoTrigger.FailedDialog();
 				}
 			}
 
@@ -94,7 +98,7 @@ namespace PseudoPopParser {
 				file_path = Console.ReadLine();
 
 				if (!Regex.IsMatch(file_path, @"\.pop$")) {
-					PrintColor.ErrorNoTrigger("Pop file must have *.pop file extension.");
+					Error.NoTrigger.MissingExtension();
 				}
 			}
 
@@ -140,7 +144,8 @@ namespace PseudoPopParser {
 				PrintColor.InfoLine("Pop File - {f:Cyan}{0}{r}", file_path);
 			}
 			catch {
-				PrintColor.ErrorNoTrigger("Could not open Pop file.");
+				//PrintColor.ErrorNoTrigger("Could not open Pop file.");
+				Error.NoTrigger.Unknown("Could not open Pop file.");
 				PrintColor.ColorLinef("Press Any Key to quit.");
 				Console.ReadKey();
 				return;
@@ -195,18 +200,6 @@ namespace PseudoPopParser {
 								continue;
 							}
 						}
-
-						// TODO Add WaveSpawn template redirection; current catastrophic failure when parsing wavespawn template
-						/* TreeNode<string[]>.Value = {
-						*		Index 0 : Type : "Collection", "Key", "Value"
-						*		Index 1 : Name : "WaveSchedule", "Attribute", "AlwaysCrit"
-						*		Index 2 : Parent Name : "Top Level", "WaveSchedule", "Attribute"
-						*		Index 3 : Datatype : "STRING", "UNSIGNED INTEGER", "SKILL"
-						*		Index 4 : Layer : "0", "2", "3"
-						*		Index 5 : Can Be Any Name : "TRUE" , "FALSE"
-						*		Index 6 : Required : "TRUE", "FALSE"
-						* }
-						*/
 
 						// Tokenized Information
 						int line = i;
@@ -288,10 +281,8 @@ namespace PseudoPopParser {
 								pt.MoveUp();
 
 								// Detect Possible Premature End of WaveSchedule : WaveSchedule closes in <99% of the total line count.
-								if (p.ConfigReadBool("bool_early_end_wave_schedule", "Global") && (i < token_list.Count * 99 / 100 && pt.Current.Value[2] == "NONE")) {
-									PrintColor.Warn("Possible premature end of WaveSchedule detected near '{f:Yellow}{0}{r}'", global_line, global_token);
-									p.PotentialFix("Remove additional lines after end of WaveSchedule");
-									p.PotentialFix("Recount Curly Brackets");
+								if (i < token_list.Count * 99 / 100 && pt.Current.Value[2] == "NONE") {
+									Warning.PrematureEndWaveSchedule(global_line, global_token);
 								}
 
 								if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
@@ -354,12 +345,10 @@ namespace PseudoPopParser {
 									if (token.ToUpper() == "WHEN" && token_list[i + 1][j] == "{") {
 										look_ahead_open = true;
 										look_ahead_buffer_node = children[c + 1].Value[1];
-
 										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("SAW WHEN{}");
 										}
-
-										PrintColor.Warn("Using {f:Cyan}When{r} with {f:Cyan}MinInterval{r} and {f:Cyan}MaxInterval{r} may stop spawning midwave", global_line);
+										Warning.MinMaxIntervalStopSpawn(global_line);
 										break;
 									}
 
@@ -467,7 +456,7 @@ namespace PseudoPopParser {
 							// Catch Collection within Collection
 							string[] collections = { "SQUAD{}", "MOB{}", "RANDOMCHOICE{}", "SQUAD", "MOB", "RANDOMCHOICE" };
 							if (collections.Contains(token.ToUpper()) && collections.Contains(pt.CurrentValue[1].ToUpper())) {
-								throw new Exception("CollectionWithinCollectionException");
+								throw new Exception("NestedCollectionException");
 							}
 								
 							throw new Exception("UnknownSymbolException");
@@ -487,39 +476,38 @@ namespace PseudoPopParser {
 			catch (Exception ex) {
 
 				if (ex.Message == "UnknownSymbolException") {
-					PrintColor.Error("{f:Red}Invalid symbol{r} found near '{f:Red}{0}{r}'", global_line, global_token);
+					Error.InvalidSymbol(global_line, global_token);
 				}
 
 				/* BadCommentException */
 				// Lexer Exception : No space found before a "//" single-line comment token; only applies to collections
 				else if (ex.Message == "CollectionBadCommentException") {
-					PrintColor.Error("Bad comment found near '{f:Red}{0}{r}'", global_line, global_token);
-					p.PotentialFix("Insert a space between \"" + Regex.Replace(global_token, @"\/\/.*[\s]*", "") + "\" and \"//\"");
+					Error.BadComment(global_line, global_token);
 				}
 
+				
 				/* IllegalIdentifierException */
 				// Lexer Exception : $ANY_VALID_STRING contains one of the following symbols { } " #base #include
-				else if (ex.Message == "IllegalIdentifierException") {
-					PrintColor.Error("{f:Red}Invalid name{r} found near '{f:Red}{0}{r}'", global_line, global_token);
-				}
+				/*else if (ex.Message == "IllegalIdentifierException") {
+					Error.InvalidName(global_line, global_token);
+				}*/
 
 				/* InvalidTypeException */
 				// Grammar Exception : Datatype does not exist within IsDatatype()
 				else if (ex.Message == "InvalidTypeException") {
-					PrintColor.Error("{f:Red}Invalid value{r} found near '{f:Red}{0}{r}'", global_line, global_token);
+					Error.InvalidValueType(global_line, global_token);
 				}
 
 				/* ParentNotFoundException */
 				// Parse Tree Exception : Cursor attempted to move to null or illegal parent
 				else if (ex.Message == "ParentNotFoundException") {
-					PrintColor.Error("{f:Red}Invalid Closing Curly Bracket{r} found: '{f:Red}{0}{r}'", global_line, global_token);
-					//p.PotentialFix("Recount and remove excess Close Curly Brackets");
+					Error.InvalidCloseCurly(global_line, global_token);
 				}
 
 				/* DatatypeNotFoundException */
 				// Grammar Exception : Datatype does not exist as a special definitions file
 				else if (ex.Message == "DatatypeNotFoundException") {
-					PrintColor.Error("{f:Red}Invalid key{r} found near '{f:Red}{0}{r}'", global_line, global_token);
+					Error.InvalidKey(global_line, global_token);
 				}
 
 				/* FileNotFoundException */
@@ -529,20 +517,16 @@ namespace PseudoPopParser {
 					PrintColor.Error("{f:Red}Invalid grammar file{r} selected.");
 				}
 
-				/* CollectionWithinCollectionException */
+				/*NestedCollectionException */
 				// Parse Tree Exception : Collection within Collection
-				else if (ex.Message == "CollectionWithinCollectionException") {
-					PrintColor.Error("Cannot have Collection within Collection: '{f:Red}{0}{r}'", global_line, global_token);
-					p.PotentialFix("Cannot have Squad, Mob, or RandomChoice within a Squad, Mob, or RandomChoice.");
-					p.PotentialFix("Valve has not implemented a recursive spawner.");
+				else if (ex.Message == "NestedCollectionException") {
+					Error.NestedCollection(global_line, global_token);
 				}
 
 				/* Exception */
 				// Generic Exception : Unknown exception
 				else {
-					PrintColor.Error("{f:Cyan}Unknown{r} exception '{f:Red}{1}{r}' near '{f:Red}{0}{r}'", global_line, global_token, ex.Message);
-					PrintColor.WriteLineColor("Please contact the developer regarding this error", ConsoleColor.Blue);
-					PrintColor.WriteLineColor("Contact info can be found in the README", ConsoleColor.Blue);
+					Error.Unknown(global_line, global_token, ex.Message);
 				}
 			}
 			/* End */
@@ -557,15 +541,15 @@ namespace PseudoPopParser {
 
 			/* Ending Statement */
 			// Error Occurred
-			if (p.ErrorOccurred) {
+			if (Error.ErrorOccurred) {
 				PrintColor.ColorLinef("{f:Black}{b:Red}Finished with an error.{r}");
 			}
 
 			// No Error Occurred
 			else {
 				// Warning Occurred
-				if (p.Warnings > 0) {
-					PrintColor.ColorLinef("{f:Black}{b:Yellow}Finished with {0} warning(s).{r}", p.Warnings.ToString());
+				if (Warning.Warnings > 0) {
+					PrintColor.ColorLinef("{f:Black}{b:Yellow}Finished with {0} warning(s).{r}", Warning.Warnings.ToString());
 				}
 				// No Warnings
 				else {
@@ -579,45 +563,20 @@ namespace PseudoPopParser {
 				PrintColor.InfoLine("Maximum Possible Credits: {f:Cyan}{0}{r}", (p.StartingCurrency + p.TotalCurrency + p.TotalWaveBonus).ToString());
 			}
 
-			// Blank Line : Separate Ending Statements with Further Option Choices
+			// Blank Line : Separate Ending Statements from Further Option Choices
 			Console.Write("\n");
 
 			// Show Next Options
-			PrintColor.Colorf("{b:White}{f:Black}F1{r}");
-			PrintColor.WriteLineColor(" Show Credit Stats");
+			PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21)				+ "{b:White}{f:Black}F5{r} Open Map Analyzer (BETA)".PadRight(33 + 21)	+ "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} -Unused-".PadRight(33 + 21)					+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21)		+ "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21)					+ "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Reparse Pop File (Restart)".PadRight(33 + 21)					+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
 
-			PrintColor.Colorf("{b:White}{f:Black}F2{r}");
-			PrintColor.WriteLineColor(" Show WaveSpawn Names");
-
-			PrintColor.Colorf("{b:White}{f:Black}F5{r}");
-			PrintColor.WriteLineColor(" Show TFBot Template Names");
-
-			PrintColor.Colorf("{b:White}{f:Black}F6{r}");
-			PrintColor.WriteLineColor(" How to Calculate Credits");
-
-			PrintColor.Colorf("{b:White}{f:Black}F7{r}");
-			PrintColor.WriteLineColor(" Show Used Custom Icons");
-
-			PrintColor.Colorf("{b:White}{f:Black}F8{r}");
-			PrintColor.WriteLineColor(" Analyze Map (.bsp)");
-
-			PrintColor.Colorf("{b:White}{f:Black}F9{r}");
-			PrintColor.WriteLineColor(" Update Item and Attribute Databases");
-
-			PrintColor.Colorf("{b:White}{f:Black}F10{r}");
-			PrintColor.WriteLineColor(" Set items_game.txt Location");
-
-			PrintColor.Colorf("{b:White}{f:Black}F11{r}");
-			PrintColor.WriteLineColor(" Enter Fullscreen (Windows Default)");
-
-			PrintColor.Colorf("{b:White}{f:Black}F12{r}");
-			PrintColor.WriteLineColor(" Common Conventions Enforcement");
-
-			// Blank Line Separates Quit with Options
+			// Blank Line : Separate Quit with Options
 			Console.Write("\n");
 
-			PrintColor.WriteColor("Any Key", ConsoleColor.White, ConsoleColor.Black);
-			PrintColor.WriteLineColor(" Quit");
+			// Any Key to Quit
+			PrintColor.Colorf("{b:White}{f:Black}Any Key{r} Quit");
 
 			// Options Menu Handling
 			ConsoleKey key_pressed;
@@ -643,43 +602,24 @@ namespace PseudoPopParser {
 					p.WriteWaveSpawnNames();
 				}
 
-				// F3 Unused
+				// F3 Display TFBot Templates
 				else if (key_pressed == ConsoleKey.F3) {
-				}
-
-				// F4 Unused
-				else if (key_pressed == ConsoleKey.F4) {
-				}
-
-				// F5 Display TFBot Templates
-				else if (key_pressed == ConsoleKey.F5) {
 					PrintColor.InfoLine("===TFBot Template Names===");
 					PrintColor.InfoLine("Names are not case sensitive.");
 					p.WriteTFBotTemplateNames();
 				}
 
-				// F6 How to Calculate Total Credits
-				else if (key_pressed == ConsoleKey.F6) {
-					PrintColor.InfoLine("===How to Calculate Total Credits===");
-					PrintColor.InfoLine("Calculate credits {f:Cyan}dropped{r} by adding up");
-					PrintColor.InfoLine("  every WaveSpawn's {f:Cyan}TotalCurrency{r} in a Wave.");
-					PrintColor.InfoLine("A bonus of maximum {f:Cyan}$100{r} is awarded on completion of wave if");
-					PrintColor.InfoLine("  it is {f:cyan}not the final wave{r} and {f:cyan}all credits{r} are picked up.");
-					PrintColor.InfoLine("A half bonus of {f:Cyan}$50{r} is awarded on completion of wave if it is");
-					PrintColor.InfoLine("  {f:cyan}not the final wave{r} and missed credits is within {f:cyan}5%{r} of the total.");
-				}
-
-				// F7 Show Used Custom Icons
-				else if (key_pressed == ConsoleKey.F7) {
+				// F4 Show Custom Icons
+				else if (key_pressed == ConsoleKey.F4) {
 					PrintColor.InfoLine("===Custom Icons Used===");
 					PrintColor.InfoLine("Names are not case sensitive.");
 					p.WriteCustomIcons();
 				}
 
-				// F8 Scrape Map
-				else if (key_pressed == ConsoleKey.F8) {
+				// F5 Map Analyzer
+				else if (key_pressed == ConsoleKey.F5) {
 					PrintColor.InfoLine("===Analyze Map (.bsp)===");
-					PrintColor.InfoLine("Some maps are not able to be analyzed.");
+					PrintColor.InfoLine("Compressed maps are currently not able to be analyzed.");
 					string map_path = "";
 					try {
 						OpenFileDialog ofd = new OpenFileDialog {
@@ -694,12 +634,12 @@ namespace PseudoPopParser {
 						map_path = ofd.FileName;
 					}
 					catch {
-						PrintColor.Error("Failed to get file by dialog.");
+						Error.NoTrigger.FailedDialog();
 					}
 					if (map_path.Length > 0) {
 						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays);
 						PrintColor.InfoLine("Bot Spawns:");
-						foreach(string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + location);
 						}
 						PrintColor.InfoLine("Logic Relays:");
@@ -707,6 +647,23 @@ namespace PseudoPopParser {
 							PrintColor.InfoLine("\t" + relay);
 						}
 					}
+				}
+
+				// F6 Unused
+				else if (key_pressed == ConsoleKey.F6) {
+				}
+
+				// F7 Unused
+				else if (key_pressed == ConsoleKey.F7) {
+				}
+
+				// F8 Reparse
+				else if (key_pressed == ConsoleKey.F8) {
+					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+					myProcess.StartInfo.FileName = "P3.exe";
+					myProcess.StartInfo.Arguments = "-pop " + file_path;
+					myProcess.Start();
+					break;
 				}
 
 				// F9 Scrape Items and Attributes Database
@@ -741,11 +698,11 @@ namespace PseudoPopParser {
 					}
 				}
 
-				// F10 Set items_game.txt or rescrape items_game.txt
+				// F10 Set items_game.txt
 				else if (key_pressed == ConsoleKey.F10) {
 					PrintColor.InfoLine("===Set items_game.txt Location===");
 					PrintColor.InfoLine(@"Please open your items_game.txt at");
-					PrintColor.InfoLine(@".\Team Fortress 2\tf\scripts\items\items_game.txt");
+					PrintColor.InfoLine(@".\steamapps\Team Fortress 2\tf\scripts\items\items_game.txt");
 
 					// File Dialog
 					try {
@@ -762,21 +719,19 @@ namespace PseudoPopParser {
 						PrintColor.InfoLine("Successfully set location!");
 					}
 					catch {
-						PrintColor.Error("Failed to get file by dialog.");
+						Error.NoTrigger.FailedDialog();
 					}
 				}
 
-				// F12 Notice: Conventions
+				// F11 Fullscreen
+				// Windows default key, not reimplemented. I can't change this
+
+				// F12 Reference PDF
 				else if (key_pressed == ConsoleKey.F12) {
-					PrintColor.InfoLine("===Common Conventions Enforcement===");
-					PrintColor.InfoLine("P3 enforces {f:Cyan}common conventions{r}. The list of conventions is as follows.");
-					PrintColor.InfoLine("Templates defined {f:Cyan}{0} usage{r}.", "before");
-					PrintColor.InfoLine("Templates imported {f:Cyan}{0} ItemAttribute modification{r}.", "before");
-					PrintColor.InfoLine("Items must be given to TFBot {f:Cyan}{0} ItemAttributes modification{r}.", "before");
-					PrintColor.InfoLine("Do not use {f:Cyan}WaveSpawn Templates{r}.");
-					PrintColor.InfoLine("{f:Yellow}Warnings{r} (or possibly {f:Red}errors{r}) are given when a convention is broken.");
-					PrintColor.InfoLine("This list may shrink as P3 updates to accomodate outlier creators.");
-					PrintColor.InfoLine("Additional {f:Yellow}warnings are configurable{r} in the INI file in the P3 folder.");
+					PrintColor.InfoLine("Opening P3 Reference PDF");
+					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+					myProcess.StartInfo.FileName = "P3_Reference.pdf";
+					myProcess.Start();
 				}
 
 				// Exit on Any Key

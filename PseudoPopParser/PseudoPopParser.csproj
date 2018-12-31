@@ -82,10 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\AttributeScraper.cs" />
+    <Compile Include="Modules\Error.cs" />
     <Compile Include="Modules\FloatingPoint.cs" />
     <Compile Include="Modules\IniFile.cs" />
     <Compile Include="Modules\MapScraper.cs" />
-    <Compile Include="Modules\Item.cs" />
+    <Compile Include="Modules\Warning.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseTree.cs" />
     <Compile Include="Modules\PrintColor.cs" />
@@ -112,6 +113,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="datatypes\item_db.UwU">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="P3_Reference.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\app.manifest" />

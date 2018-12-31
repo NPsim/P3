@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace PseudoPopParser {
 	class FloatingPoint {
 
+		// UNUSED MODULE
+
 		public static void Map(double value) {
 			long l = BitConverter.DoubleToInt64Bits(value);
 			string binary = Convert.ToString(l, 2).PadLeft(64, '0');
@@ -22,9 +24,6 @@ namespace PseudoPopParser {
 			Console.WriteLine("            " + binary.Substring(12));
 			Console.WriteLine("Full");
 			Console.WriteLine(binary);
-
-			//Control
-			//Console.WriteLine("0100000000010000000000000000000000000000000000000000000000000000");
 		}
 
 		public static string BinaryDouble(double value) {
@@ -64,11 +63,9 @@ namespace PseudoPopParser {
 		}
 
 		public static double Normalize(double value) {
-			//Console.WriteLine("Before: " + value);
 			while (value >= 10) {
 				value /= 10;
 			}
-			//Console.WriteLine("After: " + value);
 			return value;
 		}
 
@@ -79,9 +76,7 @@ namespace PseudoPopParser {
 				return value;
 			}
 
-			//Console.WriteLine("Actual: " + value);
 			double normal = Normalize(value);
-			//Console.WriteLine("Normal: " + normal);
 			//TODO: Midrange approximation
 			if (Trail(value) > 0.9 || Trail(value) < 0.1) { // Must be near overflow to actually overflow
 				bool[] mant = Mantissa(normal);

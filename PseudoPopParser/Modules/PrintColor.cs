@@ -13,6 +13,7 @@ namespace PseudoPopParser {
 		private static ConsoleColor default_background = ConsoleColor.Black;
 		public static string log_path = "";
 
+		// Used only for debug batch parsing multiple test files at once.
 		private static void LogWrite(string message, string[] args = default(string[]), string line = "-1") {
 			if (log_path.Length == 0) {
 				return;
@@ -153,57 +154,63 @@ namespace PseudoPopParser {
 			Colorf(message + "\n", args);
 		}
 
-		public static void Warn(string message, string line, params string[] args) {
+		public static void Warn(string message, string line, uint code, params string[] args) {
 			PopParser p = new PopParser();
 			if (p.SuppressPrint) {
 				return;
 			}
-			LogWrite("\tWarn: " + message, args, line);
-			p.IncrementWarnings();
+			
+			LogWrite("\tWarn: " + message, args, line); // Debug batch testing
+
+			// Build warning code
+			string str_code = code.ToString("0000");
 
 			if (line != "-1") {
-				ColorLinef("{f:Black}{b:Yellow}[Warning]{r}:" + line + "\t" + message, args);
+				ColorLinef("{f:Black}{b:Yellow}[Warning-W" + str_code + "]{r}:" + line + "\t" + message, args);
 			}
 			else {
-				ColorLinef("{f:Black}{b:Yellow}[Warning]{r}\t" + message, args);
+				ColorLinef("{f:Black}{b:Yellow}[Warning-W" + str_code + "]{r}    \t" + message, args);
 			}
+			Warning.IncrementWarnings(); // todo localize
 		}
-		public static void Warn(string message, int line = -1, params string[] args) {
-			Warn(message, line.ToString(), args);
+		public static void Warn(string message, int line = -1, uint code = 0, params string[] args) {
+			Warn(message, line.ToString(), code, args);
 		}
 
-		public static void Error(string message, string line, params string[] args) {
-			PopParser p = new PopParser();
-			p.SetError();
-			LogWrite("\tErrr: " + message, args, line);
+		public static void Error(string message, string line, uint code = 0999, params string[] args) {
+			string str_code = code.ToString("0000");
+			LogWrite("\tErrr: " + message, args, line); // Debug batch testing
 
 			if (line != "-1") {
-				ColorLinef("{f:Black}{b:Red}[Error]{r}:" + line + "\t" + message, args);
+				ColorLinef("{f:Black}{b:Red}[Error-E" + str_code + "]{r}:" + line + "\t" + message, args);
 			}
 			else {
-				ColorLinef("{f:Black}{b:Red}[Error]{r}\t" + message, args);
+				ColorLinef("{f:Black}{b:Red}[Error-E" + str_code + "]{r}\t" + message, args);
 			}
+			PseudoPopParser.Error.SetError();
 		}
-		public static void Error(string message, int line = -1, params string[] args) {
-			Error(message, line.ToString(), args);
+		public static void Error(string message, int line = -1, uint code = 0999, params string[] args) {
+			Error(message, line.ToString(), code, args);
 		}
 
-		public static void ErrorNoTrigger(string message, string line, params string[] args) {
-			LogWrite("\tErNT: " + message, args, line);
+		public static void ErrorNoTrigger(string message, string line, uint code = 0998, params string[] args) {
+			string str_code = code.ToString("0000");
+			LogWrite("\tErNT: " + message, args, line); // Debug batch testing
+
 			if (line != "-1") {
-				ColorLinef("{f:Black}{b:Red}[Error]{r}:" + line + "\t" + message, args);
+				ColorLinef("{f:Black}{b:Red}[Error-E" + str_code + "]{r}:" + line + "\t" + message, args);
 			}
 			else {
-				ColorLinef("{f:Black}{b:Red}[Error]{r}\t" + message, args);
+				ColorLinef("{f:Black}{b:Red}[Error-E" + str_code + "]{r}\t" + message, args);
 			}
 		}
-		public static void ErrorNoTrigger(string message, int line = -1, params string[] args) {
-			ErrorNoTrigger(message, line.ToString(), args);
+		public static void ErrorNoTrigger(string message, int line = -1, uint code = 0998, params string[] args) {
+			ErrorNoTrigger(message, line.ToString(), code, args);
 		}
 
 		public static void InfoLine(string message, params string[] args) {
 			if (Regex.IsMatch(message, "^Pop File")) {
-				LogWrite("Info: " + message, args);
+				LogWrite("Info: " + message, args); // Debug batch testing
 			}
 			ColorLinef("{f:Black}{b:DarkCyan}[Info]{r}\t" + message, args);
 		}

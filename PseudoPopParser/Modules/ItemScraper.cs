@@ -54,7 +54,7 @@ namespace PseudoPopParser {
 				current_version = File.ReadLines(db_path).First(); // intersting way to get only the second line
 			}
 			catch {
-				PrintColor.ErrorNoTrigger("Could not find local database.");
+				Error.NoTrigger.MissingDatabase();
 			}
 
 			// Check Version
@@ -70,8 +70,8 @@ namespace PseudoPopParser {
 			try {
 				file = File.ReadAllLines(file_path);
 			}
-			catch (Exception e) {
-				PrintColor.ErrorNoTrigger(e.Message);
+			catch (Exception ex) {
+				Error.NoTrigger.Unknown(ex.Message);
 				return;
 			}
 
@@ -101,7 +101,7 @@ namespace PseudoPopParser {
 
 			// Stop if no insertion point found
 			if (ip == 0) {
-				PrintColor.ErrorNoTrigger("Could not find insertion point.");
+				Error.NoTrigger.Unknown("Could not find insertion point.");
 				return;
 			}
 

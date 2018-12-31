@@ -388,7 +388,7 @@ any_valid_string{}%
 			Name
 				STRING
 			TotalCurrency
-				INTEGER
+				UNSIGNED INTEGER
 			TotalCount
 				UNSIGNED INTEGER
 			Where
