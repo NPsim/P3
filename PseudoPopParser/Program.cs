@@ -654,13 +654,17 @@ namespace PseudoPopParser {
 						Error.NoTrigger.FailedDialog();
 					}
 					if (map_path.Length > 0) {
-						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays);
+						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays, out string[] tank_tracks);
 						PrintColor.InfoLine("Bot Spawns:");
 						foreach (string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + location);
 						}
 						PrintColor.InfoLine("Logic Relays:");
 						foreach (string relay in logic_relays.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+							PrintColor.InfoLine("\t" + relay);
+						}
+						PrintColor.InfoLine("Tank Nodes:");
+						foreach (string relay in tank_tracks.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + relay);
 						}
 					}

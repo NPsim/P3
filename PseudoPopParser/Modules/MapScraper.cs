@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace PseudoPopParser {
 	class MapScraper {
-		public static void Scrape(string bsp_file, out string[] spawns, out string[] relays) {
+		public static void Scrape(string bsp_file, out string[] spawns, out string[] relays, out string[] tracks) {
 			List<string> spawn_points = new List<string>();
 			List<string> logic_relays = new List<string>();
+			List<string> path_tracks = new List<string>();
 			string[] bsp_lines = File.ReadAllLines(bsp_file);
 			bool in_block = false;
 			string target_name = "";
@@ -38,16 +39,23 @@ namespace PseudoPopParser {
 						target_name = Regex.Match(line, "\\\"(.*?)\\\"").NextMatch().ToString().Trim('"');
 					}
 
-					// Verify valid info_player_teamspawn target, add valid targetname to list
+					// Verify valid info_player_teamspawn target for spawnbot, add valid targetname to list
 					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"info_player_teamspawn\"")) {
 						spawn_points.Add(target_name);
 						in_block = false;
 						target_name = "";
 					}
 
-					// Verify valid logic_relay target, add valid targetname to list
+					// Verify valid logic_relay target for action-trigger, add valid targetname to list
 					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"logic_relay\"")) {
 						logic_relays.Add(target_name);
+						in_block = false;
+						target_name = "";
+					}
+
+					// Verify valid path_track target for tank path, add valid targetname to list
+					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"path_track\"")) {
+						path_tracks.Add(target_name);
 						in_block = false;
 						target_name = "";
 					}
@@ -55,6 +63,7 @@ namespace PseudoPopParser {
 			}
 			spawns = spawn_points.Distinct().ToArray();
 			relays = logic_relays.Distinct().ToArray();
+			tracks = path_tracks.Distinct().ToArray();
 		}
 	}
 }
