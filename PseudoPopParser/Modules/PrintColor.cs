@@ -208,6 +208,13 @@ namespace PseudoPopParser {
 			ErrorNoTrigger(message, line.ToString(), code, args);
 		}
 
+		public static void Info(string message) {
+			if (Regex.IsMatch(message, "^Pop File")) {
+				LogWrite("Info: " + message); // Debug batch testing
+			}
+			Colorf("{f:Black}{b:DarkCyan}[Info]{r}\t" + message);
+		}
+
 		public static void InfoLine(string message, params string[] args) {
 			if (Regex.IsMatch(message, "^Pop File")) {
 				LogWrite("Info: " + message, args); // Debug batch testing

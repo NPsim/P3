@@ -85,7 +85,9 @@
     <Compile Include="Modules\Error.cs" />
     <Compile Include="Modules\FloatingPoint.cs" />
     <Compile Include="Modules\IniFile.cs" />
+    <Compile Include="Modules\ItemDatabase.cs" />
     <Compile Include="Modules\MapScraper.cs" />
+    <Compile Include="Modules\Search.cs" />
     <Compile Include="Modules\Warning.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseTree.cs" />

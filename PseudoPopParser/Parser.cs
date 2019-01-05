@@ -23,7 +23,6 @@ namespace PseudoPopParser {
 		private static List<string> used_wavespawn_names = new List<string>();
 		private static List<int> used_wavespawn_lines = new List<int>();
 		private static List<string[]> attributes_list = new List<string[]>();
-		private static List<string> item_list = new List<string>();
 		private static List<string> tfbot_items = new List<string>();
 		private static bool suppress_write_main = false;
 		private static List<string> icons_list = new List<string>();
@@ -97,7 +96,7 @@ namespace PseudoPopParser {
 			for (int i = 1; i < db.Count(); i++) {
 				string line = db[i]; // TODO make use of all db data
 				if (Regex.IsMatch(line, @"^\S")) {
-					item_list.Add(line);
+					ItemDatabase.Add(line);
 				}
 			}
 		}
@@ -805,8 +804,8 @@ namespace PseudoPopParser {
 					}
 
 					// Search database for key
-					foreach (string find in item_list) {
-						if (value.ToUpper() == find.ToUpper()) {
+					foreach (string find in ItemDatabase.List) {
+					if (value.ToUpper() == find.ToUpper()) {
 							item_exists = true;
 							break;
 						}
