@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
-	class AttributesScraper : IDisposable {
+	class AttributeScraper : IDisposable {
 
 		private string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
 
-		public AttributesScraper() { }
+		public AttributeScraper() { }
 
-		public AttributesScraper(string att_db) {
+		public AttributeScraper(string att_db) {
 			db_path = att_db;
 		}
 

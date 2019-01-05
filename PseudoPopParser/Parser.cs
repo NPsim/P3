@@ -22,7 +22,6 @@ namespace PseudoPopParser {
 		private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
 		private static List<string> used_wavespawn_names = new List<string>();
 		private static List<int> used_wavespawn_lines = new List<int>();
-		private static List<string[]> attributes_list = new List<string[]>();
 		private static List<string> tfbot_items = new List<string>();
 		private static bool suppress_write_main = false;
 		private static List<string> icons_list = new List<string>();
@@ -76,7 +75,7 @@ namespace PseudoPopParser {
 			}
 			string[] db = File.ReadAllLines(db_file);
 			for (int line = 1; line < db.Length; line += 3) {
-				attributes_list.Add(new string[] {
+				AttributeDatabase.Add(new string[] {
 					db[line],
 					db[line + 1].Substring(1, db[line + 1].Length - 1),
 					db[line + 2].Substring(1, db[line + 2].Length - 1)
@@ -310,7 +309,7 @@ namespace PseudoPopParser {
 			string[] attribute = sentinel_array;
 
 			// Search database for key
-			foreach (string[] find in attributes_list) {
+			foreach (string[] find in AttributeDatabase.Array) {
 				if (key.ToUpper() == find[0].ToUpper()) {
 					attribute = find;
 					break;

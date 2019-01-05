@@ -568,7 +568,7 @@ namespace PseudoPopParser {
 
 			// Show Next Options
 			PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21)				+ "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21)	+ "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21)		+ "\n");
-			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} Search Item Names".PadRight(33 + 21)						+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21)						+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
 			PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21)		+ "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21)						+ "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)		+ "\n");
 			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Open Map Analyzer (BETA)".PadRight(33 + 21)		+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
 
@@ -576,7 +576,7 @@ namespace PseudoPopParser {
 			Console.Write("\n");
 
 			// Any Key to Quit
-			PrintColor.Colorf("{b:White}{f:Black}Any Key{r} Quit");
+			PrintColor.ColorLinef("{b:White}{f:Black}Any Key{r} Quit");
 
 			// Options Menu Handling
 			ConsoleKey key_pressed;
@@ -625,28 +625,48 @@ namespace PseudoPopParser {
 					break;
 				}
 
-				// F6 Search Item Names
+				// F6 Search Item Names and Item/Char Attributes
 				else if (key_pressed == ConsoleKey.F6) {
+					PrintColor.InfoLine("===Search Item Names & Item/Char Attributes===");
 
 					// Get User Input
-					PrintColor.Info("Search Item Names: ");
+					PrintColor.Info("Search Term: ");
 					string search_phrase = Console.ReadLine();
 
-					/*
-					// Go Back if User Enters Blank
+					// Go Back if User Enters Blank or Spaces
 					if (Regex.Replace(search_phrase, @"\s*", "") == "") {
-						PrintColor.InfoLine("No Search Entry.");
+						PrintColor.InfoLine("Invalid entry. Canceling Search.");
 						continue;
 					}
-					*/
 
+					/* Item Names */
 					// Get Results
-					string[] results = Search.Simple(ItemDatabase.List, search_phrase);
+					string[] item_results = Search.Simple(ItemDatabase.List, search_phrase);
 
 					// Show Results
-					PrintColor.InfoLine("Results for {b:Gray}{f:Black} " + search_phrase + " {r}");
-					foreach(string item in results) {
+					PrintColor.InfoLine("Item results for {b:White}{f:Black} " + search_phrase + " {r}");
+					foreach(string item in item_results) {
 						PrintColor.InfoLine("\t" + item);
+					}
+
+					// No Items Found
+					if (item_results.Count() == 0) {
+						PrintColor.InfoLine("\tNo Items Found.");
+					}
+
+					/* Item/Char Attributes */
+					// Get Results
+					string[] att_results = Search.Simple(AttributeDatabase.ListZeroIndex, search_phrase);
+
+					// Show Results
+					PrintColor.InfoLine("Attribute results for {b:White}{f:Black} " + search_phrase + " {r}");
+					foreach (string attribute in att_results) {
+						PrintColor.InfoLine("\t" + attribute);
+					}
+
+					// No Attributes Found
+					if (att_results.Count() == 0) {
+						PrintColor.InfoLine("\tNo Attributes Found.");
 					}
 				}
 
@@ -704,7 +724,7 @@ namespace PseudoPopParser {
 					else {
 						// Attributes
 						PrintColor.InfoLine("===Updating Databases===");
-						using (AttributesScraper s = new AttributesScraper()) {
+						using (AttributeScraper s = new AttributeScraper()) {
 
 							PrintColor.InfoLine("> Attributes Database");
 							PrintColor.InfoLine("Old version: {f:Yellow}{0}{r}", s.Version);

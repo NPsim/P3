@@ -20,7 +20,5 @@ namespace PseudoPopParser {
 			}
 			return results.ToArray();
 		}
-
 	}
-
 }
