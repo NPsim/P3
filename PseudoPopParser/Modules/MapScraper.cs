@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace PseudoPopParser {
 	class MapScraper {
-		public static void Scrape(string bsp_file, out string[] spawns, out string[] relays, out string[] tracks) {
+		public static void Scrape(string bsp_file, out string[] spawns, out string[] relays, out string[] tracks, out string[] navs) {
 			List<string> spawn_points = new List<string>();
 			List<string> logic_relays = new List<string>();
 			List<string> path_tracks = new List<string>();
+			List<string> nav_paths = new List<string>();
 			string[] bsp_lines = File.ReadAllLines(bsp_file);
 			bool in_block = false;
 			string target_name = "";
@@ -59,11 +60,19 @@ namespace PseudoPopParser {
 						in_block = false;
 						target_name = "";
 					}
+
+					// Verify valid func_nav_prefer target for bot nav prefer path, add valid targetname to list
+					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"func_nav_prefer\"")) {
+						nav_paths.Add(target_name);
+						in_block = false;
+						target_name = "";
+					}
 				}
 			}
 			spawns = spawn_points.Distinct().ToArray();
 			relays = logic_relays.Distinct().ToArray();
 			tracks = path_tracks.Distinct().ToArray();
+			navs = nav_paths.Distinct().ToArray();
 		}
 	}
 }

@@ -695,7 +695,7 @@ namespace PseudoPopParser {
 						Error.NoTrigger.FailedDialog();
 					}
 					if (map_path.Length > 0) {
-						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays, out string[] tank_tracks);
+						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays, out string[] tank_tracks, out string[] nav_paths);
 						PrintColor.InfoLine("Bot Spawns:");
 						foreach (string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + location);
@@ -704,9 +704,13 @@ namespace PseudoPopParser {
 						foreach (string relay in logic_relays.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + relay);
 						}
+						PrintColor.InfoLine("Nav Prefers:");
+						foreach (string nav in nav_paths.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+							PrintColor.InfoLine("\t" + nav);
+						}
 						PrintColor.InfoLine("Tank Nodes:");
-						foreach (string relay in tank_tracks.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
-							PrintColor.InfoLine("\t" + relay);
+						foreach (string track in tank_tracks.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+							PrintColor.InfoLine("\t" + track);
 						}
 					}
 				}
