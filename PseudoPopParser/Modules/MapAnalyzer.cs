@@ -20,8 +20,6 @@ namespace PseudoPopParser {
 
 			// Scan through .bsp
 			for(int i = 0; i < bsp_lines.Length; i++) {
-				//string target_name = "";
-				//string tags = "";
 				string line = bsp_lines[i];
 
 				// Open on open curly
@@ -82,6 +80,7 @@ namespace PseudoPopParser {
 						}
 
 						in_block = false;
+						tags = "";
 						target_name = "";
 					}
 				}
