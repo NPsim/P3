@@ -80,7 +80,7 @@ namespace PseudoPopParser {
 					OpenFileDialog ofd = new OpenFileDialog {
 						InitialDirectory = Path.GetFullPath(P3_root),
 						Filter = "Population Files|*.pop"
-				};
+					};
 					ofd.ShowDialog();
 					if (ofd.FileName.Length == 0 || !Regex.IsMatch(ofd.FileName, @"\.pop$")) {
 						throw new Exception("NoFile");
@@ -389,7 +389,7 @@ namespace PseudoPopParser {
 								// Parse Template Pop File
 								if (look_back_token.ToUpper() == "#BASE") {
 									string base_file_path = pop_folder + token;
-										
+
 									// Detect Default Template
 									string[] default_templates = { "ROBOT_STANDARD.POP", "ROBOT_GIANT.POP", "ROBOT_GATEBOT.POP" };
 									bool is_default = false;
@@ -458,7 +458,7 @@ namespace PseudoPopParser {
 							if (collections.Contains(token.ToUpper()) && collections.Contains(pt.CurrentValue[1].ToUpper())) {
 								throw new Exception("NestedCollectionException");
 							}
-								
+
 							throw new Exception("UnknownSymbolException");
 						}
 
@@ -485,7 +485,7 @@ namespace PseudoPopParser {
 					Error.BadComment(global_line, global_token);
 				}
 
-				
+
 				/* IllegalIdentifierException */
 				// Lexer Exception : $ANY_VALID_STRING contains one of the following symbols { } " #base #include
 				/*else if (ex.Message == "IllegalIdentifierException") {
@@ -581,7 +581,7 @@ namespace PseudoPopParser {
 			// Options Menu Handling
 			ConsoleKey key_pressed;
 			while (true) { // You should never do this but I need a quick inverse.
-				
+
 				// Debug flag auto close after parsing
 				if (auto_close) {
 					break;
@@ -695,21 +695,21 @@ namespace PseudoPopParser {
 						Error.NoTrigger.FailedDialog();
 					}
 					if (map_path.Length > 0) {
-						MapAnalyzer.AnalyzeSimple(map_path, out string[] bot_spawns, out string[] logic_relays, out string[] tank_tracks, out string[] nav_paths);
+						MapAnalyzer map = new MapAnalyzer(map_path);
 						PrintColor.InfoLine("Bot Spawns:");
-						foreach (string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string location in map.Spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + location);
 						}
 						PrintColor.InfoLine("Logic Relays:");
-						foreach (string relay in logic_relays.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string relay in map.Relays.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + relay);
 						}
 						PrintColor.InfoLine("Nav Prefers:");
-						foreach (string nav in nav_paths.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string nav in map.Navs.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + nav);
 						}
 						PrintColor.InfoLine("Tank Nodes:");
-						foreach (string track in tank_tracks.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string track in map.Tracks.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + track);
 						}
 					}

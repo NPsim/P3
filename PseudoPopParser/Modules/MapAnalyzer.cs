@@ -8,11 +8,17 @@ using System.Threading.Tasks;
 
 namespace PseudoPopParser {
 	class MapAnalyzer {
-		public static void AnalyzeSimple(string bsp_file, out string[] spawns, out string[] relays, out string[] tracks, out string[] navs) {
-			List<string> spawn_points = new List<string>();
-			List<string> logic_relays = new List<string>();
-			List<string> path_tracks = new List<string>();
-			List<string> nav_paths = new List<string>();
+
+		private List<string> spawn_points = new List<string>();
+		private List<string> logic_relays = new List<string>();
+		private List<string> path_tracks = new List<string>();
+		private List<string> nav_paths = new List<string>();
+
+		public MapAnalyzer(string bsp_file) {
+			AnalyzeSimple(bsp_file);
+		}
+
+		private void AnalyzeSimple(string bsp_file) {
 			string[] bsp_lines = File.ReadAllLines(bsp_file);
 			bool in_block = false;
 			string target_name = "";
@@ -73,7 +79,7 @@ namespace PseudoPopParser {
 					// Verify valid func_nav_prefer target for bot nav prefer path, add valid targetname to list
 					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"func_nav_prefer\"")) {
 						nav_paths.Add(target_name);
-						
+
 						// Break up tags and add as individual aliases
 						foreach(string alias in tags.Split(' ')) {
 							nav_paths.Add(alias);
@@ -85,10 +91,34 @@ namespace PseudoPopParser {
 					}
 				}
 			}
-			spawns = spawn_points.Distinct().ToArray();
-			relays = logic_relays.Distinct().ToArray();
-			tracks = path_tracks.Distinct().ToArray();
-			navs = nav_paths.Distinct().ToArray();
+		}
+
+		public void Decompile(string bsp_file, string vmt_path) {
+			// TODO: Add BSPSource Decompiler CLI wrapper
+		}
+
+		public string[] Spawns {
+			get {
+				return spawn_points.Distinct().ToArray();
+			}
+		}
+
+		public string[] Relays {
+			get {
+				return logic_relays.Distinct().ToArray();
+			}
+		}
+
+		public string[] Tracks {
+			get {
+				return path_tracks.Distinct().ToArray();
+			}
+		}
+
+		public string[] Navs {
+			get {
+				return nav_paths.Distinct().ToArray();
+			}
 		}
 	}
 }
