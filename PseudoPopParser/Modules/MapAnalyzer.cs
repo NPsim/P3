@@ -7,8 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PseudoPopParser {
-	class MapScraper {
-		public static void Scrape(string bsp_file, out string[] spawns, out string[] relays, out string[] tracks, out string[] navs) {
+	class MapAnalyzer {
+		public static void AnalyzeSimple(string bsp_file, out string[] spawns, out string[] relays, out string[] tracks, out string[] navs) {
 			List<string> spawn_points = new List<string>();
 			List<string> logic_relays = new List<string>();
 			List<string> path_tracks = new List<string>();
@@ -19,7 +19,9 @@ namespace PseudoPopParser {
 			string tags = ""; // For func_nav_prefer
 
 			// Scan through .bsp
-			for (int i = 0; i < bsp_lines.Length; i++) {
+			for(int i = 0; i < bsp_lines.Length; i++) {
+				//string target_name = "";
+				//string tags = "";
 				string line = bsp_lines[i];
 
 				// Open on open curly
@@ -46,6 +48,8 @@ namespace PseudoPopParser {
 					else if (Regex.IsMatch(line, "\"tags\"")) {
 						tags = Regex.Match(line, "\\\"(.*?)\\\"").NextMatch().ToString().Trim('"');
 					}
+
+
 
 					// Verify valid info_player_teamspawn target for spawnbot, add valid targetname to list
 					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"info_player_teamspawn\"")) {

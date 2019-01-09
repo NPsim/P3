@@ -33,7 +33,7 @@ namespace PseudoPopParser {
 			Console.SetWindowSize(100, 50);
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.3.0");
+			PrintColor.InfoLine("P3 v1.4.x DEV");
 
 			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(P3_root + @"config.ini");
@@ -695,7 +695,7 @@ namespace PseudoPopParser {
 						Error.NoTrigger.FailedDialog();
 					}
 					if (map_path.Length > 0) {
-						MapScraper.Scrape(map_path, out string[] bot_spawns, out string[] logic_relays, out string[] tank_tracks, out string[] nav_paths);
+						MapAnalyzer.AnalyzeSimple(map_path, out string[] bot_spawns, out string[] logic_relays, out string[] tank_tracks, out string[] nav_paths);
 						PrintColor.InfoLine("Bot Spawns:");
 						foreach (string location in bot_spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
 							PrintColor.InfoLine("\t" + location);
