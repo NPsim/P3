@@ -39,6 +39,16 @@ namespace PseudoPopParser {
 				PrintColor.ErrorNoTrigger("Pop file must have *.pop file extension.", -1, code);
 			}
 
+			public static void MapInvalidVBSP() {
+				uint code = 0996;
+				PrintColor.ErrorNoTrigger("Invalid VBSP file.", -1, code);
+			}
+
+			public static void MapFailedDecompile(string message) {
+				uint code = 0995;
+				PrintColor.Error("Failed to decompile VBSP: '{0}'", -1, code, message);
+			}
+
 			public static void Unknown(string message) {
 				uint code = 0998;
 				PrintColor.Error("{f:Cyan}Unknown{r} exception '{0}'", -1, code, message);

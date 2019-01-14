@@ -11,6 +11,7 @@ namespace PseudoPopParser {
 
 		public static IniFile _INI;
 		public static string launch_arguments = "";
+		public static string root_directory = "NULL PATH";
 		private static bool auto_close = false;
 
 		static bool _IsDebug(string key) {
@@ -25,6 +26,7 @@ namespace PseudoPopParser {
 		[STAThread]
 		static void Main(string[] args) {
 
+			// Store Launch Arguments
 			foreach(string argument in args) {
 				launch_arguments += argument + " ";
 			}
@@ -35,11 +37,11 @@ namespace PseudoPopParser {
 			// Version Message
 			PrintColor.InfoLine("P3 v1.4.x DEV");
 
-			string P3_root = AppDomain.CurrentDomain.BaseDirectory;
-			_INI = new IniFile(P3_root + @"config.ini");
+			root_directory = AppDomain.CurrentDomain.BaseDirectory;
+			_INI = new IniFile(root_directory + @"config.ini");
 			string file_path = "";
-			string datatypes_folder = P3_root;
-			string grammar_file = P3_root + @"datatypes\grammar.twt";
+			string datatypes_folder = root_directory;
+			string grammar_file = root_directory + @"datatypes\grammar.twt";
 			string[] file = null;
 			bool bypass_print_config = false;
 
@@ -78,7 +80,7 @@ namespace PseudoPopParser {
 				PrintColor.InfoLine("Open your Pop file.");
 				try {
 					OpenFileDialog ofd = new OpenFileDialog {
-						InitialDirectory = Path.GetFullPath(P3_root),
+						InitialDirectory = Path.GetFullPath(root_directory),
 						Filter = "Population Files|*.pop"
 					};
 					ofd.ShowDialog();
@@ -394,7 +396,7 @@ namespace PseudoPopParser {
 									string[] default_templates = { "ROBOT_STANDARD.POP", "ROBOT_GIANT.POP", "ROBOT_GATEBOT.POP" };
 									bool is_default = false;
 									if (default_templates.Contains(token.ToUpper())) {
-										base_file_path = P3_root + "base_templates\\" + token;
+										base_file_path = root_directory + "base_templates\\" + token;
 										is_default = true;
 									}
 
@@ -619,7 +621,7 @@ namespace PseudoPopParser {
 				// F5 Map Reparse
 				else if (key_pressed == ConsoleKey.F5) {
 					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
-					myProcess.StartInfo.FileName = P3_root + "P3.exe";
+					myProcess.StartInfo.FileName = root_directory + "P3.exe";
 					myProcess.StartInfo.Arguments = "-pop " + file_path;
 					myProcess.Start();
 					break;
@@ -677,7 +679,6 @@ namespace PseudoPopParser {
 				// F8 Map Analyzer
 				else if (key_pressed == ConsoleKey.F8) {
 					PrintColor.InfoLine("===Analyze Map (.bsp)===");
-					PrintColor.InfoLine("Compressed maps are currently not able to be analyzed.");
 					string map_path = "";
 					try {
 						OpenFileDialog ofd = new OpenFileDialog {
@@ -694,23 +695,39 @@ namespace PseudoPopParser {
 					catch {
 						Error.NoTrigger.FailedDialog();
 					}
-					if (map_path.Length > 0) {
+
+					try {
+						// Analyze Map
 						MapAnalyzer map = new MapAnalyzer(map_path);
+
+						// Display Results
 						PrintColor.InfoLine("Bot Spawns:");
-						foreach (string location in map.Spawns.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string location in map.Spawns.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
 							PrintColor.InfoLine("\t" + location);
 						}
 						PrintColor.InfoLine("Logic Relays:");
-						foreach (string relay in map.Relays.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string relay in map.Relays.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
 							PrintColor.InfoLine("\t" + relay);
 						}
 						PrintColor.InfoLine("Nav Prefers:");
-						foreach (string nav in map.Navs.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string nav in map.Navs.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
 							PrintColor.InfoLine("\t" + nav);
 						}
 						PrintColor.InfoLine("Tank Nodes:");
-						foreach (string track in map.Tracks.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
+						foreach (string track in map.Tracks.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
 							PrintColor.InfoLine("\t" + track);
+						}
+
+					}
+					catch (Exception e) {
+						switch(e.Message) {
+							case "InvalidVBSPException":
+								Error.NoTrigger.MapInvalidVBSP();
+								break;
+
+							default:
+								Error.NoTrigger.MapFailedDecompile(e.Message);
+								break;
 						}
 					}
 				}
@@ -779,7 +796,7 @@ namespace PseudoPopParser {
 				else if (key_pressed == ConsoleKey.F12) {
 					PrintColor.InfoLine("Opening P3 Reference PDF");
 					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
-					myProcess.StartInfo.FileName = P3_root + "P3_Reference.pdf";
+					myProcess.StartInfo.FileName = root_directory + "P3_Reference.pdf";
 					myProcess.Start();
 				}
 

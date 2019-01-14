@@ -118,10 +118,16 @@
     <None Include="datatypes\item_db.UwU">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="BSPSource\LICENSE.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="P3_Reference.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\app.manifest" />
+    <None Include="BSPSource\README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -137,6 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="base_templates\default_icons.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BSPSource\bspsrc.jar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="datatypes\ATTRIBUTE_NAME.OwO">

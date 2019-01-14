@@ -13,19 +13,70 @@ namespace PseudoPopParser {
 		private List<string> logic_relays = new List<string>();
 		private List<string> path_tracks = new List<string>();
 		private List<string> nav_paths = new List<string>();
+		private string jar_path = Program.root_directory + @"BSPSource\bspsrc.jar";
+		private string decompile_target = Program.root_directory + @"BSPSource\decompiled.vmf";
+		private string target_path;
+		private string[] bsp_lines;
+		private bool bsp_compiled = false;
 
 		public MapAnalyzer(string bsp_file) {
-			AnalyzeSimple(bsp_file);
+			target_path = bsp_file;
+			bsp_lines = File.ReadAllLines(target_path);
+
+			// Check VBSP header
+			if (!IsValidVBSP) {
+				throw new Exception("InvalidVBSPException");
+			}
+
+			// Check if map needs decompiling
+			if (!(bsp_lines.Any(s => s.Contains("targetname")) && bsp_lines.Any(s => s.Contains("hammerid")))) {
+				bsp_compiled = true;
+				Decompile(target_path, decompile_target);
+				target_path = decompile_target;
+			}
+
+			// Do the thing
+			AnalyzeSimple(target_path);
+
+			// Reset decompile buffer
+			if (bsp_compiled && Program._INI.ReadBool("map_analyzer_clear_buffer")) {
+				File.WriteAllText(target_path, string.Empty);
+			}
 		}
 
-		private void AnalyzeSimple(string bsp_file) {
-			string[] bsp_lines = File.ReadAllLines(bsp_file);
+		private void Decompile(string bsp, string out_path) {
+			try {
+				PrintColor.InfoLine("{f:Black}{b:White}=============Decompiling using BSPsrc============={r}");
+
+				System.Diagnostics.Process BSPsrc = new System.Diagnostics.Process();
+				BSPsrc.StartInfo.FileName = "java";
+				if (Program._INI.ReadBool("map_analyzer_full_decompile")) {
+					BSPsrc.StartInfo.Arguments = "-jar " + jar_path + " \"" + target_path + "\" -o \"" + out_path + "\"";
+				}
+				else {
+					BSPsrc.StartInfo.Arguments = "-jar " + jar_path + " \"" + target_path + "\" -o \"" + out_path + "\" -no_areaportals -no_cubemaps -no_details -no_ladders -no_occluders -no_overlays -no_rotfix -no_sprp -no_brushes -no_disps -no_texfix -no_cams -no_lumpfiles -no_prot -no_visgroups";
+				}
+				BSPsrc.StartInfo.UseShellExecute = false;
+				BSPsrc.StartInfo.RedirectStandardOutput = false;
+				BSPsrc.StartInfo.RedirectStandardError = false;
+				BSPsrc.Start();
+				BSPsrc.WaitForExit();
+
+				PrintColor.InfoLine("{f:Black}{b:White}=================BSPsrc Finished=================={r}");
+			}
+			catch (Exception e) {
+				Error.NoTrigger.MapFailedDecompile(e.Message);
+			}
+		}
+
+		private void AnalyzeSimple(string target) {
+			bsp_lines = File.ReadAllLines(target);
 			bool in_block = false;
 			string target_name = "";
 			string tags = ""; // For func_nav_prefer
 
 			// Scan through .bsp
-			for(int i = 0; i < bsp_lines.Length; i++) {
+			for (int i = 0; i < bsp_lines.Length; i++) {
 				string line = bsp_lines[i];
 
 				// Open on open curly
@@ -77,12 +128,17 @@ namespace PseudoPopParser {
 					}
 
 					// Verify valid func_nav_prefer target for bot nav prefer path, add valid targetname to list
-					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"func_nav_prefer\"")) {
-						nav_paths.Add(target_name);
+					else if ((target_name.Length > 0 || tags.Length > 0) && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"func_nav_prefer\"")) {
+
+						if (target_name.Length > 0) {
+							nav_paths.Add(target_name);
+						}
 
 						// Break up tags and add as individual aliases
 						foreach(string alias in tags.Split(' ')) {
-							nav_paths.Add(alias);
+							if (alias.Length > 0) {
+								nav_paths.Add(alias);
+							}
 						}
 
 						in_block = false;
@@ -93,8 +149,16 @@ namespace PseudoPopParser {
 			}
 		}
 
-		public void Decompile(string bsp_file, string vmt_path) {
-			// TODO: Add BSPSource Decompiler CLI wrapper
+		public bool IsValidVBSP {
+			get {
+				return bsp_lines[0].Substring(0, 4) == "VBSP";
+			}
+		}
+
+		public bool IsCompiled {
+			get {
+				return bsp_compiled;
+			}
 		}
 
 		public string[] Spawns {
