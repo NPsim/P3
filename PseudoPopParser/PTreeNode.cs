@@ -2,7 +2,7 @@
 
 namespace PseudoPopParser {
 
-	public class TreeNode<T> {
+	internal class TreeNode<T> {
 
 		private T data = default(T);
 		private TreeNode<T> parent = default(TreeNode<T>);

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
 
-	class Sort {
+	internal class Sort {
 
 		public static string[] PadSort(string[] unsorted) {
 			var result = unsorted.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')));

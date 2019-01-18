@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PseudoPopParser {
-	class FloatingPoint {
+	internal class FloatingPoint {
 
 		// UNUSED MODULE
 

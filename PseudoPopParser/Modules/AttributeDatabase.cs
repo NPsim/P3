@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PseudoPopParser {
 
-	class AttributeDatabase {
+	internal class AttributeDatabase {
 
 		private static List<string[]> attribute_list = new List<string[]>();
 

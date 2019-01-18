@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
-	class ParseTree {
+
+	internal class ParseTree {
+
 		/* Purpose of Class:
 		 * Build a Parse Tree to validate the structure of the input file
 		 * Throw exception if invalid token path

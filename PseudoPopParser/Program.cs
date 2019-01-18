@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace PseudoPopParser {
 
-	class Program {
+	internal class Program {
 
 		public static IniFile _INI;
 		public static string launch_arguments = "";

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PseudoPopParser {
 
-	class Search {
+	internal class Search {
 
 		public static string[] Simple(List<string> database, string phrase) {
 			List<string> results = new List<string>(database);

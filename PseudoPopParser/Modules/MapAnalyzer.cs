@@ -7,7 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PseudoPopParser {
-	class MapAnalyzer {
+
+	internal class MapAnalyzer {
 
 		private List<string> spawn_points = new List<string>();
 		private List<string> logic_relays = new List<string>();

@@ -8,7 +8,9 @@ using System.Reflection;
 using System.IO;
 
 namespace PseudoPopParser {
-	class PrintColor {
+
+	internal class PrintColor {
+
 		private static ConsoleColor default_foreground = ConsoleColor.White;
 		private static ConsoleColor default_background = ConsoleColor.Black;
 		public static string log_path = "";

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
 
-	class PopParser {
+	internal class PopParser {
 
 		// TODO organize this, pls
 		private static IniFile _INI;

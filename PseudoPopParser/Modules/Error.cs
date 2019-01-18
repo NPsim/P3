@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PseudoPopParser {
 
-	public class Error {
+	internal class Error {
 
 		private static string ReadString(string s) { return Program._INI.Read(s); }
 		private static bool ReadBool(string s) { return Program._INI.ReadBool(s); }
