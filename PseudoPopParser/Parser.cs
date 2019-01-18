@@ -1057,8 +1057,8 @@ namespace PseudoPopParser {
 
 						case "CLASS NAME":
 							datatype_file = File.ReadAllLines(datatypes_folder_path + "\\datatypes\\CLASS_NAME.owo");
-							foreach (string line in datatype_file) {
-								if (Regex.IsMatch(token, line, RegexOptions.IgnoreCase)) {
+							foreach (string class_name in datatype_file) {
+								if (Regex.IsMatch(token, "^" + class_name, RegexOptions.IgnoreCase)) {
 									return true;
 								}
 							}
