@@ -89,6 +89,7 @@
     <Compile Include="Modules\ItemDatabase.cs" />
     <Compile Include="Modules\MapAnalyzer.cs" />
     <Compile Include="Modules\Search.cs" />
+    <Compile Include="Modules\Sort.cs" />
     <Compile Include="Modules\Warning.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseTree.cs" />

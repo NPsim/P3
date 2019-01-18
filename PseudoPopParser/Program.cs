@@ -694,6 +694,7 @@ namespace PseudoPopParser {
 					}
 					catch {
 						Error.NoTrigger.FailedDialog();
+						continue;
 					}
 
 					try {
@@ -702,21 +703,22 @@ namespace PseudoPopParser {
 
 						// Display Results
 						PrintColor.InfoLine("Bot Spawns:");
-						foreach (string location in map.Spawns.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
+						foreach (string location in Sort.PadSort(map.Spawns)) {
 							PrintColor.InfoLine("\t" + location);
 						}
 						PrintColor.InfoLine("Logic Relays:");
-						foreach (string relay in map.Relays.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
+						foreach (string relay in Sort.PadSort(map.Relays)) {
 							PrintColor.InfoLine("\t" + relay);
 						}
 						PrintColor.InfoLine("Nav Prefers:");
-						foreach (string nav in map.Navs.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
+						foreach (string nav in Sort.PadSort(map.Navs)) {
 							PrintColor.InfoLine("\t" + nav);
 						}
 						PrintColor.InfoLine("Tank Nodes:");
-						foreach (string track in map.Tracks.OrderBy(str => Regex.Replace(str, "[0-9]+", match => match.Value.PadLeft(10, '0')))) {
+						foreach (string track in Sort.PadSort(map.Tracks)) {
 							PrintColor.InfoLine("\t" + track);
 						}
+
 
 					}
 					catch (Exception e) {

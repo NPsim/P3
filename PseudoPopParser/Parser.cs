@@ -158,11 +158,12 @@ namespace PseudoPopParser {
 
 		// Print Formatted Contents of TFBot_Template_Items
 		public void WriteTFBotTemplateNames() {
+			
 			// Build lists to sort
 			string current_file = "";
 			List<string> base_names = new List<string>();
 			List<List<string>> base_templates = new List<List<string>>();
-			foreach (List<string> items_list in tfbot_template_items) { // List.OrderBy() returns sorted IEnumerable
+			foreach (List<string> items_list in tfbot_template_items) {
 				if (current_file != items_list[1]) {
 					current_file = items_list[1];
 					base_names.Add(items_list[1]);
@@ -179,7 +180,8 @@ namespace PseudoPopParser {
 			for(int i = 0; i < base_templates.Count; i++) {
 				PrintColor.InfoLine("File: " + base_names[i]);
 				List<string> template_list = base_templates[i];
-				foreach (string template in template_list.OrderBy(str => str)) {
+				//foreach (string template in template_list.OrderBy(str => str)) {
+				foreach (string template in Sort.PadSort(template_list)) {
 					PrintColor.InfoLine("\t" + template);
 				}
 			}
@@ -197,8 +199,9 @@ namespace PseudoPopParser {
 			}
 
 			// Print Contents
-			foreach(string icon in icons_list_distinct.OrderBy(str => str)) { // List.OrderBy() returns sorted IEnumerable
-				if (icon == "scout_sunstick") {
+			//foreach(string icon in icons_list_distinct.OrderBy(str => str)) {
+			foreach(string icon in Sort.PadSort(icons_list_distinct)) {
+					if (icon == "scout_sunstick") {
 					PrintColor.InfoLine("\t{0} - used in Valve template but has no default icon", icon);
 				}
 				else {
