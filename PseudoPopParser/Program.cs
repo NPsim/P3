@@ -9,22 +9,27 @@ namespace PseudoPopParser {
 
 	internal class Program {
 
-		public static IniFile _INI;
-		public static string launch_arguments = "";
-		public static string root_directory = "NULL PATH";
+		public static IniFile _INI; // TODO Encapsulate this.
+		public static string launch_arguments = ""; // TODO Encapsulate this.
+		public static string root_directory = "NULL PATH"; // TODO Encapsulate this.
+		private static int global_line = 0;
+		private static string global_token = "";
 		private static bool auto_close = false;
 
-		static bool _IsDebug(string key) {
-			string[] true_values = { "1", "YES", "TRUE" };
-			string dict_value = _INI.Read(key);
-			if (true_values.Contains(dict_value.ToUpper())) {
-				return true;
+		public static int CurrentLineNumber {
+			get {
+				return global_line;
 			}
-			return false;
+		}
+
+		public static string CurrentToken {
+			get {
+				return global_token;
+			}
 		}
 
 		[STAThread]
-		static void Main(string[] args) {
+		internal static void Main(string[] args) {
 
 			// Store Launch Arguments
 			foreach(string argument in args) {
@@ -46,7 +51,7 @@ namespace PseudoPopParser {
 			bool bypass_print_config = false;
 
 			// Debug Terminator
-			if (_IsDebug("bool_Print_Terminators")) {
+			if (_INI.ReadBool("bool_Print_Terminators")) {
 				Console.WriteLine(">>>>>Start of file | Debug Level ");
 			}
 
@@ -117,7 +122,7 @@ namespace PseudoPopParser {
 			string[] globalkeys = _INI.Keys("Debug");
 
 			// Debug Print Config
-			if (_IsDebug("bool_Print_Config") || bypass_print_config) {
+			if (_INI.ReadBool("bool_Print_Config") || bypass_print_config) {
 
 				string[] keys;
 				// Global Config
@@ -171,8 +176,6 @@ namespace PseudoPopParser {
 			 * i: line number (1 index)
 			 * j: token position in line (0 index)
 			 */
-			int global_line = 0;
-			string global_token = "";
 			List<string> string_builder = new List<string>();
 			bool building_string = false;
 			bool built_string = false;
@@ -213,12 +216,12 @@ namespace PseudoPopParser {
 						List<TreeNode<string[]>> children = pt.Current.Children;
 
 						// Debug Level 2
-						if (_IsDebug("bool_Print_Tokens")) Console.WriteLine(token + "\t\t\t" + i + " " + j);
+						if (_INI.ReadBool("bool_Print_Tokens")) Console.WriteLine(token + "\t\t\t" + i + " " + j);
 
 						{ } // Debug Breakpoint
 
 						// Debug Level 4
-						if (_IsDebug("bool_Print_Token_Operations")) {
+						if (_INI.ReadBool("bool_Print_Token_Operations")) {
 							Console.WriteLine("->token:" + token);
 
 							if (building_string) Console.WriteLine("====STRINGBUILDER ACTIVE====");
@@ -287,7 +290,7 @@ namespace PseudoPopParser {
 									Warning.PrematureEndWaveSchedule(global_line, global_token);
 								}
 
-								if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+								if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 									Console.WriteLine("==== UP CLOSE BRACE");
 								}
 								break;
@@ -297,7 +300,7 @@ namespace PseudoPopParser {
 							else if (look_ahead_open && token == "{") {
 
 								found = true;
-								if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+								if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 									Console.WriteLine("==== DOWN LOOK AHEAD OPEN");
 								}
 
@@ -327,7 +330,7 @@ namespace PseudoPopParser {
 
 								// Move Down If Token Is Collection
 								if (child.Value[0].ToUpper() == "COLLECTION") {
-									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+									if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== LOOK AHEAD OPEN " + token);
 									}
 
@@ -347,14 +350,14 @@ namespace PseudoPopParser {
 									if (token.ToUpper() == "WHEN" && token_list[i + 1][j] == "{") {
 										look_ahead_open = true;
 										look_ahead_buffer_node = children[c + 1].Value[1];
-										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+										if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("SAW WHEN{}");
 										}
 										Warning.MinMaxIntervalStopSpawn(global_line);
 										break;
 									}
 
-									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+									if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== DOWN " + token);
 									}
 
@@ -374,13 +377,13 @@ namespace PseudoPopParser {
 									string child_datatype = child.Value[3];
 
 									if (p.IsDatatype(child_datatype.ToUpper(), token, line)) {
-										if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+										if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 											Console.WriteLine("==== UP 1");
 										}
 										pt.MoveUp();
 										break;
 									}
-									else if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+									else if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== CHILD DT DID NOT MATCH TOKEN 1");
 									}
 								}
@@ -412,7 +415,7 @@ namespace PseudoPopParser {
 
 								// Debug Token Lookback
 								// Writes all readable key-value pairs
-								if (_IsDebug("bool_Print_Token_Lookback")) {
+								if (_INI.ReadBool("bool_Print_Token_Lookback")) {
 									Console.WriteLine("Key is: " + look_back_token);
 									Console.WriteLine("\tValue is: " + token);
 									Console.WriteLine("\tParent is: " + pt.ParentValue[1]);
@@ -425,7 +428,7 @@ namespace PseudoPopParser {
 									// look_back_token : "damage bonus"
 									// token : "1.0"
 
-									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+									if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== UP C1: " + token);
 									}
 
@@ -439,7 +442,7 @@ namespace PseudoPopParser {
 								if (p.IsDatatype(child_datatype.ToUpper(), token, line)) {
 									found = true;
 
-									if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+									if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 										Console.WriteLine("==== UP 2");
 									}
 
@@ -447,7 +450,7 @@ namespace PseudoPopParser {
 									break;
 								}
 
-								else if (_IsDebug("bool_Print_PT_Cursor_Traversal")) {
+								else if (_INI.ReadBool("bool_Print_PT_Cursor_Traversal")) {
 									Console.WriteLine("==== CHILD DT DID NOT MATCH TOKEN 2");
 								}
 							}
@@ -537,7 +540,7 @@ namespace PseudoPopParser {
 			Console.Write("\n");
 
 			// Debug Terminator
-			if (_IsDebug("bool_Print_Terminators")) {
+			if (_INI.ReadBool("bool_Print_Terminators")) {
 				Console.WriteLine(">>>>>End of file | Debug Level ");
 			}
 

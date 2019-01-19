@@ -14,6 +14,15 @@ namespace PseudoPopParser {
 			item_list.Add(item);
 		}
 
+		public static bool Exists(string item) {
+			foreach (string entry in item_list) {
+				if (entry.ToUpper() == item.ToUpper()) {
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static List<string> List {
 			get {
 				return item_list;

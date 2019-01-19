@@ -807,7 +807,7 @@ namespace PseudoPopParser {
 
 					// Search database for key
 					foreach (string find in ItemDatabase.List) {
-					if (value.ToUpper() == find.ToUpper()) {
+						if (value.ToUpper() == find.ToUpper()) {
 							item_exists = true;
 							break;
 						}
@@ -816,7 +816,7 @@ namespace PseudoPopParser {
 					// Item does not exist in database
 					if (!item_exists) {
 						Warning.ItemInvalid(line, value);
-						return;
+						break;
 					}
 
 					break;
