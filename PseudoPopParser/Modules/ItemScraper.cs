@@ -7,116 +7,261 @@ using System.Text.RegularExpressions;
 namespace PseudoPopParser {
 	class ItemScraper : IDisposable {
 
-		private string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
+		private string p3_db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
+		private string tf_db_path;
+		private Dictionary<string, Dictionary<string, string>> prefabs = new Dictionary<string, Dictionary<string, string>>();
+		private string[] items_file;
+		private string tf_md5;
+		private string p3_md5;
 
-		public ItemScraper() { }
+		public ItemScraper(string items_game_path) {
+			tf_db_path = items_game_path;
+			//writer = new StreamWriter(new FileStream(db_path, FileMode.Create));
 
-		public ItemScraper(string item_db) {
-			db_path = item_db;
-		}
+			tf_md5 = GenerateMD5(items_game_path);
 
-		public void Dispose() { }
-
-		public bool WriteLineIfExists(StreamWriter sw, string value, string message) {
-			if (value.Length > 0) {
-				sw.WriteLine(message);
-				return true;
-			}
-			return false;
-		}
-
-		public string Version {
-			// Version is the MD5 sum of the source file scraped.
-			get {
-				string return_value = "NULL";
-				try {
-					return_value = File.ReadLines(db_path).First(); // Get first line
-				}
-				catch { }
-				return return_value;
-			}
-		}
-
-		public bool IsCurrentVersion(string source_filepath) {
-			// Note: Version refers to size in bytes of source file
-
-			// Get Source Version
-			string source_version = "NULL_SRC";
-			using (var md5 = System.Security.Cryptography.MD5.Create()) {
-				using (var stream = File.OpenRead(source_filepath)) {
-					source_version = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
-				}
-			}
-
-			// Get Current Version
-			string current_version = "NULL_DB";
+			// Raw File as string[]
 			try {
-				current_version = File.ReadLines(db_path).First(); // intersting way to get only the second line
-			}
-			catch {
-				Error.NoTrigger.MissingDatabase();
-			}
-
-			// Check Version
-			return source_version == current_version;
-		}
-
-		public void Scrape(string source_filepath) {
-			// File Path
-			string file_path = source_filepath;
-
-			// Raw File as String[]
-			string[] file;
-			try {
-				file = File.ReadAllLines(file_path);
+				items_file = File.ReadAllLines(items_game_path);
 			}
 			catch (Exception ex) {
 				Error.NoTrigger.Unknown(ex.Message);
 				return;
 			}
 
-			// Make the new file to deposit the findings
-			StreamWriter writer = new StreamWriter(new FileStream(db_path, FileMode.Create));
-
-			// Write version of source file
-			// Version is the MD5 sum of the source file scraped.
-			string version = "NULL";
-			using (var md5 = System.Security.Cryptography.MD5.Create()) {
-				using (var stream = File.OpenRead(source_filepath)) {
-					version = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
+			// Try to retrieve local db version
+			try {
+				p3_md5 = File.ReadLines(p3_db_path).First(); // Get first line
+				if (p3_md5.Length != 32) {
+					throw new Exception();
 				}
 			}
-			writer.WriteLine(version); // Line 1 is MD5 sum
+			catch {
+				p3_md5 = "DATABASE MISSING";
+			}
+		}
 
-			// Insertion Point
-			int ip = 0; // Usually 20297 - 131757
+		public void Dispose() { }
 
-			// Find Insertion Point
-			for (int i = 0; i < file.Length; i++) {
-				if (Regex.IsMatch(file[i], "^\\t\"items\"$")) {
-					ip = i;
+		private string GenerateMD5(string file_path) {
+			string md5_hash;
+			using (var md5 = System.Security.Cryptography.MD5.Create()) {
+				using (var stream = File.OpenRead(file_path)) {
+					md5_hash = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
+				}
+			}
+			return md5_hash;
+		}
+
+		public bool WriteEntryLine(StreamWriter writer, string value, string message) {
+			if (value.Length > 0) {
+				writer.WriteLine(message);
+				return true;
+			}
+			return false;
+		}
+
+		public string CurrentVersion {
+			get {
+				return p3_md5;
+			}
+		}
+
+		public bool IsCurrentVersion() {
+			string source_version = GenerateMD5(tf_db_path);
+			string current_version = GenerateMD5(p3_db_path);
+			return source_version == current_version;
+		}
+
+		private int[] FindInsertionPoints(string items_game) {
+			int[] ip = { 0, 0 };
+
+			for (int i = 0; i < items_file.Length; i++) {
+				if (ip[0] > 0 && ip[1] > 0) {
 					break;
 				}
+
+				if (Regex.IsMatch(items_file[i], "^\\t\"prefabs\"$")) {
+					ip[0] = i;
+				}
+				else if (Regex.IsMatch(items_file[i], "^\\t\"items\"$")) {
+					ip[1] = i;
+				}
 			}
 
-			// Stop if no insertion point found
-			if (ip == 0) {
+			return ip;
+		}
+
+		private Dictionary<string, string> GetPrefab (string target) {
+			//PrintColor.DebugLine("\tNew Curse target: " + target);
+			var ret = new Dictionary<string, string>();
+
+			// Import target's prefabs (recursively)
+			if (prefabs[target]["ID prefab"].Length > 0) {
+				foreach (Match m in Regex.Matches(prefabs[target]["ID prefab"], "[^ \"\\s]\\S*[^\"\\s]")) {
+					string target_prefab = m.Value;
+					var p = GetPrefab("\"" + target_prefab + "\""); // Recurse here
+					foreach(string key in p.Keys) {
+						if (p[key].Length > 0) {
+							ret[key] = p[key];
+						}
+					}
+				}
+			}
+
+			// Get target's prefab values
+			foreach (string key in prefabs[target].Keys) {
+				if (prefabs[target][key].Length > 0) {
+					ret[key] = prefabs[target][key];
+				}
+			}
+
+			//PrintColor.DebugLine("\tEnd Curse target: " + target);
+			return ret;
+		}
+
+		public void Scrape(string items_game) { // TODO Break into multiple methods: Prefab Setup and Item Compilation
+
+			StreamWriter writer = new StreamWriter(new FileStream(p3_db_path, FileMode.Create));
+
+			// Version Tracking
+			writer.WriteLine(tf_md5); // Line 1 is MD5 sum
+			p3_md5 = tf_md5;
+
+			// Insertion Point
+			int[] ip = { 0, 0 };
+
+			// Block Tracking
+			List<string> block_path = new List<string>();
+
+			// Find Insertion Points
+			for (int i = 0; i < items_file.Length; i++) {
+				if (ip[0] > 0 && ip[1] > 0) {
+					break;
+				}
+
+				if (Regex.IsMatch(items_file[i], "^\\t\"prefabs\"$")) {
+					ip[0] = i;
+				}
+				else if (Regex.IsMatch(items_file[i], "^\\t\"items\"$")) {
+					ip[1] = i;
+				}
+			}
+			if (ip.Contains(0)) {
 				Error.NoTrigger.Unknown("Could not find insertion point.");
 				return;
 			}
 
-			// Block Tracking
-			int block = 0;
-			int block_item = block;
-			string block_name = ""; // Everything has a name
-			string block_slot = "";
-			string block_base = "";
-			string block_reskin = "";
+			/* Prefab Operation */
+			string prefab_key = "";
+			var characteristics = new Dictionary<string, string> {
+				["ID prefab"] = "",
+				["ID item_slot"] = "",
+				["ID loc_name_id"] = ""
+			};
 
-			// Start Operation
-			for (int i = ip; i < file.Length; i++) {
+			for (int i = ip[0]; i < items_file.Length; i++) {
 
-				string line = file[i];
+				// Skip completely whitespace lines
+				if (Regex.IsMatch(items_file[i], @"^\s*$")) {
+					continue;
+				}
+
+				// Specify General-Use vars
+				string line = items_file[i];
+				string look_back_line = items_file[i - 1];
+				List<string> tokens = new List<string>();
+
+				// Get Tokens of Line
+				foreach (Match match in Regex.Matches(line, "(\"([^\"]*)\")")) { // Match double quote bounded strings
+					tokens.Add(match.ToString());
+				}
+
+				// Read contents of line
+				for (int j = 0; j < tokens.Count; j++) {
+					if (block_path.Count == 2) { // Relying on autogeneration here
+						if (tokens[j].ToUpper() == "\"prefab\"".ToUpper()) {
+							characteristics["ID prefab"] = tokens[j + 1].Replace("\"", "");
+						}
+						if (tokens[j].ToUpper() == "\"item_slot\"".ToUpper()) {
+							characteristics["ID item_slot"] = tokens[j + 1].Replace("\"", "");
+						}
+						if (tokens[j].ToUpper() == "\"item_name\"".ToUpper()) {
+							characteristics["ID loc_name_id"] = tokens[j + 1].Replace("\"", "");
+						}
+					}
+				}
+
+				// Get Static Attributes
+				if (block_path.Count == 3 && block_path.Last() == "\"static_attrs\"" && tokens.Count >= 2) {
+					characteristics[tokens[0]] = tokens[1];
+				}
+
+				// Get Attributes
+				if (block_path.Count == 4 && block_path.ElementAt(block_path.Count - 2) == "\"attributes\"" && tokens.Count >= 2) {
+					// Add attribute on "VALUE" key-pair line
+					if (tokens[0].ToUpper() == "\"VALUE\"") {
+						characteristics[block_path.Last()] = tokens[1];
+					}
+				}
+
+				// Curly Ops
+				if (Regex.IsMatch(line, "{")) {
+					block_path.Add(Regex.Replace(look_back_line, @"^\s+|\s+$", "")); // Increments block_path.Count
+
+					if (block_path.Count == 2) {
+						prefab_key = block_path.Last();
+					}
+
+				}
+				else if (Regex.IsMatch(line, "}")) {
+					block_path.RemoveAt(block_path.Count() - 1); // Decrements block_path.Count
+
+					// Break on end of block
+					if (block_path.Count == 0) {
+						break;
+					}
+
+					// Write to main prefan dictionary
+					if (block_path.Count == 1) {
+						if (prefab_key.Length > 0) {
+
+							// Check attempt to add duplicate key
+							if (prefabs.Keys.Contains(prefab_key)) {
+								PrintColor.ErrorNoTrigger("ATTEMPT TO ADD DUPLICATE KEY");
+							}
+
+							prefabs[prefab_key] = characteristics;
+						}
+
+						// Reset Item
+						prefab_key = "";
+						characteristics = new Dictionary<string, string> {
+							["ID prefab"] = "",
+							["ID item_slot"] = "",
+							["ID loc_name_id"] = ""
+						};
+					}
+				}
+
+			} // End of Prefab Section
+
+			/* Item Operation */
+			string block_key = "";
+			block_path = new List<string>();
+			Dictionary<string, string> item_dict = new Dictionary<string, string> {
+				["ID name"] = "",
+				["ID loc_name_id"] = "",
+				["ID item_slot"] = "",
+				["ID base"] = ""
+			};
+
+			// Read File
+			for (int i = ip[1]; i < items_file.Length; i++) {
+
+				// Specify General-Use vars
+				string line = items_file[i];
+				string look_back_line = items_file[i - 1];
 				List<string> tokens = new List<string>();
 
 				// Get Tokens of Line
@@ -126,49 +271,94 @@ namespace PseudoPopParser {
 
 				// Read contents of line
 				for (int j = 0; j < tokens.Count; j++) {
-					if (block == 2) {
+					if (block_path.Count == 2) { // Relying on autogeneration here
+						if (tokens[j].ToUpper() == "\"prefab\"".ToUpper()) {
+
+
+							foreach (Match prefab_target_match in Regex.Matches(tokens[j + 1], "[^ \"\\s]\\S+[^\"\\s]")) {
+								string prefab_target = "\"" + prefab_target_match.Value + "\"";
+
+								// Check valid prefab
+								if (!prefabs.ContainsKey(prefab_target)) {
+									PrintColor.DebugLine("INVALID KEY: " + prefab_target);
+								}
+
+								// Import config from prefab dictionary
+								var p = GetPrefab(prefab_target); // Recursive retrieval
+								foreach (string key in p.Keys) {
+									item_dict[key] = p[key];
+								}
+							}
+						}
 						if (tokens[j].ToUpper() == "\"name\"".ToUpper()) {
-							block_name = tokens[j + 1].Replace("\"", "");
-							block_item = block;
+							item_dict["ID name"] = tokens[j + 1].Replace("\"", "");
 						}
 						if (tokens[j].ToUpper() == "\"item_slot\"".ToUpper()) {
-							block_slot = tokens[j + 1].Replace("\"", "");
+							item_dict["ID item_slot"] = tokens[j + 1].Replace("\"", "");
 						}
 						if (tokens[j].ToUpper() == "\"baseitem\"".ToUpper()) {
-							block_base = tokens[j + 1].Replace("\"", "");
+							item_dict["ID base"] = tokens[j + 1].Replace("\"", "");
 						}
-						if (tokens[j].ToUpper() == "\"set_item_remap\"".ToUpper()) {
-							block_reskin = tokens[j + 1].Replace("\"", "");
-						}
+					}
+				}
+
+				// Get Static Attributes
+				if (block_path.Count == 3 && block_path.Last() == "\"static_attrs\"" && tokens.Count >= 2) {
+					item_dict[tokens[0]] = tokens[1];
+				}
+
+				// Get Attributes
+				if (block_path.Count == 4 && block_path.ElementAt(block_path.Count - 2) == "\"attributes\"" && tokens.Count >= 2) {
+					// Add attribute on "VALUE" key-pair line
+					if (tokens[0].ToUpper() == "\"VALUE\"") {
+						item_dict[block_path.Last()] = tokens[1];
 					}
 				}
 
 				// Curly Ops
 				if (Regex.IsMatch(line, "{")) {
-					block++;
+					block_path.Add(Regex.Replace(look_back_line, @"^\s+|\s+$", "")); // Increments block_path.Count
+
+					if (block_path.Count == 2) {
+						block_key = block_path.Last();
+					}
 				}
 				else if (Regex.IsMatch(line, "}")) {
-					block--;
+					block_path.RemoveAt(block_path.Count() - 1); // Decrements block_path.Count
 
-					if (block == 0) {
-						break; // Terminate Scraping
+					// Break on end of block
+					if (block_path.Count == 0) {
+						break;
 					}
 
-					// Write to file
-					if (block == 1) {
-						if (WriteLineIfExists(writer, block_name, block_name)) {
-							WriteLineIfExists(writer, block_slot, "\tslot " + block_slot);
-							WriteLineIfExists(writer, block_base, "\tbase " + block_base);
+					if (block_path.Count == 1) {
+
+						// Write to file
+						if (WriteEntryLine(writer, item_dict["ID name"], item_dict["ID name"])) {
+							WriteEntryLine(writer, item_dict["ID loc_name_id"], "\tloc_name " + item_dict["ID loc_name_id"]);
+							WriteEntryLine(writer, item_dict["ID item_slot"], "\tslot " + item_dict["ID item_slot"]);
+							WriteEntryLine(writer, item_dict["ID base"], "\tbase " + item_dict["ID base"]);
+
+							// Write Attributes
+							foreach (string attribute_key in item_dict.Keys) {
+								if (attribute_key.Substring(0, 2) != "ID") {
+									WriteEntryLine(writer, item_dict[attribute_key], "\t" + attribute_key + " " + item_dict[attribute_key]);
+								}
+							}
 						}
 
-						// Reset
-						block_name = "";
-						block_slot = "";
-						block_base = "";
-						block_reskin = "";
+						// Reset Item
+						item_dict = new Dictionary<string, string> {
+							["ID name"] = "",
+							["ID loc_name_id"] = "",
+							["ID item_slot"] = "",
+							["ID base"] = ""
+						};
 					}
 				}
-			}
+			} // End of Item Section
+
+			// Abandon Ship
 			writer.Dispose();
 		}
 	}

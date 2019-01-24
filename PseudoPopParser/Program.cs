@@ -33,11 +33,21 @@ namespace PseudoPopParser {
 
 			// Store Launch Arguments
 			foreach(string argument in args) {
-				launch_arguments += argument + " ";
+				if (argument[0] == '-') {
+					launch_arguments += argument + " ";
+				}
+				else {
+					launch_arguments += "\"" + argument + "\" ";
+				}
 			}
 
 			// Console Size
-			Console.SetWindowSize(100, 50);
+			try {
+				int window_width = Console.LargestWindowWidth >= 100 ? 100 : Console.LargestWindowWidth;
+				int window_height = Console.LargestWindowHeight >= 50 ? 50 : Console.LargestWindowHeight;
+				Console.SetWindowSize(window_width, window_height);
+			}
+			catch { } // Catch possible SecurityException
 
 			// Version Message
 			PrintColor.InfoLine("P3 v1.4.x DEV");
@@ -573,7 +583,7 @@ namespace PseudoPopParser {
 
 			// Show Next Options
 			PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21)				+ "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21)	+ "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21)		+ "\n");
-			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21)						+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21)		+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
 			PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21)		+ "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21)						+ "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)		+ "\n");
 			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Open Map Analyzer (BETA)".PadRight(33 + 21)		+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
 
@@ -625,7 +635,7 @@ namespace PseudoPopParser {
 				else if (key_pressed == ConsoleKey.F5) {
 					System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
 					myProcess.StartInfo.FileName = root_directory + "P3.exe";
-					myProcess.StartInfo.Arguments = "-pop " + file_path;
+					myProcess.StartInfo.Arguments = launch_arguments;
 					myProcess.Start();
 					break;
 				}
@@ -684,16 +694,16 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("===Analyze Map (.bsp)===");
 					string map_path = "";
 					try {
-						OpenFileDialog ofd = new OpenFileDialog {
+						OpenFileDialog dialog = new OpenFileDialog {
 							InitialDirectory = Path.GetFullPath(pop_folder),
 							Filter = "MvM Map Files|*.bsp"
 						};
-						ofd.ShowDialog();
-						if (ofd.FileName.Length == 0) {
+						dialog.ShowDialog();
+						if (dialog.FileName.Length == 0) {
 							throw new Exception("NoFile");
 						}
-						PrintColor.InfoLine("Map: " + ofd.FileName);
-						map_path = ofd.FileName;
+						PrintColor.InfoLine("Map: " + dialog.FileName);
+						map_path = dialog.FileName;
 					}
 					catch {
 						Error.NoTrigger.FailedDialog();
@@ -759,12 +769,12 @@ namespace PseudoPopParser {
 						}
 
 						// Items
-						using (ItemScraper s = new ItemScraper()) {
+						using (ItemScraper s = new ItemScraper(cfg_att_filepath)) {
 
 							PrintColor.InfoLine("> Items Database");
-							PrintColor.InfoLine("Old version: {f:Yellow}{0}{r}", s.Version);
+							PrintColor.InfoLine("Old version: {f:Yellow}{0}{r}", s.CurrentVersion);
 							s.Scrape(cfg_att_filepath);
-							PrintColor.InfoLine("New version: {f:Green}{0}{r}", s.Version);
+							PrintColor.InfoLine("New version: {f:Green}{0}{r}", s.CurrentVersion);
 						}
 					}
 				}
@@ -777,16 +787,16 @@ namespace PseudoPopParser {
 
 					// File Dialog
 					try {
-						OpenFileDialog ofd = new OpenFileDialog {
+						OpenFileDialog dialog = new OpenFileDialog {
 							InitialDirectory = Path.GetFullPath(pop_folder),
 							Filter = "|items_game.txt"
 						};
-						ofd.ShowDialog();
-						_INI.Write("items_source_file", "\"" + ofd.FileName + "\"", "Global");
-						if (ofd.FileName.Length == 0) {
+						dialog.ShowDialog();
+						_INI.Write("items_source_file", "\"" + dialog.FileName + "\"", "Global");
+						if (dialog.FileName.Length == 0) {
 							throw new Exception("NoFile");
 						}
-						PrintColor.InfoLine("Path: " + ofd.FileName);
+						PrintColor.InfoLine("Path: " + dialog.FileName);
 						PrintColor.InfoLine("Successfully set location!");
 					}
 					catch {
