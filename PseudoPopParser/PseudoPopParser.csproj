@@ -87,6 +87,7 @@
     <Compile Include="Modules\FloatingPoint.cs" />
     <Compile Include="Modules\IniFile.cs" />
     <Compile Include="Modules\ItemDatabase.cs" />
+    <Compile Include="Modules\ItemTracker.cs" />
     <Compile Include="Modules\MapAnalyzer.cs" />
     <Compile Include="Modules\Search.cs" />
     <Compile Include="Modules\Sort.cs" />
