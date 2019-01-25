@@ -585,7 +585,7 @@ namespace PseudoPopParser {
 			PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21)				+ "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21)	+ "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21)		+ "\n");
 			PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21)			+ "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21)		+ "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21)		+ "\n");
 			PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21)		+ "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21)						+ "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)		+ "\n");
-			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Open Map Analyzer (BETA)".PadRight(33 + 21)		+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
+			PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21)	+ "{b:White}{f:Black}F8{r} Analyze Map".PadRight(33 + 21)				+ "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)		+ "\n");
 
 			// Blank Line : Separate Quit with Options
 			Console.Write("\n");
@@ -643,6 +643,7 @@ namespace PseudoPopParser {
 				// F6 Search Item Names and Item/Char Attributes
 				else if (key_pressed == ConsoleKey.F6) {
 					PrintColor.InfoLine("===Search Item Names & Item/Char Attributes===");
+					PrintColor.InfoLine("{f:Black}{b:Gray}Search for an item or attribute name{r} or {f:Black}{b:Gray}Enter an item's exact name to view its attributes{r}");
 
 					// Get User Input
 					PrintColor.Info("Search Term: ");
@@ -654,6 +655,9 @@ namespace PseudoPopParser {
 						continue;
 					}
 
+					// Blank Separator Line
+					PrintColor.Info("\n");
+
 					/* Item Names */
 					// Get Results
 					string[] item_results = Search.Simple(ItemDatabase.List, search_phrase);
@@ -662,12 +666,25 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("Item results for {b:White}{f:Black} " + search_phrase + " {r}");
 					foreach(string item in item_results) {
 						PrintColor.InfoLine("\t" + item);
+						if (search_phrase.ToUpper() == item.ToUpper()) {
+							Dictionary<string, string> attributes = ItemDatabase.Attributes(item);
+							foreach (string key in attributes.Keys) {
+								PrintColor.InfoLine("\t    \"" + key + "\" " + attributes[key] + "");
+							}
+
+							if (attributes.Keys.Count == 0) {
+								PrintColor.InfoLine("\t    No Usable Item Attributes Found.");
+							}
+						}
 					}
 
 					// No Items Found
 					if (item_results.Count() == 0) {
 						PrintColor.InfoLine("\tNo Items Found.");
 					}
+
+					// Blank Separator Line
+					PrintColor.Info("\n");
 
 					/* Item/Char Attributes */
 					// Get Results
@@ -692,6 +709,7 @@ namespace PseudoPopParser {
 				// F8 Map Analyzer
 				else if (key_pressed == ConsoleKey.F8) {
 					PrintColor.InfoLine("===Analyze Map (.bsp)===");
+					PrintColor.InfoLine("{f:Black}{b:Gray}Select a BSP to generate a list of bot spawns, logic relays, nav prefers, and tank nodes{r}");
 					string map_path = "";
 					try {
 						OpenFileDialog dialog = new OpenFileDialog {

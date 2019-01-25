@@ -85,19 +85,7 @@ namespace PseudoPopParser {
 
 		// Setup Items Database
 		private void SetupItems() {
-			string db_file = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
-			if (!File.Exists(db_file)) {
-				//PrintColor.Error("Items db does not exist!");
-				Error.NoTrigger.MissingDatabase();
-				return;
-			}
-			string[] db = File.ReadAllLines(db_file);
-			for (int i = 1; i < db.Count(); i++) {
-				string line = db[i]; // TODO make use of all db data
-				if (Regex.IsMatch(line, @"^\S")) {
-					ItemDatabase.Add(line);
-				}
-			}
+			ItemDatabase.Build();
 		}
 
 		// Read config.ini
