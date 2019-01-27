@@ -93,7 +93,7 @@ namespace PseudoPopParser {
 		}
 
 		private Dictionary<string, string> GetPrefab (string target) {
-			//PrintColor.DebugLine("\tNew Curse target: " + target);
+			//PrintColor.DebugInternalLine("\tNew Curse target: " + target);
 			var ret = new Dictionary<string, string>();
 
 			// Import target's prefabs (recursively)
@@ -116,7 +116,7 @@ namespace PseudoPopParser {
 				}
 			}
 
-			//PrintColor.DebugLine("\tEnd Curse target: " + target);
+			//PrintColor.DebugInternalLine("\tEnd Curse target: " + target);
 			return ret;
 		}
 
@@ -280,7 +280,7 @@ namespace PseudoPopParser {
 
 								// Check valid prefab
 								if (!prefabs.ContainsKey(prefab_target)) {
-									PrintColor.DebugLine("INVALID KEY: " + prefab_target);
+									PrintColor.DebugInternalLine("INVALID KEY: " + prefab_target);
 								}
 
 								// Import config from prefab dictionary

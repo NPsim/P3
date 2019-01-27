@@ -22,7 +22,6 @@ namespace PseudoPopParser {
 		private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
 		private static List<string> used_wavespawn_names = new List<string>();
 		private static List<int> used_wavespawn_lines = new List<int>();
-		private static List<string> tfbot_items = new List<string>();
 		private static bool suppress_write_main = false;
 		private static List<string> icons_list = new List<string>();
 
@@ -241,7 +240,7 @@ namespace PseudoPopParser {
 		}
 
 		// Trigger Collection End
-		public void ParseCollectionEnd(string token, int line = -1, string parent = "null") {
+		public void ParseCollectionEnd(string token, int line = -1, string parent = "null", string any_string_name = "") {
 			token = token.ToUpper();
 			switch (token) {
 				case "WAVE{}":
@@ -274,10 +273,27 @@ namespace PseudoPopParser {
 
 					break;
 
+				case "TFBOT{}":
 				case "TFBOT{}%":
 
+					if (parent == "Templates{}") {
+						for (int i = tfbot_template_items.Count - 1; i >= 0; i--) {
+							if (tfbot_template_items[i][0] == any_string_name.ToUpper()) { // Items in list should already be in upper
+								foreach (string item_to_template in ItemTracker.Inventory()) {
+									tfbot_template_items[i].Add(item_to_template);
+								}
+							}
+						}
+					}
+
+					//ItemTracker.DebugDisplayContents(); // DEBUG
+
+					// Check Valid Given-Items vs Modded-Items
+					ItemTracker.VerifyModifications();
+
 					// Refresh Given Items
-					tfbot_items.Clear();
+					//tfbot_items.Clear();
+					ItemTracker.Clear();
 
 					break;
 
@@ -294,6 +310,8 @@ namespace PseudoPopParser {
 
 		// Parse Attribute
 		public void ParseAttribute(string key, string value, int line = -1) {
+
+			//PrintColor.DebugInternalLine("{b:red}-" + key + "-{r}-\t-{b:Blue}-" + value + "-{r}"); // TODO Fix random whitespace key
 
 			Double.TryParse(value, out double value_double);
 			string[] sentinel_array = { "-1", "-1", "-1" };
@@ -427,6 +445,8 @@ namespace PseudoPopParser {
 				// Iterate by Line List
 				for (int i = 0; i < token_list.Count; i++) {
 
+					{ } // Debug Next Line
+
 					// Iterate by Token List of Line
 					for (int j = 0; j < token_list[i].Length; j++) {
 
@@ -514,7 +534,7 @@ namespace PseudoPopParser {
 									found = true;
 
 									// Trigger End of Calculations Before Exiting
-									ParseCollectionEnd(template_pt.CurrentValue[1], token_line, template_pt.ParentValue[1]);
+									ParseCollectionEnd(template_pt.CurrentValue[1], token_line, template_pt.ParentValue[1], template_name);
 
 									// Reset Template Name Tracker
 									if (template_pt.ParentValue[1] == "Templates{}") {
@@ -701,20 +721,19 @@ namespace PseudoPopParser {
 
 			// Debug Print Key and Value (look back parsing, parsed on value scan)
 			if (ConfigReadBool("bool_Print_Parse_Key_Value", "Debug")) {
-				PrintColor.DebugLine("Key: " + key);
+				PrintColor.DebugInternalLine("Key: " + key);
 				if (any_string_name.Length > 0) {
-					PrintColor.DebugLine("\tAnyStringName: " + any_string_name);
+					PrintColor.DebugInternalLine("\tAnyStringName: " + any_string_name);
 				}
-				PrintColor.DebugLine("\tValue: " + value);
-				PrintColor.DebugLine("\tParent: " + parent);
-				PrintColor.DebugLine("\tLine: " + line);
+				PrintColor.DebugInternalLine("\tValue: " + value);
+				PrintColor.DebugInternalLine("\tParent: " + parent);
+				PrintColor.DebugInternalLine("\tLine: " + line);
 			}
 
 			switch (key) {
 				case "TOTALCURRENCY":
 					//int credits = Int32.Parse(Regex.Match(value, @"^\d*").ToString());
 					Int32.TryParse(value, out int credits);
-					{ }
 					// Warn negative or zero value
 					if (credits > 0) {
 						wave_credits_list.Last().Add(credits);
@@ -782,51 +801,41 @@ namespace PseudoPopParser {
 					used_wavespawn_lines.Add(line);
 					break;
 
+				case "CLASS":
+
+					// Import Default Inventory
+					if (Program.CurrentLineNumber > 1599) {
+						{ }
+					}
+					ItemTracker.FillClass(TruncateClassName(value));
+
+					break;
+
 				case "ITEM":
-					tfbot_items.Add(value);
-					bool item_exists = false;
 
-					// Add item to corresponding TFBot template item list
-					for (int i = tfbot_template_items.Count - 1; i >= 0; i--) {
-						if (tfbot_template_items[i][0] == any_string_name.ToUpper()) { // Items in list should already be in upper
-							tfbot_template_items[i].Add(value);
-						}
+					// Check Valid Item
+					if (ItemDatabase.Exists(value)) {
+						ItemTracker.Add(value); // Add valid item to inventory
 					}
-
-					// Search database for key
-					foreach (string find in ItemDatabase.List) {
-						if (value.ToUpper() == find.ToUpper()) {
-							item_exists = true;
-							break;
-						}
-					}
-
-					// Item does not exist in database
-					if (!item_exists) {
+					else {
 						Warning.ItemInvalid(line, value);
-						break;
 					}
 
 					break;
 
 				case "ITEMNAME":
-					bool bot_has_item = false;
 
-					// Search for item owned by TFBot
-					foreach (string item in tfbot_items) {
-						if (item.ToUpper() == value.ToUpper()) {
-							bot_has_item = true;
-						}
+					// Check Valid Item
+					if (!ItemDatabase.Exists(value)) {
+						Warning.ItemInvalid(line, value);
 					}
 
-					if (!bot_has_item & !Regex.IsMatch(value, "TF_", RegexOptions.IgnoreCase)) {
-						Warning.ItemMissing(line, value);
-					}
+					// Specify Item as Modified
+					ItemTracker.AddModifier(value, line);
+
 					break;
 
 				case "TEMPLATE":
-
-					{ }
 
 					// Check if Template Name exists
 					bool found = false;
@@ -836,6 +845,7 @@ namespace PseudoPopParser {
 						}
 					}
 
+					// Template not found = Warning W0211
 					if (!found) {
 						Warning.TemplateInvalid(line, value);
 						break;
@@ -847,13 +857,16 @@ namespace PseudoPopParser {
 
 							// Import template items into current bot items
 							for(int i = 2; i < template_item_list.Count; i++) { // Index 0 is tfbot anystring name, Index 1 is origin file name
-								tfbot_items.Add(template_item_list[i]);
+								
+								//tfbot_items.Add(template_item_list[i]);
+								ItemTracker.Add(template_item_list[i]);
 							}
 						}
 					}
 
 					// Add Template to Template
 					if (any_string_name.Length > 0) { // Check if KeyValue was called in a Template
+
 						// Get new template
 						foreach(List<string> tfbot_template_new in tfbot_template_items) {
 							if (any_string_name.ToUpper() == tfbot_template_new[0].ToUpper()) {
@@ -863,7 +876,7 @@ namespace PseudoPopParser {
 									if (value.ToUpper() == tfbot_template_add[0].ToUpper()) {
 
 										// Add found template's items to new template (new template's name is any_string_name)
-										for (int i = 1; i < tfbot_template_add.Count(); i++) { // Skip 0th index; [0] is template name
+										for (int i = 2; i < tfbot_template_add.Count(); i++) { // Skip 0th index; [0] is template name
 											tfbot_template_new.Add(tfbot_template_add[i]);
 										}
 									}
@@ -885,8 +898,6 @@ namespace PseudoPopParser {
 					}
 
 					break;
-
-					// TODO : Add more cases
 			}
 		}
 
@@ -961,11 +972,18 @@ namespace PseudoPopParser {
 			}
 		}
 
+		// Normalize Class Name
+		private string TruncateClassName(string value) {
+			string[] names = File.ReadAllLines(datatypes_folder_path + "\\datatypes\\CLASS_NAME.owo");
+			foreach (string class_name in names) {
+				if (Regex.IsMatch(value, "^" + class_name, RegexOptions.IgnoreCase)) {
+					return class_name;
+				}
+			}
+			throw new Exception("DatatypeNotFoundException");
+		}
+
 		// Returns if token falls under specified datatype
-		/* Throws
-		 * DatatypeNotFoundException
-		 * InvalidTypeException
-		 */
 		public bool IsDatatype(string type, string token, int line_number = -1) {
 			// Check valid datatype according to DATATYPES array
 			if (Regex.IsMatch(type, "%")) {

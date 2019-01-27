@@ -30,7 +30,7 @@ namespace PseudoPopParser {
 			}
 
 			// Check if map needs decompiling
-			if (!(bsp_lines.Any(s => s.Contains("targetname")) && bsp_lines.Any(s => s.Contains("hammerid")))) {
+			if (Program._INI.ReadBool("bool_map_analyzer_always_decompile") || !(bsp_lines.Any(s => s.Contains("targetname")) && bsp_lines.Any(s => s.Contains("hammerid")))) {
 				bsp_compiled = true;
 				Decompile(target_path, decompile_target);
 				target_path = decompile_target;
@@ -40,7 +40,7 @@ namespace PseudoPopParser {
 			AnalyzeSimple(target_path);
 
 			// Reset decompile buffer
-			if (bsp_compiled && Program._INI.ReadBool("map_analyzer_clear_buffer")) {
+			if (bsp_compiled && Program._INI.ReadBool("bool_map_analyzer_clear_buffer")) {
 				File.WriteAllText(target_path, string.Empty);
 			}
 		}
@@ -51,7 +51,7 @@ namespace PseudoPopParser {
 
 				System.Diagnostics.Process BSPsrc = new System.Diagnostics.Process();
 				BSPsrc.StartInfo.FileName = "java";
-				if (Program._INI.ReadBool("map_analyzer_full_decompile")) {
+				if (Program._INI.ReadBool("bool_map_analyzer_full_decompile")) {
 					BSPsrc.StartInfo.Arguments = "-jar " + jar_path + " \"" + target_path + "\" -o \"" + out_path + "\"";
 				}
 				else {

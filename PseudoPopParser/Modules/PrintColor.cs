@@ -228,8 +228,11 @@ namespace PseudoPopParser {
 			ColorLinef("\t{f:Black}{b:Gray}[PotentialFix]{r}\t" + message, args);
 		}
 
-		public static void DebugLine(string message, params string[] args) {
+		public static void DebugInternalLine(string message, params string[] args) {
 			ColorLinef("{f:Black}{b:Magenta}[DEBUG]{r}\t" + message, args);
+		}
+		public static void DebugLine(string message, params string[] args) {
+			DebugInternalLine(message, args);
 		}
 
 		public static void WriteColor(string message, ConsoleColor background = ConsoleColor.Black, ConsoleColor foreground = ConsoleColor.White) {

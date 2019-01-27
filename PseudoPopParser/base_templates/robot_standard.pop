@@ -297,7 +297,7 @@ WaveSchedule
 		{
 			Class Medic
 			Skill Expert
-			Item "The Vaccinator MVM"
+			// Item "The Vaccinator MVM" // This item doesn't exist, Valve you dum dum.
 			Attributes SpawnWithFullCharge
 			Attributes VaccinatorBullets
 			CharacterAttributes
@@ -318,7 +318,7 @@ WaveSchedule
 		{
 			Class Medic
 			Skill Expert
-			Item "The Vaccinator MVM"
+			// Item "The Vaccinator MVM" // This item doesn't exist, Valve you dum dum.
 			Attributes SpawnWithFullCharge
 			Attributes VaccinatorBlast
 			CharacterAttributes
@@ -339,7 +339,7 @@ WaveSchedule
 		{
 			Class Medic
 			Skill Expert
-			Item "The Vaccinator MVM"
+			// Item "The Vaccinator MVM" // This item doesn't exist, Valve you dum dum.
 			Attributes SpawnWithFullCharge
 			Attributes VaccinatorFire
 			CharacterAttributes

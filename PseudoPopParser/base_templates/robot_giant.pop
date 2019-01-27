@@ -256,13 +256,13 @@ WaveSchedule
 			WeaponRestrictions PrimaryOnly
 			MaxVisionRange 1200
 			Attributes MiniBoss
-			ItemAttributes
-			{
-				ItemName "Deflector"
-				"damage bonus"	1.2
-				"attack projectiles" 2
-				"heal on kill" 5000
-			}
+			// ItemAttributes
+			// {
+				// ItemName "Deflector"  // This item wasn't given to the bot, Valve you dum dum.
+				// "damage bonus"	1.2
+				// "attack projectiles" 2
+				// "heal on kill" 5000
+			// }
 			CharacterAttributes
 			{
 				"move speed bonus"	0.35
@@ -1237,7 +1237,7 @@ WaveSchedule
 			ClassIcon scout_stun_giant
 			Skill Expert
 			Health 10000
-			Item "Genuine Cockfighter"
+			// Item "Genuine Cockfighter" // This item doesn't exist, Valve you dum dum.
 			Item "The Boston Boom-Bringer"
 			Item "Summer Shades"
 			Item "The Sandman"

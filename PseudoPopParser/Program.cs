@@ -50,8 +50,9 @@ namespace PseudoPopParser {
 			catch { } // Catch possible SecurityException
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.4.x DEV");
+			PrintColor.InfoLine("P3 v1.4.x {f:Black}{b:Magenta}DEV{r}");
 
+			// General-Use Vars
 			root_directory = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(root_directory + @"config.ini");
 			string file_path = "";
@@ -59,15 +60,14 @@ namespace PseudoPopParser {
 			string grammar_file = root_directory + @"datatypes\grammar.twt";
 			string[] file = null;
 			bool bypass_print_config = false;
+			List<string[]> token_list = new List<string[]> {
+				new string[] { } // No 0 indexing
+			};
 
 			// Debug Terminator
 			if (_INI.ReadBool("bool_Print_Terminators")) {
 				Console.WriteLine(">>>>>Start of file | Debug Level ");
 			}
-
-			List<string[]> token_list = new List<string[]> {
-				new string[] { } // No 0 indexing
-			};
 
 			// Get Launch Flags
 			for (int i = 0; i < args.Length; i++) {
@@ -94,15 +94,20 @@ namespace PseudoPopParser {
 			if (!Regex.IsMatch(file_path, @"\.pop$")) {
 				PrintColor.InfoLine("Open your Pop file.");
 				try {
-					OpenFileDialog ofd = new OpenFileDialog {
+					OpenFileDialog dialog = new OpenFileDialog {
 						InitialDirectory = Path.GetFullPath(root_directory),
 						Filter = "Population Files|*.pop"
 					};
-					ofd.ShowDialog();
-					if (ofd.FileName.Length == 0 || !Regex.IsMatch(ofd.FileName, @"\.pop$")) {
+					dialog.ShowDialog();
+					if (dialog.FileName.Length == 0 || !Regex.IsMatch(dialog.FileName, @"\.pop$")) {
 						throw new Exception("NoFile");
 					}
-					file_path = ofd.FileName;
+					file_path = dialog.FileName;
+
+					// Store Pop for Reparse
+					if (!Regex.IsMatch(launch_arguments, "-pop")) {
+						launch_arguments += "-pop " + "\"" + file_path + "\" ";
+					}
 				}
 				catch {
 					Error.NoTrigger.FailedDialog();
@@ -111,7 +116,7 @@ namespace PseudoPopParser {
 
 			// Get file_path if not defined previously
 			while (!Regex.IsMatch(file_path, @"\.pop$")) {
-				Console.Write("Enter the path to your Pop file: ");
+				Console.Write("Type the full path to your Pop file: ");
 				file_path = Console.ReadLine();
 
 				if (!Regex.IsMatch(file_path, @"\.pop$")) {
@@ -134,23 +139,28 @@ namespace PseudoPopParser {
 			// Debug Print Config
 			if (_INI.ReadBool("bool_Print_Config") || bypass_print_config) {
 
+				PrintColor.DebugInternalLine("\tArgs");
+				foreach (string arg in args) {
+					PrintColor.DebugInternalLine(arg);
+				}
+
 				string[] keys;
 				// Global Config
-				PrintColor.DebugLine("\t[Global]");
+				PrintColor.DebugInternalLine("\t[Global]");
 				keys = _INI.Keys("Global");
 				foreach(string key in keys) {
-					PrintColor.DebugLine(key + " : " + _INI.Read(key, "Global"));
+					PrintColor.DebugInternalLine(key + " : " + _INI.Read(key, "Global"));
 				}
 
 				// Global Config
-				PrintColor.DebugLine("\t[Debug]");
+				PrintColor.DebugInternalLine("\t[Debug]");
 				keys = _INI.Keys("Debug");
 				foreach (string key in keys) {
-					PrintColor.DebugLine(key + " : " + _INI.Read(key, "Debug"));
+					PrintColor.DebugInternalLine(key + " : " + _INI.Read(key, "Debug"));
 				}
 
 				// End of Configuration
-				PrintColor.DebugLine("\tEnd Config");
+				PrintColor.DebugInternalLine("\tEnd Config");
 			}
 
 			/* Begin */
@@ -173,13 +183,19 @@ namespace PseudoPopParser {
 				//file[i] = Regex.Replace(file[i], @"(\s|\/+|^)\/\/.*[\s]*", "");     // Remove Comments; breaks // within string
 				file[i] = Regex.Replace(file[i], @"{", " { ");                      // Separate Open Curly Braces
 				file[i] = Regex.Replace(file[i], @"}", " } ");                      // Separate Close Curly Braces
-				file[i] = Regex.Replace(file[i], "\"", " \" ");                     // Separate Double Quotes
+				file[i] = Regex.Replace(file[i], "\"", " \" ");                     // Separate Double Quotes // TODO Fix whitespace issue
 				file[i] = Regex.Replace(file[i], @"^\s+", "");                      // Remove Indentation Whitespace
 			}
 
 			// Get Tokens
 			for (int i = 0; i < file.Length; i++) {
-				token_list.Add(Regex.Split(file[i], @"\s+"));
+				token_list.Add(Regex.Split(file[i], @"\s+")); // TODO Fix whitespace issue
+															  /*var l = new List<string>();
+															  foreach (Match m in Regex.Matches(file[i], "(\"([^\"]*)\"|\\S+)")) {
+																  l.Add(m.Value);
+																  PrintColor.DebugInternalLine("Token is: " + m.Value);
+															  }
+															  token_list.Add(l.ToArray());*/
 			}
 
 			/* Parse Tokens
@@ -286,7 +302,7 @@ namespace PseudoPopParser {
 								found = true;
 
 								// Trigger End of Calculations Before Exiting
-								p.ParseCollectionEnd(pt.CurrentValue[1], line, pt.ParentValue[1]);
+								p.ParseCollectionEnd(pt.CurrentValue[1], line, pt.ParentValue[1], template_name);
 
 								// Reset Template Name Tracker
 								if (pt.ParentValue[1] == "Templates{}") {
@@ -334,8 +350,8 @@ namespace PseudoPopParser {
 								found = true;
 
 								// Check for Valid String
-								if (Regex.IsMatch(child.Value[1], @"%") && !p.IsDatatype("$ANY_VALID_STRING", token) && !built_string) {
-									throw new Exception("IllegalIdentifierException");
+								if (Regex.IsMatch(child.Value[1], @"%") && !p.IsDatatype("$ANY_VALID_STRING", token) && !built_string) { // TODO: Fix whitespace token issue
+										throw new Exception("IllegalIdentifierException");
 								}
 
 								// Move Down If Token Is Collection
@@ -500,7 +516,6 @@ namespace PseudoPopParser {
 					Error.BadComment(global_line, global_token);
 				}
 
-
 				/* IllegalIdentifierException */
 				// Lexer Exception : $ANY_VALID_STRING contains one of the following symbols { } " #base #include
 				/*else if (ex.Message == "IllegalIdentifierException") {
@@ -578,7 +593,7 @@ namespace PseudoPopParser {
 				PrintColor.InfoLine("Maximum Possible Credits: {f:Cyan}{0}{r}", (p.StartingCurrency + p.TotalCurrency + p.TotalWaveBonus).ToString());
 			}
 
-			// Blank Line : Separate Ending Statements from Further Option Choices
+			/*// Blank Line : Separate Ending Statements from Further Option Choices
 			Console.Write("\n");
 
 			// Show Next Options
@@ -591,11 +606,26 @@ namespace PseudoPopParser {
 			Console.Write("\n");
 
 			// Any Key to Quit
-			PrintColor.ColorLinef("{b:White}{f:Black}Any Key{r} Quit");
+			PrintColor.ColorLinef("{b:White}{f:Black}Any Key{r} Quit");*/
 
 			// Options Menu Handling
 			ConsoleKey key_pressed;
 			while (true) { // You should never do this but I need a quick inverse.
+
+				// Blank Line : Separate Ending Statements from Further Option Choices
+				Console.Write("\n");
+
+				// Show Next Options
+				PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21) + "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21) + "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21) + "\n");
+				PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21) + "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21) + "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21) + "\n");
+				PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21) + "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21) + "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21) + "\n");
+				PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21) + "{b:White}{f:Black}F8{r} Analyze Map (BSP)".PadRight(33 + 21) + "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21) + "\n");
+
+				// Blank Line : Separate Quit with Options
+				Console.Write("\n");
+
+				// Any Key to Quit
+				PrintColor.ColorLinef("{b:White}{f:Black}Any Key{r} Quit");
 
 				// Debug flag auto close after parsing
 				if (auto_close) {
@@ -656,7 +686,7 @@ namespace PseudoPopParser {
 					}
 
 					// Blank Separator Line
-					PrintColor.Info("\n");
+					PrintColor.InfoLine("");
 
 					/* Item Names */
 					// Get Results
@@ -704,6 +734,16 @@ namespace PseudoPopParser {
 
 				// F7 Unused
 				else if (key_pressed == ConsoleKey.F7) {
+					ItemTracker.Add("the fORcE-a-NaTure");
+					ItemTracker.Add("ghastly gibus");
+					ItemTracker.Add("ghostly gibus");
+					//ItemTracker.Add("the shORtstop");
+					ItemTracker.FillClass("scout");
+					ItemTracker.DebugDisplayContents();
+					ItemTracker.AddModifier("the shortstop", 69);
+					ItemTracker.AddModifier("tf_weapon_scattergun", 123);
+					ItemTracker.VerifyModifications();
+					ItemTracker.Inventory();
 				}
 
 				// F8 Map Analyzer

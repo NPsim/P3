@@ -1170,12 +1170,12 @@ WaveSchedule
 						ItemName "MvM GateBot Light Heavy"
 						"item style override" 1
 					}
-					ItemAttributes
-					{
-						ItemName "TF_WEAPON_ROCKETLAUNCHER"
-						"faster reload rate" -0.8
-						"fire rate bonus" 0.5
-					}
+					// ItemAttributes
+					// {
+						// ItemName "TF_WEAPON_ROCKETLAUNCHER" // This is a Heavy bot, Valve you dum dum.
+						// "faster reload rate" -0.8
+						// "fire rate bonus" 0.5
+					// }
 					WeaponRestrictions MeleeOnly
 					Tag bot_giant
 					Skill Hard
@@ -1263,12 +1263,12 @@ WaveSchedule
 						ItemName "MvM GateBot Light Heavy"
 						"item style override" 1
 					}
-					ItemAttributes
-					{
-						ItemName "TF_WEAPON_ROCKETLAUNCHER"
-						"faster reload rate" -0.8
-						"fire rate bonus" 0.5
-					}
+					// ItemAttributes
+					// {
+						// ItemName "TF_WEAPON_ROCKETLAUNCHER" // This is a Heavy bot, Valve you dum dum.
+						// "faster reload rate" -0.8
+						// "fire rate bonus" 0.5
+					// }
 					Attributes AlwaysCrit
 					WeaponRestrictions MeleeOnly
 					Tag bot_giant
