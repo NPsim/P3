@@ -6,6 +6,26 @@ namespace PseudoPopParser {
 
 	internal class ItemTracker {
 
+		private static List<string> multiclass_inventory = new List<string>();
+		private static readonly string[] multiclass_items = { // Temporary workaround
+				"UPGRADEABLE TF_WEAPON_SHOTGUN_PRIMARY",
+				"FESTIVE SHOTGUN 2014",
+				"PANIC ATTACK SHOTGUN",
+				"THE B.A.S.E. JUMPER",
+				"CONCEALEDKILLER_SHOTGUN_BACKWOODSBOOMSTICK",
+				"CRAFTSMANN_SHOTGUN_RUSTICRUINER",
+				"TEUFORT_SHOTGUN_CIVICDUTY",
+				"POWERHOUSE_SHOTGUN_LIGHTNINGROD",
+				"HARVEST_SHOTGUN_AUTUMN",
+				"PYROLAND_SHOTGUN_FLOWERPOWER",
+				"GENTLEMANNE_SHOTGUN_COFFINNAIL",
+				"GENTLEMANNE_SHOTGUN_DRESSEDTOKILL",
+				"WARBIRD_SHOTGUN_REDBEAR"
+			};
+		private static bool IsMulticlass(string item) {
+			return multiclass_items.Contains(item.ToUpper());
+		}
+
 		private static Dictionary<string, int> modded_items = new Dictionary<string, int>(); // String : Non-normalized Item Name	Int : Line Number Look-Back
 		private static Dictionary<string, string> slot = new Dictionary<string, string> {
 			["primary"] = "",
@@ -49,6 +69,13 @@ namespace PseudoPopParser {
 		}
 
 		public static void Add(string item) { // Called on "Item" key
+
+			// Temporary Workaround
+			if (IsMulticlass(item)) {
+				multiclass_inventory.Add(item);
+				return;
+			}
+
 			item = ItemDatabase.NormalizeName(item);
 
 			if (!ItemDatabase.Exists(item)) {
@@ -80,6 +107,9 @@ namespace PseudoPopParser {
 				["misc"] = ""
 			};
 			modded_items = new Dictionary<string, int>();
+
+			// Temporary workaround
+			multiclass_inventory.Clear();
 		}
 
 		public static void FillClass(string class_name) {
@@ -92,6 +122,11 @@ namespace PseudoPopParser {
 		}
 
 		public static bool IsEquipped(string item) {
+
+			// Temporary Workaround
+			if (IsMulticlass(item)) {
+				return multiclass_inventory.Contains(item.ToUpper());
+			}
 
 			if (!ItemDatabase.Exists(item)) {
 				return true;
@@ -108,6 +143,12 @@ namespace PseudoPopParser {
 		public static void VerifyModifications() {
 			foreach(string itemname in modded_items.Keys) {
 				if (!IsEquipped(itemname)) {
+
+					// Temporary Workaround
+					if (IsMulticlass(itemname)) {
+						continue;
+					}
+
 					Warning.ItemMissing(modded_items[itemname], itemname); // Warn for "Bot does not have item"
 				}
 			}
