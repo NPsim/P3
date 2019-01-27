@@ -50,7 +50,8 @@ namespace PseudoPopParser {
 			catch { } // Catch possible SecurityException
 
 			// Version Message
-			PrintColor.InfoLine("P3 v1.4.x {f:Black}{b:Magenta}DEV{r}");
+			//PrintColor.InfoLine("P3 v1.4.x {f:Black}{b:Magenta}DEV{r}");
+			PrintColor.InfoLine("P3 v1.4.0");
 
 			// General-Use Vars
 			root_directory = AppDomain.CurrentDomain.BaseDirectory;
