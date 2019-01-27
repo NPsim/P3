@@ -735,16 +735,6 @@ namespace PseudoPopParser {
 
 				// F7 Unused
 				else if (key_pressed == ConsoleKey.F7) {
-					ItemTracker.Add("the fORcE-a-NaTure");
-					ItemTracker.Add("ghastly gibus");
-					ItemTracker.Add("ghostly gibus");
-					//ItemTracker.Add("the shORtstop");
-					ItemTracker.FillClass("scout");
-					ItemTracker.DebugDisplayContents();
-					ItemTracker.AddModifier("the shortstop", 69);
-					ItemTracker.AddModifier("tf_weapon_scattergun", 123);
-					ItemTracker.VerifyModifications();
-					ItemTracker.Inventory();
 				}
 
 				// F8 Map Analyzer
