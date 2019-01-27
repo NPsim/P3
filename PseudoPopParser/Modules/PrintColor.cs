@@ -173,7 +173,7 @@ namespace PseudoPopParser {
 			else {
 				ColorLinef("{f:Black}{b:Yellow}[Warning-W" + str_code + "]{r}    \t" + message, args);
 			}
-			Warning.IncrementWarnings(); // todo localize
+			Warning.IncrementWarnings();
 		}
 		public static void Warn(string message, int line = -1, uint code = 0, params string[] args) {
 			Warn(message, line.ToString(), code, args);

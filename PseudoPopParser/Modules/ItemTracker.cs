@@ -20,7 +20,8 @@ namespace PseudoPopParser {
 				"PYROLAND_SHOTGUN_FLOWERPOWER",
 				"GENTLEMANNE_SHOTGUN_COFFINNAIL",
 				"GENTLEMANNE_SHOTGUN_DRESSEDTOKILL",
-				"WARBIRD_SHOTGUN_REDBEAR"
+				"WARBIRD_SHOTGUN_REDBEAR",
+				"THE RAZORBACK"
 			};
 		private static bool IsMulticlass(string item) {
 			return multiclass_items.Contains(item.ToUpper());

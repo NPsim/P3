@@ -234,8 +234,6 @@ namespace PseudoPopParser {
 					}
 
 					break;
-
-					// TODO : Add more cases
 			}
 		}
 
@@ -296,8 +294,6 @@ namespace PseudoPopParser {
 					ItemTracker.Clear();
 
 					break;
-
-					// TODO : Add more cases
 			}
 		}
 
