@@ -51,7 +51,7 @@ namespace PseudoPopParser {
 
 			// Version Message
 			//PrintColor.InfoLine("P3 v1.4.x {f:Black}{b:Magenta}DEV{r}");
-			PrintColor.InfoLine("P3 v1.4.0");
+			PrintColor.InfoLine("P3 v1.4.1");
 
 			// General-Use Vars
 			root_directory = AppDomain.CurrentDomain.BaseDirectory;
