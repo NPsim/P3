@@ -13,7 +13,7 @@ namespace PseudoPopParser {
 
 		private static ConsoleColor default_foreground = ConsoleColor.White;
 		private static ConsoleColor default_background = ConsoleColor.Black;
-		private static bool Suppress = false;
+		public static bool Suppress = false;
 		public static string log_path = "";
 
 		// Used only for debug batch parsing multiple test files at once.
@@ -124,7 +124,7 @@ namespace PseudoPopParser {
 
 		public static void Colorf(string message, params string[] args) {
 			PopParser p = new PopParser();
-			if (p.SuppressPrint) {
+			if (Suppress) {
 				return;
 			}
 			string[] segments = Regex.Split(message, "[{}]");
@@ -159,7 +159,7 @@ namespace PseudoPopParser {
 
 		public static void Warn(string message, string line, uint code, params string[] args) {
 			PopParser p = new PopParser();
-			if (p.SuppressPrint) {
+			if (Suppress) {
 				return;
 			}
 			
