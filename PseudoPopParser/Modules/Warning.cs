@@ -12,10 +12,10 @@ namespace PseudoPopParser {
 		private static bool ReadBool(string s) { return Program._INI.ReadBool(s); }
 		private static int ReadInt(string s) { return Program._INI.ReadInt(s); }
 		private static double ReadDouble(string s) { return Program._INI.ReadDouble(s); }
-		private static uint WarningCount = 0;
 
-		public static uint Warnings { get { return WarningCount; } }
-		public static void IncrementWarnings() { WarningCount++; }
+		// Warning Counter
+		public static uint Warnings { get; private set; } = 0;
+		public static void IncrementWarnings() { Warnings++; }
 
 		public static void CreditMultiple(int credits, int waves, int multiple) {
 			string config_key = "int_warn_credits_multiple";

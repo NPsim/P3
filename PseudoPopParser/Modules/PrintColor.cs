@@ -13,6 +13,7 @@ namespace PseudoPopParser {
 
 		private static ConsoleColor default_foreground = ConsoleColor.White;
 		private static ConsoleColor default_background = ConsoleColor.Black;
+		private static bool Suppress = false;
 		public static string log_path = "";
 
 		// Used only for debug batch parsing multiple test files at once.

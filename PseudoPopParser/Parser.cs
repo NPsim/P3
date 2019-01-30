@@ -22,7 +22,6 @@ namespace PseudoPopParser {
 		private static List<List<string>> wave_wavespawn_names = new List<List<string>>();
 		private static List<string> used_wavespawn_names = new List<string>();
 		private static List<int> used_wavespawn_lines = new List<int>();
-		private static bool suppress_write_main = false;
 		private static List<string> icons_list = new List<string>();
 
 		private static string[] DATATYPES = {
@@ -392,7 +391,8 @@ namespace PseudoPopParser {
 
 				// Do not warn for issues regarding a default template.
 				if (default_template) {
-					suppress_write_main = true;
+					//suppress_write_main = true;
+					PrintColor.Suppress = true;
 				}
 
 				/* Begin */
@@ -699,11 +699,11 @@ namespace PseudoPopParser {
 						}
 					}
 				}
-				suppress_write_main = false;
+				PrintColor.Suppress = false;
 				PrintColor.InfoLine("\tDone parsing Base File - {f:Cyan}{0}{r}", template_file_name);
 			}
 			catch (Exception) {
-				suppress_write_main = false;
+				PrintColor.Suppress = false;
 				Error.NoTrigger.FailedParseTemplate(template_file_name, base_file);
 			}
 			base_name = "";
@@ -752,7 +752,7 @@ namespace PseudoPopParser {
 
 					if (parent == "TFBOT") {
 
-						// Warn multiple
+						// Warn Health Multiple
 						if (!IsMultiple(health, bot_health_multiple)) {
 							Warning.TFBotHealthMultiple(line, value_int, bot_health_multiple);
 						}
@@ -763,7 +763,7 @@ namespace PseudoPopParser {
 							Warning.TankHealthMultiple(line, value_int, tank_health_multiple);
 						}
 
-						// Warn exceeds boundaries
+						// Tank Health Exceeds Warning Bounds
 						if (health > tank_warn_max) {
 							Warning.TankHealthExceed(line, value_int, tank_warn_max);
 						}
@@ -959,13 +959,6 @@ namespace PseudoPopParser {
 		// Returns name of collection token
 		public string RemoveCurly (string collection_token) {
 			return Regex.Replace(collection_token, "({})", ""); // Must be exactly "{}" sequence
-		}
-
-		// Get warning suppression status
-		public bool SuppressPrint {
-			get {
-				return suppress_write_main;
-			}
 		}
 
 		// Normalize Class Name
