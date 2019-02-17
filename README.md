@@ -1,20 +1,50 @@
-## P3 - Pseudo Population Parser
-### What is this?
+## What is this?
+This is my 2018 summer side project.  
+P3, or PseudoPopulationParser, is a powerful popfile language parser that aids MvM mission creators in error avoidance and popfile analysis.
 
-This is my 2018 summer side project.
+P3 features the ability to detect both common and rare errors as well as warn the user of potentially risky implementations that the TF2 MvM populator may reject.
 
-P3 is a program that aids mvm popfile creators in avoiding simple errors such as invalid attributes, typo'd values, and general structure.
+## How do I get it?
+Go to the [GitHub releases] or find the download link in the development Discord server below.
 
-### Why Pseudo?
+## System Requirements
+* **Microsoft .NET Framework 4.6.1** or higher
+* Optional: **Java SE Runtime Environment 8u71** or higher to use the Map Analyzer feature
 
-This isn't the actual parser that's used in the game.
+## Current Features
+Features are constantly being added and modified as development progresses.  
+An extensive list of all features is available on the development Discord server.
+#### Notable Features:
+* Language Parsing
+	* Color-coded console output
+	* Error and Warning Detection with Codes (documented with examples in the [P3 Reference])
+	* Detect bad syntax
+	* Detect rare errors
+	* Line number indicator
+	* ``WaitForAllDead`` and ``WaitForAllSpawned`` coordination with WaveSpawn names
+* Popfile Feedback
+	* Calculate total credits dropped per wave
+	* Calculate total possible credits
+	* Generate a list of all custom icons used
+	* View all TFBot Templates implemented
+* Internal Inventory Simulator
+	* Tracks every TFBot's inventory
+	* Simulates every TFBot's backpack and item slots
+* Map Analyzer (courtesy of [BSPSource])
+	* Generate a list of all TFBot Spawns
+	* Generate a list of all Logic IDs (such as map events)
+	* Generate a list of all Flanking Path Tags
+	* Generate a list of all Tank Path Nodes
+* Item and Item/Character Attribute Database
+	* Ensures items and attributes given to TFBots actually exist
+	* Search through all possible items and attributes in TF2
+	* Search for an item's inherent attributes with ability to see hidden attributes
 
-P3 emulates it to a degree.
+[P3 Reference]:https://github.com/NPsim/P3/blob/master/PseudoPopParser/P3_Reference.pdf
 
-### How do I get it?
-Check the GitHub releases or find the download link on the Discord server below.
+## Connecting P3 to a text editor (Notepad++)
+Configure P3 to parse your current WIP popfile when desired in Notepad++.
 
-### Connecting P3 to a text editor (Notepad++)
     # Save the following command as a Run.. command
     path\to\P3.exe -pop "$(FULL_CURRENT_PATH)"
 	
@@ -24,45 +54,30 @@ Check the GitHub releases or find the download link on the Discord server below.
     # Optional:
     Add a Hotkey to your Run.. command to parse instantly.
 
+## Building P3 Yourself
+All builds are completed using **Microsoft Visual Studio 2017**.  
+You should be able to just open the solution with Visual Studio 2017.  
+Contact me if any issues occur.
+#### External Dependencies:
+* None, other than the System Requirements shown above.
 
-### Current Features
- * Invalid Structure Scanning
-   * Detect if a Key-Value is out of place. 
- * Illegal Type Scanning
- * TFBot Template Name Tracking
-   * Ensure `Template` always has a valid target.
-   * Supports `#base` template importing!
- * Item/Character Attribute Scanning
-   * Ensure `ItemAttributes` and `CharacterAttributes` entries exist according to TF2 Source files. 
- * TFBot Item Scanning
-   * Ensure `ItemAttributes` modify a valid item.
-   * Ensure `Item` and `ItemName` are always correct according to TF2 Source files.
- * Configurable Warnings
-   * Ensure Tank Health is always between X and Y values.
-   * Ensure Tank Health is always a multiple of X value.
-   * Ensure TFBot Health is always a multiple of X value.
-   * Ensure Waves always drop a multiple of X value.
- * Wave Credit Calculations
-   * Calculate maximum possible credits to help avoid a Buffer Overflow.
- * Template Name Scanning
-   * Ensure `WaitForAllDead` and `WaitForAllSpawned` always have a valid target.
- * Show All Available Templates
- * Multi-Color Console Output
-   * 32 supported colors! (Not all guaranteed to be used) 
+## Special Thanks
+ * **gamer** and **Remilia** for major elements in feature development
+ * **Sigsegv** for rough decompiles of TF2; found here: [mvm-reversed]
+ * **ata4** and the **BSPSource team** for developing an open-sourced BSP decompiler; found here: [BSPSource]
+ * **Gatebots of Potato.TF** for considering my work
 
-### Special Thanks
- * what a nerd gamer
- * Remilia Scarlet
+[mvm-reversed]: https://github.com/sigsegv-mvm/mvm-reversed
+[BSPSource]: https://github.com/ata4/bspsrc
 
-### Contacting Me
-Add me on Steam: [NPOSim]
-
-Discord: `Subsimple#9640`
-
-Discord Server: [gRPuRdj]
+## Contacting Me
+Steam: [NPOSim]  
+Discord: `Subsimple#9640`  
+P3 Development Discord Server: [gRPuRdj]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
 [gRPuRdj]: <https://discord.gg/gRPuRdj>
+[GitHub releases]:https://github.com/NPsim/P3/releases
 
-### Bug Reports
-Contact me on Steam, Discord, or just submit an Issue, whatever works.
+## Bug Reports
+Contact me on Steam or Discord, or just submit an Issue; whatever works.
