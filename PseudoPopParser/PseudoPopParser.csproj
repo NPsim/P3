@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\AprilFools.cs" />
     <Compile Include="Modules\AttributeDatabase.cs" />
     <Compile Include="Modules\AttributeScraper.cs" />
     <Compile Include="Modules\Error.cs" />

@@ -12,6 +12,7 @@ namespace PseudoPopParser {
 		public static IniFile _INI; // TODO Encapsulate this.
 		public static string launch_arguments = ""; // TODO Encapsulate this.
 		public static string root_directory = "NULL PATH"; // TODO Encapsulate this.
+		public static string pop_full_path = "NULL PATH";
 		private static int global_line = 0;
 		private static string global_token = "";
 		private static bool auto_close = false;
@@ -56,7 +57,7 @@ namespace PseudoPopParser {
 			// General-Use Vars
 			root_directory = AppDomain.CurrentDomain.BaseDirectory;
 			_INI = new IniFile(root_directory + @"config.ini");
-			string file_path = "";
+			//string file_path = "";
 			string datatypes_folder = root_directory;
 			string grammar_file = root_directory + @"datatypes\grammar.twt";
 			string[] file = null;
@@ -73,7 +74,7 @@ namespace PseudoPopParser {
 			// Get Launch Flags
 			for (int i = 0; i < args.Length; i++) {
 				if (args[i] == "-pop") {
-					file_path = args[i + 1];
+					pop_full_path = args[i + 1];
 				}
 				if (args[i] == "-grammar") {
 					grammar_file = args[i + 1];
@@ -92,7 +93,8 @@ namespace PseudoPopParser {
 				}
 			}
 
-			if (!Regex.IsMatch(file_path, @"\.pop$")) {
+			if (!Regex.IsMatch(pop_full_path, @"\.pop$")) {
+				PrintColor.InfoLine("Learn how to bind P3 to a text editor for quick parsing in the readme");
 				PrintColor.InfoLine("Open your Pop file.");
 				try {
 					OpenFileDialog dialog = new OpenFileDialog {
@@ -103,11 +105,11 @@ namespace PseudoPopParser {
 					if (dialog.FileName.Length == 0 || !Regex.IsMatch(dialog.FileName, @"\.pop$")) {
 						throw new Exception("NoFile");
 					}
-					file_path = dialog.FileName;
+					pop_full_path = dialog.FileName;
 
 					// Store Pop for Reparse
 					if (!Regex.IsMatch(launch_arguments, "-pop")) {
-						launch_arguments += "-pop " + "\"" + file_path + "\" ";
+						launch_arguments += "-pop " + "\"" + pop_full_path + "\" ";
 					}
 				}
 				catch {
@@ -116,20 +118,20 @@ namespace PseudoPopParser {
 			}
 
 			// Get file_path if not defined previously
-			while (!Regex.IsMatch(file_path, @"\.pop$")) {
-				Console.Write("Type the full path to your Pop file: ");
-				file_path = Console.ReadLine();
+			while (!Regex.IsMatch(pop_full_path, @"\.pop$")) {
+				Console.Write("Enter the full path to your Pop file: ");
+				pop_full_path = Console.ReadLine();
 
-				if (!Regex.IsMatch(file_path, @"\.pop$")) {
+				if (!Regex.IsMatch(pop_full_path, @"\.pop$")) {
 					Error.NoTrigger.MissingExtension();
 				}
 			}
 
 			// Get pop file's containing directory
-			string pop_folder = Regex.Match(file_path, @"^.*[\/\\]").ToString(); // Regex: Match everything up to last / or \
+			string pop_folder = Regex.Match(pop_full_path, @"^.*[\/\\]").ToString(); // Regex: Match everything up to last / or \
 
 			// Get pop file's name
-			string pop_file_name = Regex.Match(file_path, @"[\w-]+\.pop").ToString();
+			string pop_file_name = Regex.Match(pop_full_path, @"[\w-]+\.pop").ToString();
 
 			// Init Parser
 			PopParser p = new PopParser(datatypes_folder, pop_folder, pop_file_name);
@@ -168,8 +170,8 @@ namespace PseudoPopParser {
 
 			// Populate file[] var
 			try {
-				file = File.ReadAllLines(file_path);
-				PrintColor.InfoLine("Pop File - {f:Cyan}{0}{r}", file_path);
+				file = File.ReadAllLines(pop_full_path);
+				PrintColor.InfoLine("Pop File - {f:Cyan}{0}{r}", pop_full_path);
 			}
 			catch {
 				//PrintColor.ErrorNoTrigger("Could not open Pop file.");
@@ -619,7 +621,7 @@ namespace PseudoPopParser {
 				// Show Next Options
 				PrintColor.Colorf("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21) + "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21) + "{b:White}{f:Black}F9{r}  Update Attributes Database".PadRight(33 + 21) + "\n");
 				PrintColor.Colorf("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21) + "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21) + "{b:White}{f:Black}F10{r} Set items_game.txt Target".PadRight(33 + 21) + "\n");
-				PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21) + "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21) + "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21) + "\n");
+				PrintColor.Colorf("{b:White}{f:Black}F3{r} Show TFBot Template Names".PadRight(33 + 21) + "{b:White}{f:Black}F7{r} April Fools".PadRight(33 + 21) + "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21) + "\n");
 				PrintColor.Colorf("{b:White}{f:Black}F4{r} Show Custom Icons Required".PadRight(33 + 21) + "{b:White}{f:Black}F8{r} Analyze Map (BSP)".PadRight(33 + 21) + "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21) + "\n");
 
 				// Blank Line : Separate Quit with Options
@@ -733,8 +735,9 @@ namespace PseudoPopParser {
 					}
 				}
 
-				// F7 Unused
+				// F7 (Currently) April Fools (To be reassigned)
 				else if (key_pressed == ConsoleKey.F7) {
+					AprilFools.DoTheThing(token_list, pop_folder);
 				}
 
 				// F8 Map Analyzer
