@@ -7,11 +7,11 @@ using System.Text.RegularExpressions;
 namespace PseudoPopParser {
 	class ItemScraper : IDisposable {
 
-		private string p3_db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
-		private string tf_db_path;
+		private readonly string p3_db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
+		private readonly string tf_db_path;
 		private Dictionary<string, Dictionary<string, string>> prefabs = new Dictionary<string, Dictionary<string, string>>();
 		private string[] items_file;
-		private string tf_md5;
+		private readonly string tf_md5;
 		private string p3_md5;
 
 		public ItemScraper(string items_game_path) {
@@ -24,8 +24,8 @@ namespace PseudoPopParser {
 			try {
 				items_file = File.ReadAllLines(items_game_path);
 			}
-			catch (Exception ex) {
-				Error.NoTrigger.Unknown(ex.Message);
+			catch (Exception e) {
+				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, e.Message);
 				return;
 			}
 
@@ -148,7 +148,7 @@ namespace PseudoPopParser {
 				}
 			}
 			if (ip.Contains(0)) {
-				Error.NoTrigger.Unknown("Could not find insertion point.");
+				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, "Could not find insertion point.");
 				return;
 			}
 
@@ -228,7 +228,7 @@ namespace PseudoPopParser {
 
 							// Check attempt to add duplicate key
 							if (prefabs.Keys.Contains(prefab_key)) {
-								PrintColor.ErrorNoTrigger("ATTEMPT TO ADD DUPLICATE KEY");
+								Error.Write("ATTEMPT TO ADD DUPLICATE KEY");
 							}
 
 							prefabs[prefab_key] = characteristics;
@@ -279,10 +279,10 @@ namespace PseudoPopParser {
 								string prefab_target = "\"" + prefab_target_match.Value + "\"";
 
 								// Check valid prefab
-								if (!prefabs.ContainsKey(prefab_target)) {
+								/*if (!prefabs.ContainsKey(prefab_target)) {
 									PrintColor.DebugInternalLine("INVALID KEY: " + prefab_target);
-								}
-
+								}*/
+								
 								// Import config from prefab dictionary
 								var p = GetPrefab(prefab_target); // Recursive retrieval
 								foreach (string key in p.Keys) {

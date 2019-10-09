@@ -14,11 +14,11 @@ namespace PseudoPopParser {
 		private List<string> logic_relays = new List<string>();
 		private List<string> path_tracks = new List<string>();
 		private List<string> nav_paths = new List<string>();
-		private string jar_path = Program.root_directory + @"BSPSource\bspsrc.jar";
-		private string decompile_target = Program.root_directory + @"BSPSource\decompiled.vmf";
-		private string target_path;
+		private readonly string jar_path = AppDomain.CurrentDomain.BaseDirectory + @"BSPSource\bspsrc.jar";
+		private readonly string decompile_target = AppDomain.CurrentDomain.BaseDirectory + @"BSPSource\decompiled.vmf";
+		private readonly string target_path;
 		private string[] bsp_lines;
-		private bool bsp_compiled = false;
+		private readonly bool bsp_compiled = false;
 
 		public MapAnalyzer(string bsp_file) {
 			target_path = bsp_file;
@@ -30,7 +30,7 @@ namespace PseudoPopParser {
 			}
 
 			// Check if map needs decompiling
-			if (Program._INI.ReadBool("bool_map_analyzer_always_decompile") || !(bsp_lines.Any(s => s.Contains("targetname")) && bsp_lines.Any(s => s.Contains("hammerid")))) {
+			if (Program.Config.ReadBool("bool_map_analyzer_always_decompile") || !(bsp_lines.Any(s => s.Contains("targetname")) && bsp_lines.Any(s => s.Contains("hammerid")))) {
 				bsp_compiled = true;
 				Decompile(target_path, decompile_target);
 				target_path = decompile_target;
@@ -40,7 +40,7 @@ namespace PseudoPopParser {
 			AnalyzeSimple(target_path);
 
 			// Reset decompile buffer
-			if (bsp_compiled && Program._INI.ReadBool("bool_map_analyzer_clear_buffer")) {
+			if (bsp_compiled && Program.Config.ReadBool("bool_map_analyzer_clear_buffer")) {
 				File.WriteAllText(target_path, string.Empty);
 			}
 		}
@@ -51,7 +51,7 @@ namespace PseudoPopParser {
 
 				System.Diagnostics.Process BSPsrc = new System.Diagnostics.Process();
 				BSPsrc.StartInfo.FileName = "java";
-				if (Program._INI.ReadBool("bool_map_analyzer_full_decompile")) {
+				if (Program.Config.ReadBool("bool_map_analyzer_full_decompile")) {
 					BSPsrc.StartInfo.Arguments = "-jar " + jar_path + " \"" + target_path + "\" -o \"" + out_path + "\"";
 				}
 				else {
@@ -66,7 +66,7 @@ namespace PseudoPopParser {
 				PrintColor.InfoLine("{f:Black}{b:White}=================BSPsrc Finished=================={r}");
 			}
 			catch (Exception e) {
-				Error.NoTrigger.MapFailedDecompile(e.Message);
+				Error.WriteNoIncrement("Failed to decompile VBSP: '{$0}'", -1, 995, e.Message);
 			}
 		}
 
@@ -104,8 +104,6 @@ namespace PseudoPopParser {
 					else if (Regex.IsMatch(line, "\"tags\"")) {
 						tags = Regex.Match(line, "\\\"(.*?)\\\"").NextMatch().ToString().Trim('"');
 					}
-
-
 
 					// Verify valid info_player_teamspawn target for spawnbot, add valid targetname to list
 					else if (target_name.Length > 0 && Regex.IsMatch(line, "\"classname\"") && Regex.IsMatch(line, "\"info_player_teamspawn\"")) {

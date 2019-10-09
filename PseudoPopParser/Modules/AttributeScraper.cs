@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace PseudoPopParser {
 	class AttributeScraper : IDisposable {
 
-		private string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
+		private readonly string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
 
 		public AttributeScraper() { }
 
@@ -54,7 +54,7 @@ namespace PseudoPopParser {
 				current_version = File.ReadLines(db_path).First(); // intersting way to get only the second line
 			}
 			catch {
-				Error.NoTrigger.MissingDatabase();
+				Error.WriteNoIncrement("Could not find local database.", -1, 997);
 			}
 
 			// Check Version
@@ -70,8 +70,8 @@ namespace PseudoPopParser {
 			try {
 				file = File.ReadAllLines(file_path);
 			}
-			catch (Exception ex) {
-				Error.NoTrigger.Unknown(ex.Message);
+			catch (Exception e) {
+				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, e.Message);
 				return;
 			}
 
@@ -102,7 +102,7 @@ namespace PseudoPopParser {
 
 			// Stop if no insertion point found
 			if (ip == 0) {
-				Error.NoTrigger.Unknown("Could not find insertion point.");
+				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, "Could not find insertion point.");
 				return;
 			}
 

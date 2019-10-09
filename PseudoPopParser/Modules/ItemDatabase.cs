@@ -33,14 +33,15 @@ namespace PseudoPopParser {
 		public static void Build() {
 
 			// Database must exist
-			string db_path = Program.root_directory + @"\datatypes\item_db.uwu";
-			if (!File.Exists(db_path)) {
-				Error.NoTrigger.MissingDatabase();
+			string path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
+			if (!File.Exists(path)) {
+				Error.WriteNoIncrement("Could not find local database.", -1, 997);
 				return;
 			}
 
-			string[] db = File.ReadAllLines(db_path);
+			string[] db = File.ReadAllLines(path);
 			string last_item = "";
+			PrintColor.InfoLine("ItemDB Version: {f:Cyan}{$0}{r}", db[0]);
 			for (int i = 1; i < db.Count(); i++) { // Line 0 is version MD5
 				string line = db[i];
 
