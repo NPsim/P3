@@ -1,8 +1,9 @@
-## What is this?
-This is my 2018 summer side project.  
-P3, or PseudoPopulationParser, is a powerful popfile language parser that aids MvM mission creators in error avoidance and popfile analysis.
 
-P3 features the ability to detect both common and rare errors as well as warn the user of potentially risky implementations that the TF2 MvM populator may reject.
+## What is this?
+This is my 2018 summer side project; later migrated and revitalized with ANTLR as a 2019 summer side project.
+P3, or PseudoPopulationParser, is a Population language parser built in ANTLR that aids MvM mission creators in error avoidance and popfile analysis.
+
+P3 features the ability to detect both common and rare errors as well as warn the user of potentially risky implementations that the TF2 MvM Populator may reject.
 
 ## How do I get it?
 Go to the [GitHub releases] or find the download link in the development Discord server below.
@@ -17,7 +18,7 @@ An extensive list of all features is available on the development Discord server
 #### Notable Features:
 * Language Parsing
 	* Color-coded console output
-	* Error and Warning Detection with Codes (documented with examples in the [P3 Reference])
+	* Error and warning detection with Codes (documented with examples in the [P3 Reference])
 	* Detect bad syntax
 	* Detect rare errors
 	* Line number indicator
@@ -49,7 +50,7 @@ Configure P3 to parse your current WIP popfile when desired in Notepad++.
     path\to\P3.exe -pop "$(FULL_CURRENT_PATH)"
 	
     # Example:
-    C:\Users\Simple\Desktop\P3\P3.exe -pop "$(FULL_CURRENT_PATH)"
+    C:\Users\You\Desktop\P3\P3.exe -pop "$(FULL_CURRENT_PATH)"
 	
     # Optional:
     Add a Hotkey to your Run.. command to parse instantly.
@@ -59,10 +60,10 @@ All builds are completed using **Microsoft Visual Studio 2017**.
 You should be able to just open the solution with Visual Studio 2017.  
 Contact me if any issues occur.
 #### External Dependencies:
-* None, other than the System Requirements shown above.
+* ANTLR 4.6.6, Terence Parr, obtained via NuGet
 
 ## Special Thanks
- * **gamer** and **Remilia** for major elements in feature development
+ * **mc** and **Remilia** for major elements in feature development
  * **Sigsegv** for rough decompiles of TF2; found here: [mvm-reversed]
  * **ata4** and the **BSPSource team** for developing an open-sourced BSP decompiler; found here: [BSPSource]
  * **Gatebots of Potato.TF** for considering my work
@@ -72,7 +73,7 @@ Contact me if any issues occur.
 
 ## Contacting Me
 Steam: [NPOSim]  
-Discord: `Subsimple#9640`  
+Discord: `sub#9640`  
 P3 Development Discord Server: [gRPuRdj]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
