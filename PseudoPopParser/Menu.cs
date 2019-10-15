@@ -146,12 +146,12 @@ namespace PseudoPopParser {
 						}
 						catch {
 							Error.WriteNoIncrement("Failed to get file by dialog.", -1, 997);
+							break;
 						}
 
 						// Attributes
 						PrintColor.InfoLine("===Updating Databases===");
 						using (AttributeScraper s = new AttributeScraper()) {
-
 							PrintColor.InfoLine("> Attributes Database");
 							PrintColor.InfoLine("Old version: {f:Yellow}{$0}{r}", s.Version);
 							s.Scrape(dialog.FileName);
@@ -160,7 +160,6 @@ namespace PseudoPopParser {
 
 						// Items
 						using (ItemScraper s = new ItemScraper(dialog.FileName)) {
-
 							PrintColor.InfoLine("> Items Database");
 							PrintColor.InfoLine("Old version: {f:Yellow}{$0}{r}", s.CurrentVersion);
 							s.Scrape(dialog.FileName);

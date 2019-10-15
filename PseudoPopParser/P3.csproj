@@ -94,6 +94,7 @@
     <Compile Include="Modules\Error.cs" />
     <Compile Include="Modules\IniFile.cs" />
     <Compile Include="Modules\ItemDatabase.cs" />
+    <Compile Include="Modules\ItemTracker.cs" />
     <Compile Include="Modules\MapAnalyzer.cs" />
     <Compile Include="Modules\PrintColor.cs" />
     <Compile Include="Modules\Search.cs" />
@@ -124,10 +125,13 @@
     <None Include="config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="datatypes\ItemDB.ffd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="datatypes\item_attributes.UwU">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\item_db.UwU">
+    <None Include="datatypes\legacyitemdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="BSPSource\LICENSE.md">

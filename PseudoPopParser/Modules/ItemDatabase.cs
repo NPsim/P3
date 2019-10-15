@@ -6,13 +6,21 @@ using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
 
+	public class Item {
+		public string Name;
+		public string Localization;
+		public string DefaultSlot;
+		public string[] Slot = { "0", "0", "0", "0", "0", "0", "0", "0", "0" };
+		public Dictionary<string, string> Attributes = new Dictionary<string, string>();
+		public Item() { }
+	}
+
 	internal class ItemDatabase {
 
-		private static Dictionary<string, Dictionary<string, string>> items = new Dictionary<string, Dictionary<string, string>>();
-		private static readonly string[] useless_attributes = {
-				"loc_name", // Identifier
-				"slot", // Identifier
-				"base", // Identifier
+		private static Dictionary<string, Item> Items = new Dictionary<string, Item>();
+		private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\ItemDB.ffd";
+		private static string[] RawDBLines;
+		private static readonly string[] UselessAttributes = {
 				"min_viewmodel_offset",
 				"inspect_viewmodel_offset",
 				"disable fancy class select anim",
@@ -33,42 +41,60 @@ namespace PseudoPopParser {
 		public static void Build() {
 
 			// Database must exist
-			string path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
-			if (!File.Exists(path)) {
+			if (!File.Exists(Path)) {
 				Error.WriteNoIncrement("Could not find local database.", -1, 997);
 				return;
 			}
 
-			string[] db = File.ReadAllLines(path);
-			string last_item = "";
-			PrintColor.InfoLine("ItemDB Version: {f:Cyan}{$0}{r}", db[0]);
-			for (int i = 1; i < db.Count(); i++) { // Line 0 is version MD5
-				string line = db[i];
-
-				// Add New Item
-				if (Regex.IsMatch(line, @"^\S")) {
-					items[line] = new Dictionary<string, string>();
-					last_item = line;
-				}
-
-				// Add new Attribute to last item added
-				else if (Regex.IsMatch(line, @"^\t\S")) {
-					MatchCollection tokens = Regex.Matches(line, "(\"([^\"]*)\")");
-
-					// Get ID Tokens if database line has no double quotes
-					if (tokens.Count <= 1) {
-						tokens = Regex.Matches(line, @"\S+");
+			RawDBLines = File.ReadAllLines(Path);
+			PrintColor.InfoLine("ItemDB Version: {f:Cyan}{$0}{r}", RawDBLines[0]);
+			Item ItemEntry = new Item();
+			for (int i = 1; i < RawDBLines.Count(); i++) {
+				string Line = RawDBLines[i];
+				if (Regex.IsMatch(Line, @"^\S")) {
+					if (!string.IsNullOrEmpty(ItemEntry.Name)) {
+						Items[ItemEntry.Name] = ItemEntry;
 					}
-
-					string key = Regex.Replace(tokens[0].Value, "\"", "");
-					string value = Regex.Replace(tokens[1].Value, "\"", "");
-					items[last_item][key] = value;
+					ItemEntry = new Item();
+					ItemEntry.Name = Line;
+				}
+				else {
+					MatchCollection Token = Regex.Matches(Line, "\"[^\"]*\"|[^\"\\s]\\S*[^\"\\s]|[^\"\\s]");
+					switch (Token[0].Value.ToUpper().Trim('"')) {
+						case "LOC":
+							ItemEntry.Localization = Token[1].Value;
+							break;
+						case "DFS":
+							ItemEntry.DefaultSlot = Token[1].Value;
+							break;
+						case "SLT": {
+							if (Token[1].Value == "ALLCLASS") {
+								for (int ClassIndex = 0; ClassIndex < 9; ClassIndex++) {
+									ItemEntry.Slot[ClassIndex] = ItemEntry.DefaultSlot;
+								}
+							}
+							else {
+								for (int ClassIndex = 0; ClassIndex < 9; ClassIndex++) {
+									if (Token[ClassIndex + 1].Value.Trim('"') == "1") {
+										ItemEntry.Slot[ClassIndex] = ItemEntry.DefaultSlot;
+									}
+									else {
+										ItemEntry.Slot[ClassIndex] = Token[ClassIndex + 1].Value;
+									}
+								}
+							}
+							break;
+						}
+						default:
+							ItemEntry.Attributes[Token[0].Value.Trim('"')] = Token[1].Value.Trim('"');
+							break;
+					}
 				}
 			}
 		}
 
 		public static bool Exists(string item) {
-			foreach (string entry in items.Keys) {
+			foreach (string entry in Items.Keys) {
 				if (entry.ToUpper() == item.ToUpper()) {
 					return true;
 				}
@@ -77,7 +103,7 @@ namespace PseudoPopParser {
 		}
 
 		public static string NormalizeName(string item_name) {
-			foreach (string real_name in items.Keys) {
+			foreach (string real_name in Items.Keys) {
 				if (item_name.ToUpper() == real_name.ToUpper()) {
 					return real_name;
 				}
@@ -85,39 +111,35 @@ namespace PseudoPopParser {
 			throw new Exception("InvalidNormalItemName");
 		}
 
-		public static string GetSlot(string item) {
-			string normalized = NormalizeName(item);
-			return items[normalized]["slot"]; // Possible Values: "", "primary", "secondary", "melee", "pda", "pda2", "building", "action", "head", "misc"
+		public static string GetDefaultSlot(string ItemName) {
+			return Items[ItemName].DefaultSlot; // Possible Values: "", "primary", "secondary", "melee", "pda", "pda2", "building", "action", "head", "misc"
 		}
 
-		public static string GetLocalization(string item) {
-			item = NormalizeName(item);
-			return items[item]["loc_name"];
+		public static string GetLocalization(string ItemName) {
+			return Items[ItemName].Localization;
 		}
 
-		public static Dictionary<string, string> AttributesNoRemove(string item) {
-			item = NormalizeName(item);
-			return items[item];
+		public static Item GetItem(string ItemName) {
+			return Items[ItemName];
 		}
 
-		public static Dictionary<string, string> Attributes(string item) {
-			item = NormalizeName(item);
-			Dictionary<string, string> attributes = items[item];
-			foreach (string key in useless_attributes) {
-				attributes.Remove(key);
+		public static Dictionary<string, string> Attributes(string ItemName) {
+			Dictionary<string, string> Attributes = Items[ItemName].Attributes;
+			foreach (string Key in UselessAttributes) {
+				Attributes.Remove(Key);
 			}
-			return attributes;
+			return Attributes;
 		}
 
 		public static List<string> List {
 			get {
-				return items.Keys.ToList();
+				return Items.Keys.ToList();
 			}
 		}
 
 		public static string[] Array {
 			get {
-				return items.Keys.ToArray();
+				return Items.Keys.ToArray();
 			}
 		}
 	}

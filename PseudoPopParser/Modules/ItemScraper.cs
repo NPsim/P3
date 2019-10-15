@@ -5,43 +5,78 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PseudoPopParser {
+
 	class ItemScraper : IDisposable {
 
-		private readonly string p3_db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_db.uwu";
-		private readonly string tf_db_path;
-		private Dictionary<string, Dictionary<string, string>> prefabs = new Dictionary<string, Dictionary<string, string>>();
-		private string[] items_file;
-		private readonly string tf_md5;
-		private string p3_md5;
-
-		public ItemScraper(string items_game_path) {
-			tf_db_path = items_game_path;
-			//writer = new StreamWriter(new FileStream(db_path, FileMode.Create));
-
-			tf_md5 = GenerateMD5(items_game_path);
-
-			// Raw File as string[]
-			try {
-				items_file = File.ReadAllLines(items_game_path);
-			}
-			catch (Exception e) {
-				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, e.Message);
-				return;
-			}
-
-			// Try to retrieve local db version
-			try {
-				p3_md5 = File.ReadLines(p3_db_path).First(); // Get first line
-				if (p3_md5.Length != 32) {
-					throw new Exception();
+		private class PrefabProfile {
+			public string ID;
+			public string Localization;
+			public string DefaultSlot;
+			public string[] Slot = { "0", "0", "0", "0", "0", "0", "0", "0", "0" };
+			public bool AllClass;
+			public List<string> Prefabs = new List<string>();
+			public Dictionary<string, string> Attributes = new Dictionary<string, string>();
+			public PrefabProfile() { }
+			public void Merge(PrefabProfile Remote) {
+				if (!string.IsNullOrEmpty(Remote.Localization)) {
+					this.Localization = Remote.Localization;
 				}
-			}
-			catch {
-				p3_md5 = "DATABASE MISSING";
+				if (!string.IsNullOrEmpty(Remote.DefaultSlot)) {
+					this.DefaultSlot = Remote.DefaultSlot;
+				}
+				for (int ClassIndex = 0; ClassIndex < 9; ClassIndex++) {
+					if (Remote.Slot[ClassIndex] != "0") {
+						this.Slot[ClassIndex] = Remote.Slot[ClassIndex];
+					}
+				}
+				if (Remote.AllClass) {
+					this.AllClass = true;
+				}
+				if (Remote.Prefabs.Count > 0) {
+					foreach (string Entry in Remote.Prefabs) {
+						this.Prefabs.Add(Entry);
+					}
+				}
+				if (Remote.Attributes.Keys.Count > 0) {
+					foreach (string Key in Remote.Attributes.Keys) {
+						this.Attributes[Key] = Remote.Attributes[Key];
+					}
+				}
 			}
 		}
 
-		public void Dispose() { }
+		private class ItemProfile : PrefabProfile {
+			public string Name;
+			public ItemProfile() { }
+		}
+
+		private readonly string LocalDatabasePath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\ItemDB.ffd";
+		private readonly string RemotePath;
+		private readonly string[] RemoteRawLines;
+		private Dictionary<string, PrefabProfile> PrefabLookUp = new Dictionary<string, PrefabProfile>();
+		private readonly string RemoteMD5 = "00000000000000000000000000000000";
+		private readonly StreamWriter Writer;
+		public string CurrentVersion { get; private set; } = "00000000000000000000000000000000";
+
+		public ItemScraper(string ItemsGamePath) {
+			this.RemotePath = ItemsGamePath;
+			this.RemoteRawLines = File.ReadAllLines(ItemsGamePath);
+			this.RemoteMD5 = GenerateMD5(ItemsGamePath);
+
+			try {
+				this.CurrentVersion = File.ReadLines(LocalDatabasePath).First(); // TODO Fix null exception
+			}
+			catch {
+				this.CurrentVersion = "Missing Local Database";
+			}
+			Writer = new StreamWriter(new FileStream(LocalDatabasePath, FileMode.Create));
+		}
+
+		public void Dispose() {
+			Writer.Close();
+		}
+
+		public bool IsCurrentVersion() => GenerateMD5(this.RemotePath) == GenerateMD5(this.LocalDatabasePath);
 
 		private string GenerateMD5(string file_path) {
 			string md5_hash;
@@ -53,80 +88,80 @@ namespace PseudoPopParser {
 			return md5_hash;
 		}
 
-		public bool WriteEntryLine(StreamWriter writer, string value, string message) {
-			if (value.Length > 0) {
-				writer.WriteLine(message);
-				return true;
-			}
-			return false;
-		}
+		private int[] FindInsertionPoints() {
+			int[] ip = { 0, 0 }; // [0]: Prefabs [1]: Items
 
-		public string CurrentVersion {
-			get {
-				return p3_md5;
-			}
-		}
-
-		public bool IsCurrentVersion() {
-			string source_version = GenerateMD5(tf_db_path);
-			string current_version = GenerateMD5(p3_db_path);
-			return source_version == current_version;
-		}
-
-		private int[] FindInsertionPoints(string items_game) {
-			int[] ip = { 0, 0 };
-
-			for (int i = 0; i < items_file.Length; i++) {
-				if (ip[0] > 0 && ip[1] > 0) {
-					break;
-				}
-
-				if (Regex.IsMatch(items_file[i], "^\\t\"prefabs\"$")) {
+			for (int i = 0; i < RemoteRawLines.Length; i++) {
+				if (ip[0] > 0 && ip[1] > 0) break;
+				if (RemoteRawLines[i] == "\t\"prefabs\"") {
 					ip[0] = i;
 				}
-				else if (Regex.IsMatch(items_file[i], "^\\t\"items\"$")) {
+				else if (RemoteRawLines[i] == "\t\"items\"") {
 					ip[1] = i;
 				}
 			}
-
 			return ip;
 		}
 
-		private Dictionary<string, string> GetPrefab (string target) {
+		private int GetClassIndex(string ClassName) {
+			switch (ClassName.ToUpper()) {
+				case "SCOUT":
+					return 0;
+				case "SOLDIER":
+					return 1;
+				case "PYRO":
+					return 2;
+				case "DEMOMAN":
+					return 3;
+				case "HEAVY":
+					return 4;
+				case "ENGINEER":
+					return 5;
+				case "MEDIC":
+					return 6;
+				case "SNIPER":
+					return 7;
+				case "SPY":
+					return 8;
+			}
+			return -1;
+		}
+
+		private PrefabProfile GetPrefab(string TargetID) {
 			//PrintColor.DebugInternalLine("\tNew Curse target: " + target);
-			var ret = new Dictionary<string, string>();
+			var TargetPrefab = this.PrefabLookUp[TargetID];
+			var Final = new PrefabProfile();
 
 			// Import target's prefabs (recursively)
-			if (prefabs[target]["ID prefab"].Length > 0) {
-				foreach (Match m in Regex.Matches(prefabs[target]["ID prefab"], "[^ \"\\s]\\S*[^\"\\s]")) {
-					string target_prefab = m.Value;
-					var p = GetPrefab("\"" + target_prefab + "\""); // Recurse here
-					foreach(string key in p.Keys) {
-						if (p[key].Length > 0) {
-							ret[key] = p[key];
-						}
-					}
+			if (TargetPrefab.Prefabs.Count > 0) {
+				foreach (string Import in TargetPrefab.Prefabs) {
+					PrefabProfile p = GetPrefab(Import); // Recurse here
+					Final.Merge(p);
 				}
 			}
-
-			// Get target's prefab values
-			foreach (string key in prefabs[target].Keys) {
-				if (prefabs[target][key].Length > 0) {
-					ret[key] = prefabs[target][key];
-				}
-			}
+			Final.Merge(TargetPrefab);
 
 			//PrintColor.DebugInternalLine("\tEnd Curse target: " + target);
-			return ret;
+			return Final;
+		}
+
+		private void Operate() {
+			this.Writer.WriteLine(RemoteMD5);
+
+			int[] IP = FindInsertionPoints();
+
+			for (int Line = IP[0]; Line < RemoteRawLines.Length; Line++) {
+
+			}
 		}
 
 		public void Scrape(string items_game) { // TODO Break into multiple methods: Prefab Setup and Item Compilation
 
-			StreamWriter writer = new StreamWriter(new FileStream(p3_db_path, FileMode.Create));
+			//StreamWriter writer = new StreamWriter(new FileStream(LocalDatabasePath, FileMode.Create));
 
 			// Version Tracking
-			writer.WriteLine(tf_md5); // Line 1 is MD5 sum
-			p3_md5 = tf_md5;
+			Writer.WriteLine(RemoteMD5); // Line 1 is MD5 sum
+			CurrentVersion = RemoteMD5;
 
 			// Insertion Point
 			int[] ip = { 0, 0 };
@@ -135,15 +170,15 @@ namespace PseudoPopParser {
 			List<string> block_path = new List<string>();
 
 			// Find Insertion Points
-			for (int i = 0; i < items_file.Length; i++) {
+			for (int i = 0; i < RemoteRawLines.Length; i++) {
 				if (ip[0] > 0 && ip[1] > 0) {
 					break;
 				}
 
-				if (Regex.IsMatch(items_file[i], "^\\t\"prefabs\"$")) {
+				if (Regex.IsMatch(RemoteRawLines[i], "^\\t\"prefabs\"$")) {
 					ip[0] = i;
 				}
-				else if (Regex.IsMatch(items_file[i], "^\\t\"items\"$")) {
+				else if (Regex.IsMatch(RemoteRawLines[i], "^\\t\"items\"$")) {
 					ip[1] = i;
 				}
 			}
@@ -153,23 +188,18 @@ namespace PseudoPopParser {
 			}
 
 			/* Prefab Operation */
-			string prefab_key = "";
-			var characteristics = new Dictionary<string, string> {
-				["ID prefab"] = "",
-				["ID item_slot"] = "",
-				["ID loc_name_id"] = ""
-			};
+			PrefabProfile Prefab = new PrefabProfile();
 
-			for (int i = ip[0]; i < items_file.Length; i++) {
+			for (int i = ip[0]; i < RemoteRawLines.Length; i++) {
 
 				// Skip completely whitespace lines
-				if (Regex.IsMatch(items_file[i], @"^\s*$")) {
+				if (Regex.IsMatch(RemoteRawLines[i], @"^\s*$")) {
 					continue;
 				}
 
 				// Specify General-Use vars
-				string line = items_file[i];
-				string look_back_line = items_file[i - 1];
+				string line = RemoteRawLines[i];
+				string look_back_line = RemoteRawLines[i - 1];
 				List<string> tokens = new List<string>();
 
 				// Get Tokens of Line
@@ -180,28 +210,42 @@ namespace PseudoPopParser {
 				// Read contents of line
 				for (int j = 0; j < tokens.Count; j++) {
 					if (block_path.Count == 2) { // Relying on autogeneration here
-						if (tokens[j].ToUpper() == "\"prefab\"".ToUpper()) {
-							characteristics["ID prefab"] = tokens[j + 1].Replace("\"", "");
+						if (tokens[j].ToUpper() == "\"PREFAB\"") {
+							string Contents = tokens[j + 1].Trim('"');
+							foreach (string ID in Contents.Split(' ')) {
+								Prefab.Prefabs.Add(ID);
+							}
 						}
-						if (tokens[j].ToUpper() == "\"item_slot\"".ToUpper()) {
-							characteristics["ID item_slot"] = tokens[j + 1].Replace("\"", "");
+						if (tokens[j].ToUpper() == "\"ITEM_SLOT\"") {
+							Prefab.DefaultSlot = tokens[j + 1].Trim('"');
 						}
-						if (tokens[j].ToUpper() == "\"item_name\"".ToUpper()) {
-							characteristics["ID loc_name_id"] = tokens[j + 1].Replace("\"", "");
+						if (tokens[j].ToUpper() == "\"ITEM_NAME\"") {
+							Prefab.Localization = tokens[j + 1].Trim('"');
+						}
+						if (tokens[0].ToUpper() == "\"ITEM_CLASS\"" && tokens[1].ToUpper().StartsWith("\"TF_WEARABLE")) {
+							Prefab.AllClass = true;
+						}
+						if (tokens[0].ToUpper() == "\"ACT_AS_WEARABLE\"" && tokens[1] == "\"1\"") {
+							Prefab.AllClass = true;
 						}
 					}
 				}
 
+				// Get Explicit Slots
+				if (block_path.Count == 3 && block_path.Last() == "\"used_by_classes\"" && tokens.Count >= 2) {
+					Prefab.Slot[GetClassIndex(tokens[0].Trim('"'))] = tokens[1].Trim('"');
+				}
+
 				// Get Static Attributes
 				if (block_path.Count == 3 && block_path.Last() == "\"static_attrs\"" && tokens.Count >= 2) {
-					characteristics[tokens[0]] = tokens[1];
+					Prefab.Attributes[tokens[0]] = tokens[1];
 				}
 
 				// Get Attributes
 				if (block_path.Count == 4 && block_path.ElementAt(block_path.Count - 2) == "\"attributes\"" && tokens.Count >= 2) {
 					// Add attribute on "VALUE" key-pair line
 					if (tokens[0].ToUpper() == "\"VALUE\"") {
-						characteristics[block_path.Last()] = tokens[1];
+						Prefab.Attributes[block_path.Last()] = tokens[1];
 					}
 				}
 
@@ -210,7 +254,7 @@ namespace PseudoPopParser {
 					block_path.Add(Regex.Replace(look_back_line, @"^\s+|\s+$", "")); // Increments block_path.Count
 
 					if (block_path.Count == 2) {
-						prefab_key = block_path.Last();
+						Prefab.ID = block_path.Last().Trim('"');
 					}
 
 				}
@@ -224,23 +268,18 @@ namespace PseudoPopParser {
 
 					// Write to main prefan dictionary
 					if (block_path.Count == 1) {
-						if (prefab_key.Length > 0) {
+						if (Prefab.ID != null) {
 
 							// Check attempt to add duplicate key
-							if (prefabs.Keys.Contains(prefab_key)) {
+							if (this.PrefabLookUp.Keys.Contains(Prefab.ID)) {
 								Error.Write("ATTEMPT TO ADD DUPLICATE KEY");
 							}
 
-							prefabs[prefab_key] = characteristics;
+							this.PrefabLookUp[Prefab.ID] = Prefab;
 						}
 
 						// Reset Item
-						prefab_key = "";
-						characteristics = new Dictionary<string, string> {
-							["ID prefab"] = "",
-							["ID item_slot"] = "",
-							["ID loc_name_id"] = ""
-						};
+						Prefab = new PrefabProfile();
 					}
 				}
 
@@ -249,19 +288,14 @@ namespace PseudoPopParser {
 			/* Item Operation */
 			string block_key = "";
 			block_path = new List<string>();
-			Dictionary<string, string> item_dict = new Dictionary<string, string> {
-				["ID name"] = "",
-				["ID loc_name_id"] = "",
-				["ID item_slot"] = "",
-				["ID base"] = ""
-			};
+			ItemProfile Item = new ItemProfile();
 
 			// Read File
-			for (int i = ip[1]; i < items_file.Length; i++) {
+			for (int i = ip[1]; i < RemoteRawLines.Length; i++) {
 
 				// Specify General-Use vars
-				string line = items_file[i];
-				string look_back_line = items_file[i - 1];
+				string line = RemoteRawLines[i];
+				string look_back_line = RemoteRawLines[i - 1];
 				List<string> tokens = new List<string>();
 
 				// Get Tokens of Line
@@ -272,46 +306,52 @@ namespace PseudoPopParser {
 				// Read contents of line
 				for (int j = 0; j < tokens.Count; j++) {
 					if (block_path.Count == 2) { // Relying on autogeneration here
-						if (tokens[j].ToUpper() == "\"prefab\"".ToUpper()) {
+						if (tokens[j].ToUpper() == "\"PREFAB\"") {
 
 
 							foreach (Match prefab_target_match in Regex.Matches(tokens[j + 1], "[^ \"\\s]\\S+[^\"\\s]")) {
-								string prefab_target = "\"" + prefab_target_match.Value + "\"";
+								string prefab_target = prefab_target_match.Value;
 
 								// Check valid prefab
 								/*if (!prefabs.ContainsKey(prefab_target)) {
 									PrintColor.DebugInternalLine("INVALID KEY: " + prefab_target);
 								}*/
-								
+
 								// Import config from prefab dictionary
-								var p = GetPrefab(prefab_target); // Recursive retrieval
-								foreach (string key in p.Keys) {
-									item_dict[key] = p[key];
-								}
+								PrefabProfile p = GetPrefab(prefab_target); // Recursive retrieval
+								Item.Merge(p);
 							}
 						}
-						if (tokens[j].ToUpper() == "\"name\"".ToUpper()) {
-							item_dict["ID name"] = tokens[j + 1].Replace("\"", "");
+						if (tokens[j].ToUpper() == "\"NAME\"") {
+							Item.Name = tokens[j + 1].Replace("\"", "");
 						}
-						if (tokens[j].ToUpper() == "\"item_slot\"".ToUpper()) {
-							item_dict["ID item_slot"] = tokens[j + 1].Replace("\"", "");
+						if (tokens[j].ToUpper() == "\"ITEM_SLOT\"") {
+							Item.DefaultSlot = tokens[j + 1].Replace("\"", "");
 						}
-						if (tokens[j].ToUpper() == "\"baseitem\"".ToUpper()) {
-							item_dict["ID base"] = tokens[j + 1].Replace("\"", "");
+						if (tokens[0].ToUpper() == "\"ITEM_CLASS\"" && tokens[1].ToUpper().StartsWith("\"TF_WEARABLE")) {
+							Item.AllClass = true;
+						}
+						if (tokens[0].ToUpper() == "\"ACT_AS_WEARABLE\"" && tokens[1] == "\"1\"") {
+							Item.AllClass = true;
 						}
 					}
 				}
 
+				// Get Explicit Slots
+				if (block_path.Count == 3 && block_path.Last() == "\"used_by_classes\"" && tokens.Count >= 2) {
+					Item.Slot[GetClassIndex(tokens[0].Trim('"'))] = tokens[1].Trim('"');
+				}
+
 				// Get Static Attributes
 				if (block_path.Count == 3 && block_path.Last() == "\"static_attrs\"" && tokens.Count >= 2) {
-					item_dict[tokens[0]] = tokens[1];
+					Item.Attributes[tokens[0]] = tokens[1];
 				}
 
 				// Get Attributes
 				if (block_path.Count == 4 && block_path.ElementAt(block_path.Count - 2) == "\"attributes\"" && tokens.Count >= 2) {
 					// Add attribute on "VALUE" key-pair line
 					if (tokens[0].ToUpper() == "\"VALUE\"") {
-						item_dict[block_path.Last()] = tokens[1];
+						Item.Attributes[block_path.Last()] = tokens[1];
 					}
 				}
 
@@ -334,32 +374,40 @@ namespace PseudoPopParser {
 					if (block_path.Count == 1) {
 
 						// Write to file
-						if (WriteEntryLine(writer, item_dict["ID name"], item_dict["ID name"])) {
-							WriteEntryLine(writer, item_dict["ID loc_name_id"], "\tloc_name " + item_dict["ID loc_name_id"]);
-							WriteEntryLine(writer, item_dict["ID item_slot"], "\tslot " + item_dict["ID item_slot"]);
-							WriteEntryLine(writer, item_dict["ID base"], "\tbase " + item_dict["ID base"]);
+						if (Item.Name != null) {
+							// Write Traits
+							this.Writer.WriteLine(Item.Name);
+
+							if (!string.IsNullOrEmpty(Item.Localization)) {
+								this.Writer.WriteLine("\tLOC " + Item.Localization);
+							}
+							if (!string.IsNullOrEmpty(Item.DefaultSlot)) {
+								this.Writer.WriteLine("\tDFS " + Item.DefaultSlot);
+							}
+
+							// Write Slots
+							if (Item.AllClass || string.Join("", Item.Slot) == "111111111") {
+								this.Writer.WriteLine("\tSLT ALLCLASS");
+							}
+							else if (string.Join("", Item.Slot) != "000000000") {
+								this.Writer.Write("\tSLT ");
+								for (int ClassIndex = 0; ClassIndex <= 7; ClassIndex++) {
+									this.Writer.Write(Item.Slot[ClassIndex] + " ");
+								}
+								this.Writer.WriteLine(Item.Slot[8]);
+							}
 
 							// Write Attributes
-							foreach (string attribute_key in item_dict.Keys) {
-								if (attribute_key.Substring(0, 2) != "ID") {
-									WriteEntryLine(writer, item_dict[attribute_key], "\t" + attribute_key + " " + item_dict[attribute_key]);
-								}
+							foreach (string Key in Item.Attributes.Keys) {
+								this.Writer.WriteLine("\t{0} {1}", Key, Item.Attributes[Key]);
 							}
 						}
 
 						// Reset Item
-						item_dict = new Dictionary<string, string> {
-							["ID name"] = "",
-							["ID loc_name_id"] = "",
-							["ID item_slot"] = "",
-							["ID base"] = ""
-						};
+						Item = new ItemProfile();
 					}
 				}
 			} // End of Item Section
-
-			// Abandon Ship
-			writer.Dispose();
 		}
 	}
 }

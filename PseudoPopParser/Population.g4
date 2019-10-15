@@ -158,7 +158,7 @@ template_body
 	| ITEM value
 	| TELEPORTWHERE value
 	| TAG value
-	| ITEMATTRIBUTES '{' itemattributes_body* '}'
+	| ITEMATTRIBUTES '{' itemattributes_body* close_curly
 	| CHARACTERATTRIBUTES '{' characterattributes_body* '}'
 	| EVENTCHANGEATTRIBUTES '{' eventchangeattributes_body*? '}'
 	// WaveSpawn
@@ -252,7 +252,7 @@ mission_body
 	;
 
 spawners
-	: TFBOT '{' tfbot_body*? '}'
+	: TFBOT '{' tfbot_body*? close_curly
 	| TANK '{' tank_body*? '}'
 	| SENTRYGUN '{' sentrygun_body*? '}'
 	| SQUAD '{' squad_body*? '}'
@@ -292,7 +292,7 @@ tfbot_body
 	| ITEM value
 	| TELEPORTWHERE value
 	| TAG value
-	| ITEMATTRIBUTES '{' itemattributes_body* '}'
+	| ITEMATTRIBUTES '{' itemattributes_body* close_curly
 	| CHARACTERATTRIBUTES '{' characterattributes_body* '}'
 	| EVENTCHANGEATTRIBUTES '{' eventchangeattributes_body*? '}'
 	;
@@ -339,6 +339,10 @@ eventattributes_body
 output_body
 	: TARGET value
 	| ACTION value
+	;
+
+close_curly // Parser anchor method
+	: '}'
 	;
 
 /*

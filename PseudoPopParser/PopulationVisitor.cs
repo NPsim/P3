@@ -6,6 +6,7 @@ using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 
 namespace PseudoPopParser {
+
 	public class PopulationVisitor : PopulationBaseVisitor<object> {
 
 		private PopFile Pop;
@@ -31,6 +32,24 @@ namespace PseudoPopParser {
 		public override object VisitPopfile(PopulationParser.PopfileContext context) {
 			this.Pop = new PopFile();
 			return base.VisitPopfile(context);
+		}
+
+		public override object VisitClose_curly([NotNull] PopulationParser.Close_curlyContext context) {
+			string Parent = LookBack[context.Parent.SourceInterval.a];
+			int ParentLine = ((ParserRuleContext)context.Parent).Start.Line;
+			switch (ValueParser.String(Parent.ToUpper())) {
+				case "TFBOT": { // Track valid inventory
+					break;
+				}
+				case "ITEMATTRIBUTES": { // Track every ItemAttributes contains a ItemName key
+					ItemAttributes Attributes = ItemAttributesTracker[((ParserRuleContext)context.Parent).SourceInterval.a];
+					if (Attributes.ItemName == null || Attributes.ItemName.Length == 0) {
+						Warning.Write("{f:Yellow}ItemAttributes{r} missing {f:Yellow}ItemName{r} key.", ParentLine, 216);
+					}
+					break;
+				}
+			}
+			return base.VisitClose_curly(context);
 		}
 
 		readonly string[] DefaultBases = { "ROBOT_STANDARD.POP", "ROBOT_GIANT.POP", "ROBOT_GATEBOT.POP" };
@@ -463,7 +482,6 @@ namespace PseudoPopParser {
 						Warning.Write("Cannot use {f:Yellow}multiple Templates{r}.", context.Stop.Line, 215);
 						break;
 					}
-
 					Node.Template = ValueParser.String(Value);
 					try {
 						T_Generic Template = Pop.Population.Templates[Node.Template];
@@ -593,8 +611,8 @@ namespace PseudoPopParser {
 					break;
 				case "RANDOMPLACEMENT":
 					Pop.Population.LastRandomPlacement.Spawner = NewSpawner;
-					break;
-				default: // Spawner is inside T_WaveSpawn
+					break; 
+				default: // Spawner is inside a T_WaveSpawn
 					string TemplateName = LookBack[context.Parent.Parent.SourceInterval.a];
 					Pop.Population.Templates[TemplateName].Spawner = NewSpawner;
 					break;
@@ -655,7 +673,6 @@ namespace PseudoPopParser {
 						Warning.Write("Cannot use {f:Yellow}multiple Templates{r}.", context.Stop.Line, 215);
 						break;
 					}
-
 					Node.Template = ValueParser.String(Value);
 					try {
 						T_Generic Template = Pop.Population.Templates[Node.Template];

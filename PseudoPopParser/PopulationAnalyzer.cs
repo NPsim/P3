@@ -182,6 +182,7 @@ namespace PseudoPopParser {
 		}
 
 		public Tuple<List<string>, List<string>, List<string>> TemplateTypeNames() {
+			if (Pop.Population.Templates == null) return new Tuple<List<string>, List<string>, List<string>>(new List<string>(), new List<string>(), new List<string>());
 			List<string> TFBotTemplates = new List<string>();
 			List<string> WaveSpawnTemplates = new List<string>();
 			List<string> GenericTemplates = new List<string>();
