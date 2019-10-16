@@ -55,8 +55,9 @@ namespace PseudoPopParser {
 					if (!string.IsNullOrEmpty(ItemEntry.Name)) {
 						Items[ItemEntry.Name] = ItemEntry;
 					}
-					ItemEntry = new Item();
-					ItemEntry.Name = Line;
+					ItemEntry = new Item {
+						Name = Line
+					};
 				}
 				else {
 					MatchCollection Token = Regex.Matches(Line, "\"[^\"]*\"|[^\"\\s]\\S*[^\"\\s]|[^\"\\s]");
@@ -102,7 +103,7 @@ namespace PseudoPopParser {
 			return false;
 		}
 
-		public static string NormalizeName(string item_name) {
+		public static string GetName(string item_name) {
 			foreach (string real_name in Items.Keys) {
 				if (item_name.ToUpper() == real_name.ToUpper()) {
 					return real_name;
@@ -111,8 +112,30 @@ namespace PseudoPopParser {
 			throw new Exception("InvalidNormalItemName");
 		}
 
-		public static string GetDefaultSlot(string ItemName) {
-			return Items[ItemName].DefaultSlot; // Possible Values: "", "primary", "secondary", "melee", "pda", "pda2", "building", "action", "head", "misc"
+		public static string GetSlot(string ItemName, string Class = "") {
+			ItemName = GetName(ItemName);
+			switch(Class.ToUpper()) {
+				case "SCOUT":
+					return Items[ItemName].Slot[0];
+				case "SOLDIER":
+					return Items[ItemName].Slot[1];
+				case "PYRO":
+					return Items[ItemName].Slot[2];
+				case "DEMOMAN":
+					return Items[ItemName].Slot[3];
+				case "HEAVY":
+					return Items[ItemName].Slot[4];
+				case "ENGINEER":
+					return Items[ItemName].Slot[5];
+				case "MEDIC":
+					return Items[ItemName].Slot[6];
+				case "SNIPER":
+					return Items[ItemName].Slot[7];
+				case "SPY":
+					return Items[ItemName].Slot[8];
+				default:
+					return Items[ItemName].DefaultSlot; // Possible Values: "", "primary", "secondary", "melee", "pda", "pda2", "building", "action", "head", "misc"
+			}
 		}
 
 		public static string GetLocalization(string ItemName) {

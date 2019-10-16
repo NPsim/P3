@@ -188,7 +188,7 @@ namespace PseudoPopParser {
 			List<string> GenericTemplates = new List<string>();
 			List<string> AllTemplateNames = Pop.Population.Templates.Keys.ToList();
 			foreach(string TemplateName in AllTemplateNames) {
-				switch(Pop.Population.Templates[TemplateName].TemplateType) {
+				switch(Pop.Population.Templates[TemplateName.ToUpper()].TemplateType) {
 					case "TFBOT":
 						TFBotTemplates.Add(TemplateName);
 						break;

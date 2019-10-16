@@ -208,6 +208,7 @@ namespace PseudoPopParser {
 			if (e.GetExpectedTokens().ToString(recognizer.Vocabulary) == "<EOF>") {
 				msg = "Expected {f:Red}End of File{r} but '{f:Red}{$0}{r}' was found.";
 				e.HelpLink = "504";
+				return; // TODO ADD CONFIG TO TURN OFF "EXPECTED END OF FILE"
 			}
 			NotifyErrorListeners(recognizer, msg, e);
 		}
@@ -219,7 +220,7 @@ namespace PseudoPopParser {
 			BeginErrorCondition(recognizer);
 			IToken t = recognizer.CurrentToken;
 			IntervalSet expecting = GetExpectedTokens(recognizer);
-			string msg = "Expected '{f:Red}" + expecting.ToString(recognizer.Vocabulary).Trim('\'') + "{r}' at '{f:Red}" + GetTokenErrorDisplay(t).Trim('\'') + "{r}'";
+			string msg = "Expected {f:Red}<" + expecting.ToString(recognizer.Vocabulary).Trim('\'') + ">{r} at '{f:Red}" + GetTokenErrorDisplay(t).Trim('\'') + "{r}'";
 			NoViableAltException e = new NoViableAltException(recognizer) {
 				HelpLink = "505"
 			};

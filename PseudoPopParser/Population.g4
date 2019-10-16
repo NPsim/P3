@@ -136,7 +136,7 @@ population_body
 	;
 
 templates_body
-	: value '{' template_body* '}'
+	: value '{' template_body* close_curly
 	;
 
 template_body

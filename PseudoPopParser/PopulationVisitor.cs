@@ -39,12 +39,20 @@ namespace PseudoPopParser {
 			int ParentLine = ((ParserRuleContext)context.Parent).Start.Line;
 			switch (ValueParser.String(Parent.ToUpper())) {
 				case "TFBOT": { // Track valid inventory
+					ItemTracker.VerifyModifications();
 					break;
 				}
 				case "ITEMATTRIBUTES": { // Track every ItemAttributes contains a ItemName key
 					ItemAttributes Attributes = ItemAttributesTracker[((ParserRuleContext)context.Parent).SourceInterval.a];
 					if (Attributes.ItemName == null || Attributes.ItemName.Length == 0) {
 						Warning.Write("{f:Yellow}ItemAttributes{r} missing {f:Yellow}ItemName{r} key.", ParentLine, 216);
+					}
+					break;
+				}
+				default: {
+					if (((ParserRuleContext)context.Parent.Parent).Start.Text.ToUpper() == "TEMPLATES") { // Line is end of T_TFBot
+						string TemplateName = ((ParserRuleContext)context.Parent).Start.Text;
+						ItemTracker.StoreTemplateAndClear(TemplateName);
 					}
 					break;
 				}
@@ -90,7 +98,7 @@ namespace PseudoPopParser {
 
 						// Import templates from base popfile
 						foreach (KeyValuePair<string, dynamic> item in popfile.Population.Templates) {
-							Pop.Population.Templates[item.Key] = item.Value;
+							Pop.Population.Templates[item.Key.ToUpper()] = item.Value;
 						}
 					}
 					catch (System.IO.FileNotFoundException) {
@@ -178,16 +186,16 @@ namespace PseudoPopParser {
 
 		public override object VisitTemplates_body([NotNull] PopulationParser.Templates_bodyContext context) {
 			string TemplateName = context.Start.Text;
-			Pop.Population.Templates[TemplateName] = new T_Generic();
+			Pop.Population.Templates[TemplateName.ToUpper()] = new T_Generic();
 			return base.VisitTemplates_body(context);
 		}
 
 		private readonly string[] T_GenericKeys = { "NAME", "TEMPLATE" };
-		private readonly string[] T_TFBotKeys = { "ATTRIBUTES", "CLASS", "CLASSICON", "HEALTH", "SCALE", "AUTOJUMPMIN", "AUTOJUMPMAX", "SKILL", "WEAPONRESTRICTIONS", "BEHAVIORMODIFIERS", "MAXVISIONRANGE", "ITEM", "TELEPORTWHERE", "TAG", "ITEMATTRIBUTES", "CHARACTERATTRIBUTES" };
+		private readonly string[] T_TFBotKeys = { "ATTRIBUTES", "CLASS", "CLASSICON", "HEALTH", "SCALE", "AUTOJUMPMIN", "AUTOJUMPMAX", "SKILL", "WEAPONRESTRICTIONS", "BEHAVIORMODIFIERS", "MAXVISIONRANGE", "ITEM", "TELEPORTWHERE", "TAG", "ITEMATTRIBUTES", "CHARACTERATTRIBUTES", "EVENTCHANGEATTRIBUTES" };
 		private readonly string[] T_WaveSpawnKeys = { "TOTALCURRENCY", "TOTALCOUNT", "WHERE", "MAXACTIVE", "SPAWNCOUNT", "SUPPORT", "WAITFORALLDEAD", "WAITFORALLSPAWNED", "WAITBEFORESTARTING", "WAITBETWEENSPAWNS", "WAITBETWEENSPAWNSAFTERDEATH", "RANDOMSPAWN", "STARTWAVEWARNINGSOUND", "STARTWAVEOUTPUT", "FIRSTSPAWNWARNINGSOUND", "FIRSTSPAWNOUTPUT", "LASTSPAWNWARNINGSOUND", "LASTSPAWNOUTPUT", "DONEWARNINGSOUND", "DONEOUTPUT" };
 		public override object VisitTemplate_body([NotNull] PopulationParser.Template_bodyContext context) {
 			string TemplateName = LookBack[context.Parent.SourceInterval.a];
-			T_Generic Template = Pop.Population.Templates[TemplateName];
+			T_Generic Template = Pop.Population.Templates[TemplateName.ToUpper()];
 			string Key = ValueParser.String(context.Start.Text);
 			string Value = context.Stop.Text;
 
@@ -233,6 +241,7 @@ namespace PseudoPopParser {
 							// TODO Warn Bad Class Value
 							Console.WriteLine("WARN | Invalid Class");
 						}
+						ItemTracker.SetupClass(Template.Class);
 						break;
 					case "CLASSICON":
 						Template.ClassIcon = ValueParser.String(Value);
@@ -280,9 +289,15 @@ namespace PseudoPopParser {
 					case "MAXVISIONRANGE":
 						Template.MaxVisionRange = ValueParser.Double(Value, context);
 						break;
-					case "ITEM":
-						Template.Items.Add(ValueParser.String(Value));
+					case "ITEM": {
+						string ItemName = ValueParser.String(Value);
+						Template.Items.Add(ItemName);
+						/*if (!ItemDatabase.Exists(ItemName)) {
+							Warning.Write("Invalid TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", context.Stop.Line, 209, ItemName);
+						}*/
+						ItemTracker.Add(ItemName, context.Stop.Line, Template.Class);
 						break;
+					}
 					case "TELEPORTWHERE":
 						Template.TeleportWheres.Add(ValueParser.String(Value));
 						break;
@@ -484,7 +499,7 @@ namespace PseudoPopParser {
 					}
 					Node.Template = ValueParser.String(Value);
 					try {
-						T_Generic Template = Pop.Population.Templates[Node.Template];
+						T_Generic Template = Pop.Population.Templates[Node.Template.ToUpper()];
 						Node.MergeTemplate(Template);
 					}
 					catch (Exception ex) {
@@ -576,6 +591,7 @@ namespace PseudoPopParser {
 			switch (Key.ToUpper()) {
 				case "TFBOT":
 					NewSpawner = new TFBot();
+					ItemTracker.Clear();
 					break;
 				case "TANK":
 					NewSpawner = new Tank();
@@ -614,7 +630,7 @@ namespace PseudoPopParser {
 					break; 
 				default: // Spawner is inside a T_WaveSpawn
 					string TemplateName = LookBack[context.Parent.Parent.SourceInterval.a];
-					Pop.Population.Templates[TemplateName].Spawner = NewSpawner;
+					Pop.Population.Templates[TemplateName.ToUpper()].Spawner = NewSpawner;
 					break;
 			}
 
@@ -674,8 +690,10 @@ namespace PseudoPopParser {
 						break;
 					}
 					Node.Template = ValueParser.String(Value);
+					ItemTracker.ImportTemplate(Node.Template);
+
 					try {
-						T_Generic Template = Pop.Population.Templates[Node.Template];
+						T_Generic Template = Pop.Population.Templates[Node.Template.ToUpper()];
 						Node.MergeTemplate(Template);
 					}
 					catch (Exception ex) {
@@ -701,6 +719,7 @@ namespace PseudoPopParser {
 					foreach (string Class in Classes) {
 						if (System.Text.RegularExpressions.Regex.IsMatch(ValueParser.String(Value).ToUpper(), "^" + Class, System.Text.RegularExpressions.RegexOptions.IgnoreCase)) {
 							Node.Class = Class.First() + Class.Substring(1).ToLower();
+							ItemTracker.SetupClass(Node.Class);
 							ClassChanged = true;
 							break;
 						}
@@ -757,8 +776,15 @@ namespace PseudoPopParser {
 					Node.MaxVisionRange = ValueParser.Double(Value, context);
 					break;
 				case "ITEM":
-					Node.Items.Add(ValueParser.String(Value));
-					// TODO Check item existence
+					string ItemName = ValueParser.String(Value);
+					Node.Items.Add(ItemName);
+					/*if (!ItemDatabase.Exists(ItemName)) {
+						Warning.Write("Invalid TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", context.Stop.Line, 209, ItemName);
+					}
+					else {
+						Console.WriteLine("Exists: " + ItemName);
+					}*/
+					ItemTracker.Add(ItemName, context.Stop.Line);
 					break;
 				case "TELEPORTWHERE":
 					Node.TeleportWheres.Add(ValueParser.String(Value));
@@ -847,8 +873,19 @@ namespace PseudoPopParser {
 			string Value = context.Stop.Text;
 			int ParentTokenIndex = context.Parent.SourceInterval.a;
 			ItemAttributes Node = ItemAttributesTracker[ParentTokenIndex];
-			if (Key.ToUpper() == "ITEMNAME") Node.ItemName = Node.ItemName ?? ValueParser.String(Value); // TODO Test ItemName only accepts first value
-			else Node.Attributes[ValueParser.String(Key)] = ValueParser.String(Value);
+			if (Key.ToUpper() == "ITEMNAME") {
+				string ItemName = ValueParser.String(Value);
+				if (string.IsNullOrEmpty(Node.ItemName)) {
+					Node.ItemName = ItemName;
+					ItemTracker.AddModifier(ItemName, context.Stop.Line);
+				}
+				else {
+					Warning.Write("{f:Yellow}Multiple ItemName{r} keys found: '{f:Yellow}{$0}{r}'", context.Stop.Line, 217, ItemName);
+				}
+			}
+			else { // Default: KeyValue is an Attribute
+				Node.Attributes[ValueParser.String(Key)] = ValueParser.String(Value);
+			}
 			return base.VisitItemattributes_body(context);
 		}
 
@@ -882,7 +919,7 @@ namespace PseudoPopParser {
 			string EventName = context.Start.Text;
 
 			if (context.Parent.Parent.Parent.Parent.Parent.SourceInterval.a == 0) { // This is a template original 4
-				T_Generic Template = Pop.Population.Templates[LookBack[context.Parent.Parent.SourceInterval.a]];
+				T_Generic Template = Pop.Population.Templates[LookBack[context.Parent.Parent.SourceInterval.a].ToUpper()];
 				Template.EventChangeAttributes[EventName] = new EventChangeAttributes();
 			}
 			else {
@@ -898,7 +935,7 @@ namespace PseudoPopParser {
 			string EventName = LookBack[context.Parent.SourceInterval.a];
 			EventChangeAttributes Node;
 			if (context.Parent.Parent.Parent.Parent.Parent.Parent.SourceInterval.a == 0) { // This is a template original 5
-				Node = Pop.Population.Templates[LookBack[context.Parent.Parent.Parent.SourceInterval.a]].EventChangeAttributes[EventName];
+				Node = Pop.Population.Templates[LookBack[context.Parent.Parent.Parent.SourceInterval.a].ToUpper()].EventChangeAttributes[EventName];
 			}
 			else {
 				Node = SpawnerTracker[context.Parent.Parent.Parent.SourceInterval.a].EventChangeAttributes[EventName];
@@ -937,8 +974,12 @@ namespace PseudoPopParser {
 					}
 					break;
 				case "ITEM":
-					Node.Items.Add(ValueParser.String(Value));
-					// TODO Check item existence
+					string ItemName = ValueParser.String(Value);
+					Node.Items.Add(ItemName);
+					/*if (!ItemDatabase.Exists(ItemName)) {
+						Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Cyan}Item Name{r}: '{f:Yellow}{$0}{r}", context.Stop.Line, 209, ItemName);
+					}*/
+					ItemTracker.Add(ItemName, context.Stop.Line);
 					break;
 				case "TAG":
 					Node.Tags.Add(ValueParser.String(Value));
@@ -947,7 +988,6 @@ namespace PseudoPopParser {
 					ItemAttributes ItemAttributes = new ItemAttributes();
 					ItemAttributesTracker[context.SourceInterval.a] = ItemAttributes;
 					Node.ItemAttributes.Add(ItemAttributes);
-					// TODO Check item existence after template import
 					break;
 				case "CHARACTERATTRIBUTES": // TODO Investigate multiple char attributes
 					CharacterAttributes CharacterAttributes = new CharacterAttributes();

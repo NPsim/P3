@@ -25,7 +25,6 @@ namespace PseudoPopParser {
 
 		[STAThread]
 		internal static void Main(string[] args) {
-			var StopWatch = System.Diagnostics.Stopwatch.StartNew();
 			LaunchArguments = args;
 
 			// Console Size
@@ -37,16 +36,18 @@ namespace PseudoPopParser {
 			catch { } // Catch possible SecurityException
 
 			// Build Dialog
-			OpenFileDialog dialog = new OpenFileDialog {
-				InitialDirectory = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory),
+			OpenFileDialog Dialog = new OpenFileDialog {
+				//InitialDirectory = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory),
+				InitialDirectory = @"X:\Steam\steamapps\common\subserver_mvm_page\scripts\population",
+
 				Filter = "Pop Files|*.pop"
 			};
-			dialog.FileName = @"C:\Users\Simple\Desktop\ANTLR Files\testrig.pop"; // TODO Remove this line //
+			//Dialog.FileName = @"C:\Users\Simple\Desktop\ANTLR Files\testrig.pop"; // TODO Remove this line //
 
 			// Launch Flags
 			for (int i = 0; i < args.Length; i++) {
 				if (args[i] == "-pop") {
-					dialog.FileName = args[i + 1];
+					Dialog.FileName = args[i + 1];
 				}
 				if (args[i] == "-log") {
 					PrintColor.InfoLine("=====Log: {f:Cyan}{$0}{r}=====", args[i + 1]);
@@ -68,13 +69,14 @@ namespace PseudoPopParser {
 
 			// Show Dialog
 			PrintColor.InfoLine("P3 v2 Alpha");
-			while (dialog.FileName == "") {
+			while (Dialog.FileName == "") {
 				PrintColor.InfoLine("Select your Pop file");
-				dialog.ShowDialog();
+				Dialog.ShowDialog();
 			}
-			FullPopFileDirectory = Path.GetDirectoryName(dialog.FileName);
-			FullPopFilePath = dialog.FileName;
+			FullPopFileDirectory = Path.GetDirectoryName(Dialog.FileName);
+			FullPopFilePath = Dialog.FileName;
 
+			var StopWatch = System.Diagnostics.Stopwatch.StartNew();
 			if (ShowStopWatch) {
 				LineCount = File.ReadLines(FullPopFilePath).Count();
 			}
