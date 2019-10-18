@@ -1,4 +1,4 @@
-917960f87656ebcde2a9cacd4b87f6e2
+dd2e75754963bddbff23a9dd9ce51a61
 default
 	DFS melee
 	SLT ALLCLASS
@@ -37139,6 +37139,118 @@ Brazil Fortress JumpCup Demoman Division 2 Participant Season 2
 	"cosmetic_allow_inspect" "1"
 	"cannot trade" "1"
 Brazil Fortress JumpCup Helper Season 2
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Premier 1st Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Premier 2nd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Premier 3rd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Premier Participant Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Intermediate 1st Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Intermediate 2nd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Intermediate 3rd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Intermediate Participant Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Main 1st Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Main 2nd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Main 3rd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Main Participant Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Open 1st Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Open 2nd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Open 3rd Place Season 26
+	DFS misc
+	SLT ALLCLASS
+	"kill eater score type" "64"
+	"kill eater kill type" "64"
+	"cosmetic_allow_inspect" "1"
+	"cannot trade" "1"
+ozfortress Open Participant Season 26
 	DFS misc
 	SLT ALLCLASS
 	"kill eater score type" "64"

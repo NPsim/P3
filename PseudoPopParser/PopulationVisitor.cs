@@ -34,6 +34,7 @@ namespace PseudoPopParser {
 			return base.VisitPopfile(context);
 		}
 
+		private readonly List<Tuple<string, int>> WaitForAllTracker = new List<Tuple<string, int>>();
 		public override object VisitClose_curly([NotNull] PopulationParser.Close_curlyContext context) {
 			string Parent = LookBack[context.Parent.SourceInterval.a];
 			int ParentLine = ((ParserRuleContext)context.Parent).Start.Line;
@@ -49,11 +50,54 @@ namespace PseudoPopParser {
 					}
 					break;
 				}
+				case "WAVE": { // Verify all WaitForAll* lead to a valid WaveSpawn inside wave
+					Wave LastWave = Pop.Population.LastWave;
+
+					// Get all Names
+					List<string> Names = new List<string>();
+					foreach(WaveSpawn WS in LastWave.WaveSpawns) {
+						if (!string.IsNullOrEmpty(WS.Name)) {
+							Names.Add(WS.Name.ToUpper());
+						}
+					}
+
+					// Compare WaitForAll* tracker with Names list
+					foreach(Tuple<string, int> WaitForAll in WaitForAllTracker) { // Tuple<string: WaitForAll* Name, int:Associated line number>
+						if (!Names.Contains(WaitForAll.Item1.ToUpper()) && Program.Config.ReadBool("bool_warn_wait_for_all_not_found")) { // Compare case insensitive
+							Warning.Write("{f:Yellow}WaitForAll*{r} name does not exist in wave: '{f:Yellow}{$0}{r}'", WaitForAll.Item2, 301, WaitForAll.Item1);
+						}
+					}
+
+					// Calculate Total Wave Credits (Warning)
+					int ConfigMultiple = Program.Config.ReadInt("int_warn_credits_multiple");
+					uint WaveTotalCurrency = 0;
+					foreach (WaveSpawn WaveSpawn in LastWave.WaveSpawns) {
+						WaveTotalCurrency += WaveSpawn.TotalCurrency;
+					}
+					if (WaveTotalCurrency % ConfigMultiple != 0) {
+						Warning.Write("{f:Yellow}Wave " + (Pop.Population.Waves.Count) + "{r}'s credits is {f:Yellow}not multiple{r} of {f:Yellow}" + ConfigMultiple + "{r}: '{f:Yellow}" + WaveTotalCurrency + "{r}'", -1, 101);
+					}
+					break;
+				}
 				default: {
-					if (((ParserRuleContext)context.Parent.Parent).Start.Text.ToUpper() == "TEMPLATES") { // Line is end of T_TFBot
+					if (((ParserRuleContext)context.Parent.Parent).Start.Text.ToUpper() == "TEMPLATES") { // Line is end of T_TFBot // Clear ItemTracker
 						string TemplateName = ((ParserRuleContext)context.Parent).Start.Text;
 						ItemTracker.StoreTemplateAndClear(TemplateName);
 					}
+					else if (context.Start.Text == ((ParserRuleContext)context.Parent.Parent).Start.Text) { // Line is the end of WaveSchedule // Calculate total popfile credits
+						uint PopulationTotalCurrency = Pop.Population.StartingCurrency;
+						foreach(Wave Wave in Pop.Population.Waves) {
+							uint WaveTotalCurrency = 0;
+							foreach (WaveSpawn WaveSpawn in Wave.WaveSpawns) {
+								WaveTotalCurrency += WaveSpawn.TotalCurrency;
+							}
+							PopulationTotalCurrency += WaveTotalCurrency;
+						}
+						if (PopulationTotalCurrency > 30000 && Program.Config.ReadBool("bool_warn_credits_gr_30000")) {
+							Warning.Write("{f:Yellow}Total Possible Credits{r} exceeds maximum possible reading of {f:Cyan}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
+						}
+					}
+
 					break;
 				}
 			}
@@ -145,8 +189,7 @@ namespace PseudoPopParser {
 				case "EVENTPOPFILE":
 					Node.EventPopFile = ValueParser.String(Value);
 					if (ValueParser.String(Value).ToUpper() != "HALLOWEEN") {
-						// TODO Warn Halloween
-						Console.WriteLine("WARN | Key 'Event' only supports value 'Halloween'");
+						Warning.Write("EventPopFile key only supports \"Halloween\"", context.Stop.Line, 303);
 					}
 					break;
 				case "CANBOTSATTACKWHILEINSPAWNROOM":
@@ -173,6 +216,7 @@ namespace PseudoPopParser {
 					break;
 				case "WAVE":
 					Node.NewWave();
+					WaitForAllTracker.Clear();
 					break;
 				case "RANDOMPLACEMENT":
 					Node.NewRandomPlacement();
@@ -233,15 +277,15 @@ namespace PseudoPopParser {
 						foreach (string Class in Classes) {
 							if (System.Text.RegularExpressions.Regex.IsMatch(ValueParser.String(Value).ToUpper(), "^" + Class, System.Text.RegularExpressions.RegexOptions.IgnoreCase)) {
 								Template.Class = Class.First() + Class.Substring(1).ToLower();
+								ItemTracker.SetupClass(Template.Class);
+								Template.Name = Template.Name ?? Template.Class;
 								IsValidClass = true;
 								break;
 							}
 						}
 						if (!IsValidClass) {
-							// TODO Warn Bad Class Value
-							Console.WriteLine("WARN | Invalid Class");
+							Warning.Write("Unexpected {f:Yellow}Class{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 304, Value);
 						}
-						ItemTracker.SetupClass(Template.Class);
 						break;
 					case "CLASSICON":
 						Template.ClassIcon = ValueParser.String(Value);
@@ -266,24 +310,21 @@ namespace PseudoPopParser {
 						string[] Skills = { "EASY", "NORMAL", "HARD", "EXPERT" };
 						Template.Skill = ValueParser.String(Value);
 						if (!Skills.Contains(ValueParser.String(Value).ToUpper())) {
-							// TODO Warn Invalid Skill
-							Console.WriteLine("WARN | Invalid Skill");
+							Warning.Write("Unexpected {f:Yellow}Skill{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 305, Value);
 						}
 						break;
 					case "WEAPONRESTRICTIONS":
 						string[] WeaponRestrictions = { "MELEEONLY", "PRIMARYONLY", "SECONDARYONLY" };
 						Template.WeaponRestrictions = ValueParser.String(Value);
 						if (!WeaponRestrictions.Contains(ValueParser.String(Value).ToUpper())) {
-							// TODO Warn Invalid Restriction Value
-							Console.WriteLine("WARN | Invalid Skill");
+							Warning.Write("Unexpected {f:Yellow}WeaponRestrictions{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 306, Value);
 						}
 						break;
 					case "BEHAVIORMODIFIERS":
 						string[] BehaviorModifiers = { "MOBBER", "PUSH" };
 						Template.BehaviorModifiers = ValueParser.String(Value);
 						if (!BehaviorModifiers.Contains(ValueParser.String(Value).ToUpper())) {
-							// TODO Warn Invalid Modifer
-							Console.WriteLine("WARN | Invalid Skill");
+							Warning.Write("Unexpected {f:Yellow}BehaviorModifiers{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 307, Value);
 						}
 						break;
 					case "MAXVISIONRANGE":
@@ -292,9 +333,6 @@ namespace PseudoPopParser {
 					case "ITEM": {
 						string ItemName = ValueParser.String(Value);
 						Template.Items.Add(ItemName);
-						/*if (!ItemDatabase.Exists(ItemName)) {
-							Warning.Write("Invalid TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", context.Stop.Line, 209, ItemName);
-						}*/
 						ItemTracker.Add(ItemName, context.Stop.Line, Template.Class);
 						break;
 					}
@@ -308,9 +346,8 @@ namespace PseudoPopParser {
 						ItemAttributes ItemAttributes = new ItemAttributes();
 						ItemAttributesTracker[context.SourceInterval.a] = ItemAttributes;
 						Template.ItemAttributes.Add(ItemAttributes);
-						// TODO Check item existence after template importing
 						break;
-					case "CHARACTERATTRIBUTES": // TODO Investigate multiple char attributes
+					case "CHARACTERATTRIBUTES":
 						CharacterAttributes CharacterAttributes = new CharacterAttributes();
 						CharacterAttributesTracker[context.SourceInterval.a] = CharacterAttributes;
 						Template.CharacterAttributes.Add(CharacterAttributes);
@@ -319,8 +356,7 @@ namespace PseudoPopParser {
 						Template.EventChangeAttributes = Template.EventChangeAttributes ?? new Dictionary<string, EventChangeAttributes>();
 						break;
 					default:
-						// TODO Mixed template (expected TFBot)
-						Console.WriteLine("ERROR | Attempted to add WaveSpawn key to TFBot template: " + Key);
+						Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
 						break;
 				}
 			}
@@ -398,10 +434,9 @@ namespace PseudoPopParser {
 					case "SQUAD":
 					case "MOB":
 					case "RANDOMCHOICE":
-							break;
+						break;
 					default:
-						// TODO Mixed template (expected WaveSpawn)
-						Console.WriteLine("ERROR | Attempted to add TFBot key to WaveSpawn template: " + Key);
+						Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
 						break;
 				}
 			}
@@ -419,8 +454,7 @@ namespace PseudoPopParser {
 					string[] Objectives = { "DESTROYSENTRIES", "SEEKANDDESTROY", "SNIPER", "SPY", "ENGINEER" };
 					Node.Objective = ValueParser.String(Value);
 					if (!Objectives.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Objective
-						Console.WriteLine("WARN | Invalid Objective");
+						Warning.Write("Unexpected {f:Yellow}Objective{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 308, Value);
 					}
 					break;
 				case "INITIALCOOLDOWN":
@@ -506,7 +540,7 @@ namespace PseudoPopParser {
 						if (ex.Message == "IncorrectTemplateTypeException") {
 							Warning.Write("Invalid {f:Yellow}template type{r} given: '{f:Yellow}{$0}{r}'", context.Stop.Line, 214, Value);
 						}
-						else {
+						else if (Program.Config.ReadBool("bool_warn_bad_template")) {
 							Warning.Write("{f:Yellow}Template{r} does not exist: '{f:Yellow}{$0}{r}'", context.Stop.Line, 211, Value);
 						}
 					}
@@ -532,9 +566,11 @@ namespace PseudoPopParser {
 					break;
 				case "WAITFORALLDEAD":
 					Node.WaitForAllDead = ValueParser.String(Value);
+					WaitForAllTracker.Add(new Tuple<string, int>(ValueParser.String(Value), context.Stop.Line));
 					break;
 				case "WAITFORALLSPAWNED":
 					Node.WaitForAllSpawned = ValueParser.String(Value);
+					WaitForAllTracker.Add(new Tuple<string, int>(ValueParser.String(Value), context.Stop.Line));
 					break;
 				case "WAITBEFORESTARTING":
 					Node.WaitBeforeStarting = ValueParser.Double(Value, context);
@@ -683,6 +719,9 @@ namespace PseudoPopParser {
 			switch (Key.ToUpper()) {
 				case "NAME":
 					Node.Name = ValueParser.String(Value);
+					if (Program.Config.ReadBool("bool_warn_tfbot_bad_character") && ValueParser.String(Value).Contains('%')) {
+						Warning.Write("{f:Yellow}Bot name{r} cannot display symbol: '{f:Yellow}%{r}'", context.Stop.Line, 212);
+					}
 					break;
 				case "TEMPLATE": {
 					if (Node.Template != null) {
@@ -700,7 +739,7 @@ namespace PseudoPopParser {
 						if (ex.Message == "IncorrectTemplateTypeException") {
 							Warning.Write("Invalid {f:Yellow}template type{r} given: '{f:Yellow}{$0}{r}'", context.Stop.Line, 214, Value);
 						}
-						else {
+						else if (Program.Config.ReadBool("bool_warn_bad_template")) {
 							Warning.Write("{f:Yellow}Template{r} does not exist: '{f:Yellow}{$0}{r}'", context.Stop.Line, 211, Value);
 						}
 					}
@@ -715,18 +754,18 @@ namespace PseudoPopParser {
 					break;
 				case "CLASS":
 					string[] Classes = { "SCOUT", "SOLDIER", "PYRO", "DEMOMAN", "HEAVY", "ENGINEER", "MEDIC", "SNIPER", "SPY" };
-					bool ClassChanged = false;
+					bool IsValidClass = false;
 					foreach (string Class in Classes) {
 						if (System.Text.RegularExpressions.Regex.IsMatch(ValueParser.String(Value).ToUpper(), "^" + Class, System.Text.RegularExpressions.RegexOptions.IgnoreCase)) {
 							Node.Class = Class.First() + Class.Substring(1).ToLower();
 							ItemTracker.SetupClass(Node.Class);
-							ClassChanged = true;
+							Node.Name = Node.Name ?? Node.Class;
+							IsValidClass = true;
 							break;
 						}
 					}
-					if (!ClassChanged) {
-						// TODO Warn Bad Class Value
-						Console.WriteLine("WARN | Invalid Class");
+					if (!IsValidClass) {
+						Warning.Write("Unexpected {f:Yellow}Class{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 304, Value);
 					}
 					break;
 				case "CLASSICON":
@@ -752,24 +791,21 @@ namespace PseudoPopParser {
 					string[] Skills = { "EASY", "NORMAL", "HARD", "EXPERT" };
 					Node.Skill = ValueParser.String(Value);
 					if (!Skills.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Skill
-						Console.WriteLine("WARN | Invalid Skill");
+						Warning.Write("Unexpected {f:Yellow}Skill{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 305, Value);
 					}
 					break;
 				case "WEAPONRESTRICTIONS":
 					string[] WeaponRestrictions = { "MELEEONLY", "PRIMARYONLY", "SECONDARYONLY" };
 					Node.WeaponRestrictions = ValueParser.String(Value);
 					if (!WeaponRestrictions.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Restriction Value
-						Console.WriteLine("WARN | Invalid Skill");
+						Warning.Write("Unexpected {f:Yellow}WeaponRestrictions{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 306, Value);
 					}
 					break;
 				case "BEHAVIORMODIFIERS":
 					string[] BehaviorModifiers = { "MOBBER", "PUSH" };
 					Node.BehaviorModifiers = ValueParser.String(Value);
 					if (!BehaviorModifiers.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Modifier
-						Console.WriteLine("WARN | Invalid Skill");
+						Warning.Write("Unexpected {f:Yellow}BehaviorModifiers{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 307, Value);
 					}
 					break;
 				case "MAXVISIONRANGE":
@@ -778,12 +814,6 @@ namespace PseudoPopParser {
 				case "ITEM":
 					string ItemName = ValueParser.String(Value);
 					Node.Items.Add(ItemName);
-					/*if (!ItemDatabase.Exists(ItemName)) {
-						Warning.Write("Invalid TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", context.Stop.Line, 209, ItemName);
-					}
-					else {
-						Console.WriteLine("Exists: " + ItemName);
-					}*/
 					ItemTracker.Add(ItemName, context.Stop.Line);
 					break;
 				case "TELEPORTWHERE":
@@ -796,9 +826,8 @@ namespace PseudoPopParser {
 					ItemAttributes ItemAttributes = new ItemAttributes();
 					ItemAttributesTracker[context.SourceInterval.a] = ItemAttributes;
 					Node.ItemAttributes.Add(ItemAttributes);
-					// TODO Check item existence after template import
 					break;
-				case "CHARACTERATTRIBUTES": // TODO Investigate multiple char attributes
+				case "CHARACTERATTRIBUTES":
 					CharacterAttributes CharacterAttributes = new CharacterAttributes();
 					CharacterAttributesTracker[context.SourceInterval.a] = CharacterAttributes;
 					Node.CharacterAttributes.Add(CharacterAttributes);
@@ -822,13 +851,13 @@ namespace PseudoPopParser {
 					int ConfigTankHealthMaxLimit = Program.Config.ReadInt("int_tank_warn_maximum");
 					int ConfigTankHealthMinLimit = Program.Config.ReadInt("int_tank_warn_minimum");
 					if (Node.Health % ConfigTankHealthMultiple != 0) { // W0206
-						Warning.Write("Tank {f:Cyan}Health{r} not {f:Yellow}multiple of {$0}{r}: '{f:Yellow}{$1}{r}'", context.Stop.Line, 206, ConfigTankHealthMultiple.ToString(), Node.Health.ToString());
+						Warning.Write("Tank {f:Yellow}Health{r} not {f:Yellow}multiple of {$0}{r}: '{f:Yellow}{$1}{r}'", context.Stop.Line, 206, ConfigTankHealthMultiple.ToString(), Node.Health.ToString());
 					}
 					if (Node.Health > ConfigTankHealthMaxLimit) { // W0207
-						Warning.Write("Tank {f:Cyan}Health{r} {f:Yellow}exceeds maximum{r} warning [{f:Yellow}>{$0}{r}]: '{f:Yellow}{$1}{r}'", context.Stop.Line, 207, ConfigTankHealthMaxLimit.ToString(), Node.Health.ToString());
+						Warning.Write("Tank {f:Yellow}Health{r} {f:Yellow}exceeds maximum{r} warning [{f:Yellow}{$0}{r}]: '{f:Yellow}{$1}{r}'", context.Stop.Line, 207, ConfigTankHealthMaxLimit.ToString(), Node.Health.ToString());
 					}
 					if (Node.Health < ConfigTankHealthMinLimit) { // W0208
-						Warning.Write("Tank {f:Cyan}Health{r} is {f:Yellow}below minimum{r} warning [{f:Yellow}<{$0}{r}]: '{f:Yellow}{$1}{r}'", context.Stop.Line, 208, ConfigTankHealthMinLimit.ToString(), Node.Health.ToString());
+						Warning.Write("Tank {f:Yellow}Health{r} is {f:Yellow}below minimum{r} warning [{f:Yellow}{$0}{r}]: '{f:Yellow}{$1}{r}'", context.Stop.Line, 208, ConfigTankHealthMinLimit.ToString(), Node.Health.ToString());
 
 					}
 					break;
@@ -837,6 +866,9 @@ namespace PseudoPopParser {
 					break;
 				case "NAME":
 					Node.Name = ValueParser.String(Value);
+					if (Program.Config.ReadBool("bool_warn_tank_name_tankboss") && ValueParser.String(Value).ToUpper() != "TANKBOSS") {
+						Warning.Write("{f:Yellow}Tank{r} not named '{f:Yellow}TankBoss{r}' {f:Yellow}does not explode{r} on deployment: '{f:Yellow}{$0}{r}'", context.Stop.Line, 213, Value);
+					}
 					break;
 				case "SKIN":
 					Node.Skin = ValueParser.Integer(Value, context);
@@ -869,12 +901,12 @@ namespace PseudoPopParser {
 
 		private readonly Dictionary<int, ItemAttributes> ItemAttributesTracker = new Dictionary<int, ItemAttributes>();
 		public override object VisitItemattributes_body([NotNull] PopulationParser.Itemattributes_bodyContext context) {
-			string Key = context.Start.Text;
-			string Value = context.Stop.Text;
+			string Key = ValueParser.String(context.Start.Text);
+			string Value = ValueParser.String(context.Stop.Text);
 			int ParentTokenIndex = context.Parent.SourceInterval.a;
 			ItemAttributes Node = ItemAttributesTracker[ParentTokenIndex];
 			if (Key.ToUpper() == "ITEMNAME") {
-				string ItemName = ValueParser.String(Value);
+				string ItemName = Value;
 				if (string.IsNullOrEmpty(Node.ItemName)) {
 					Node.ItemName = ItemName;
 					ItemTracker.AddModifier(ItemName, context.Stop.Line);
@@ -884,7 +916,8 @@ namespace PseudoPopParser {
 				}
 			}
 			else { // Default: KeyValue is an Attribute
-				Node.Attributes[ValueParser.String(Key)] = ValueParser.String(Value);
+				Node.Attributes[Key] = Value;
+				AttributeDatabase.Verify(Key, context);
 			}
 			return base.VisitItemattributes_body(context);
 		}
@@ -892,9 +925,10 @@ namespace PseudoPopParser {
 		private readonly Dictionary<int, CharacterAttributes> CharacterAttributesTracker = new Dictionary<int, CharacterAttributes>();
 		public override object VisitCharacterattributes_body([NotNull] PopulationParser.Characterattributes_bodyContext context) {
 			CharacterAttributes Node = CharacterAttributesTracker[context.Parent.SourceInterval.a];
-			string Key = context.Start.Text;
-			string Value = context.Stop.Text;
-			Node.Attributes[ValueParser.String(Key)] = ValueParser.String(Value);
+			string Key = ValueParser.String(context.Start.Text);
+			string Value = ValueParser.String(context.Stop.Text);
+			Node.Attributes[Key] = Value;
+			AttributeDatabase.Verify(Key, context);
 			return base.VisitCharacterattributes_body(context);
 		}
 
@@ -953,32 +987,26 @@ namespace PseudoPopParser {
 					string[] Skills = { "EASY", "NORMAL", "HARD", "EXPERT" };
 					Node.Skill = ValueParser.String(Value);
 					if (!Skills.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Skill
-						Console.WriteLine("WARN | Invalid Skill");
+						Warning.Write("Unexpected {f:Yellow}Skill{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 305, Value);
 					}
 					break;
 				case "WEAPONRESTRICTIONS":
 					string[] WeaponRestrictions = { "MELEEONLY", "PRIMARYONLY", "SECONDARYONLY" };
 					Node.WeaponRestrictions = ValueParser.String(Value);
 					if (!WeaponRestrictions.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Restriction Value
-						Console.WriteLine("WARN | Invalid Skill");
+						Warning.Write("Unexpected {f:Yellow}WeaponRestrictions{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 306, Value);
 					}
 					break;
 				case "BEHAVIORMODIFIERS":
 					string[] BehaviorModifiers = { "MOBBER", "PUSH" };
 					Node.BehaviorModifiers = ValueParser.String(Value);
 					if (!BehaviorModifiers.Contains(ValueParser.String(Value).ToUpper())) {
-						// TODO Warn Invalid Modifier
-						Console.WriteLine("WARN | Invalid BehaviorModifiers");
+						Warning.Write("Unexpected {f:Yellow}BehaviorModifiers{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 307, Value);
 					}
 					break;
 				case "ITEM":
 					string ItemName = ValueParser.String(Value);
 					Node.Items.Add(ItemName);
-					/*if (!ItemDatabase.Exists(ItemName)) {
-						Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Cyan}Item Name{r}: '{f:Yellow}{$0}{r}", context.Stop.Line, 209, ItemName);
-					}*/
 					ItemTracker.Add(ItemName, context.Stop.Line);
 					break;
 				case "TAG":
@@ -989,7 +1017,7 @@ namespace PseudoPopParser {
 					ItemAttributesTracker[context.SourceInterval.a] = ItemAttributes;
 					Node.ItemAttributes.Add(ItemAttributes);
 					break;
-				case "CHARACTERATTRIBUTES": // TODO Investigate multiple char attributes
+				case "CHARACTERATTRIBUTES":
 					CharacterAttributes CharacterAttributes = new CharacterAttributes();
 					CharacterAttributesTracker[context.SourceInterval.a] = CharacterAttributes;
 					Node.CharacterAttributes.Add(CharacterAttributes);

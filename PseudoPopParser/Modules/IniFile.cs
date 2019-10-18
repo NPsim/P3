@@ -61,11 +61,21 @@ namespace PseudoPopParser {
 		}
 
 		public int ReadInt(string Key, string Section = null) {
-			return System.Int32.Parse(Read(Key, Section));
+			try {
+				return System.Int32.Parse(Read(Key, Section));
+			}
+			catch {
+				return 1;
+			}
 		}
 
 		public double ReadDouble(string Key, string Section = null) {
-			return System.Double.Parse(Read(Key, Section));
+			try {
+				return System.Double.Parse(Read(Key, Section));
+			}
+			catch {
+				return 1;
+			}
 		}
 
 		public void Write(string Key, string Value, string Section = null) {

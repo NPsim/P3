@@ -19,7 +19,6 @@ namespace PseudoPopParser {
 
 		private static Dictionary<string, Item> Items = new Dictionary<string, Item>();
 		private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\ItemDB.ffd";
-		private static string[] RawDBLines;
 		private static readonly string[] UselessAttributes = {
 				"min_viewmodel_offset",
 				"inspect_viewmodel_offset",
@@ -46,7 +45,7 @@ namespace PseudoPopParser {
 				return;
 			}
 
-			RawDBLines = File.ReadAllLines(Path);
+			string[] RawDBLines = File.ReadAllLines(Path);
 			PrintColor.InfoLine("ItemDB Version: {f:Cyan}{$0}{r}", RawDBLines[0]);
 			Item ItemEntry = new Item();
 			for (int i = 1; i < RawDBLines.Count(); i++) {

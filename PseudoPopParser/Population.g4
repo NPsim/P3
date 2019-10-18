@@ -110,7 +110,7 @@ popfile
 	;
 
 population
-	: value '{' population_body* '}'
+	: value '{' population_body* close_curly
 	;
 
 directive
@@ -130,7 +130,7 @@ population_body
 	| ADDSENTRYBUSTERWHENKILLCOUNTEXCEEDS value
 	| TEMPLATES '{' templates_body* '}' // value is name of the template
 	| MISSION '{' mission_body* '}'
-	| WAVE '{' wave_body* '}'
+	| WAVE '{' wave_body* close_curly
 	| RANDOMPLACEMENT '{' randomplacement_body* '}'
 	| PERIODICSPAWN '{' periodicspawn_body* '}'
 	;

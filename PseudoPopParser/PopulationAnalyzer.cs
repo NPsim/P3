@@ -12,10 +12,6 @@ namespace PseudoPopParser {
 			this.Pop = PopFile;
 		}
 
-		public void Analyze() {
-			W0101_W0102();
-			//W0205_W0206_W0207_W0208();
-		}
 
 		// Wave credits not a multiple of X	
 		// Total Possible Credits exceeds 30000
@@ -32,14 +28,14 @@ namespace PseudoPopParser {
 
 				// W0101
 				if (WaveTotalCurrency % ConfigMultiple != 0) {
-					Warning.Write("{f:Cyan}Wave " + (i+1) + "{r}'s credits is {f:Yellow}not multiple{r} of {f:Cyan}" + ConfigMultiple + "{r}: '{f:Yellow}" + WaveTotalCurrency + "{r}'", -1, 101);
+					Warning.Write("{f:Yellow}Wave " + (i+1) + "{r}'s credits is {f:Yellow}not multiple{r} of {f:Cyan}" + ConfigMultiple + "{r}: '{f:Yellow}" + WaveTotalCurrency + "{r}'", -1, 101);
 				}
 				PopulationTotalCurrency += WaveTotalCurrency;
 			}
 
 			// W0102
 			if (PopulationTotalCurrency > 30000) {
-				Warning.Write("{f:Cyan}Total Possible Credits{r} exceeds maximum possible reading of {f:Cyan}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
+				Warning.Write("{f:Yellow}Total Possible Credits{r} exceeds maximum possible reading of {f:Cyan}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
 			}
 		}
 
@@ -157,12 +153,12 @@ namespace PseudoPopParser {
 			return WaveRoster;
 		}
 
-		public List<string> CustomIcons() { // TODO icons
+		public List<string> CustomIcons() {
 			var Icons = new List<string>();
 			foreach (Wave w in Pop.Population.Waves) {
 				foreach (WaveSpawn ws in w.WaveSpawns) {
 					if (ws.Spawner == null) continue;
-					List<dynamic> Spawners = ListSpawners(ws);
+					List<dynamic> Spawners = ListSpawners(ws); // Recursively get all simple spawners	
 					foreach (dynamic s in Spawners) {
 						if (s.GetType().ToString() == "PseudoPopParser.TFBot" && ((TFBot)s).ClassIcon != null) {
 							Icons.Add(s.ClassIcon);

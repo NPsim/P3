@@ -23,7 +23,7 @@ namespace PseudoPopParser {
 				Cast = 0.0d;
 			}
 
-			if (Convert.ToDouble(Cast).ToString() != Original.Trim('"')) {
+			if (Convert.ToDouble(Cast).ToString() != Original.Trim('"') && !Original.Trim('"').EndsWith("0")) { // Input doesn't match cast and input doesn't end with a zero (cast removes lowest placevalue zeros)
 				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Cyan}Floating Point{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 999, Value);
 
 			}
@@ -64,7 +64,7 @@ namespace PseudoPopParser {
 			return Cast;
 		}
 
-		public static int Integer(string Value, ParserRuleContext context) { // todo
+		public static int Integer(string Value, ParserRuleContext context) {
 			string Original = Value;
 			int Cast = 0;
 			try {

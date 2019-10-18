@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -34,17 +35,15 @@ namespace PseudoPopParser {
 							string Out = "";
 							foreach (uint Credit in WaveCredits) {
 								WaveMax += Credit;
-								Out += " + " + Credit.ToString().PadLeft(4);
+								Out += " + " + Credit.ToString().PadLeft(3);
 							}
 							TotalDropped += WaveMax;
 
 							// Format Zero Max
 							if (Out.Length == 0) {
-								//PrintColor.InfoLine("W{$0} : 0", (i + 1).ToString());
 								ExplicitWaveCredits.Add("{f:Cyan}W" + (i + 1).ToString() + "{r} :    {f:Cyan}0{r}");
 							}
 							else {
-								//PrintColor.InfoLine("W{$0} : {$1} = {$2}", (i + 1).ToString(), Max.ToString().PadLeft(5), Out.Substring(3));
 								ExplicitWaveCredits.Add("{f:Cyan}W" + (i + 1).ToString() + "{r} : {f:Cyan}" + WaveMax.ToString().PadLeft(4) + "{r} = " + Out.Substring(3));
 								if (i != Stats.Count - 1) {
 									TotalBonus += 100; // Wave must drop at least 1 credit and not be last wave to receive bonus.
@@ -97,7 +96,6 @@ namespace PseudoPopParser {
 					case ConsoleKey.F4: // Custom Icons
 						PrintColor.InfoLine("===Custom Icons Used===");
 						List<string> Icons = Program.PopAnalyzer.CustomIcons();
-						// TODO Analyzer return all nondefault custom icons
 						foreach (string Icon in Sort.PadSort(Icons)) {
 							if (Icon == "scout_sunstick") {
 								PrintColor.InfoLine("\t{$0} {f:DarkGray}(used in robot_standard.pop but has no default icon){r}", Icon);
@@ -109,11 +107,17 @@ namespace PseudoPopParser {
 						break;
 					case ConsoleKey.F5: // Reparse
 						Exit = true;
-						// TODO Just quit and relaunch with specific flags
-						System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
-						myProcess.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "P3.exe";
-						myProcess.StartInfo.Arguments = "\"" + string.Join("\" \"", Program.LaunchArguments) + "\"";
-						myProcess.Start();
+                        string Arguments = "";
+                        foreach(string Key in Program.LaunchArguments.Keys){
+							if (Key.StartsWith("--"))
+								Arguments += '"' + Key + "\" ";
+							else
+								Arguments += '"' + Key + "\" \"" + Program.LaunchArguments[Key] + "\" ";
+						}
+						System.Diagnostics.Process Restart = new System.Diagnostics.Process();
+						Restart.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "P3.exe";
+                        Restart.StartInfo.Arguments = Arguments;
+						Restart.Start();
 						break;
 					case ConsoleKey.F6: // Search Items and Character Attributes
 						PrintColor.InfoLine("===Search Item Names & Item/Char Attributes===");
@@ -139,7 +143,6 @@ namespace PseudoPopParser {
 						};
 						try {
 							dialog.ShowDialog();
-							Program.Config.Write("items_source_file", "\"" + dialog.FileName + "\"", "Global");
 							if (dialog.FileName.Length == 0) {
 								throw new System.IO.FileNotFoundException();
 							}
@@ -236,7 +239,7 @@ namespace PseudoPopParser {
 
 			/* Item/Char Attributes */
 			// Get Results
-			string[] att_results = Search.Simple(AttributeDatabase.ListZeroIndex, search_phrase);
+			string[] att_results = Search.Simple(AttributeDatabase.Keys, search_phrase);
 
 			// Show Results
 			PrintColor.InfoLine("Attribute results for {b:White}{f:Black} " + search_phrase + " {r}");
@@ -254,8 +257,6 @@ namespace PseudoPopParser {
 			PrintColor.InfoLine("{f:Black}{b:Gray}Select a BSP to generate a list of bot spawns, logic relays, nav prefers, and tank nodes{r}");
 			string map_path = "";
 			try {
-
-				// TODO Refactor pop_folder
 				string pop_folder = Regex.Match(Program.FullPopFilePath, @"^.*[\/\\]").ToString(); // Regex: Match everything up to last / or \
 				System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog {
 					InitialDirectory = System.IO.Path.GetFullPath(pop_folder),

@@ -103,7 +103,6 @@
     <Compile Include="PopFile.cs" />
     <Compile Include="PopulationAnalyzer.cs" />
     <Compile Include="PopulationErrorStrategy.cs" />
-    <Compile Include="PopulationTemplateInterpreter.cs" />
     <Compile Include="PopulationVisitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,7 +127,7 @@
     <None Include="datatypes\ItemDB.ffd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\item_attributes.UwU">
+    <None Include="datatypes\item_attributes.ffd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="datatypes\legacyitemdb">

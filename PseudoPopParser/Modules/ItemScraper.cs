@@ -64,7 +64,7 @@ namespace PseudoPopParser {
 			this.RemoteMD5 = GenerateMD5(ItemsGamePath);
 
 			try {
-				this.CurrentVersion = File.ReadLines(LocalDatabasePath).First(); // TODO Fix null exception
+				this.CurrentVersion = File.ReadLines(LocalDatabasePath).First();
 			}
 			catch {
 				this.CurrentVersion = "Missing Local Database";
@@ -183,7 +183,7 @@ namespace PseudoPopParser {
 				}
 			}
 			if (ip.Contains(0)) {
-				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, "Could not find insertion point.");
+				Error.WriteNoIncrement("{f:Red}Unknown{r} exception '{$0}'", -1, 998, "Could not find insertion point.");
 				return;
 			}
 

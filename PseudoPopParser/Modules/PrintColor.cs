@@ -92,13 +92,11 @@ namespace PseudoPopParser {
 						Program.LogWriter.Write(args[arg_index].ToString());
 					}
 				}
-				else if (token[0] == '{' && token[1] == 'f') { // TODO Refactor token[0] == '{'
-					string color_str = token.Substring(3, token.Length - 4);
-					ChangeColor(color_str, false);
+				else if (token[0] == '{' && token[1] == 'f') {
+					ChangeColor(token.Substring(3, token.Length - 4), false);
 				}
 				else if (token[0] == '{' && token[1] == 'b') {
-					string color_str = token.Substring(3, token.Length - 4);
-					ChangeColor(color_str, true);
+					ChangeColor(token.Substring(3, token.Length - 4), true);
 				}
 				else if (token[0] == '{' && token[1] == 'r') {
 					ResetColor();

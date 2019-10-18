@@ -208,7 +208,9 @@ namespace PseudoPopParser {
 			if (e.GetExpectedTokens().ToString(recognizer.Vocabulary) == "<EOF>") {
 				msg = "Expected {f:Red}End of File{r} but '{f:Red}{$0}{r}' was found.";
 				e.HelpLink = "504";
-				return; // TODO ADD CONFIG TO TURN OFF "EXPECTED END OF FILE"
+				if (!Program.Config.ReadBool("bool_error_expected_eof")) {
+					return;
+				}
 			}
 			NotifyErrorListeners(recognizer, msg, e);
 		}

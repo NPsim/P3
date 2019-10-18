@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace PseudoPopParser {
 	class AttributeScraper : IDisposable {
 
-		private readonly string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.uwu";
+		private readonly string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.ffd";
 
 		public AttributeScraper() { }
 
@@ -71,7 +71,7 @@ namespace PseudoPopParser {
 				file = File.ReadAllLines(file_path);
 			}
 			catch (Exception e) {
-				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, e.Message);
+				Error.WriteNoIncrement("{f:Red}Unknown{r} exception '{$0}'", -1, 998, e.Message);
 				return;
 			}
 
@@ -102,7 +102,7 @@ namespace PseudoPopParser {
 
 			// Stop if no insertion point found
 			if (ip == 0) {
-				Error.WriteNoIncrement("{f:Cyan}Unknown{r} exception '{$0}'", -1, 998, "Could not find insertion point.");
+				Error.WriteNoIncrement("{f:Red}Unknown{r} exception '{$0}'", -1, 998, "Could not find insertion point.");
 				return;
 			}
 
