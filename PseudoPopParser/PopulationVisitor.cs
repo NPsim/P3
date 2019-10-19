@@ -94,7 +94,7 @@ namespace PseudoPopParser {
 							PopulationTotalCurrency += WaveTotalCurrency;
 						}
 						if (PopulationTotalCurrency > 30000 && Program.Config.ReadBool("bool_warn_credits_gr_30000")) {
-							Warning.Write("{f:Yellow}Total Possible Credits{r} exceeds maximum possible reading of {f:Cyan}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
+							Warning.Write("{f:Yellow}Total Possible Credits{r} exceeds maximum possible reading of {f:Yellow}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
 						}
 					}
 
@@ -122,6 +122,8 @@ namespace PseudoPopParser {
 
 					try {
 						AntlrInputStream inputstream = new AntlrInputStream(System.IO.File.ReadAllText(BasePopFileFullPath));
+						Program.LineCount += System.IO.File.ReadLines(BasePopFileFullPath).Count();
+
 						PopulationLexer lexer = new PopulationLexer(inputstream);
 						lexer.RemoveErrorListeners();
 						lexer.AddErrorListener(new PopulationLexerErrorListener<int>());
@@ -294,7 +296,7 @@ namespace PseudoPopParser {
 						Template.Health = ValueParser.UnsignedInteger(Value, context);
 						int ConfigTFBotHealthMultiple = Program.Config.ReadInt("int_bot_health_multiple");
 						if (Template.Health % ConfigTFBotHealthMultiple != 0) { // W0205
-							Warning.Write("TFBot Template {f:Cyan}Health{r} not {f:Yellow}multiple of {$0}{r}: '{f:Yellow}{$1}{r}'", context.Stop.Line, 205, ConfigTFBotHealthMultiple.ToString(), Template.Health.ToString());
+							Warning.Write("TFBot Template {f:Yellow}Health{r} not {f:Yellow}multiple of {$0}{r}: '{f:Yellow}{$1}{r}'", context.Stop.Line, 205, ConfigTFBotHealthMultiple.ToString(), Template.Health.ToString());
 						}
 						break;
 					case "SCALE":
@@ -775,7 +777,7 @@ namespace PseudoPopParser {
 					Node.Health = ValueParser.UnsignedInteger(Value, context);
 					int ConfigTFBotHealthMultiple = Program.Config.ReadInt("int_bot_health_multiple");
 					if (Node.Health % ConfigTFBotHealthMultiple != 0) { // W0205
-						Warning.Write("TFBot {f:Cyan}Health{r} not {f:Yellow}multiple of {$0}{r}: '{f:Yellow}{$1}{r}'", context.Stop.Line, 205, ConfigTFBotHealthMultiple.ToString(), Node.Health.ToString());
+						Warning.Write("TFBot {f:Yellow}Health{r} not {f:Yellow}multiple of {$0}{r}: '{f:Yellow}{$1}{r}'", context.Stop.Line, 205, ConfigTFBotHealthMultiple.ToString(), Node.Health.ToString());
 					}
 					break;
 				case "SCALE":
@@ -894,7 +896,7 @@ namespace PseudoPopParser {
 			string Key = context.Start.Text;
 			string Value = context.Stop.Text;
 			if (Key.ToUpper() == "LEVEL") {
-				Node.Level = ValueParser.UnsignedInteger(Value, context);
+				Node.Level = ValueParser.Integer(Value, context);
 			}
 			return base.VisitSentrygun_body(context);
 		}
@@ -1024,6 +1026,43 @@ namespace PseudoPopParser {
 					break;
 			}
 			return base.VisitEventattributes_body(context);
+		}
+
+		public override object VisitRandomplacement_body([NotNull] PopulationParser.Randomplacement_bodyContext context) {
+			RandomPlacement Node = Pop.Population.LastRandomPlacement;
+			string Key = ValueParser.String(context.Start.Text);
+			string Value = context.Stop.Text;
+			switch (Key.ToUpper()) {
+				case "COUNT":
+					Node.Count = ValueParser.UnsignedInteger(Value, context);
+					break;
+				case "MINIMUMSEPARATION":
+					Node.MinimumSeparation = ValueParser.UnsignedInteger(Value, context);
+					break;
+				case "NAVAREAFILTER":
+					Node.NavFilterArea = ValueParser.String(Value);
+					string[] NavFilters = { "SNIPER_SPOT", "SENTRY_SPOT" };
+					if (!NavFilters.Contains(ValueParser.String(Value).ToUpper())) {
+						Warning.Write("Unexpected {f:Yellow}NavAreaFilter{r} value: '{f:Yellow}{$0}{r}'", context.Stop.Line, 309, Value);
+					}
+					break;
+			}
+			return base.VisitRandomplacement_body(context);
+		}
+
+		public override object VisitPeriodicspawn_body([NotNull] PopulationParser.Periodicspawn_bodyContext context) {
+			PeriodicSpawn Node = Pop.Population.LastPeriodicSpawn;
+			string Key = ValueParser.String(context.Start.Text);
+			string Value = context.Stop.Text;
+			switch (Key.ToUpper()) {
+				case "WHERE":
+					Node.Where.Add(ValueParser.String(Value));
+					break;
+				case "WHEN": // TODO Implement
+					//Console.WriteLine("No instructions for PeriodicSpawn When!");
+					break;
+			}
+			return base.VisitPeriodicspawn_body(context);
 		}
 
 		public override object VisitErrorNode([NotNull] IErrorNode node) {

@@ -10,7 +10,6 @@ namespace PseudoPopParser {
 			string target;
 			try {
 				SaveFileDialog dialog = new SaveFileDialog {
-					InitialDirectory = Program.FullPopFileDirectory,
 					Filter = "Efficient Pop File | *.pop"
 				};
 				dialog.ShowDialog();

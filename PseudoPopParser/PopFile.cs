@@ -456,7 +456,7 @@ namespace PseudoPopParser {
 	}
 
 	public class SentryGun : Spawner {
-		public uint Level;
+		public int Level;
 		public SentryGun() { }
 	}
 

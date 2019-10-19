@@ -106,7 +106,7 @@ value
 	;
 
 popfile
-	: directive* population EOF
+	: directive* population? EOF
 	;
 
 population

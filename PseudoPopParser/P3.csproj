@@ -130,9 +130,7 @@
     <None Include="datatypes\item_attributes.ffd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\legacyitemdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="datatypes\legacyitemdb" />
     <None Include="BSPSource\LICENSE.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

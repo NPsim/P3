@@ -17,11 +17,11 @@ namespace PseudoPopParser {
 		public static PopFile PopFile;
 		public static PopulationAnalyzer PopAnalyzer;
 		public static StreamWriter LogWriter;
+		public static int LineCount = 0;
 		private static bool AutoClose;
 		private static bool NoMenu;
 		private static bool Secret;
 		private static bool ShowStopWatch;
-		private static int LineCount;
 
 		[STAThread]
 		internal static void Main(string[] args) {
@@ -36,11 +36,12 @@ namespace PseudoPopParser {
 
 			// Build Dialog
 			OpenFileDialog Dialog = new OpenFileDialog {
-				//InitialDirectory = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory),
-				InitialDirectory = @"X:\Steam\steamapps\common\subserver_mvm_page\scripts\population",
-
 				Filter = "Pop Files|*.pop"
 			};
+
+#if DEBUG
+			Dialog.InitialDirectory = @"X:\Steam\steamapps\common\subserver_mvm_page\scripts\population";
+#endif
 
 			// Launch Flags
 			for (int i = 0; i < args.Length; i++) {
@@ -84,14 +85,13 @@ namespace PseudoPopParser {
 
 
 			var StopWatch = System.Diagnostics.Stopwatch.StartNew();
-			if (ShowStopWatch) {
-				LineCount = File.ReadLines(FullPopFilePath).Count();
-			}
+			LineCount += File.ReadLines(FullPopFilePath).Count();
 
 			//string FileContents = File.ReadAllText(FullPopFilePath); // Legacy input method
 			//AntlrInputStream inputstream = new AntlrInputStream(FileContents);
 			FileStream FS = new FileStream(FullPopFilePath, FileMode.Open);
 			AntlrInputStream inputstream = new AntlrInputStream(FS);
+			FS.Close();
 
 			PopulationLexer lexer = new PopulationLexer(inputstream);
 			lexer.RemoveErrorListeners();
@@ -144,8 +144,6 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("Better luck next time! (an error occurred)");
 				}
 			}
-
-			FS.Close();
 
 			if (AutoClose) {
 				// Avoid everything

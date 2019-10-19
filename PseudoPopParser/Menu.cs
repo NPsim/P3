@@ -75,7 +75,7 @@ namespace PseudoPopParser {
 						break;
 					}
 					case ConsoleKey.F3: // Templates
-						PrintColor.InfoLine("===Template Names===");
+						PrintColor.InfoLine("===All Template Names===");
 						var Types = Program.PopAnalyzer.TemplateTypeNames();
 						List<string> TFBotNames = Sort.PadSort(Types.Item1);
 						List<string> WaveSpawnNames = Sort.PadSort(Types.Item2);
@@ -94,15 +94,20 @@ namespace PseudoPopParser {
 						}
 						break;
 					case ConsoleKey.F4: // Custom Icons
-						PrintColor.InfoLine("===Custom Icons Used===");
+						PrintColor.InfoLine("===Custom Icons===");
 						List<string> Icons = Program.PopAnalyzer.CustomIcons();
+						bool IconExists = false;
 						foreach (string Icon in Sort.PadSort(Icons)) {
+							IconExists = true;
 							if (Icon == "scout_sunstick") {
 								PrintColor.InfoLine("\t{$0} {f:DarkGray}(used in robot_standard.pop but has no default icon){r}", Icon);
 							}
 							else {
 								PrintColor.InfoLine("\t{$0}", Icon);
 							}
+						}
+						if (!IconExists) {
+							PrintColor.InfoLine("{f:DarkGray}No custom icons used.{r}");
 						}
 						break;
 					case ConsoleKey.F5: // Reparse
@@ -120,7 +125,7 @@ namespace PseudoPopParser {
 						Restart.Start();
 						break;
 					case ConsoleKey.F6: // Search Items and Character Attributes
-						PrintColor.InfoLine("===Search Item Names & Item/Char Attributes===");
+						PrintColor.InfoLine("===Search Items & Item/Char Attributes===");
 						SearchItemCharacterAttributes();
 						break;
 					case ConsoleKey.F7: // Unused
@@ -132,18 +137,17 @@ namespace PseudoPopParser {
 					case ConsoleKey.F9: // Unused
 						break;
 					case ConsoleKey.F10: // Retarget items_game.txt
-						PrintColor.InfoLine("===Retarget Database (items_game.txt)===");
+						PrintColor.InfoLine("===Update Database===");
 						PrintColor.InfoLine(@"Please open your items_game.txt at");
 						PrintColor.InfoLine(@".\steamapps\Team Fortress 2\tf\scripts\items\items_game.txt");
 
 						// File Dialog
-						OpenFileDialog dialog = new OpenFileDialog {
-							InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+						OpenFileDialog Dialog = new OpenFileDialog {
 							Filter = "|items_game.txt"
 						};
 						try {
-							dialog.ShowDialog();
-							if (dialog.FileName.Length == 0) {
+							Dialog.ShowDialog();
+							if (Dialog.FileName.Length == 0) {
 								throw new System.IO.FileNotFoundException();
 							}
 						}
@@ -153,19 +157,18 @@ namespace PseudoPopParser {
 						}
 
 						// Attributes
-						PrintColor.InfoLine("===Updating Databases===");
 						using (AttributeScraper s = new AttributeScraper()) {
 							PrintColor.InfoLine("> Attributes Database");
 							PrintColor.InfoLine("Old version: {f:Yellow}{$0}{r}", s.Version);
-							s.Scrape(dialog.FileName);
+							s.Scrape(Dialog.FileName);
 							PrintColor.InfoLine("New version: {f:Green}{$0}{r}", s.Version);
 						}
 
 						// Items
-						using (ItemScraper s = new ItemScraper(dialog.FileName)) {
+						using (ItemScraper s = new ItemScraper(Dialog.FileName)) {
 							PrintColor.InfoLine("> Items Database");
 							PrintColor.InfoLine("Old version: {f:Yellow}{$0}{r}", s.CurrentVersion);
-							s.Scrape(dialog.FileName);
+							s.Scrape(Dialog.FileName);
 							PrintColor.InfoLine("New version: {f:Green}{$0}{r}", s.CurrentVersion);
 						}
 						break;
@@ -174,6 +177,10 @@ namespace PseudoPopParser {
 						// This cannot be easily changed
 						break;
 					case ConsoleKey.F12:
+						PrintColor.InfoLine("Opening P3 Reference PDF");
+						System.Diagnostics.Process Process = new System.Diagnostics.Process();
+						Process.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "P3_Reference.pdf";
+						Process.Start();
 						break;
 					default:
 						Exit = true;
@@ -185,8 +192,8 @@ namespace PseudoPopParser {
 		private static void ShowOptions() {
 			Console.Write("\n");
 			PrintColor.WriteLine("{b:White}{f:Black}F1{r} Show Credit Stats".PadRight(33 + 21) + "{b:White}{f:Black}F5{r} Reparse Pop File (Restart)".PadRight(33 + 21) + "{b:White}{f:Black}F9{r}  -Unused-".PadRight(33 + 21)	);
-			PrintColor.WriteLine("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21) + "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21) + "{b:White}{f:Black}F10{r} Update Databases".PadRight(33 + 21)	);
-			PrintColor.WriteLine("{b:White}{f:Black}F3{r} Show Template Names".PadRight(33 + 21) + "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21) + "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)	);
+			PrintColor.WriteLine("{b:White}{f:Black}F2{r} Show WaveSpawn Names".PadRight(33 + 21) + "{b:White}{f:Black}F6{r} Search Items & Attributes".PadRight(33 + 21) + "{b:White}{f:Black}F10{r} Update Database".PadRight(33 + 21)	);
+			PrintColor.WriteLine("{b:White}{f:Black}F3{r} Show All Template Names".PadRight(33 + 21) + "{b:White}{f:Black}F7{r} -Unused-".PadRight(33 + 21) + "{b:White}{f:Black}F11{r} Fullscreen (Windows Default)".PadRight(33 + 21)	);
 			PrintColor.WriteLine("{b:White}{f:Black}F4{r} Show Custom Icons".PadRight(33 + 21) + "{b:White}{f:Black}F8{r} Analyze Map (BSP)".PadRight(33 + 21) + "{b:White}{f:Black}F12{r} Open P3 Code Reference (PDF)".PadRight(33 + 21)	);
 			Console.Write("\n");
 			PrintColor.WriteLine("{b:White}{f:Black}Any Key{r} Quit");
@@ -259,7 +266,6 @@ namespace PseudoPopParser {
 			try {
 				string pop_folder = Regex.Match(Program.FullPopFilePath, @"^.*[\/\\]").ToString(); // Regex: Match everything up to last / or \
 				System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog {
-					InitialDirectory = System.IO.Path.GetFullPath(pop_folder),
 					Filter = "MvM Map Files|*.bsp"
 				};
 				dialog.ShowDialog();

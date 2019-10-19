@@ -28,14 +28,14 @@ namespace PseudoPopParser {
 
 				// W0101
 				if (WaveTotalCurrency % ConfigMultiple != 0) {
-					Warning.Write("{f:Yellow}Wave " + (i+1) + "{r}'s credits is {f:Yellow}not multiple{r} of {f:Cyan}" + ConfigMultiple + "{r}: '{f:Yellow}" + WaveTotalCurrency + "{r}'", -1, 101);
+					Warning.Write("{f:Yellow}Wave " + (i+1) + "{r}'s credits is {f:Yellow}not multiple{r} of {f:Yellow}" + ConfigMultiple + "{r}: '{f:Yellow}" + WaveTotalCurrency + "{r}'", -1, 101);
 				}
 				PopulationTotalCurrency += WaveTotalCurrency;
 			}
 
 			// W0102
 			if (PopulationTotalCurrency > 30000) {
-				Warning.Write("{f:Yellow}Total Possible Credits{r} exceeds maximum possible reading of {f:Cyan}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
+				Warning.Write("{f:Yellow}Total Possible Credits{r} exceeds maximum possible reading of {f:Yellow}30000{r}: '{f:Yellow}" + PopulationTotalCurrency + "{r}'", -1, 102);
 			}
 		}
 

@@ -55,7 +55,7 @@ namespace PseudoPopParser {
 			BeginErrorCondition(recognizer);
 			if (e is NoViableAltException) {
 				//ReportNoViableAlternative(recognizer, (NoViableAltException)e);
-				Error.Write("{b:Red}{f:White}UNKNOWN ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
+				Error.Write("{b:Red}{f:White}SYNTAX ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
 				NotifyErrorListeners(recognizer, e.Message, e);
 			}
 			else {
@@ -65,11 +65,11 @@ namespace PseudoPopParser {
 				else {
 					if (e is FailedPredicateException) {
 						//ReportFailedPredicate(recognizer, (FailedPredicateException)e);
-						Error.Write("{b:Red}{f:White}UNKNOWN ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
+						Error.Write("{b:Red}{f:White}SYNTAX ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
 						NotifyErrorListeners(recognizer, e.Message, e);
 					}
 					else {
-						Error.Write("{b:Red}{f:White}UNKNOWN ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
+						Error.Write("{b:Red}{f:White}SYNTAX ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
 						NotifyErrorListeners(recognizer, e.Message, e);
 					}
 				}
