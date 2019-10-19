@@ -41,10 +41,10 @@ namespace PseudoPopParser {
 
 							// Format Zero Max
 							if (Out.Length == 0) {
-								ExplicitWaveCredits.Add("{f:Cyan}W" + (i + 1).ToString() + "{r} :    {f:Cyan}0{r}");
+								ExplicitWaveCredits.Add("{f:Cyan}W" + (i + 1).ToString() + "{r}:    {f:Cyan}0{r}");
 							}
 							else {
-								ExplicitWaveCredits.Add("{f:Cyan}W" + (i + 1).ToString() + "{r} : {f:Cyan}" + WaveMax.ToString().PadLeft(4) + "{r} = " + Out.Substring(3));
+								ExplicitWaveCredits.Add("{f:Cyan}W" + (i + 1).ToString() + "{r}: {f:Cyan}" + WaveMax.ToString().PadLeft(4) + "{r} = " + Out.Substring(3));
 								if (i != Stats.Count - 1) {
 									TotalBonus += 100; // Wave must drop at least 1 credit and not be last wave to receive bonus.
 								}

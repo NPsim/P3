@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace PseudoPopParser {
 	class PrintColor {
 		private readonly static ConsoleColor DefaultForeground = ConsoleColor.White;
-		private readonly static ConsoleColor DefaultBackground = ConsoleColor.Black;
+		private readonly static ConsoleColor DefaultBackground = Console.BackgroundColor;
 		public static string LogOutput;
 		public static bool SuppressOutput;
 
