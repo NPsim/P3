@@ -73,7 +73,7 @@ namespace PseudoPopParser {
 			}
 
 			// Show Dialog
-			PrintColor.InfoLine("P3 v2 Alpha");
+			PrintColor.InfoLine("P3 v2.0.0");
 			while (Dialog.FileName == "") {
 				PrintColor.InfoLine("Select your Pop file");
 				Dialog.ShowDialog();
