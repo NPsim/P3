@@ -10,7 +10,7 @@ namespace PseudoPopParser {
 	internal class Program {
 
 		public static readonly IniFile Config = new IniFile(AppDomain.CurrentDomain.BaseDirectory + @"config.ini");
-        public static Dictionary<string, string> LaunchArguments = new Dictionary<string, string>();
+		public static Dictionary<string, string> LaunchArguments = new Dictionary<string, string>();
 		public static string FullPopFileDirectory;
 		public static string FullPopFilePath;
 		public static PopFile PopFile;
