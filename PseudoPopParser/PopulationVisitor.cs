@@ -816,7 +816,7 @@ namespace PseudoPopParser {
 				case "ITEM":
 					string ItemName = ValueParser.String(Value);
 					Node.Items.Add(ItemName);
-					ItemTracker.Add(ItemName, context.Stop.Line);
+					ItemTracker.Add(ItemName, context.Stop.Line, Node.Class);
 					break;
 				case "TELEPORTWHERE":
 					Node.TeleportWheres.Add(ValueParser.String(Value));

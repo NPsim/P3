@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PseudoPopParser {
@@ -25,6 +24,7 @@ namespace PseudoPopParser {
 
 		[STAThread]
 		internal static void Main(string[] args) {
+			System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
 			// Console Size
 			try {
@@ -73,7 +73,7 @@ namespace PseudoPopParser {
 			}
 
 			// Show Dialog
-			PrintColor.InfoLine("P3 v2.0.0");
+			PrintColor.InfoLine("P3 v2.0.0 HOTFIX 2");
 			while (Dialog.FileName == "") {
 				PrintColor.InfoLine("Select your Pop file");
 				Dialog.ShowDialog();

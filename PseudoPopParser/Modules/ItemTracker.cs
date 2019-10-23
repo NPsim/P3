@@ -43,15 +43,23 @@ namespace PseudoPopParser {
 		private static readonly string[] concat_slots = { "action", "head", "misc" };
 
 		public static void Add(string Item, int Line, string Class = "") { // Called on "Item" key
+			string OriginalItemName = Item;
 
-			if (!ItemDatabase.Exists(Item)) {
+			// Check item exists
+			if (!ItemDatabase.Exists(OriginalItemName)) {
 				if (Program.Config.ReadBool("bool_warn_invalid_item_name")) {
 					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", Line, 209, Item);
 				}
 				return;
 			}
-
 			Item = ItemDatabase.GetName(Item);
+
+			// Check item equippable by class
+			if (Class.Length > 0 && !IsEquippable(Item, Class) && Program.Config.ReadBool("bool_warn_tfbot_unequippable_item")) {
+				Warning.Write("TFBot {f:Yellow}Class{r} <{f:Yellow}{$0}{r}> cannot equip {f:Yellow}item{r}: '{f:Yellow}{$1}{r}'", Line, 218, Class, OriginalItemName);
+			}
+
+			// Add item to slot
 			string ItemSlot = ItemDatabase.GetSlot(Item).ToLower();
 			if (concat_slots.Contains(ItemSlot)) {
 				Slot[ItemSlot].Add(Item);
@@ -74,6 +82,7 @@ namespace PseudoPopParser {
 				["misc"] = new List<string>()
 			};
 			ModifierKeys = new Dictionary<string, int>();
+			Class = "";
 		}
 
 		public static void StoreTemplateAndClear(string TemplateName) {
@@ -136,6 +145,10 @@ namespace PseudoPopParser {
 					Slot[StockItemSlot] = StockItem;
 				}
 			}
+		}
+
+		public static bool IsEquippable(string ItemName, string Class) {
+			return ItemDatabase.GetSlot(ItemName, Class) != "0";
 		}
 
 		// Check if an item is in the inventory.

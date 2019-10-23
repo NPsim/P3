@@ -24,12 +24,13 @@ namespace PseudoPopParser {
 			}
 
 			if (Convert.ToDouble(Cast).ToString() != Original.Trim('"') && !Original.Trim('"').EndsWith("0")) { // Input doesn't match cast and input doesn't end with a zero (cast removes lowest placevalue zeros)
-				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Floating Point{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 999, Value);
+				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Floating Point{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 310, Value);
 
 			}
 			return Cast;
 		}
 
+		// TODO Determine correct boolean value
 		public static bool Boolean(string Value, ParserRuleContext context) {
 			string Original = Value;
 			bool Cast = false;
@@ -41,7 +42,7 @@ namespace PseudoPopParser {
 			}
 
 			if (Convert.ToInt32(Cast).ToString() != Original.Trim('"')) {
-				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Boolean{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 999, Value);
+				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Boolean{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 310, Value);
 
 			}
 			return Cast;
@@ -59,7 +60,7 @@ namespace PseudoPopParser {
 				Cast = 0;
 			}
 			if (Cast.ToString() != Value.Trim('"')) {
-				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Unsigned Integer{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 999, Value);
+				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Unsigned Integer{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 310, Value);
 			}
 			return Cast;
 		}
@@ -75,7 +76,7 @@ namespace PseudoPopParser {
 				Cast = 0;
 			}
 			if (Cast.ToString() != Original.Trim('"')) {
-				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Integer{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 999, Value);
+				Warning.Write("{f:Yellow}Incompatible value type{r}. Expecting <{f:Yellow}Integer{r}>: '{f:Yellow}{$0}{r}'", context.Stop.Line, 310, Value);
 
 			}
 			return Cast;

@@ -103,8 +103,8 @@ namespace PseudoPopParser {
 
 		public string Name;
 		public string Template;
-		public string WaitForAllDead; // Conflicts with WaitForAllSpawned
-		public string WaitForAllSpawned; // Conflicts with WaitForAllDead
+		public string WaitForAllDead;
+		public string WaitForAllSpawned;
 		public uint TotalCurrency;
 		public uint TotalCount;
 		public uint MaxActive;
