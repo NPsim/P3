@@ -153,28 +153,43 @@ namespace PseudoPopParser {
 			return WaveRoster;
 		}
 
+		// Generates a list of all custom icons in the pop file
+		// Default icons come from default classes and default base files
+		// See this project's default icons database
 		public List<string> CustomIcons() {
-			var Icons = new List<string>();
+			var IconDict = new Dictionary<string, string>(); // Key: Normalized comparable string; Value: Original file value
 			foreach (Wave w in Pop.Population.Waves) {
 				foreach (WaveSpawn ws in w.WaveSpawns) {
+
+					// We don't care about dummy wavespawns
 					if (ws.Spawner == null) continue;
-					List<dynamic> Spawners = ListSpawners(ws); // Recursively get all simple spawners	
+
+					// Get all simple spawners
+					List<dynamic> Spawners = ListSpawners(ws);
+
+					// Add icons from each simple spawner to the dict
 					foreach (dynamic s in Spawners) {
-						if (s.GetType().ToString() == "PseudoPopParser.TFBot" && ((TFBot)s).ClassIcon != null) {
-							Icons.Add(s.ClassIcon);
+						if (s is TFBot && ((TFBot)s).ClassIcon != null) {
+							string key = s.ClassIcon.ToLower();
+							if (!IconDict.ContainsKey(key)) {
+								IconDict.Add(key, s.ClassIcon);
+							}
 						}
 					}
 				}
 			}
 
-			Icons = Icons.Distinct().ToList();
+			// Remove default icons
 			string DefaultIconsPack = AppDomain.CurrentDomain.BaseDirectory + "base_templates\\default_icons.txt";
 			List<string> DefaultIcons = new List<string>(System.IO.File.ReadAllLines(DefaultIconsPack));
-			foreach (string Icon in DefaultIcons) {
-				Icons.Remove(Icon);
+			foreach (string DIcon in DefaultIcons) {
+				string key = DIcon.ToLower();
+				if (IconDict.ContainsKey(key)) {
+					IconDict.Remove(key);
+				}
 			}
 
-			return Icons;
+			return IconDict.Values.ToList();
 		}
 
 		public Tuple<List<string>, List<string>, List<string>> TemplateTypeNames() {
