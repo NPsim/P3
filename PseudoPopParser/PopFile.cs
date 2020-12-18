@@ -422,8 +422,11 @@ namespace PseudoPopParser {
 			if (this.MaxVisionRange != Template.MaxVisionRange && Template.MaxVisionRange != 6000.0f && this.MaxVisionRange == 6000.0f)
 				this.MaxVisionRange = Template.MaxVisionRange;
 
-			if (this.Items != Template.Items && Template.Items.Count > 0 && this.Items.Count == 0)
-				this.Items = Template.Items;
+			if (this.Items != Template.Items && Template.Items.Count > 0 && this.Items.Count == 0) { // Combine inventories
+				foreach (string Item in Template.Items) {
+					this.Items.Add(Item);
+				}
+			}
 
 			if (this.TeleportWheres != Template.TeleportWheres && Template.TeleportWheres.Count > 0 && this.TeleportWheres.Count == 0)
 				this.TeleportWheres = Template.TeleportWheres;
