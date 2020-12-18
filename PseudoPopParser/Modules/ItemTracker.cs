@@ -55,7 +55,7 @@ namespace PseudoPopParser {
 			Item = ItemDatabase.GetName(Item);
 
 			// Check item equippable by class
-			if (Class.Length > 0 && !IsEquippable(Item, Class) && Program.Config.ReadBool("bool_warn_tfbot_unequippable_item")) {
+			if (!string.IsNullOrEmpty(Class) && !IsEquippable(Item, Class) && Program.Config.ReadBool("bool_warn_tfbot_unequippable_item")) {
 				Warning.Write("TFBot {f:Yellow}Class{r} <{f:Yellow}{$0}{r}> cannot equip {f:Yellow}item{r}: '{f:Yellow}{$1}{r}'", Line, 218, Class, OriginalItemName);
 			}
 
