@@ -105,12 +105,25 @@ value
 	| NUMBER
 	;
 
+generic_kv
+	: value value
+	;
+
+generic_collection
+	: value '{' generic_collection_body* endc
+	;
+
+generic_collection_body
+	: generic_kv
+	| generic_collection
+	;
+
 popfile
 	: directive* population? EOF
 	;
 
 population
-	: value '{' population_body* close_curly
+	: value '{' population_body* endc
 	;
 
 directive
@@ -130,13 +143,15 @@ population_body
 	| ADDSENTRYBUSTERWHENKILLCOUNTEXCEEDS value
 	| TEMPLATES '{' templates_body* '}' // value is name of the template
 	| MISSION '{' mission_body* '}'
-	| WAVE '{' wave_body* close_curly
+	| WAVE '{' wave_body* endc
 	| RANDOMPLACEMENT '{' randomplacement_body* '}'
 	| PERIODICSPAWN '{' periodicspawn_body* '}'
+	| generic_kv
+	| generic_collection
 	;
 
 templates_body
-	: value '{' template_body* close_curly
+	: value '{' template_body* endc
 	;
 
 template_body
@@ -158,7 +173,7 @@ template_body
 	| ITEM value
 	| TELEPORTWHERE value
 	| TAG value
-	| ITEMATTRIBUTES '{' itemattributes_body* close_curly
+	| ITEMATTRIBUTES '{' itemattributes_body* endc
 	| CHARACTERATTRIBUTES '{' characterattributes_body* '}'
 	| EVENTCHANGEATTRIBUTES '{' eventchangeattributes_body*? '}'
 	// WaveSpawn
@@ -183,6 +198,8 @@ template_body
 	| DONEWARNINGSOUND value
 	| DONEOUTPUT '{' output_body* '}'
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 wave_body
@@ -194,6 +211,8 @@ wave_body
 	| INITWAVEOUTPUT '{' output_body* '}'
 	| DONEOUTPUT '{' output_body* '}'
 	| WAVESPAWN '{' wavespawn_body* '}'
+	| generic_kv
+	| generic_collection
 	;
 
 wavespawn_body
@@ -220,6 +239,8 @@ wavespawn_body
 	| DONEWARNINGSOUND value
 	| DONEOUTPUT '{' output_body* '}'
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 randomplacement_body
@@ -227,17 +248,23 @@ randomplacement_body
 	| MINIMUMSEPARATION value
 	| NAVAREAFILTER value
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 periodicspawn_body
 	: WHERE value
 	| WHEN ( value | '{' when_body* '}' )
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 when_body
 	: MININTERVAL value
 	| MAXINTERVAL value
+	| generic_kv
+	| generic_collection
 	;
 
 mission_body
@@ -249,30 +276,40 @@ mission_body
 	| COOLDOWNTIME value
 	| DESIREDCOUNT value
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 spawners
-	: TFBOT '{' tfbot_body*? close_curly
+	: TFBOT '{' tfbot_body*? endc
 	| TANK '{' tank_body*? '}'
 	| SENTRYGUN '{' sentrygun_body*? '}'
 	| SQUAD '{' squad_body*? '}'
 	| MOB '{' mob_body*? '}'
 	| RANDOMCHOICE '{' randomchoice_body*? '}'
+	| generic_kv
+	| generic_collection
 	;
 
 squad_body
 	: SHOULDPRESERVESQUAD value
 	| FORMATIONSIZE value
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 mob_body
 	: COUNT value
 	| spawners
+	| generic_kv
+	| generic_collection
 	;
 
 randomchoice_body
 	: spawners
+	| generic_kv
+	| generic_collection
 	;
 
 tfbot_body
@@ -292,9 +329,11 @@ tfbot_body
 	| ITEM value
 	| TELEPORTWHERE value
 	| TAG value
-	| ITEMATTRIBUTES '{' itemattributes_body* close_curly
+	| ITEMATTRIBUTES '{' itemattributes_body* endc
 	| CHARACTERATTRIBUTES '{' characterattributes_body* '}'
 	| EVENTCHANGEATTRIBUTES '{' eventchangeattributes_body*? '}'
+	| generic_kv
+	| generic_collection
 	;
 
 tank_body
@@ -305,19 +344,26 @@ tank_body
 	| STARTINGPATHTRACKNODE value
 	| ONKILLEDOUTPUT '{' output_body* '}'
 	| ONBOMBDROPPEDOUTPUT '{' output_body* '}'
+	| generic_kv
+	| generic_collection
 	;
 
 sentrygun_body
 	: LEVEL value
+	| generic_kv
+	| generic_collection
 	;
 
 itemattributes_body
 	: ITEMNAME value
 	| value value
+	| generic_kv
+	| generic_collection
 	;
 
 characterattributes_body
 	: value value
+	| generic_collection
 	;
 	
 eventchangeattributes_body
@@ -334,6 +380,8 @@ eventattributes_body
 	| TAG value
 	| ITEMATTRIBUTES '{' itemattributes_body* '}'
 	| CHARACTERATTRIBUTES '{' characterattributes_body* '}'
+	| generic_kv
+	| generic_collection
 	;
 
 output_body
@@ -341,7 +389,7 @@ output_body
 	| ACTION value
 	;
 
-close_curly // Parser anchor method
+endc // Parser anchor method
 	: '}'
 	;
 

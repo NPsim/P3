@@ -266,7 +266,7 @@ namespace PseudoPopParser {
 						break;
 					}
 
-					// Write to main prefan dictionary
+					// Write to main prefab dictionary
 					if (block_path.Count == 1) {
 						if (Prefab.ID != null) {
 

@@ -17,10 +17,7 @@ namespace PseudoPopParser {
 		public static PopulationAnalyzer PopAnalyzer;
 		public static StreamWriter LogWriter;
 		public static int LineCount = 0;
-		private static bool AutoClose;
-		private static bool NoMenu;
-		private static bool Secret;
-		private static bool ShowStopWatch;
+		private static bool AutoClose, NoMenu, Secret, ShowStopWatch, Unsafe;
 
 		[STAThread]
 		internal static void Main(string[] args) {
@@ -42,6 +39,9 @@ namespace PseudoPopParser {
 #if DEBUG
 			Dialog.InitialDirectory = @"X:\Steam\steamapps\common\subserver_mvm_page\scripts\population";
 #endif
+
+			// Get Execution Safety
+			Unsafe = Program.Config.ReadBool("bool_unsafe") ? true : false;
 
 			// Launch Flags
 			for (int i = 0; i < args.Length; i++) {
@@ -70,10 +70,25 @@ namespace PseudoPopParser {
 					ShowStopWatch = true;
                     LaunchArguments["--time"] = "1";
                 }
+				if (args[i] == "--unsafe") {
+					Unsafe = true;
+					LaunchArguments["--unsafe"] = "1";
+				}
+				if (args[i] == "--safe") {
+					Unsafe = false;
+					LaunchArguments["--safe"] = "1";
+				}
 			}
 
 			// Show Dialog
-			PrintColor.InfoLine("P3 v2.0.0 HOTFIX 2");
+			if (Unsafe) {
+				PrintColor.InfoLine("P3 v2.1.0 {b:White}{f:Black} UNSAFE MODE {r}");
+			}
+			else {
+				PrintColor.InfoLine("P3 v2.1.0");
+			}
+
+
 			while (Dialog.FileName == "") {
 				PrintColor.InfoLine("Select your Pop file");
 				Dialog.ShowDialog();

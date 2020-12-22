@@ -29,13 +29,35 @@ namespace PseudoPopParser {
 			return base.VisitValue(context);
 		}
 
+		public override object VisitGeneric_kv([NotNull] PopulationParser.Generic_kvContext context) {
+
+			// Only write invalid KV when in safe mode.
+			if (!Program.Config.ReadBool("bool_unsafe")) {
+				Error.Write("{f:Red}Unexpected keyvalue{r} found near '{f:Red}{$0}{r}'", context.Start.Line, 510, context.Start.Text);
+			}
+			return base.VisitGeneric_kv(context);
+		}
+
+		public override object VisitGeneric_collection([NotNull] PopulationParser.Generic_collectionContext context) {
+
+			// Only write invalid collections when in safe mode.
+			if (!Program.Config.ReadBool("bool_unsafe")) {
+				Error.Write("{f:Red}Unexpected collection{r} found near '{f:Red}{$0}{r}'", context.Start.Line, 510, context.Start.Text);
+			}
+			return base.VisitGeneric_collection(context);
+		}
+
+		public override object VisitGeneric_collection_body([NotNull] PopulationParser.Generic_collection_bodyContext context) {
+			return base.VisitGeneric_collection_body(context);
+		}
+
 		public override object VisitPopfile(PopulationParser.PopfileContext context) {
 			this.Pop = new PopFile();
 			return base.VisitPopfile(context);
 		}
 
 		private readonly List<Tuple<string, int>> WaitForAllTracker = new List<Tuple<string, int>>();
-		public override object VisitClose_curly([NotNull] PopulationParser.Close_curlyContext context) {
+		public override object VisitEndc([NotNull] PopulationParser.EndcContext context) {
 			string Parent = LookBack[context.Parent.SourceInterval.a];
 			int ParentLine = ((ParserRuleContext)context.Parent).Start.Line;
 			switch (ValueParser.String(Parent.ToUpper())) {
@@ -43,10 +65,15 @@ namespace PseudoPopParser {
 					ItemTracker.VerifyModifications();
 					break;
 				}
-				case "ITEMATTRIBUTES": { // Track every ItemAttributes contains a ItemName key
-					ItemAttributes Attributes = ItemAttributesTracker[((ParserRuleContext)context.Parent).SourceInterval.a];
-					if (Attributes.ItemName == null || Attributes.ItemName.Length == 0) {
-						Warning.Write("{f:Yellow}ItemAttributes{r} missing {f:Yellow}ItemName{r} key.", ParentLine, 216);
+				case "ITEMATTRIBUTES": { // Ensure that every ItemAttributes contains an ItemName key
+
+					// Context enforcement for modded collection reuse
+					ParserRuleContext ContextPPP = (ParserRuleContext)context.Parent.Parent.Parent;
+					if (ContextPPP is PopulationParser.Tfbot_bodyContext || ContextPPP is PopulationParser.Template_bodyContext || ContextPPP is PopulationParser.Eventattributes_bodyContext) {
+						ItemAttributes Attributes = ItemAttributesTracker[((ParserRuleContext)context.Parent).SourceInterval.a];
+						if (Attributes.ItemName == null || Attributes.ItemName.Length == 0) {
+							Warning.Write("{f:Yellow}ItemAttributes{r} missing {f:Yellow}ItemName{r} key.", ParentLine, 216);
+						}
 					}
 					break;
 				}
@@ -74,6 +101,8 @@ namespace PseudoPopParser {
 					foreach (WaveSpawn WaveSpawn in LastWave.WaveSpawns) {
 						WaveTotalCurrency += WaveSpawn.TotalCurrency;
 					}
+					
+					// Warn for wave total credit multiple
 					if (WaveTotalCurrency % ConfigMultiple != 0) {
 						Warning.Write("{f:Yellow}Wave " + (Pop.Population.Waves.Count) + "{r}'s credits is {f:Yellow}not multiple{r} of {f:Yellow}" + ConfigMultiple + "{r}: '{f:Yellow}" + WaveTotalCurrency + "{r}'", -1, 101);
 					}
@@ -101,7 +130,7 @@ namespace PseudoPopParser {
 					break;
 				}
 			}
-			return base.VisitClose_curly(context);
+			return base.VisitEndc(context);
 		}
 
 		readonly string[] DefaultBases = { "ROBOT_STANDARD.POP", "ROBOT_GIANT.POP", "ROBOT_GATEBOT.POP" };
@@ -358,7 +387,9 @@ namespace PseudoPopParser {
 						Template.EventChangeAttributes = Template.EventChangeAttributes ?? new Dictionary<string, EventChangeAttributes>();
 						break;
 					default:
-						Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
+						if (!Program.Config.ReadBool("bool_unsafe")) {
+							Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
+						}
 						break;
 				}
 			}
@@ -438,7 +469,9 @@ namespace PseudoPopParser {
 					case "RANDOMCHOICE":
 						break;
 					default:
-						Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
+						if (!Program.Config.ReadBool("bool_unsafe")) {
+							Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
+						}
 						break;
 				}
 			}

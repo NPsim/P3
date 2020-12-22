@@ -48,16 +48,17 @@ namespace PseudoPopParser {
 			// Check item exists
 			if (!ItemDatabase.Exists(OriginalItemName)) {
 				if (Program.Config.ReadBool("bool_warn_invalid_item_name")) {
-					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", Line, 209, Item);
+					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item Name{r}: '{f:Yellow}{$0}{r}'", Line, 209, Item);
 				}
 				return;
 			}
 			Item = ItemDatabase.GetName(Item);
 
 			// Check item equippable by class
-			if (!string.IsNullOrEmpty(Class) && !IsEquippable(Item, Class) && Program.Config.ReadBool("bool_warn_tfbot_unequippable_item")) {
+			// TODO Fix MultiClass Banners
+			/*if (!string.IsNullOrEmpty(Class) && !IsEquippable(Item, Class) && Program.Config.ReadBool("bool_warn_tfbot_unequippable_item") && !Program.Config.ReadBool("bool_unsafe")) {
 				Warning.Write("TFBot {f:Yellow}Class{r} <{f:Yellow}{$0}{r}> cannot equip {f:Yellow}item{r}: '{f:Yellow}{$1}{r}'", Line, 218, Class, OriginalItemName);
-			}
+			}*/
 
 			// Add item to slot
 			string ItemSlot = ItemDatabase.GetSlot(Item).ToLower();
@@ -173,7 +174,7 @@ namespace PseudoPopParser {
 		public static void AddModifier(string ItemName, int Line) { // Called on "ItemName" key
 			if (!ItemDatabase.Exists(ItemName)) {
 				if (Program.Config.ReadBool("bool_warn_invalid_item_name")) {
-					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item{r} Name: '{f:Yellow}{$0}{r}'", Line, 209, ItemName);
+					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item Name{r}: '{f:Yellow}{$0}{r}'", Line, 209, ItemName);
 				}
 				return;
 			}

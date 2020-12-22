@@ -48,7 +48,7 @@ namespace PseudoPopParser {
 		}
 
 		public static void Verify(string Key, Antlr4.Runtime.ParserRuleContext Context) {
-			if (!Exists(Key) && Program.Config.ReadBool("bool_warn_invalid_item_char_attribute")) {
+			if (!Exists(Key) && Program.Config.ReadBool("bool_warn_invalid_item_char_attribute") && !Program.Config.ReadBool("bool_unsafe")) {
 				Warning.Write("{f:Yellow}Invalid{r} {f:Yellow}Attribute Name{r} found: '{f:Yellow}{$0}{r}'", Context.Stop.Line, 201, Key);
 			}
 		}
