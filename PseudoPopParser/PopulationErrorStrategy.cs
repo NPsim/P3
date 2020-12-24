@@ -55,8 +55,8 @@ namespace PseudoPopParser {
 			BeginErrorCondition(recognizer);
 			if (e is NoViableAltException) {
 				//ReportNoViableAlternative(recognizer, (NoViableAltException)e);
-				Error.Write("{b:Red}{f:White}SYNTAX ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
-				NotifyErrorListeners(recognizer, e.Message, e);
+				//Error.Write("{b:Red}{f:White}SYNTAX ERROR: {$0}{r}", e.OffendingToken.Line, 999, e.GetType().FullName);
+				//NotifyErrorListeners(recognizer, e.Message, e);
 			}
 			else {
 				if (e is InputMismatchException) {

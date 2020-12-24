@@ -400,6 +400,11 @@ endc // Parser anchor method
 COMMENT
 	: '//' ~[\r\n]* -> skip
 	;
+
+VALVE_TOKEN
+	: '[$' [a-zA-Z0-9]+ ']' ~[\r\n]* -> skip
+	;
+
 WS
 	: [ \r\t\n]+ -> skip
 	;

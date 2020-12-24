@@ -47,7 +47,7 @@ namespace PseudoPopParser {
 
 			// Check item exists
 			if (!ItemDatabase.Exists(OriginalItemName)) {
-				if (Program.Config.ReadBool("bool_warn_invalid_item_name")) {
+				if (Program.Config.ReadBool("exp_bool_warn_invalid_item_name")) { // TODO Refactor
 					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item Name{r}: '{f:Yellow}{$0}{r}'", Line, 209, Item);
 				}
 				return;
@@ -56,7 +56,7 @@ namespace PseudoPopParser {
 
 			// Check item equippable by class
 			// TODO Fix MultiClass Banners
-			/*if (!string.IsNullOrEmpty(Class) && !IsEquippable(Item, Class) && Program.Config.ReadBool("bool_warn_tfbot_unequippable_item") && !Program.Config.ReadBool("bool_unsafe")) {
+			/*if (!string.IsNullOrEmpty(Class) && !IsEquippable(Item, Class) && Program.Config.ReadBool("exp_bool_warn_tfbot_unequippable_item") && Program.GetSafetyLevel() == Program.ParserSafetyLevel.SAFE) {
 				Warning.Write("TFBot {f:Yellow}Class{r} <{f:Yellow}{$0}{r}> cannot equip {f:Yellow}item{r}: '{f:Yellow}{$1}{r}'", Line, 218, Class, OriginalItemName);
 			}*/
 
@@ -155,7 +155,7 @@ namespace PseudoPopParser {
 		// Check if an item is in the inventory.
 		public static bool IsEquipped(string item) {
 			if (!ItemDatabase.Exists(item)) {
-				return true; // Assume true, warning handled elsewhere
+				return true; // Assume true, TODO: warning handled elsewhere
 			}
 			string ItemSlot = ItemDatabase.GetSlot(item);
 			if (concat_slots.Contains(ItemSlot)) {
@@ -173,7 +173,7 @@ namespace PseudoPopParser {
 
 		public static void AddModifier(string ItemName, int Line) { // Called on "ItemName" key
 			if (!ItemDatabase.Exists(ItemName)) {
-				if (Program.Config.ReadBool("bool_warn_invalid_item_name")) {
+				if (Program.Config.ReadBool("exp_bool_warn_invalid_item_name")) { // TODO Refactor
 					Warning.Write("{f:Yellow}Invalid{r} TF2 {f:Yellow}Item Name{r}: '{f:Yellow}{$0}{r}'", Line, 209, ItemName);
 				}
 				return;
@@ -183,7 +183,7 @@ namespace PseudoPopParser {
 
 		public static void VerifyModifications() {
 			foreach(string ItemName in ModifierKeys.Keys) {
-				if (!IsEquipped(ItemName) && Program.Config.ReadBool("bool_warn_tfbot_missing_item")) {
+				if (!IsEquipped(ItemName) && Program.Config.ReadBool("exp_bool_warn_tfbot_missing_item")) {
 					Warning.Write("{f:Yellow}TFBot{r} does not have {f:Yellow}item{r}: '{f:Yellow}{$0}{r}'", ModifierKeys[ItemName], 210, ItemName);
 				}
 			}

@@ -17,7 +17,12 @@ namespace PseudoPopParser {
 		public static PopulationAnalyzer PopAnalyzer;
 		public static StreamWriter LogWriter;
 		public static int LineCount = 0;
-		private static bool AutoClose, NoMenu, Secret, ShowStopWatch, Unsafe;
+		public enum ParserSafetyLevel {
+			UNSAFE,
+			SAFE
+		}
+		private static bool AutoClose, NoMenu, Secret, ShowStopWatch;
+		private static ParserSafetyLevel SafetyLevel;
 
 		[STAThread]
 		internal static void Main(string[] args) {
@@ -37,11 +42,11 @@ namespace PseudoPopParser {
 			};
 
 #if DEBUG
-			Dialog.InitialDirectory = @"X:\Steam\steamapps\common\subserver_mvm_page\scripts\population";
+			Dialog.InitialDirectory = @"";
 #endif
 
 			// Get Execution Safety
-			Unsafe = Program.Config.ReadBool("bool_unsafe") ? true : false;
+			SafetyLevel = Program.Config.ReadBool("bool_unsafe") ? ParserSafetyLevel.SAFE : ParserSafetyLevel.UNSAFE;
 
 			// Launch Flags
 			for (int i = 0; i < args.Length; i++) {
@@ -71,17 +76,17 @@ namespace PseudoPopParser {
                     LaunchArguments["--time"] = "1";
                 }
 				if (args[i] == "--unsafe") {
-					Unsafe = true;
+					SafetyLevel = ParserSafetyLevel.UNSAFE;
 					LaunchArguments["--unsafe"] = "1";
 				}
 				if (args[i] == "--safe") {
-					Unsafe = false;
+					SafetyLevel = ParserSafetyLevel.SAFE;
 					LaunchArguments["--safe"] = "1";
 				}
 			}
 
 			// Show Dialog
-			if (Unsafe) {
+			if (SafetyLevel == ParserSafetyLevel.UNSAFE) {
 				PrintColor.InfoLine("P3 v2.1.0 {b:White}{f:Black} UNSAFE MODE {r}");
 			}
 			else {
@@ -175,6 +180,10 @@ namespace PseudoPopParser {
 				LogWriter.Write("\n=========================\n\n");
 				LogWriter.Close();
 			}
+		}
+
+		public static ParserSafetyLevel GetSafetyLevel() {
+			return SafetyLevel;
 		}
 	}
 }

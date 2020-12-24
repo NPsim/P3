@@ -32,7 +32,7 @@ namespace PseudoPopParser {
 		public override object VisitGeneric_kv([NotNull] PopulationParser.Generic_kvContext context) {
 
 			// Only write invalid KV when in safe mode.
-			if (!Program.Config.ReadBool("bool_unsafe")) {
+			if (Program.GetSafetyLevel() == Program.ParserSafetyLevel.SAFE) {
 				Error.Write("{f:Red}Unexpected keyvalue{r} found near '{f:Red}{$0}{r}'", context.Start.Line, 510, context.Start.Text);
 			}
 			return base.VisitGeneric_kv(context);
@@ -41,7 +41,7 @@ namespace PseudoPopParser {
 		public override object VisitGeneric_collection([NotNull] PopulationParser.Generic_collectionContext context) {
 
 			// Only write invalid collections when in safe mode.
-			if (!Program.Config.ReadBool("bool_unsafe")) {
+			if (Program.GetSafetyLevel() == Program.ParserSafetyLevel.SAFE) {
 				Error.Write("{f:Red}Unexpected collection{r} found near '{f:Red}{$0}{r}'", context.Start.Line, 510, context.Start.Text);
 			}
 			return base.VisitGeneric_collection(context);
@@ -387,7 +387,7 @@ namespace PseudoPopParser {
 						Template.EventChangeAttributes = Template.EventChangeAttributes ?? new Dictionary<string, EventChangeAttributes>();
 						break;
 					default:
-						if (!Program.Config.ReadBool("bool_unsafe")) {
+						if (Program.GetSafetyLevel() == Program.ParserSafetyLevel.SAFE) {
 							Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
 						}
 						break;
@@ -469,7 +469,7 @@ namespace PseudoPopParser {
 					case "RANDOMCHOICE":
 						break;
 					default:
-						if (!Program.Config.ReadBool("bool_unsafe")) {
+						if (Program.GetSafetyLevel() == Program.ParserSafetyLevel.SAFE) {
 							Error.Write("Attempted to {f:Red}mix Template{r} TFBot and WaveSpawn keys: '{f:Red}{$0} {$1}{r}'", context.Start.Line, 803, Key, Value);
 						}
 						break;
