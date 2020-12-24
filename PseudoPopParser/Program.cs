@@ -46,7 +46,7 @@ namespace PseudoPopParser {
 #endif
 
 			// Get Execution Safety
-			SafetyLevel = Program.Config.ReadBool("bool_unsafe") ? ParserSafetyLevel.SAFE : ParserSafetyLevel.UNSAFE;
+			SafetyLevel = Program.Config.ReadBool("bool_unsafe") ? ParserSafetyLevel.UNSAFE : ParserSafetyLevel.SAFE;
 
 			// Launch Flags
 			for (int i = 0; i < args.Length; i++) {
