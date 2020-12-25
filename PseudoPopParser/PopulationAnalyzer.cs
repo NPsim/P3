@@ -203,7 +203,7 @@ namespace PseudoPopParser {
 			}
 
 			// Remove default icons
-			string DefaultIconsPack = AppDomain.CurrentDomain.BaseDirectory + "base_templates\\default_icons.txt";
+			string DefaultIconsPack = AppDomain.CurrentDomain.BaseDirectory + @"Database\DefaultIcons.txt";
 			List<string> DefaultIcons = new List<string>(System.IO.File.ReadAllLines(DefaultIconsPack));
 			foreach (string DIcon in DefaultIcons) {
 				string key = DIcon.ToLower();

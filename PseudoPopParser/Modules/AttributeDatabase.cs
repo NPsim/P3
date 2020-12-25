@@ -16,7 +16,7 @@ namespace PseudoPopParser {
 			public AttributeDefinition() { }
 		}
 
-		private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.ffd";
+		private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + @"\Database\AttributesDB.ffd";
 		private static readonly Dictionary<string, AttributeDefinition> Attributes = new Dictionary<string, AttributeDefinition>();
 		public static List<string> Keys => Attributes.Keys.ToList();
 		public static string Version { private set; get; }

@@ -146,7 +146,7 @@ namespace PseudoPopParser {
 					PrintColor.InfoLine("Base File - {f:Cyan}{$0}{r}", BasePopFile);
 
 					if (DefaultBases.Contains(BasePopFile.ToUpper())) {
-						BasePopFileFullPath = AppDomain.CurrentDomain.BaseDirectory + "base_templates\\" + BasePopFile;
+						BasePopFileFullPath = AppDomain.CurrentDomain.BaseDirectory + "BaseTemplates\\" + BasePopFile;
 					}
 
 					try {

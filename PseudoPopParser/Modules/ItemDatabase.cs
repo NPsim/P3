@@ -18,7 +18,7 @@ namespace PseudoPopParser {
 	internal class ItemDatabase {
 
 		private static Dictionary<string, Item> Items = new Dictionary<string, Item>();
-		private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\ItemDB.ffd";
+		private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + @"\Database\ItemDB.ffd";
 		private static readonly string[] UselessAttributes = {
 				"min_viewmodel_offset",
 				"inspect_viewmodel_offset",

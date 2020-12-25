@@ -50,7 +50,7 @@ namespace PseudoPopParser {
 			public ItemProfile() { }
 		}
 
-		private readonly string LocalDatabasePath = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\ItemDB.ffd";
+		private readonly string LocalDatabasePath = AppDomain.CurrentDomain.BaseDirectory + @"\Database\ItemDB.ffd";
 		private readonly string RemotePath;
 		private readonly string[] RemoteRawLines;
 		private Dictionary<string, PrefabProfile> PrefabLookUp = new Dictionary<string, PrefabProfile>();

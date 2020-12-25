@@ -112,25 +112,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="base_templates\robot_gatebot.pop">
+    <None Include="BaseTemplates\robot_gatebot.pop">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="base_templates\robot_giant.pop">
+    <None Include="BaseTemplates\robot_giant.pop">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="base_templates\robot_standard.pop">
+    <None Include="BaseTemplates\robot_standard.pop">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\ItemDB.ffd">
+    <None Include="Database\ItemDB.ffd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\item_attributes.ffd">
+    <None Include="Database\AttributesDB.ffd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="datatypes\legacyitemdb" />
+    <None Include="Database\legacyitemdb" />
     <None Include="BSPSource\LICENSE.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -166,7 +166,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="base_templates\default_icons.txt">
+    <Content Include="Database\DefaultIcons.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="BSPSource\bspsrc.jar">

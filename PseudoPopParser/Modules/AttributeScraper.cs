@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace PseudoPopParser {
 	class AttributeScraper : IDisposable {
 
-		private readonly string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\datatypes\item_attributes.ffd";
+		private readonly string db_path = AppDomain.CurrentDomain.BaseDirectory + @"\Database\AttributesDB.ffd";
 
 		public AttributeScraper() { }
 
