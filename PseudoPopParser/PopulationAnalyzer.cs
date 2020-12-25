@@ -51,13 +51,13 @@ namespace PseudoPopParser {
 			return ComplexSpawnerTypes.Contains(Type);
 		}
 
-		// Iteratively put all Spawners in a WaveSpawn in an easy to analyze List
-		private List<dynamic> ListSpawners(WaveSpawn WaveSpawn) {
+		// Iteratively put all Spawners in a WaveSpawn or Mission in an easy to analyze List
+		private List<dynamic> ListSpawners(dynamic SpawnerContainer) {
+			dynamic Spawner = SpawnerContainer.Spawner;
 			string[] SimpleSpawnerTypes = { "PseudoPopParser.TFBot", "PseudoPopParser.Tank", "PseudoPopParser.SentryGun" };
 			string[] ComplexSpawnerTypes = { "PseudoPopParser.Squad", "PseudoPopParser.Mob", "PseudoPopParser.RandomChoice" };
 			List<dynamic> SimpleSpawners = new List<dynamic>();
 			List<dynamic> ComplexSpawners = new List<dynamic>();
-			dynamic Spawner = WaveSpawn.Spawner;
 			string type = Spawner.GetType().ToString();
 
 			// Categorize initial spawner
@@ -158,6 +158,8 @@ namespace PseudoPopParser {
 		// See this project's default icons database
 		public List<string> CustomIcons() {
 			var IconDict = new Dictionary<string, string>(); // Key: Normalized comparable string; Value: Original file value
+			
+			// Get icons from WaveSpawns
 			foreach (Wave w in Pop.Population.Waves) {
 				foreach (WaveSpawn ws in w.WaveSpawns) {
 
@@ -174,6 +176,27 @@ namespace PseudoPopParser {
 							if (!IconDict.ContainsKey(key)) {
 								IconDict.Add(key, s.ClassIcon);
 							}
+						}
+					}
+				}
+			}
+
+			// Get icons from Missions
+			// Fixed Issue #1: "Show Custom Icons" list does not display custom icons used in mission support
+			foreach (Mission m in Pop.Population.Missions) {
+
+				// We don't care about empty missions
+				if (m.Spawner == null) continue;
+
+				// Get all simple spawners
+				List<dynamic> Spawners = ListSpawners(m);
+
+				// Add icons from each simple spawner to the dict
+				foreach (dynamic s in Spawners) {
+					if (s is TFBot && ((TFBot)s).ClassIcon != null) {
+						string key = s.ClassIcon.ToLower();
+						if (!IconDict.ContainsKey(key)) {
+							IconDict.Add(key, s.ClassIcon);
 						}
 					}
 				}
