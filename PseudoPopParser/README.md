@@ -56,8 +56,9 @@ Configure P3 to parse your current WIP popfile when desired in Notepad++.
     Add a Hotkey to your Run.. command to parse instantly.
 
 ## Building P3 Yourself
-All builds are completed using **Microsoft Visual Studio 2017**.  
-You should be able to just open the solution with Visual Studio 2017.  
+All builds (as of August 2021) are completed using **Microsoft Visual Studio 2019**.  
+You should be able to just open the solution with Visual Studio 2019.
+If the solution fails build, try reinstalling ANTLR4 and its 2 other dependencies via nuget.
 Contact me if any issues occur.
 #### External Dependencies:
 * ANTLR 4.6.6, Terence Parr, obtained via NuGet
@@ -74,10 +75,10 @@ Contact me if any issues occur.
 ## Contacting Me
 Steam: [NPOSim]  
 Discord: `sub#9640`  
-P3 Development Discord Server: [gRPuRdj]
+P3 Development Discord Server: [4kTAn5V2E6]
 
 [NPOSim]: <https://steamcommunity.com/id/NPOsim/>
-[gRPuRdj]: <https://discord.gg/gRPuRdj>
+[4kTAn5V2E6]: <https://discord.gg/4kTAn5V2E6>
 [GitHub releases]:https://github.com/NPsim/P3/releases
 
 ## Bug Reports

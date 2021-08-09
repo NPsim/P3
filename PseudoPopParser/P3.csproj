@@ -140,11 +140,11 @@
     <None Include="P3_Reference.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
     <Antlr4 Include="Population.g4">
       <Generator>MSBuild:Compile</Generator>
       <CustomToolNamespace>PseudoPopParser</CustomToolNamespace>
     </Antlr4>
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="BSPSource\README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
