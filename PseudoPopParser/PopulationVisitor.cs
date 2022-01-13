@@ -508,7 +508,7 @@ namespace PseudoPopParser {
 					Node.CooldownTime = ValueParser.Double(Value, context);
 					break;
 				case "DESIREDCOUNT":
-					Node.CooldownTime = ValueParser.UnsignedInteger(Value, context);
+					Node.DesiredCount = ValueParser.UnsignedInteger(Value, context);
 					break;
 			}
 			return base.VisitMission_body(context);
