@@ -508,7 +508,7 @@ namespace PseudoPopParser {
 					Node.CooldownTime = ValueParser.Double(Value, context);
 					break;
 				case "DESIREDCOUNT":
-					Node.CooldownTime = ValueParser.UnsignedInteger(Value, context);
+					Node.DesiredCount = ValueParser.UnsignedInteger(Value, context);
 					break;
 			}
 			return base.VisitMission_body(context);
@@ -1091,8 +1091,17 @@ namespace PseudoPopParser {
 				case "WHERE":
 					Node.Where.Add(ValueParser.String(Value));
 					break;
-				case "WHEN": // TODO Implement
-					//Console.WriteLine("No instructions for PeriodicSpawn When!");
+				case "WHEN":
+					Node.When = ValueParser.UnsignedInteger(Value, context);
+					break;
+				case "MININTERVAL":
+					Node.MinInterval = ValueParser.UnsignedInteger(Value, context);
+					break;
+				case "MAXINTERNAL":
+					Node.MaxInterval = ValueParser.UnsignedInteger(Value, context);
+					break;
+				case "USEINTERVAL":
+					Node.UseInterval = ValueParser.Boolean(Value, context);
 					break;
 			}
 			return base.VisitPeriodicspawn_body(context);
